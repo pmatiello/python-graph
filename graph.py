@@ -1,4 +1,4 @@
-# Copyright (c) <year> <copyright holders>
+# Copyright (c) 2007 Pedro Matiello <pmatiello@gmail.com>
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation
@@ -69,7 +69,7 @@ class graph:
 
 	def add_edge(self, u, v):
 		"""
-		Add a edge (u,v) to the graph connecting nodes u and v.
+		Add an edge (u,v) to the graph connecting nodes u and v.
 		Warning: this function should not be used in directed graphs: use add_arrow() instead.
 		"""
 		if (v not in self.nodes[u]):
@@ -78,7 +78,23 @@ class graph:
 
 	def add_arrow(self, u, v):
 		"""
-		Add a edge (u,v) to the directed graph connecting node u to node v.
+		Add an arrow (u,v) to the directed graph connecting node u to node v.
 		"""
 		if (v not in self.nodes[u]):
 			self.nodes[u].append(v)
+
+	def del_edge(self, u, v):
+		"""
+		Remove an edge (u, v) from the graph.
+		Warning: this function should not be used in directed graphs: use del_arrow() instead.
+		"""
+		if (v in self.nodes[u]):
+			self.nodes[u].remove(v)
+			self.nodes[v].remove(u)
+
+	def del_arrow(self, u, v):
+		"""
+		Remove an arrow (u, v) from the directed graph.
+		"""
+		if (v in self.nodes[u]):
+			self.nodes[u].remove(v)
