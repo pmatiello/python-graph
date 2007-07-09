@@ -23,7 +23,7 @@
 
 """
 python-graph
-A library for working with graphs in Python 
+A library for working with graphs in Python.
 """
 
 class graph:
@@ -34,6 +34,7 @@ class graph:
 	Algorithms should refer to external files.
 	"""
 
+
 	def __init__(self):
 		"""
 		Initialize a graph.
@@ -41,23 +42,34 @@ class graph:
 		"""
 		self.nodes = []		# This is a adjacency list
 
+
+	def __str__(self):
+		"""
+		Return a string representing the graph when requested by str() or print.
+		"""
+		return str(self.nodes)
+
+
+	def __len__(self):
+		"""
+		Return the size of the graph when requested by len().
+		"""
+		return len(self.nodes)
+
+
 	def get_nodes(self):
 		"""
 		Return node list.
 		"""
 		return self.nodes
 
-	def get_size(self):
-		"""
-		Return number of nodes.
-		"""
-		return len(self.nodes)
 
 	def get_node(self, node):
 		"""
 		Return requested node.
 		"""
 		return self.nodes[node]
+
 
 	def add_nodes(self, num):
 		"""
@@ -66,6 +78,7 @@ class graph:
 		while (num > 0):
 			self.nodes.append([])
 			num = num - 1
+
 
 	def add_edge(self, u, v):
 		"""
@@ -76,12 +89,14 @@ class graph:
 			self.nodes[u].append(v)
 			self.nodes[v].append(u)
 
+
 	def add_arrow(self, u, v):
 		"""
 		Add an arrow (u,v) to the directed graph connecting node u to node v.
 		"""
 		if (v not in self.nodes[u]):
 			self.nodes[u].append(v)
+
 
 	def del_edge(self, u, v):
 		"""
@@ -91,6 +106,7 @@ class graph:
 		if (v in self.nodes[u]):
 			self.nodes[u].remove(v)
 			self.nodes[v].remove(u)
+
 
 	def del_arrow(self, u, v):
 		"""
