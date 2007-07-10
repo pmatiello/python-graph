@@ -22,10 +22,20 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 
 
+"""
+python-graph
+Search algorithms.
+"""
 
-# Depht First Search
+
+# Depht First Search (Recursive implementation)
 
 def depth_first_search(graph):
+	"""
+	Depht first search algorithm.
+	Initialize DFS;
+	Start a tree for each graph connected component.
+	"""
 	visited = []
 	spanning_tree = []
 
@@ -41,6 +51,11 @@ def depth_first_search(graph):
 
 
 def __dfs__(graph, visited, spanning_tree, node):
+	"""
+	Depht first search algorithm.
+	Get a node;
+	Explore entire connected component for that node recursively.
+	"""
 	visited[node] = 1
 	for each in graph.get_node(node):
 		if (not visited[each]):
