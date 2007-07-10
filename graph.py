@@ -26,6 +26,8 @@ python-graph
 A library for working with graphs in Python.
 """
 
+import __python_graph_algorithms__ as _algorithms
+
 class graph:
 	"""
 	Graph class.
@@ -40,12 +42,12 @@ class graph:
 		Initialize a graph.
 		Data structure is defined here.
 		"""
-		self.nodes = []		# This is a adjacency list
+		self.nodes = []		# This is an adjacency list
 
 
 	def __str__(self):
 		"""
-		Return a string representing the graph when requested by str() or print.
+		Return a string representing the graph when requested by str() (or print).
 		"""
 		return str(self.nodes)
 
@@ -114,3 +116,6 @@ class graph:
 		"""
 		if (v in self.nodes[u]):
 			self.nodes[u].remove(v)
+
+
+	depth_first_search = _algorithms.searching.depht_first_search
