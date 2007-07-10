@@ -30,4 +30,15 @@ print "Remove edges and arrows:",
 if (g.get_node(0) == [3] and g.get_node(2) == []): print "ok"
 else: print "fail"
 
+# Build graph for algorithms
+g.add_edge(0, 2)
+g.add_edge(2, 4)
+g.add_edge(4, 1)
+g.add_edge(3, 1)
+g.add_edge(5, 6)
+g.add_edge(5, 7)
+print "Graph:", g
+
+# Depht first search
+print "Depth first search:"
 g.depth_first_search()

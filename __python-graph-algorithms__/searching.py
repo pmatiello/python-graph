@@ -21,10 +21,27 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 
+
+
+# Depht First Search
+
 def depth_first_search(graph):
-	nodes = []
-	nodes.append(len(graph))
-	for each in nodes:
-		if (each == None):
-			print "!"
+	i = len(graph)
+	visited = []
+
+	while (i > 0):
+		visited.append(0)
+		i = i - 1
 	
+	for i in xrange(len(graph)):
+		if (not visited[i]):
+			__dfs__(graph, visited, i)
+
+def __dfs__(graph, visited, node):
+	print node
+	visited[node] = 1
+	for each in graph.get_node(node):
+		if (not visited[each]):
+			__dfs__(graph, visited, each)
+		
+# End

@@ -26,7 +26,9 @@ python-graph
 A library for working with graphs in Python.
 """
 
-import __python_graph_algorithms__ as _algorithms
+from sys import path
+path.append("__python-graph-algorithms__")
+import searching
 
 class graph:
 	"""
@@ -118,4 +120,5 @@ class graph:
 			self.nodes[u].remove(v)
 
 
-	depth_first_search = _algorithms.searching.depht_first_search
+	def depth_first_search(self):
+		searching.depth_first_search(self)
