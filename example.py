@@ -41,4 +41,5 @@ print "Graph:", g
 
 # Depht first search
 print "Depth first search:"
-g.depth_first_search()
+print "i: ", range(0, len(g))
+print "st:", g.depth_first_search()['spanning_tree']

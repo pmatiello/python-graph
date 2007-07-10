@@ -21,14 +21,18 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 
+
 """
 python-graph
 A library for working with graphs in Python.
 """
 
+
+# Imports
 from sys import path
 path.append("__python-graph-algorithms__")
 import searching
+
 
 class graph:
 	"""
@@ -121,4 +125,7 @@ class graph:
 
 
 	def depth_first_search(self):
-		searching.depth_first_search(self)
+		"""
+		Depht first search.
+		"""
+		return searching.depth_first_search(self)

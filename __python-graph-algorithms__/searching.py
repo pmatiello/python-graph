@@ -26,22 +26,23 @@
 # Depht First Search
 
 def depth_first_search(graph):
-	i = len(graph)
 	visited = []
+	spanning_tree = []
 
-	while (i > 0):
+	for each in xrange(len(graph)):
 		visited.append(0)
-		i = i - 1
+		spanning_tree.append(-1)
 	
-	for i in xrange(len(graph)):
-		if (not visited[i]):
-			__dfs__(graph, visited, i)
+	for each in xrange(len(graph)):
+		if (not visited[each]):
+			__dfs__(graph, visited, spanning_tree, each)
 
-def __dfs__(graph, visited, node):
-	print node
+	return {'spanning_tree': spanning_tree}
+
+
+def __dfs__(graph, visited, spanning_tree, node):
 	visited[node] = 1
 	for each in graph.get_node(node):
 		if (not visited[each]):
-			__dfs__(graph, visited, each)
-		
-# End
+			spanning_tree[each] = node
+			__dfs__(graph, visited, spanning_tree, each)
