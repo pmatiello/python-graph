@@ -32,9 +32,18 @@ Search algorithms.
 
 def depth_first_search(graph):
 	"""
-	Depht first search algorithm.
-	Initialize DFS;
-	Start a tree for each graph connected component.
+	Depht first search.
+
+	Perform DFS:
+		1. Select first non-visited node;
+		2. Call _dfs() for the selected node (will explore entire connected component)
+		3. If there are any non-visited node, go to 1. Otherwise, end.
+
+	@type  graph: graph
+	@param graph: Graph.
+
+	@rtype:  list
+	@return: Generated spanning_tree
 	"""
 	visited = []
 	spanning_tree = []
@@ -52,9 +61,21 @@ def depth_first_search(graph):
 
 def _dfs(graph, visited, spanning_tree, node):
 	"""
-	Depht first search algorithm.
-	Get a node;
-	Explore entire connected component for that node recursively.
+	Depht first search subfunction.
+
+	Explore recursively the connected component for the given node.
+	
+	@type  graph: graph
+	@param graph: Graph.
+
+	@type  visited: list
+	@param visited: List of nodes (visited nodes are marked non-zero).
+
+	@type  spanning_tree: list
+	@param spanning_tree: Spanning tree being built for the graph by DFS.
+
+	@type  node: number
+	@param node: Node to be explored by DFS.
 	"""
 	visited[node] = 1
 	for each in graph.get_node(node):
