@@ -34,9 +34,7 @@ __license__ = "MIT"
 
 
 # Imports
-from sys import path
-path.append("__python-graph-algorithms__")
-import searching
+import _searching
 
 
 class graph:
@@ -180,4 +178,4 @@ class graph:
 		@rtype:  list
 		@return: Generated spanning_tree
 		"""
-		return searching.depth_first_search(self)
+		return _searching.depth_first_search(self)
