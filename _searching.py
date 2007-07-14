@@ -23,9 +23,17 @@
 
 
 """
-python-graph
-Search algorithms.
+Search algorithms for python-graph.
 """
+
+
+# Module metadata
+__authors__ = "Pedro Matiello"
+__license__ = "MIT"
+
+
+# Imports
+import graph
 
 
 # Depht First Search (Recursive implementation)
