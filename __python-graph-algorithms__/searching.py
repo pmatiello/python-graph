@@ -47,7 +47,7 @@ def depth_first_search(graph):
 		if (not visited[each]):
 			_dfs(graph, visited, spanning_tree, each)
 
-	return {'spanning_tree': spanning_tree}
+	return spanning_tree
 
 
 def _dfs(graph, visited, spanning_tree, node):

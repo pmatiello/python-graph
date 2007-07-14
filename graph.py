@@ -28,6 +28,11 @@ A library for working with graphs in Python.
 """
 
 
+# Module metadata
+__authors__ = "Pedro Matiello"
+__license__ = "MIT"
+
+
 # Imports
 from sys import path
 path.append("__python-graph-algorithms__")
@@ -110,7 +115,7 @@ class graph:
 		"""
 		Add an edge (u,v) to the graph connecting nodes u and v.
 
-		Warning: this function should not be used in directed graphs: use add_arrow() instead.
+		@attention: this function should not be used in directed graphs: use add_arrow() instead.
 
 		@type  u: number
 		@param u: One node.
@@ -141,7 +146,7 @@ class graph:
 		"""
 		Remove an edge (u, v) from the graph.
 
-		Warning: this function should not be used in directed graphs: use del_arrow() instead.
+		@attention: this function should not be used in directed graphs: use del_arrow() instead.
 
 		@type  u: number
 		@param u: One node.
@@ -171,5 +176,8 @@ class graph:
 	def depth_first_search(self):
 		"""
 		Depht first search.
+
+		@rtype:  list
+		@return: Generated spanning_tree
 		"""
 		return searching.depth_first_search(self)
