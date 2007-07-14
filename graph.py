@@ -37,7 +37,7 @@ import searching
 class graph:
 	"""
 	Graph class.
-	Data structure is built on __init__.
+
 	Basic operations are defined in this file.
 	Algorithms should refer to external files.
 	"""
@@ -54,6 +54,9 @@ class graph:
 	def __str__(self):
 		"""
 		Return a string representing the graph when requested by str() (or print).
+
+		@rtype:  string
+		@return: String representing the graph.
 		"""
 		return str(self.nodes)
 
@@ -61,6 +64,9 @@ class graph:
 	def __len__(self):
 		"""
 		Return the size of the graph when requested by len().
+
+		@rtype:  number
+		@return: Size of the graph.
 		"""
 		return len(self.nodes)
 
@@ -68,6 +74,9 @@ class graph:
 	def get_nodes(self):
 		"""
 		Return node list.
+
+		@rtype:  list
+		@return: Node list.
 		"""
 		return self.nodes
 
@@ -75,6 +84,12 @@ class graph:
 	def get_node(self, node):
 		"""
 		Return requested node.
+
+		@type  node: number
+		@param node: Node number
+
+		@rtype:  list
+		@return: List of nodes directly accessible from given node.
 		"""
 		return self.nodes[node]
 
@@ -82,6 +97,9 @@ class graph:
 	def add_nodes(self, num):
 		"""
 		Create num nodes.
+
+		@type  num: number
+		@param num: Number of nodes to be added to the graph.
 		"""
 		while (num > 0):
 			self.nodes.append([])
@@ -91,7 +109,14 @@ class graph:
 	def add_edge(self, u, v):
 		"""
 		Add an edge (u,v) to the graph connecting nodes u and v.
+
 		Warning: this function should not be used in directed graphs: use add_arrow() instead.
+
+		@type  u: number
+		@param u: One node.
+
+		@type  v: number
+		@param v: Other node.
 		"""
 		if (v not in self.nodes[u]):
 			self.nodes[u].append(v)
@@ -101,6 +126,12 @@ class graph:
 	def add_arrow(self, u, v):
 		"""
 		Add an arrow (u,v) to the directed graph connecting node u to node v.
+
+		@type  u: number
+		@param u: One node.
+
+		@type  v: number
+		@param v: Other node.
 		"""
 		if (v not in self.nodes[u]):
 			self.nodes[u].append(v)
@@ -109,7 +140,14 @@ class graph:
 	def del_edge(self, u, v):
 		"""
 		Remove an edge (u, v) from the graph.
+
 		Warning: this function should not be used in directed graphs: use del_arrow() instead.
+
+		@type  u: number
+		@param u: One node.
+
+		@type  v: number
+		@param v: Other node.
 		"""
 		if (v in self.nodes[u]):
 			self.nodes[u].remove(v)
@@ -119,6 +157,12 @@ class graph:
 	def del_arrow(self, u, v):
 		"""
 		Remove an arrow (u, v) from the directed graph.
+
+		@type  u: number
+		@param u: One node.
+
+		@type  v: number
+		@param v: Other node.
 		"""
 		if (v in self.nodes[u]):
 			self.nodes[u].remove(v)

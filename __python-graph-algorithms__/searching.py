@@ -45,12 +45,12 @@ def depth_first_search(graph):
 	
 	for each in xrange(len(graph)):
 		if (not visited[each]):
-			__dfs__(graph, visited, spanning_tree, each)
+			_dfs(graph, visited, spanning_tree, each)
 
 	return {'spanning_tree': spanning_tree}
 
 
-def __dfs__(graph, visited, spanning_tree, node):
+def _dfs(graph, visited, spanning_tree, node):
 	"""
 	Depht first search algorithm.
 	Get a node;
@@ -60,4 +60,4 @@ def __dfs__(graph, visited, spanning_tree, node):
 	for each in graph.get_node(node):
 		if (not visited[each]):
 			spanning_tree[each] = node
-			__dfs__(graph, visited, spanning_tree, each)
+			_dfs(graph, visited, spanning_tree, each)
