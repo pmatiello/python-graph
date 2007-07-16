@@ -35,7 +35,7 @@ __license__ = "MIT"
 
 
 # Imports
-import _searching
+import searching
 
 
 class graph:
@@ -179,4 +179,4 @@ class graph:
 		@rtype:  list
 		@return: Generated spanning_tree
 		"""
-		return _searching.depth_first_search(self)
+		return searching.depth_first_search(self)
