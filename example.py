@@ -43,3 +43,8 @@ print "Graph:", g
 print "Depth first search:"
 print "i: ", range(0, len(g))
 print "st:", g.depth_first_search()
+
+# Breadth first search
+print "Breadth first search:"
+print "i: ", range(0, len(g))
+print "st:", g.breadth_first_search()

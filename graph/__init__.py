@@ -180,3 +180,13 @@ class graph:
 		@return: Generated spanning_tree
 		"""
 		return searching.depth_first_search(self)
+
+
+	def breadth_first_search(self):
+		"""
+		Breadth first search.
+
+		@rtype:  list
+		@return: Generated spanning_tree
+		"""
+		return searching.breadth_first_search(self)

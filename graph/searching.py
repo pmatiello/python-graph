@@ -36,16 +36,11 @@ __license__ = "MIT"
 import graph
 
 
-# Depht First Search (Recursive implementation)
+# Depth First Search (Recursive implementation)
 
 def depth_first_search(graph):
 	"""
-	Depht first search.
-
-	Perform DFS:
-		1. Select first non-visited node;
-		2. Call _dfs() for the selected node (will explore entire connected component)
-		3. If there are any non-visited node, go to 1. Otherwise, end.
+	Depth first search.
 
 	@type  graph: graph
 	@param graph: Graph.
@@ -53,16 +48,18 @@ def depth_first_search(graph):
 	@rtype:  list
 	@return: Generated spanning_tree
 	"""
-	visited = []
-	spanning_tree = []
+	visited = []			# List for marking visited and non-visited nodes
+	spanning_tree = []		# Spanning tree
 
+	# Initialization
 	for each in xrange(len(graph)):
 		visited.append(0)
 		spanning_tree.append(-1)
 	
+	# Algorithm loop
 	for each in xrange(len(graph)):
-		if (not visited[each]):
-			_dfs(graph, visited, spanning_tree, each)
+		if (not visited[each]):							# Select a non-visited node
+			_dfs(graph, visited, spanning_tree, each)	# Explore node's connected component
 
 	return spanning_tree
 
@@ -90,3 +87,39 @@ def _dfs(graph, visited, spanning_tree, node):
 		if (not visited[each]):
 			spanning_tree[each] = node
 			_dfs(graph, visited, spanning_tree, each)
+
+
+# Breadth-first search
+
+def breadth_first_search(graph):
+	"""
+	Breadth first search.
+
+	@type  graph: graph
+	@param graph: Graph.
+
+	@rtype:  list
+	@return: Generated spanning_tree
+	"""
+	queue = []			# Visiting queue
+	spanning_tree = []	# Spanning tree
+
+	# Initialization
+	for each in xrange(len(graph)):
+		spanning_tree.append(-2)	# -2 in spanning_tree means a non-visited node
+
+	# Algorithm
+	for each in xrange(len(graph)):
+		if (spanning_tree[each] == -2):
+			queue.append(each)
+			spanning_tree[each] = -1	# -1 means that the node is the root of a tree
+
+			while (queue != []):
+				node = queue.pop(0)
+
+				for other in graph.get_node(node):
+					if (spanning_tree[other] == -2):
+						queue.append(other)
+						spanning_tree[other] = node
+
+	return spanning_tree
