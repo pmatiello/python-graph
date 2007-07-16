@@ -4,8 +4,8 @@ docs: graph/*.py
 edit: graph/*.py
 	gedit graph/*.py
 
-clean:
+clean: graph/*.pyc
 	rm graph/*.pyc
 
-example:
+example: example.py
 	python example.py
