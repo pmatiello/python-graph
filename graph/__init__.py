@@ -174,7 +174,7 @@ class graph:
 
 	def depth_first_search(self):
 		"""
-		Depht first search.
+		Depht-first search.
 
 		@rtype:  list
 		@return: Generated spanning_tree
@@ -184,7 +184,7 @@ class graph:
 
 	def breadth_first_search(self):
 		"""
-		Breadth first search.
+		Breadth-first search.
 
 		@rtype:  list
 		@return: Generated spanning_tree

@@ -40,7 +40,7 @@ import graph
 
 def depth_first_search(graph):
 	"""
-	Depth first search.
+	Depth-first search.
 
 	@type  graph: graph
 	@param graph: Graph.
@@ -66,9 +66,7 @@ def depth_first_search(graph):
 
 def _dfs(graph, visited, spanning_tree, node):
 	"""
-	Depht first search subfunction.
-
-	Explore recursively the connected component for the given node.
+	Depht-first search subfunction.
 	
 	@type  graph: graph
 	@param graph: Graph.
@@ -83,6 +81,7 @@ def _dfs(graph, visited, spanning_tree, node):
 	@param node: Node to be explored by DFS.
 	"""
 	visited[node] = 1
+	# Explore recursively the connected component
 	for each in graph.get_node(node):
 		if (not visited[each]):
 			spanning_tree[each] = node
@@ -93,7 +92,7 @@ def _dfs(graph, visited, spanning_tree, node):
 
 def breadth_first_search(graph):
 	"""
-	Breadth first search.
+	Breadth-first search.
 
 	@type  graph: graph
 	@param graph: Graph.
