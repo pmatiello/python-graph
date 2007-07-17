@@ -36,7 +36,7 @@ __license__ = "MIT"
 import graph
 
 
-# Depth First Search (Recursive implementation)
+# Depth-first search
 
 def depth_first_search(graph):
 	"""
