@@ -122,3 +122,4 @@ def breadth_first_search(graph):
 						spanning_tree[other] = node
 
 	return spanning_tree
+

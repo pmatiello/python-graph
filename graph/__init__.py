@@ -192,16 +192,22 @@ class graph:
 		return searching.breadth_first_search(self)
 
 
-	def transitive_closure(self):
+	def accessibility(self):
 		"""
-		Transitive closure.
+		Accessibility matrix (transitive closure).
 
 		@rtype:  list
 		@return: Accessibility matrix
 		"""
-		return accessibility.transitive_closure(self)
+		return accessibility.accessibility(self)
 
 
-	def strongly_connected(self):
-		return accessibility.strongly_connected(self)
+	def mutual_accessibility(self):
+		"""
+		Mutual-accessibility matrix (strongly connected components).
+
+		@rtype:  list
+		@return: Mutual-accessibility matrix
+		"""
+		return accessibility.mutual_accessibility(self)
 

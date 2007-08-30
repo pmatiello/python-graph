@@ -40,21 +40,26 @@ g.add_edge(5, 7)
 print "Graph:", g
 
 # Depht first search
+print
 print "Depth first search:"
 print "i: ", range(0, len(g))
 print "st:", g.depth_first_search()
 
 # Breadth first search
+print
 print "Breadth first search:"
 print "i: ", range(0, len(g))
 print "st:", g.breadth_first_search()
 
 #Transitive closure
+print
 print "Transitive closure"
-for each in g.transitive_closure():
+for each in g.accessibility():
 	print each
 
 #Strongly connected componets
+print
 print "Strongly connected components"
-for each in g.strongly_connected():
+for each in g.mutual_accessibility():
 	print each
+

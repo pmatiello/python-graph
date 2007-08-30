@@ -38,9 +38,9 @@ import searching
 
 
 # Transitive-closure
-def transitive_closure(graph):
+def accessibility(graph):
 	"""
-	Transitive closure.
+	Accessibility matrix (transitive closure).
 
 	@type  graph: graph
 	@param graph: Graph.
@@ -59,8 +59,17 @@ def transitive_closure(graph):
 	return accessibility
 
 
-def strongly_connected(graph):
-	accessibility = graph.transitive_closure()
+def mutual_accessibility(graph):
+	"""
+	Mutual-accessibility matrix (strongly connected components).
+
+	@type  graph: graph
+	@param graph: Graph.
+
+	@rtype:  list
+	@return: Mutual-accessibility matrix
+	"""
+	accessibility = graph.accessibility()
 	grsize = len(accessibility)
 	for i in xrange(grsize):
 		for j in xrange(grsize - i):
@@ -88,3 +97,4 @@ def _dfs(graph, visited, count, node):
 	for each in graph.get_node(node):
 		if (not visited[each]):
 			_dfs(graph, visited, count, each)
+
