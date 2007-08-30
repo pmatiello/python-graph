@@ -48,13 +48,13 @@ def accessibility(graph):
 	@rtype:  list
 	@return: Accessibility matrix
 	"""
-	accessibility = []
+	accessibility = []	# Accessibility matrix
 
 	for i in graph.get_nodes():
 		access = []
 		for j in graph.get_nodes():
 			access.append(0)
-		_dfs(graph, access, 1, i)
+		_dfs(graph, access, 1, i)	# Perform DFS to explore all reachable nodes
 		accessibility.append(access)
 	return accessibility
 
@@ -69,13 +69,13 @@ def mutual_accessibility(graph):
 	@rtype:  list
 	@return: Mutual-accessibility matrix
 	"""
-	accessibility = graph.accessibility()
+	accessibility = graph.accessibility()	# Accessibility matrix (will become mutual-accessibility matrix)
 	grsize = len(accessibility)
 	for i in xrange(grsize):
 		for j in xrange(grsize - i):
-			if (accessibility[i][j] != accessibility[j][i]):
-				accessibility[i][j] = 0
-				accessibility[i][j] = 0
+			if (accessibility[i][i+j] != accessibility[i+j][i]):	# Verify if accessibility is not mutual
+				accessibility[i][i+j] = 0
+				accessibility[i+j][i] = 0
 	return accessibility
 
 
