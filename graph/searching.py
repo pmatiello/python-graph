@@ -52,12 +52,12 @@ def depth_first_search(graph):
 	spanning_tree = []		# Spanning tree
 
 	# Initialization
-	for each in xrange(len(graph)):
+	for each in graph.get_nodes():
 		visited.append(0)
 		spanning_tree.append(-1)
 	
 	# Algorithm loop
-	for each in xrange(len(graph)):
+	for each in graph.get_nodes():
 		if (not visited[each]):							# Select a non-visited node
 			_dfs(graph, visited, spanning_tree, each)	# Explore node's connected component
 
@@ -104,11 +104,11 @@ def breadth_first_search(graph):
 	spanning_tree = []	# Spanning tree
 
 	# Initialization
-	for each in xrange(len(graph)):
+	for each in graph.get_nodes():
 		spanning_tree.append(-2)	# -2 in spanning_tree means a non-visited node
 
 	# Algorithm
-	for each in xrange(len(graph)):
+	for each in graph.get_nodes():
 		if (spanning_tree[each] == -2):
 			queue.append(each)
 			spanning_tree[each] = -1	# -1 means that the node is the root of a tree

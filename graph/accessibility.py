@@ -39,12 +39,21 @@ import searching
 
 # Transitive-closure
 def transitive_closure(graph):
+	"""
+	Transitive closure.
+
+	@type  graph: graph
+	@param graph: Graph.
+
+	@rtype:  list
+	@return: Accessibility matrix
+	"""
 	accessibility = []
 	spanning_tree = []
 
-	for i in xrange(len(graph)):
+	for i in graph.get_nodes():
 		access = []
-		for j in xrange(len(graph)):
+		for j in graph.get_nodes():
 			access.append(0)
 			spanning_tree.append(0)
 

@@ -83,7 +83,7 @@ class graph:
 		@rtype:  list
 		@return: Node list.
 		"""
-		return self.nodes
+		return xrange(len(self.nodes))
 
 
 	def get_node(self, node):
@@ -192,5 +192,12 @@ class graph:
 		"""
 		return searching.breadth_first_search(self)
 
+
 	def transitive_closure(self):
+		"""
+		Transitive closure.
+
+		@rtype:  list
+		@return: Accessibility matrix
+		"""
 		return accessibility.transitive_closure(self)
