@@ -36,6 +36,7 @@ __license__ = "MIT"
 
 # Imports
 import searching
+import accessibility
 
 
 class graph:
@@ -190,3 +191,6 @@ class graph:
 		@return: Generated spanning_tree
 		"""
 		return searching.breadth_first_search(self)
+
+	def transitive_closure(self):
+		return accessibility.transitive_closure(self)

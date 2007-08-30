@@ -23,7 +23,7 @@
 
 
 """
-Identification algorithms for python-graph.
+Accessibility algorithms for python-graph.
 """
 
 
@@ -34,7 +34,22 @@ __license__ = "MIT"
 
 # Imports
 import graph
+import searching
 
 
 # Transitive-closure
+def transitive_closure(graph):
+	accessibility = []
+	spanning_tree = []
 
+	for i in xrange(len(graph)):
+		access = []
+		for j in xrange(len(graph)):
+			access.append(0)
+			spanning_tree.append(0)
+
+		searching._dfs(graph, access, spanning_tree, i)
+
+		accessibility.append(access)
+
+	return accessibility
