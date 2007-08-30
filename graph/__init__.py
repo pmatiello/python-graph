@@ -51,7 +51,6 @@ class graph:
 	def __init__(self):
 		"""
 		Initialize a graph.
-		Data structure is defined here.
 		"""
 		self.nodes = []		# This is an adjacency list
 
