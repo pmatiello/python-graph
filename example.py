@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+# Copyright (c) 2007 Pedro Matiello <pmatiello@gmail.com>
+# License: MIT (see COPYING file)
+
 # Testing code
 
 import graph
