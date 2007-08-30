@@ -200,3 +200,8 @@ class graph:
 		@return: Accessibility matrix
 		"""
 		return accessibility.transitive_closure(self)
+
+
+	def strongly_connected(self):
+		return accessibility.strongly_connected(self)
+

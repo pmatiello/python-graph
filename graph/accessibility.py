@@ -49,16 +49,42 @@ def transitive_closure(graph):
 	@return: Accessibility matrix
 	"""
 	accessibility = []
-	spanning_tree = []
 
 	for i in graph.get_nodes():
 		access = []
 		for j in graph.get_nodes():
 			access.append(0)
-			spanning_tree.append(0)
-
-		searching._dfs(graph, access, spanning_tree, i)
-
+		_dfs(graph, access, 1, i)
 		accessibility.append(access)
-
 	return accessibility
+
+
+def strongly_connected(graph):
+	accessibility = graph.transitive_closure()
+	grsize = len(accessibility)
+	for i in xrange(grsize):
+		for j in xrange(grsize - i):
+			if (accessibility[i][j] != accessibility[j][i]):
+				accessibility[i][j] = 0
+				accessibility[i][j] = 0
+	return accessibility
+
+
+def _dfs(graph, visited, count, node):
+	"""
+	Depht-first search subfunction adapted for accessibility algorithms.
+	
+	@type  graph: graph
+	@param graph: Graph.
+
+	@type  visited: list
+	@param visited: List of nodes (visited nodes are marked non-zero).
+
+	@type  node: number
+	@param node: Node to be explored by DFS.
+	"""
+	visited[node] = count
+	# Explore recursively the connected component
+	for each in graph.get_node(node):
+		if (not visited[each]):
+			_dfs(graph, visited, count, each)

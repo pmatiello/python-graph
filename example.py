@@ -53,3 +53,8 @@ print "st:", g.breadth_first_search()
 print "Transitive closure"
 for each in g.transitive_closure():
 	print each
+
+#Strongly connected componets
+print "Strongly connected components"
+for each in g.strongly_connected():
+	print each
