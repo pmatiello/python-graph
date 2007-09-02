@@ -39,6 +39,17 @@ import graph
 # Depth-first search
 
 def topological_sort(graph):
+	"""
+	Topological sorting.
+
+	@attention: Topological sorting is meaningful only for directed acyclic graphs.
+
+	@type  graph: graph
+	@param graph: Graph.
+
+	@rtype:  list
+	@return: Topological sorting for the graph.
+	"""
 	tmp, post = graph.depth_first_search()
 	post.reverse()
 	return post
