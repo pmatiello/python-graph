@@ -34,10 +34,10 @@ __license__ = "MIT"
 
 # Imports
 import graph
-import searching
 
 
 # Transitive-closure
+
 def accessibility(graph):
 	"""
 	Accessibility matrix (transitive closure).

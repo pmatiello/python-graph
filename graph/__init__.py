@@ -37,6 +37,7 @@ __license__ = "MIT"
 # Imports
 import searching
 import accessibility
+import sorting
 
 
 class graph:
@@ -211,3 +212,5 @@ class graph:
 		"""
 		return accessibility.mutual_accessibility(self)
 
+	def topological_sort(self):
+		return sorting.topological_sort(self)

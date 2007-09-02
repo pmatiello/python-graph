@@ -46,7 +46,9 @@ print "Graph:", g
 print
 print "Depth first search:"
 print "i: ", range(0, len(g))
-print "st:", g.depth_first_search()
+st, post = g.depth_first_search()
+print "st:", st
+print "post:", post
 
 # Breadth first search
 print
@@ -54,15 +56,19 @@ print "Breadth first search:"
 print "i: ", range(0, len(g))
 print "st:", g.breadth_first_search()
 
-#Transitive closure
+# Transitive closure
 print
 print "Transitive closure"
 for each in g.accessibility():
 	print each
 
-#Strongly connected componets
+# Strongly connected componets
 print
 print "Strongly connected components"
 for each in g.mutual_accessibility():
 	print each
 
+# Topological sorting (not really valid here because g isn't directed nor acyclic)
+print
+print "Topological sorting"
+print g.topological_sort()

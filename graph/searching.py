@@ -47,9 +47,13 @@ def depth_first_search(graph):
 
 	@rtype:  list
 	@return: Generated spanning_tree
+
+	@rtype:  list
+	@return: Graph's postordering
 	"""
 	visited = []			# List for marking visited and non-visited nodes
 	spanning_tree = []		# Spanning tree
+	post = []				# Graph's postordering
 
 	# Initialization
 	for each in graph.get_nodes():
@@ -59,12 +63,12 @@ def depth_first_search(graph):
 	# Algorithm loop
 	for each in graph.get_nodes():
 		if (not visited[each]):							# Select a non-visited node
-			_dfs(graph, visited, spanning_tree, each)	# Explore node's connected component
+			_dfs(graph, visited, spanning_tree, post, each)	# Explore node's connected component
 
-	return spanning_tree
+	return spanning_tree, post
 
 
-def _dfs(graph, visited, spanning_tree, node):
+def _dfs(graph, visited, spanning_tree, post, node):
 	"""
 	Depht-first search subfunction.
 	
@@ -77,6 +81,9 @@ def _dfs(graph, visited, spanning_tree, node):
 	@type  spanning_tree: list
 	@param spanning_tree: Spanning tree being built for the graph by DFS.
 
+	@type  post: list
+	@param post: Graph's postordering
+
 	@type  node: number
 	@param node: Node to be explored by DFS.
 	"""
@@ -85,7 +92,8 @@ def _dfs(graph, visited, spanning_tree, node):
 	for each in graph.get_node(node):
 		if (not visited[each]):
 			spanning_tree[each] = node
-			_dfs(graph, visited, spanning_tree, each)
+			_dfs(graph, visited, spanning_tree, post, each)
+	post.append(node)
 
 
 # Breadth-first search
