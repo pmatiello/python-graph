@@ -40,4 +40,5 @@ import graph
 
 def topological_sort(graph):
 	tmp, post = graph.depth_first_search()
+	post.reverse()
 	return post
