@@ -36,7 +36,7 @@ __license__ = "MIT"
 import graph
 
 
-# Depth-first search
+# Topological sorting
 
 def topological_sorting(graph):
 	"""

@@ -232,6 +232,8 @@ class graph:
 		"""
 		Connected components.
 
+		@attention: Indentification of connected components is meaningful only for non-directed graphs.
+
 		@rtype:  list
 		@return: List that associates each node to its connected component.
 		"""

@@ -60,30 +60,7 @@ def accessibility(graph):
 	return accessibility
 
 
-def connected_components(graph):
-	"""
-	Connected components.
-
-	@type  graph: graph
-	@param graph: Graph.
-
-	@rtype:  list
-	@return: List that associates each node to its connected component.
-	"""
-	visited = []
-	count = 1
-
-	# Initialization
-	for each in graph.get_nodes():
-		visited.append(0)
-
-	# For 'each' node not found to belong to a connected component, find its connected component.
-	for each in graph.get_nodes():
-		if (not visited[each]):
-			_dfs(graph, visited, count, each)
-			count = count + 1
-	
-	return visited
+# Strongly connected components
 
 def mutual_accessibility(graph):
 	"""
@@ -106,6 +83,38 @@ def mutual_accessibility(graph):
 				accessibility[i+j][i] = 0
 	return accessibility
 
+
+# Connected components
+
+def connected_components(graph):
+	"""
+	Connected components.
+
+	@attention: Indentification of connected components is meaningful only for non-directed graphs.
+
+	@type  graph: graph
+	@param graph: Graph.
+
+	@rtype:  list
+	@return: List that associates each node to its connected component.
+	"""
+	visited = []
+	count = 1
+
+	# Initialization
+	for each in graph.get_nodes():
+		visited.append(0)
+
+	# For 'each' node not found to belong to a connected component, find its connected component.
+	for each in graph.get_nodes():
+		if (not visited[each]):
+			_dfs(graph, visited, count, each)
+			count = count + 1
+	
+	return visited
+
+
+# Limited DFS implementation used by algorithms here
 
 def _dfs(graph, visited, count, node):
 	"""
