@@ -50,6 +50,7 @@ def accessibility(graph):
 	"""
 	accessibility = []	# Accessibility matrix
 
+	# For each node i, mark each node j so that exists a path from i to j.
 	for i in graph.get_nodes():
 		access = []
 		for j in graph.get_nodes():
@@ -72,9 +73,11 @@ def connected_components(graph):
 	visited = []
 	count = 1
 
+	# Initialization
 	for each in graph.get_nodes():
 		visited.append(0)
 
+	# For 'each' node not found to belong to a connected component, find its connected component.
 	for each in graph.get_nodes():
 		if (not visited[each]):
 			_dfs(graph, visited, count, each)
@@ -94,6 +97,8 @@ def mutual_accessibility(graph):
 	"""
 	accessibility = graph.accessibility()	# Accessibility matrix (will become mutual-accessibility matrix)
 	grsize = len(accessibility)
+
+	# Given the accessibility matrix, verify the relation of mutual-accessibility.
 	for i in xrange(grsize):
 		for j in xrange(grsize - i):
 			if (accessibility[i][i+j] != accessibility[i+j][i]):	# Verify if accessibility is not mutual
