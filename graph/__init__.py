@@ -177,8 +177,11 @@ class graph:
 		"""
 		Depht-first search.
 
-		@rtype:  list
-		@return: Generated spanning_tree, Graph's preordering, Graph's postordering
+		@rtype:  tuple
+		@return: A tupple containing tree lists:
+			1. Generated spanning tree
+			2. Graph's preordering
+			3. Graph's postordering
 		"""
 		return searching.depth_first_search(self)
 
