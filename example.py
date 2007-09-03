@@ -73,3 +73,8 @@ for each in g.mutual_accessibility():
 print
 print "Topological sorting"
 print g.topological_sorting()
+
+# Connected componets
+print
+print "Connected components"
+print g.connected_components()

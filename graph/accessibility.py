@@ -59,6 +59,29 @@ def accessibility(graph):
 	return accessibility
 
 
+def connected_components(graph):
+	"""
+	Connected components.
+
+	@type  graph: graph
+	@param graph: Graph.
+
+	@rtype:  list
+	@return: List that associates each node to its connected component.
+	"""
+	visited = []
+	count = 1
+
+	for each in graph.get_nodes():
+		visited.append(0)
+
+	for each in graph.get_nodes():
+		if (not visited[each]):
+			_dfs(graph, visited, count, each)
+			count = count + 1
+	
+	return visited
+
 def mutual_accessibility(graph):
 	"""
 	Mutual-accessibility matrix (strongly connected components).

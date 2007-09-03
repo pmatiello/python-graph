@@ -45,7 +45,6 @@ def depth_first_search(graph):
 	@type  graph: graph
 	@param graph: Graph.
 
-
 	@rtype:  tuple
 	@return: A tupple containing tree lists:
 		1. Generated spanning tree

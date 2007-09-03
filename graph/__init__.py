@@ -215,5 +215,24 @@ class graph:
 		"""
 		return accessibility.mutual_accessibility(self)
 
+
 	def topological_sorting(self):
+		"""
+		Topological sorting.
+
+		@attention: Topological sorting is meaningful only for directed acyclic graphs.
+
+		@rtype:  list
+		@return: Topological sorting for the graph.
+		"""
 		return sorting.topological_sorting(self)
+
+
+	def connected_components(self):
+		"""
+		Connected components.
+
+		@rtype:  list
+		@return: List that associates each node to its connected component.
+		"""
+		return accessibility.connected_components(self)
