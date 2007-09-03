@@ -46,8 +46,9 @@ print "Graph:", g
 print
 print "Depth first search:"
 print "i: ", range(0, len(g))
-st, post = g.depth_first_search()
+st, pre, post = g.depth_first_search()
 print "st:", st
+print "pre:", pre
 print "post:", post
 
 # Breadth first search
@@ -71,4 +72,4 @@ for each in g.mutual_accessibility():
 # Topological sorting (not really valid here because g isn't directed nor acyclic)
 print
 print "Topological sorting"
-print g.topological_sort()
+print g.topological_sorting()

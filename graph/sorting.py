@@ -38,7 +38,7 @@ import graph
 
 # Depth-first search
 
-def topological_sort(graph):
+def topological_sorting(graph):
 	"""
 	Topological sorting.
 
@@ -50,6 +50,6 @@ def topological_sort(graph):
 	@rtype:  list
 	@return: Topological sorting for the graph.
 	"""
-	tmp, post = graph.depth_first_search()
+	tmp, tmp, post = graph.depth_first_search()
 	post.reverse()
 	return post
