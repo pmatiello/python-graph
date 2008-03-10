@@ -53,8 +53,8 @@ class graph:
 		"""
 		Initialize a graph.
 		"""
-		self.nodes = []		# This is an adjacency list
-		self.weights = {}
+		self.nodes = []		# Arrow/Edge lists	(like an adjacency list)
+		self.weights = {}	# Arrow/Edge weight list
 
 
 	def __str__(self):
