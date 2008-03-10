@@ -54,6 +54,7 @@ class graph:
 		Initialize a graph.
 		"""
 		self.nodes = []		# This is an adjacency list
+		self.weights = {}
 
 
 	def __str__(self):
@@ -126,6 +127,8 @@ class graph:
 		if (v not in self.nodes[u]):
 			self.nodes[u].append(v)
 			self.nodes[v].append(u)
+			self.weights[(u, v)] = 1
+			self.weights[(v, u)] = 1
 
 
 	def add_arrow(self, u, v):
@@ -140,6 +143,7 @@ class graph:
 		"""
 		if (v not in self.nodes[u]):
 			self.nodes[u].append(v)
+			self.weights[(u, v)] = 1
 
 
 	def del_edge(self, u, v):
@@ -157,6 +161,8 @@ class graph:
 		if (v in self.nodes[u]):
 			self.nodes[u].remove(v)
 			self.nodes[v].remove(u)
+			del(self.weights[(u,v)])
+			del(self.weights[(v,u)])
 
 
 	def del_arrow(self, u, v):
@@ -171,6 +177,34 @@ class graph:
 		"""
 		if (v in self.nodes[u]):
 			self.nodes[u].remove(v)
+			del(self.weights[(u,v)])
+
+
+	def set_edge_weight(self, u, v, w):
+		"""
+		Set the weight of an edge.
+
+		@type  u: number
+		@param u: One node.
+
+		@type  v: number
+		@param v: Other node.
+		"""
+		self.weights[(u, v)] = w
+		self.weights[(v, u)] = w
+
+
+	def set_arrow_weight(self, u, v, w):
+		"""
+		Set the weight of an arrow.
+
+		@type  u: number
+		@param u: One node.
+
+		@type  v: number
+		@param v: Other node.
+		"""
+		self.weights[(u, v)] = w
 
 
 	def depth_first_search(self):
