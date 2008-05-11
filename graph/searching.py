@@ -47,9 +47,9 @@ def depth_first_search(graph):
 
 	@rtype:  tuple
 	@return: A tupple containing tree lists:
-		1. Generated spanning tree
-		2. Graph's preordering
-		3. Graph's postordering
+		1. Generated spanning tree;
+		2. Graph's preordering;
+		3. Graph's postordering.
 	"""
 	visited = []			# List for marking visited and non-visited nodes
 	spanning_tree = []		# Spanning tree
@@ -83,10 +83,10 @@ def _dfs(graph, visited, spanning_tree, pre, post, node):
 	@param spanning_tree: Spanning tree being built for the graph by DFS.
 
 	@type  pre: list
-	@param pre: Graph's preordering	
+	@param pre: Graph's preordering.
 
 	@type  post: list
-	@param post: Graph's postordering
+	@param post: Graph's postordering.
 
 	@type  node: number
 	@param node: Node to be explored by DFS.
@@ -111,7 +111,7 @@ def breadth_first_search(graph):
 	@param graph: Graph.
 
 	@rtype:  list
-	@return: Generated spanning_tree
+	@return: Generated spanning tree.
 	"""
 	queue = []			# Visiting queue
 	spanning_tree = []	# Spanning tree

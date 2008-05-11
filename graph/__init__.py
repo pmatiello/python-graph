@@ -38,6 +38,7 @@ __license__ = "MIT"
 import searching
 import accessibility
 import sorting
+import minmax
 
 
 class graph:
@@ -189,6 +190,9 @@ class graph:
 
 		@type  v: number
 		@param v: Other node.
+		
+		@type  w: number
+		@param w: Edge weight.
 		"""
 		self.weights[(u, v)] = w
 		self.weights[(v, u)] = w
@@ -203,8 +207,43 @@ class graph:
 
 		@type  v: number
 		@param v: Other node.
+		
+		@type  w: number
+		@param w: Arrow weight.
 		"""
 		self.weights[(u, v)] = w
+
+
+	def get_arrow_weight(self, u, v):
+		"""
+		Get the weight of an arrow.
+
+		@type  u: number
+		@param u: One node.
+
+		@type  v: number
+		@param v: Other node.
+		
+		@rtype:  number
+		@return: Arrow weight
+		"""
+		return(self.weights[(u, v)])
+
+
+	def get_edge_weight(self, u, v):
+		"""
+		Get the weight of an arrow.
+
+		@type  u: number
+		@param u: One node.
+
+		@type  v: number
+		@param v: Other node.
+		
+		@rtype:  number
+		@return: Edge weight
+		"""
+		return(self.weights[(u, v)])
 
 
 	def depth_first_search(self):
@@ -272,3 +311,17 @@ class graph:
 		@return: List that associates each node to its connected component.
 		"""
 		return accessibility.connected_components(self)
+
+	def minimal_spanning_tree(self):
+		"""
+		Minimal spanning tree.
+
+		@attention: Minimal spanning tree meaningful only for weighted graphs.
+
+		@type  graph: graph
+		@param graph: Graph.
+
+		@rtype:  list
+		@return: Generated spanning tree.
+		"""
+		return minmax.minimal_spanning_tree(self)

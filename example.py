@@ -84,3 +84,8 @@ print g.topological_sorting()
 print
 print "Connected components"
 print g.connected_components()
+
+# Minimal spanning tree
+print
+print "Minimal spanning tree"
+print g.minimal_spanning_tree()

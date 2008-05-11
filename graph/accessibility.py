@@ -70,7 +70,7 @@ def mutual_accessibility(graph):
 	@param graph: Graph.
 
 	@rtype:  list
-	@return: Mutual-accessibility matrix
+	@return: Mutual-accessibility matrix.
 	"""
 	accessibility = graph.accessibility()	# Accessibility matrix (will become mutual-accessibility matrix)
 	grsize = len(accessibility)
