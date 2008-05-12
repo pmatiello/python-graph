@@ -56,7 +56,7 @@ def minimal_spanning_tree(graph):
 	
 	# Algorithm loop
 	while (root >= 0):
-		larrow = _lighter_arrow(graph, visited)
+		larrow = _lightest_arrow(graph, visited)
 		if (larrow == (-1, -1)):
 			root = _first_unvisited(graph, visited)
 			visited.append(root)
@@ -86,9 +86,9 @@ def _first_unvisited(graph, visited):
 	return -1
 
 
-def _lighter_arrow(graph, visited):
+def _lightest_arrow(graph, visited):
 	"""
-	Return the lighter arrow in graph going from a visited node to an unvisited one.
+	Return the lightest arrow in graph going from a visited node to an unvisited one.
 	
 	@type  graph: graph
 	@param graph: Graph.
@@ -97,15 +97,15 @@ def _lighter_arrow(graph, visited):
 	@param visited: List of nodes.
 
 	@rtype:  tuple
-	@return: Lighter arrow (u,v) | u visited, v unvisited.
+	@return: Lightest arrow in graph going from a visited node to an unvisited one.
 	"""
-	lighter_arrow = (-1, -1)
+	lightest_arrow = (-1, -1)
 	weight = -1
 	for each in visited:
 		for other in graph.get_node(each):
 			if (not other in visited):
 				w = graph.get_arrow_weight(each, other)
 				if (w < weight or weight < 0):
-					lighter_arrow = (each, other)
+					lightest_arrow = (each, other)
 					weight = w
-	return lighter_arrow
+	return lightest_arrow
