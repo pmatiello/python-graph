@@ -65,7 +65,7 @@ class graph:
 		@rtype:  string
 		@return: String representing the graph.
 		"""
-		return str(self.nodes)
+		return "<graph object " + str(self.weights) + ">"
 
 
 	def __len__(self):

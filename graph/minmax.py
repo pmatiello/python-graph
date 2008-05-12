@@ -56,9 +56,9 @@ def minimal_spanning_tree(graph):
 	
 	# Algorithm loop
 	while (root >= 0):
-		larrow = lighter_arrow(graph, visited)
+		larrow = _lighter_arrow(graph, visited)
 		if (larrow == (-1, -1)):
-			root = first_unvisited(graph, visited)
+			root = _first_unvisited(graph, visited)
 			visited.append(root)
 		else:
 			spanning_tree[larrow[1]] = larrow[0]
@@ -67,7 +67,7 @@ def minimal_spanning_tree(graph):
 	return spanning_tree
 
 
-def first_unvisited(graph, visited):
+def _first_unvisited(graph, visited):
 	"""
 	Return first unvisited node.
 	
@@ -86,7 +86,7 @@ def first_unvisited(graph, visited):
 	return -1
 
 
-def lighter_arrow(graph, visited):
+def _lighter_arrow(graph, visited):
 	"""
 	Return the lighter arrow in graph going from a visited node to an unvisited one.
 	
