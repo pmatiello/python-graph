@@ -32,10 +32,6 @@ __authors__ = "Pedro Matiello"
 __license__ = "MIT"
 
 
-# Imports
-import graph
-
-
 # Minimal spanning tree
 
 def minimal_spanning_tree(graph):
@@ -56,16 +52,14 @@ def minimal_spanning_tree(graph):
 	# Initialization
 	for each in graph.get_nodes():
 		spanning_tree.append(-1)
+	root = 0
 	
 	# Algorithm loop
-	while (1):
+	while (root >= 0):
 		larrow = lighter_arrow(graph, visited)
 		if (larrow == (-1, -1)):
 			root = first_unvisited(graph, visited)
-			if (root >= 0):
-				visited.append(root)
-			else:
-				break
+			visited.append(root)
 		else:
 			spanning_tree[larrow[1]] = larrow[0]
 			visited.append(larrow[1])

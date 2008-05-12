@@ -32,10 +32,6 @@ __authors__ = "Pedro Matiello"
 __license__ = "MIT"
 
 
-# Imports
-import graph
-
-
 # Topological sorting
 
 def topological_sorting(graph):

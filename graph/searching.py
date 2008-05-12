@@ -32,10 +32,6 @@ __authors__ = "Pedro Matiello"
 __license__ = "MIT"
 
 
-# Imports
-import graph
-
-
 # Depth-first search
 
 def depth_first_search(graph):

@@ -32,10 +32,6 @@ __authors__ = "Pedro Matiello"
 __license__ = "MIT"
 
 
-# Imports
-import graph
-
-
 # Transitive-closure
 
 def accessibility(graph):
