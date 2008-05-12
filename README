@@ -1,0 +1,33 @@
+python-graph
+A library for working with graphs in Python
+--------------------------------------------------------------------------------
+
+
+AUTHORS
+
+Pedro Matiello <pmatiello@gmail.com>
+
+
+LICENSE
+
+This software is provided under the MIT license. See accompanying COPYING file for details.
+
+
+DOCUMENTATION
+
+To generate the API documentation for this package, run:
+
+	make docs
+
+You'll need epydoc installed in your system.
+
+
+WEBSITE
+
+The latest version of this package can be found at:
+
+	http://code.google.com/p/python-graph/
+
+Please report bugs at:
+
+	http://code.google.com/p/python-graph/issues/list
