@@ -47,19 +47,19 @@ def depth_first_search(graph):
 		2. Graph's preordering;
 		3. Graph's postordering.
 	"""
-	visited = []			# List for marking visited and non-visited nodes
-	spanning_tree = []		# Spanning tree
+	visited = {}			# List for marking visited and non-visited nodes
+	spanning_tree = {}		# Spanning tree
 	pre = []				# Graph's preordering
 	post = []				# Graph's postordering
 
 	# Initialization
 	for each in graph.get_nodes():
-		visited.append(0)
-		spanning_tree.append(-1)
+		visited[each] = 0
+		spanning_tree[each] = None
 	
 	# Algorithm loop
 	for each in graph.get_nodes():
-		if (not visited[each]):							# Select a non-visited node
+		if (not visited[each]):										# Select a non-visited node
 			_dfs(graph, visited, spanning_tree, pre, post, each)	# Explore node's connected component
 
 	return spanning_tree, pre, post
@@ -84,7 +84,7 @@ def _dfs(graph, visited, spanning_tree, pre, post, node):
 	@type  post: list
 	@param post: Graph's postordering.
 
-	@type  node: number
+	@type  node: *
 	@param node: Node to be explored by DFS.
 	"""
 	visited[node] = 1
@@ -110,23 +110,25 @@ def breadth_first_search(graph):
 	@return: Generated spanning tree.
 	"""
 	queue = []			# Visiting queue
-	spanning_tree = []	# Spanning tree
+	spanning_tree = {}	# Spanning tree
+	
+	notvisited = (None, None)
 
 	# Initialization
 	for each in graph.get_nodes():
-		spanning_tree.append(-2)	# -2 in spanning_tree means a non-visited node
+		spanning_tree[each] = notvisited	# -2 in spanning_tree means a non-visited node
 
 	# Algorithm
 	for each in graph.get_nodes():
-		if (spanning_tree[each] == -2):
+		if (spanning_tree[each] == notvisited):
 			queue.append(each)
-			spanning_tree[each] = -1	# -1 means that the node is the root of a tree
+			spanning_tree[each] = None		# -1 means that the node is the root of a tree
 
 			while (queue != []):
 				node = queue.pop(0)
 
 				for other in graph.get_node(node):
-					if (spanning_tree[other] == -2):
+					if (spanning_tree[other] == notvisited):
 						queue.append(other)
 						spanning_tree[other] = node
 

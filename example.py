@@ -3,89 +3,35 @@
 # Copyright (c) 2007 Pedro Matiello <pmatiello@gmail.com>
 # License: MIT (see COPYING file)
 
-# Testing code
-
 import graph
 
-print "Tests"
+print "Example"
 # Graph creation
-g = graph.graph()
+gr = graph.graph()
 
 # Add nodes
-g.add_nodes(5)
-g.add_nodes(3)
-print "Add nodes:",
-if (len(g) == 8): print "ok"
-else: print "fail"
+gr.add_nodes(["Portugal","Spain","France","Germany","Belgium","Netherlands", "Italy"])
+gr.add_edge("Portugal", "Spain")
+gr.add_edge("Spain","France")
+gr.add_edge("France","Belgium")
+gr.add_edge("France","Germany")
+gr.add_edge("France","Italy")
+gr.add_edge("Belgium","Netherlands")
+gr.add_edge("Germany","Belgium")
+gr.add_edge("Germany","Netherlands")
+gr.add_edge("Germany","Italy")
 
-# Add edges and arrows
-g.add_edge(0, 1)
-g.add_edge(0, 3)
-g.add_arrow(0,2)
-print "Add edges and arrows:", 
-if (g.get_node(0) == [1, 3, 2] and g.get_node(2) == []): print "ok"
-else: print "fail"
+print "------------------------------------------------------------------------"
+print "Simple printing"
+print gr.get_nodes()
+print gr.get_node("France")
 
-# Set arrow and edge weights
-print "Set edge and arrows weights"
-g.set_arrow_weight(0, 1, 5)
-g.set_edge_weight(0, 3, 12)
-print g.weights
+print "------------------------------------------------------------------------"
+print "Depth First Search"
+print gr.depth_first_search()
 
-# Remove edges and arrows
-g.del_edge(0, 1)
-g.del_arrow(0,2)
-print "Remove edges and arrows:", 
-if (g.get_node(0) == [3] and g.get_node(2) == []): print "ok"
-else: print "fail"
+print "------------------------------------------------------------------------"
+print "Breadth First Search"
+print gr.breadth_first_search()
 
-# Build graph for algorithms
-g.add_edge(0, 2)
-g.add_edge(2, 4)
-g.add_edge(4, 1)
-g.add_edge(3, 1)
-g.add_edge(5, 6)
-g.add_edge(5, 7)
-print "Graph:", g
-
-# Depht first search
-print
-print "Depth first search:"
-print "i: ", range(0, len(g))
-st, pre, post = g.depth_first_search()
-print "st:", st
-print "pre:", pre
-print "post:", post
-
-# Breadth first search
-print
-print "Breadth first search:"
-print "i: ", range(0, len(g))
-print "st:", g.breadth_first_search()
-
-# Transitive closure
-print
-print "Transitive closure"
-for each in g.accessibility():
-	print each
-
-# Strongly connected componets
-print
-print "Strongly connected components"
-for each in g.mutual_accessibility():
-	print each
-
-# Topological sorting (not really valid here because g isn't directed nor acyclic)
-print
-print "Topological sorting"
-print g.topological_sorting()
-
-# Connected componets
-print
-print "Connected components"
-print g.connected_components()
-
-# Minimal spanning tree
-print
-print "Minimal spanning tree"
-print g.minimal_spanning_tree()
+print "------------------------------------------------------------------------"

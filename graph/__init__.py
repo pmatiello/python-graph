@@ -54,7 +54,7 @@ class graph:
 		"""
 		Initialize a graph.
 		"""
-		self.nodes = []		# Arrow/Edge lists	(like an adjacency list)
+		self.nodes = {}		# Arrow/Edge lists	(like an adjacency list)
 		self.weights = {}	# Arrow/Edge weight list
 
 
@@ -65,7 +65,7 @@ class graph:
 		@rtype:  string
 		@return: String representing the graph.
 		"""
-		return "<graph object " + str(self.weights) + ">"
+		return "<graph object " + str(self.nodes) + ">"
 
 
 	def __len__(self):
@@ -85,15 +85,15 @@ class graph:
 		@rtype:  list
 		@return: Node list.
 		"""
-		return xrange(len(self.nodes))
+		return self.nodes.keys()
 
 
 	def get_node(self, node):
 		"""
 		Return requested node.
 
-		@type  node: number
-		@param node: Node number
+		@type  node: *
+		@param node: Node identifier
 
 		@rtype:  list
 		@return: List of nodes directly accessible from given node.
@@ -101,16 +101,15 @@ class graph:
 		return self.nodes[node]
 
 
-	def add_nodes(self, num):
+	def add_nodes(self, nodelist):
 		"""
 		Create num nodes.
 
-		@type  num: number
-		@param num: Number of nodes to be added to the graph.
+		@type  nodelist: list
+		@param nodelist: List of nodes to be added to the graph.
 		"""
-		while (num > 0):
-			self.nodes.append([])
-			num = num - 1
+		for each in nodelist:
+			self.nodes[each] = []
 
 
 	def add_edge(self, u, v):
@@ -119,10 +118,10 @@ class graph:
 
 		@attention: this function should not be used in directed graphs: use add_arrow() instead.
 
-		@type  u: number
+		@type  u: *
 		@param u: One node.
 
-		@type  v: number
+		@type  v: *
 		@param v: Other node.
 		"""
 		if (v not in self.nodes[u]):
@@ -136,10 +135,10 @@ class graph:
 		"""
 		Add an arrow (u,v) to the directed graph connecting node u to node v.
 
-		@type  u: number
+		@type  u: *
 		@param u: One node.
 
-		@type  v: number
+		@type  v: *
 		@param v: Other node.
 		"""
 		if (v not in self.nodes[u]):
@@ -153,10 +152,10 @@ class graph:
 
 		@attention: this function should not be used in directed graphs: use del_arrow() instead.
 
-		@type  u: number
+		@type  u: *
 		@param u: One node.
 
-		@type  v: number
+		@type  v: *
 		@param v: Other node.
 		"""
 		if (v in self.nodes[u]):
@@ -170,10 +169,10 @@ class graph:
 		"""
 		Remove an arrow (u, v) from the directed graph.
 
-		@type  u: number
+		@type  u: *
 		@param u: One node.
 
-		@type  v: number
+		@type  v: *
 		@param v: Other node.
 		"""
 		if (v in self.nodes[u]):
@@ -185,10 +184,10 @@ class graph:
 		"""
 		Set the weight of an edge.
 
-		@type  u: number
+		@type  u: *
 		@param u: One node.
 
-		@type  v: number
+		@type  v: *
 		@param v: Other node.
 		
 		@type  w: number
@@ -218,10 +217,10 @@ class graph:
 		"""
 		Get the weight of an arrow.
 
-		@type  u: number
+		@type  u: *
 		@param u: One node.
 
-		@type  v: number
+		@type  v: *
 		@param v: Other node.
 		
 		@rtype:  number
@@ -234,10 +233,10 @@ class graph:
 		"""
 		Get the weight of an arrow.
 
-		@type  u: number
+		@type  u: *
 		@param u: One node.
 
-		@type  v: number
+		@type  v: *
 		@param v: Other node.
 		
 		@rtype:  number
