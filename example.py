@@ -9,8 +9,9 @@ print "Example"
 # Graph creation
 gr = graph.graph()
 
-# Add nodes
-gr.add_nodes(["Portugal","Spain","France","Germany","Belgium","Netherlands", "Italy"])
+# Add nodes and edges
+gr.add_nodes(["Portugal","Spain","France","Germany","Belgium","Netherlands","Italy"])
+gr.add_nodes(["England","Ireland","Scotland","Wales"])
 gr.add_edge("Portugal", "Spain")
 gr.add_edge("Spain","France")
 gr.add_edge("France","Belgium")
@@ -20,11 +21,13 @@ gr.add_edge("Belgium","Netherlands")
 gr.add_edge("Germany","Belgium")
 gr.add_edge("Germany","Netherlands")
 gr.add_edge("Germany","Italy")
+gr.add_edge("England","Wales")
+gr.add_edge("England","Scotland")
+gr.add_edge("Scotland","Wales")
 
 print "------------------------------------------------------------------------"
 print "Simple printing"
-print gr.get_nodes()
-print gr.get_node("France")
+print gr
 
 print "------------------------------------------------------------------------"
 print "Depth First Search"
@@ -35,3 +38,13 @@ print "Breadth First Search"
 print gr.breadth_first_search()
 
 print "------------------------------------------------------------------------"
+print "Accessibility"
+print gr.accessibility()
+
+print "------------------------------------------------------------------------"
+print "Mutual Accessibility"
+print gr.mutual_accessibility()
+
+print "------------------------------------------------------------------------"
+print "Connected components"
+print gr.connected_components()

@@ -65,7 +65,7 @@ class graph:
 		@rtype:  string
 		@return: String representing the graph.
 		"""
-		return "<graph object " + str(self.nodes) + ">"
+		return "<graph object " + str(self.get_nodes()) + " " + str(self.weights) + ">"
 
 
 	def __len__(self):
@@ -250,7 +250,7 @@ class graph:
 		Depht-first search.
 
 		@rtype:  tuple
-		@return: A tupple containing tree lists:
+		@return:  tupple containing a dictionary and two lists:
 			1. Generated spanning tree
 			2. Graph's preordering
 			3. Graph's postordering
@@ -262,7 +262,7 @@ class graph:
 		"""
 		Breadth-first search.
 
-		@rtype:  list
+		@rtype:  dictionary
 		@return: Generated spanning_tree
 		"""
 		return searching.breadth_first_search(self)
@@ -272,8 +272,8 @@ class graph:
 		"""
 		Accessibility matrix (transitive closure).
 
-		@rtype:  list
-		@return: Accessibility matrix
+		@rtype:  dictionary
+		@return: Accessibility information for each node.
 		"""
 		return accessibility.accessibility(self)
 
@@ -283,7 +283,7 @@ class graph:
 		Mutual-accessibility matrix (strongly connected components).
 
 		@rtype:  list
-		@return: Mutual-accessibility matrix
+		@return: Mutual-accessibility information for each node.
 		"""
 		return accessibility.mutual_accessibility(self)
 
@@ -306,8 +306,8 @@ class graph:
 
 		@attention: Indentification of connected components is meaningful only for non-directed graphs.
 
-		@rtype:  list
-		@return: List that associates each node to its connected component.
+		@rtype:  dictionary
+		@return: Pairing that associates each node to its connected component.
 		"""
 		return accessibility.connected_components(self)
 

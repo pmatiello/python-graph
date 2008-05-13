@@ -41,18 +41,16 @@ def accessibility(graph):
 	@type  graph: graph
 	@param graph: Graph.
 
-	@rtype:  list
-	@return: Accessibility matrix
+	@rtype:  dictionary
+	@return: Accessibility information for each node.
 	"""
-	accessibility = []	# Accessibility matrix
+	accessibility = {}		# Accessibility matrix
 
-	# For each node i, mark each node j so that exists a path from i to j.
-	for i in graph.get_nodes():
-		access = []
-		for j in graph.get_nodes():
-			access.append(0)
-		_dfs(graph, access, 1, i)	# Perform DFS to explore all reachable nodes
-		accessibility.append(access)
+	# For each node i, mark each node j if that exists a path from i to j.
+	for each in graph.get_nodes():
+		access = {}
+		_dfs(graph, access, 1, each)	# Perform DFS to explore all reachable nodes
+		accessibility[each] = access.keys()
 	return accessibility
 
 
@@ -65,19 +63,19 @@ def mutual_accessibility(graph):
 	@type  graph: graph
 	@param graph: Graph.
 
-	@rtype:  list
-	@return: Mutual-accessibility matrix.
+	@rtype:  dictionary
+	@return: Mutual-accessibility information for each node.
 	"""
-	accessibility = graph.accessibility()	# Accessibility matrix (will become mutual-accessibility matrix)
-	grsize = len(accessibility)
+	mutual_access = {}
+	access = graph.accessibility()
 
-	# Given the accessibility matrix, verify the relation of mutual-accessibility.
-	for i in xrange(grsize):
-		for j in xrange(grsize - i):
-			if (accessibility[i][i+j] != accessibility[i+j][i]):	# Verify if accessibility is not mutual
-				accessibility[i][i+j] = 0
-				accessibility[i+j][i] = 0
-	return accessibility
+	for i in graph.get_nodes():
+		mutual_access[i] = []
+		for j in graph.get_nodes():
+			if (i in access[j] and j in access[i]):
+				mutual_access[i].append(j)
+
+	return mutual_access
 
 
 # Connected components
@@ -91,19 +89,19 @@ def connected_components(graph):
 	@type  graph: graph
 	@param graph: Graph.
 
-	@rtype:  list
-	@return: List that associates each node to its connected component.
+	@rtype:  dictionary
+	@return: Pairing that associates each node to its connected component.
 	"""
-	visited = []
+	visited = {}
 	count = 1
 
 	# Initialization
-	for each in graph.get_nodes():
-		visited.append(0)
+#	for each in graph.get_nodes():
+#		visited[each] = 0
 
 	# For 'each' node not found to belong to a connected component, find its connected component.
 	for each in graph.get_nodes():
-		if (not visited[each]):
+		if (not each in visited):
 			_dfs(graph, visited, count, each)
 			count = count + 1
 	
@@ -119,15 +117,15 @@ def _dfs(graph, visited, count, node):
 	@type  graph: graph
 	@param graph: Graph.
 
-	@type  visited: list
+	@type  visited: dictionary
 	@param visited: List of nodes (visited nodes are marked non-zero).
 
 	@type  node: number
 	@param node: Node to be explored by DFS.
 	"""
-	visited[node] = count
+	visited[node] = 1
 	# Explore recursively the connected component
 	for each in graph.get_node(node):
-		if (not visited[each]):
+		if (not each in visited):
 			_dfs(graph, visited, count, each)
 

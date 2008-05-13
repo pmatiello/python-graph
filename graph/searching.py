@@ -42,7 +42,7 @@ def depth_first_search(graph):
 	@param graph: Graph.
 
 	@rtype:  tuple
-	@return: A tupple containing tree lists:
+	@return: A tupple containing a dictionary and two lists:
 		1. Generated spanning tree;
 		2. Graph's preordering;
 		3. Graph's postordering.
@@ -72,10 +72,10 @@ def _dfs(graph, visited, spanning_tree, pre, post, node):
 	@type  graph: graph
 	@param graph: Graph.
 
-	@type  visited: list
+	@type  visited: dictionary
 	@param visited: List of nodes (visited nodes are marked non-zero).
 
-	@type  spanning_tree: list
+	@type  spanning_tree: dictionary
 	@param spanning_tree: Spanning tree being built for the graph by DFS.
 
 	@type  pre: list
@@ -106,7 +106,7 @@ def breadth_first_search(graph):
 	@type  graph: graph
 	@param graph: Graph.
 
-	@rtype:  list
+	@rtype:  dictionary
 	@return: Generated spanning tree.
 	"""
 	queue = []			# Visiting queue
@@ -116,13 +116,13 @@ def breadth_first_search(graph):
 
 	# Initialization
 	for each in graph.get_nodes():
-		spanning_tree[each] = notvisited	# -2 in spanning_tree means a non-visited node
+		spanning_tree[each] = notvisited
 
 	# Algorithm
 	for each in graph.get_nodes():
 		if (spanning_tree[each] == notvisited):
 			queue.append(each)
-			spanning_tree[each] = None		# -1 means that the node is the root of a tree
+			spanning_tree[each] = None
 
 			while (queue != []):
 				node = queue.pop(0)
