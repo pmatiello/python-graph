@@ -48,3 +48,11 @@ print gr.mutual_accessibility()
 print "------------------------------------------------------------------------"
 print "Connected components"
 print gr.connected_components()
+
+print "------------------------------------------------------------------------"
+print "Topological sorting"
+print gr.topological_sorting()
+
+print "------------------------------------------------------------------------"
+print "Minimal Spanning Tree"
+print gr.minimal_spanning_tree()

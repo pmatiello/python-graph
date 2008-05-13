@@ -123,7 +123,7 @@ def _dfs(graph, visited, count, node):
 	@type  node: number
 	@param node: Node to be explored by DFS.
 	"""
-	visited[node] = 1
+	visited[node] = count
 	# Explore recursively the connected component
 	for each in graph.get_node(node):
 		if (not each in visited):

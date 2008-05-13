@@ -47,11 +47,11 @@ def minimal_spanning_tree(graph):
 	@return: Generated spanning tree.
 	"""
 	visited = []			# List for marking visited and non-visited nodes
-	spanning_tree = []		# MInimal Spanning tree
+	spanning_tree = {}		# MInimal Spanning tree
 
 	# Initialization
 	for each in graph.get_nodes():
-		spanning_tree.append(-1)
+		spanning_tree[each] = None
 	root = 0
 	
 	# Algorithm loop

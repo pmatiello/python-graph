@@ -112,7 +112,7 @@ class graph:
 			self.nodes[each] = []
 
 
-	def add_edge(self, u, v):
+	def add_edge(self, u, v, wt=1):
 		"""
 		Add an edge (u,v) to the graph connecting nodes u and v.
 
@@ -123,15 +123,19 @@ class graph:
 
 		@type  v: *
 		@param v: Other node.
+		
+		@type  wt: number
+		@param wt: Edge weight.
+		
 		"""
 		if (v not in self.nodes[u]):
 			self.nodes[u].append(v)
 			self.nodes[v].append(u)
-			self.weights[(u, v)] = 1
-			self.weights[(v, u)] = 1
+			self.weights[(u, v)] = wt
+			self.weights[(v, u)] = wt
 
 
-	def add_arrow(self, u, v):
+	def add_arrow(self, u, v, wt=1):
 		"""
 		Add an arrow (u,v) to the directed graph connecting node u to node v.
 
@@ -140,10 +144,13 @@ class graph:
 
 		@type  v: *
 		@param v: Other node.
+
+		@type  wt: number
+		@param wt: Arrow weight.
 		"""
 		if (v not in self.nodes[u]):
 			self.nodes[u].append(v)
-			self.weights[(u, v)] = 1
+			self.weights[(u, v)] = wt
 
 
 	def del_edge(self, u, v):
@@ -178,39 +185,6 @@ class graph:
 		if (v in self.nodes[u]):
 			self.nodes[u].remove(v)
 			del(self.weights[(u,v)])
-
-
-	def set_edge_weight(self, u, v, w):
-		"""
-		Set the weight of an edge.
-
-		@type  u: *
-		@param u: One node.
-
-		@type  v: *
-		@param v: Other node.
-		
-		@type  w: number
-		@param w: Edge weight.
-		"""
-		self.weights[(u, v)] = w
-		self.weights[(v, u)] = w
-
-
-	def set_arrow_weight(self, u, v, w):
-		"""
-		Set the weight of an arrow.
-
-		@type  u: number
-		@param u: One node.
-
-		@type  v: number
-		@param v: Other node.
-		
-		@type  w: number
-		@param w: Arrow weight.
-		"""
-		self.weights[(u, v)] = w
 
 
 	def get_arrow_weight(self, u, v):
