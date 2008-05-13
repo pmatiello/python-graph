@@ -43,7 +43,7 @@ def minimal_spanning_tree(graph):
 	@type  graph: graph
 	@param graph: Graph.
 
-	@rtype:  list
+	@rtype:  dictionary
 	@return: Generated spanning tree.
 	"""
 	visited = []			# List for marking visited and non-visited nodes
@@ -52,10 +52,10 @@ def minimal_spanning_tree(graph):
 	# Initialization
 	for each in graph.get_nodes():
 		spanning_tree[each] = None
-	root = 0
+	root = 1
 	
 	# Algorithm loop
-	while (root >= 0):
+	while (root):
 		larrow = _lightest_arrow(graph, visited)
 		if (larrow == (-1, -1)):
 			root = _first_unvisited(graph, visited)
@@ -77,13 +77,13 @@ def _first_unvisited(graph, visited):
 	@type  visited: list
 	@param visited: List of nodes.
 	
-	@rtype:  number
+	@rtype:  *
 	@return: First unvisited node.
 	"""
 	for each in graph.get_nodes():
 		if (not each in visited):
 			return each
-	return -1
+	return None
 
 
 def _lightest_arrow(graph, visited):
