@@ -40,6 +40,9 @@ def depth_first_search(graph, root=None):
 
 	@type  graph: graph
 	@param graph: Graph.
+	
+	@type  root: node
+	@param root: Optional root node (will explore only root's connected component)
 
 	@rtype:  tuple
 	@return: A tupple containing a dictionary and two lists:
