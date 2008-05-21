@@ -219,9 +219,12 @@ class graph:
 		return(self.weights[(u, v)])
 
 
-	def depth_first_search(self):
+	def depth_first_search(self, root=None):
 		"""
 		Depht-first search.
+		
+		@type  root: node
+		@param root: Optional root node (will explore only root's connected component)
 
 		@rtype:  tuple
 		@return:  tupple containing a dictionary and two lists:
@@ -229,7 +232,7 @@ class graph:
 			2. Graph's preordering
 			3. Graph's postordering
 		"""
-		return searching.depth_first_search(self)
+		return searching.depth_first_search(self, root)
 
 
 	def breadth_first_search(self):
@@ -290,9 +293,6 @@ class graph:
 		Minimal spanning tree.
 
 		@attention: Minimal spanning tree meaningful only for weighted graphs.
-
-		@type  graph: graph
-		@param graph: Graph.
 
 		@rtype:  list
 		@return: Generated spanning tree.

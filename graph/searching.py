@@ -34,7 +34,7 @@ __license__ = "MIT"
 
 # Depth-first search
 
-def depth_first_search(graph):
+def depth_first_search(graph, root=None):
 	"""
 	Depth-first search.
 
@@ -52,14 +52,19 @@ def depth_first_search(graph):
 	pre = []				# Graph's preordering
 	post = []				# Graph's postordering
 
+	# DFS from one node only
+	if (root != None):
+		spanning_tree[root] = None
+		_dfs(graph, visited, spanning_tree, pre, post, root)
+		return spanning_tree, pre, post
+
 	# Initialization
 	for each in graph.get_nodes():
-		visited[each] = 0
 		spanning_tree[each] = None
 	
 	# Algorithm loop
 	for each in graph.get_nodes():
-		if (not visited[each]):										# Select a non-visited node
+		if (not each in visited):										# Select a non-visited node
 			_dfs(graph, visited, spanning_tree, pre, post, each)	# Explore node's connected component
 
 	return spanning_tree, pre, post
@@ -91,7 +96,7 @@ def _dfs(graph, visited, spanning_tree, pre, post, node):
 	pre.append(node)
 	# Explore recursively the connected component
 	for each in graph.get_node(node):
-		if (not visited[each]):
+		if (not each in visited):
 			spanning_tree[each] = node
 			_dfs(graph, visited, spanning_tree, pre, post, each)
 	post.append(node)

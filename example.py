@@ -64,3 +64,7 @@ print gr.topological_sorting()
 print "------------------------------------------------------------------------"
 print "Minimal Spanning Tree"
 print gr.minimal_spanning_tree()
+
+print "------------------------------------------------------------------------"
+print "Depth First Search from node Italy"
+print gr.depth_first_search(root="Italy")
