@@ -124,7 +124,7 @@ def breadth_first_search(graph, root=None):
 	if (root != None):
 		queue.append(root)
 		spanning_tree[root] = None
-		_bfs(graph, queue, spanning_tree, root)
+		_bfs(graph, queue, spanning_tree)
 		return spanning_tree
 
 	# Algorithm
@@ -132,13 +132,23 @@ def breadth_first_search(graph, root=None):
 		if (not each in spanning_tree):
 			queue.append(each)
 			spanning_tree[each] = None
-			_bfs(graph, queue, spanning_tree, each)
+			_bfs(graph, queue, spanning_tree)
 
 	return spanning_tree
 
 
-def _bfs(graph, queue, spanning_tree, each):
+def _bfs(graph, queue, spanning_tree):
 	"""
+	Breadth-first search subfunction.
+	
+	@type  graph: graph
+	@param graph: Graph.
+
+	@type  spanning_tree: dictionary
+	@param spanning_tree: Spanning tree being built for the graph by DFS.
+
+	@type  queue: list
+	@param queue: Nodes to be visited (ordered).
 	"""
 	while (queue != []):
 		node = queue.pop(0)
