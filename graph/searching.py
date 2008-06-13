@@ -119,16 +119,10 @@ def breadth_first_search(graph):
 	"""
 	queue = []			# Visiting queue
 	spanning_tree = {}	# Spanning tree
-	
-	notvisited = (None, None)
-
-	# Initialization
-	for each in graph.get_nodes():
-		spanning_tree[each] = notvisited
 
 	# Algorithm
 	for each in graph.get_nodes():
-		if (spanning_tree[each] == notvisited):
+		if (not each in spanning_tree):
 			queue.append(each)
 			spanning_tree[each] = None
 
@@ -136,7 +130,7 @@ def breadth_first_search(graph):
 				node = queue.pop(0)
 
 				for other in graph.get_node(node):
-					if (spanning_tree[other] == notvisited):
+					if (not other in spanning_tree):
 						queue.append(other)
 						spanning_tree[other] = node
 
