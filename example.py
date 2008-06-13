@@ -68,3 +68,8 @@ print gr.minimal_spanning_tree()
 print "------------------------------------------------------------------------"
 print "Depth First Search from node Italy"
 print gr.depth_first_search(root="Italy")
+
+print "------------------------------------------------------------------------"
+print "Breadth First Search from node Italy"
+print gr.breadth_first_search(root="Italy")
+

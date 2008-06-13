@@ -235,14 +235,17 @@ class graph:
 		return searching.depth_first_search(self, root)
 
 
-	def breadth_first_search(self):
+	def breadth_first_search(self, root=None):
 		"""
 		Breadth-first search.
+
+		@type  root: node
+		@param root: Optional root node (will explore only root's connected component)
 
 		@rtype:  dictionary
 		@return: Generated spanning_tree
 		"""
-		return searching.breadth_first_search(self)
+		return searching.breadth_first_search(self, root)
 
 
 	def accessibility(self):

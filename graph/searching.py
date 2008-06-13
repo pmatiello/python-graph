@@ -60,14 +60,11 @@ def depth_first_search(graph, root=None):
 		spanning_tree[root] = None
 		_dfs(graph, visited, spanning_tree, pre, post, root)
 		return spanning_tree, pre, post
-
-	# Initialization
-	for each in graph.get_nodes():
-		spanning_tree[each] = None
 	
 	# Algorithm loop
 	for each in graph.get_nodes():
 		if (not each in visited):										# Select a non-visited node
+			spanning_tree[each] = None
 			_dfs(graph, visited, spanning_tree, pre, post, each)	# Explore node's connected component
 
 	return spanning_tree, pre, post
@@ -107,12 +104,15 @@ def _dfs(graph, visited, spanning_tree, pre, post, node):
 
 # Breadth-first search
 
-def breadth_first_search(graph):
+def breadth_first_search(graph, root=None):
 	"""
 	Breadth-first search.
 
 	@type  graph: graph
 	@param graph: Graph.
+
+	@type  root: node
+	@param root: Optional root node (will explore only root's connected component)
 
 	@rtype:  dictionary
 	@return: Generated spanning tree.
@@ -120,19 +120,30 @@ def breadth_first_search(graph):
 	queue = []			# Visiting queue
 	spanning_tree = {}	# Spanning tree
 
+	# BFS from one node only
+	if (root != None):
+		queue.append(root)
+		spanning_tree[root] = None
+		_bfs(graph, queue, spanning_tree, root)
+		return spanning_tree
+
 	# Algorithm
 	for each in graph.get_nodes():
 		if (not each in spanning_tree):
 			queue.append(each)
 			spanning_tree[each] = None
-
-			while (queue != []):
-				node = queue.pop(0)
-
-				for other in graph.get_node(node):
-					if (not other in spanning_tree):
-						queue.append(other)
-						spanning_tree[other] = node
+			_bfs(graph, queue, spanning_tree, each)
 
 	return spanning_tree
 
+
+def _bfs(graph, queue, spanning_tree, each):
+	"""
+	"""
+	while (queue != []):
+		node = queue.pop(0)
+
+		for other in graph.get_node(node):
+			if (not other in spanning_tree):
+				queue.append(other)
+				spanning_tree[other] = node
