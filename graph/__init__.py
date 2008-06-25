@@ -310,9 +310,6 @@ class graph:
 		
 		@attention: All weights must be nonnegative.
 
-		@type  graph: graph
-		@param graph: Graph.
-
 		@type  source: node
 		@param source: Node from which to start the search.
 
