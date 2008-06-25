@@ -317,6 +317,6 @@ class graph:
 		@return: A tuple containing two dictionaries, each keyed by target nodes.
 			1. Shortest path spanning tree (each key points to previous node in the shortest path transversal).
 			2. Shortest distance from given source to each target node.
-		Inaccessible targetNodes do not appear in either dictionary.
+		Inaccessible target nodes do not appear in either dictionary.
 		"""
 		return minmax.shortest_path(self, source)
