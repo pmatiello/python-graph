@@ -95,10 +95,6 @@ def connected_components(graph):
 	visited = {}
 	count = 1
 
-	# Initialization
-#	for each in graph.get_nodes():
-#		visited[each] = 0
-
 	# For 'each' node not found to belong to a connected component, find its connected component.
 	for each in graph.get_nodes():
 		if (not each in visited):
