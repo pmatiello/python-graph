@@ -28,7 +28,7 @@ Minimization and maximization algorithms for python-graph.
 
 
 # Module metadata
-__authors__ = "Pedro Matiello"
+__authors__ = "Pedro Matiello, Rhys Ulerich"
 __license__ = "MIT"
 
 
@@ -112,27 +112,28 @@ def _lightest_arrow(graph, visited):
 
 
 # Shortest Path
+# Code donated by Rhys Ulerich
 
-def shortest_path(graph, sourceNode):
+def shortest_path(graph, source):
 	"""
-	Return the shortest path distance between sourceNode and all other nodes using Dijkstra's algorithm.
+	Return the shortest path distance between source and all other nodes using Dijkstra's algorithm.
 	
 	@attention: All weights must be nonnegative.
 
 	@type  graph: graph
 	@param graph: Graph.
 
-	@type  sourceNode: node
-	@param sourceNode: Node from which to start the search.
+	@type  source: node
+	@param source: Node from which to start the search.
 
-	@rtype  tuple
-	@return A tuple containing two dictionaries, each keyed by targetNodes.
-	Inaccessible targetNodes do not appear in either dictionary.
-		1. Shortest distance from given sourceNode to targetNode.
+	@rtype:  tuple
+	@return: A tuple containing two dictionaries, each keyed by targetNodes.
+		1. Shortest distance from given source to targetNode.
 		2. Previous node in the shortest path transversal.
+	Inaccessible targetNodes do not appear in either dictionary.
 	"""
 	# Initialization
-	dist	 = { sourceNode: 0 }
+	dist	 = { source: 0 }
 	previous = {}
 	q = graph.get_nodes()
 
@@ -143,17 +144,18 @@ def shortest_path(graph, sourceNode):
 		# See http://www.personal.kent.edu/~rmuhamma/Algorithms/MyAlgorithms/GraphAlgor/dijkstraAlgor.htm
 		u = q[0]
 		for node in q[1:]:
-			if (   (not dist.has_key(u)) 
-				or (dist.has_key(node) and dist[node] < dist[u]) ):
+			if ((not dist.has_key(u)) 
+				or (dist.has_key(node) and dist[node] < dist[u])):
 				u = node
 		q.remove(u)
 
 		# Process reachable, remaining nodes from u
-		for v in graph.get_node(u):
-			if v in q:
-				alt = dist[u] + graph.get_arrow_weight(u, v)
-				if (not dist.has_key(v)) or (alt < dist[v]):
-					dist[v] = alt
-					previous[v] = u
+		if (dist.has_key(u)):
+			for v in graph.get_node(u):
+				if v in q:
+					alt = dist[u] + graph.get_arrow_weight(u, v)
+					if (not dist.has_key(v)) or (alt < dist[v]):
+						dist[v] = alt
+						previous[v] = u
 
 	return (dist, previous)

@@ -73,3 +73,7 @@ print "------------------------------------------------------------------------"
 print "Breadth First Search from node Italy"
 print gr.breadth_first_search(root="Italy")
 
+print "------------------------------------------------------------------------"
+print "Shortest Path from Italy"
+print gr.shortest_path("Italy")
+

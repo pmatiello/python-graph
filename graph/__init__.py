@@ -291,6 +291,7 @@ class graph:
 		"""
 		return accessibility.connected_components(self)
 
+
 	def minimal_spanning_tree(self):
 		"""
 		Minimal spanning tree.
@@ -301,3 +302,24 @@ class graph:
 		@return: Generated spanning tree.
 		"""
 		return minmax.minimal_spanning_tree(self)
+
+
+	def shortest_path(self, source):
+		"""
+		Return the shortest path distance between source node and all other nodes using Dijkstra's algorithm.
+		
+		@attention: All weights must be nonnegative.
+
+		@type  graph: graph
+		@param graph: Graph.
+
+		@type  source: node
+		@param source: Node from which to start the search.
+
+		@rtype:  tuple
+		@return: A tuple containing two dictionaries, each keyed by targetNodes.
+			1. Shortest distance from given sourceNode to targetNode.
+			2. Previous node in the shortest path transversal.
+		Inaccessible targetNodes do not appear in either dictionary.
+		"""
+		return minmax.shortest_path(self, source)
