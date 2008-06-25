@@ -109,3 +109,51 @@ def _lightest_arrow(graph, visited):
 					lightest_arrow = (each, other)
 					weight = w
 	return lightest_arrow
+
+
+# Shortest Path
+
+def shortest_path(graph, sourceNode):
+	"""
+	Return the shortest path distance between sourceNode and all other nodes using Dijkstra's algorithm.
+	
+	@attention: All weights must be nonnegative.
+
+	@type  graph: graph
+	@param graph: Graph.
+
+	@type  sourceNode: node
+	@param sourceNode: Node from which to start the search.
+
+	@rtype  tuple
+	@return A tuple containing two dictionaries, each keyed by targetNodes.
+	Inaccessible targetNodes do not appear in either dictionary.
+		1. Shortest distance from given sourceNode to targetNode.
+		2. Previous node in the shortest path transversal.
+	"""
+	# Initialization
+	dist	 = { sourceNode: 0 }
+	previous = {}
+	q = graph.get_nodes()
+
+	# Algorithm loop
+	while q:
+		# examine_min process performed using O(nodes) pass here.
+		# May be improved using another examine_min data structure.
+		# See http://www.personal.kent.edu/~rmuhamma/Algorithms/MyAlgorithms/GraphAlgor/dijkstraAlgor.htm
+		u = q[0]
+		for node in q[1:]:
+			if (   (not dist.has_key(u)) 
+				or (dist.has_key(node) and dist[node] < dist[u]) ):
+				u = node
+		q.remove(u)
+
+		# Process reachable, remaining nodes from u
+		for v in graph.get_node(u):
+			if v in q:
+				alt = dist[u] + graph.get_arrow_weight(u, v)
+				if (not dist.has_key(v)) or (alt < dist[v]):
+					dist[v] = alt
+					previous[v] = u
+
+	return (dist, previous)
