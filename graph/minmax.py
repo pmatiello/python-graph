@@ -127,9 +127,9 @@ def shortest_path(graph, source):
 	@param source: Node from which to start the search.
 
 	@rtype:  tuple
-	@return: A tuple containing two dictionaries, each keyed by targetNodes.
-		1. Shortest distance from given source to targetNode.
-		2. Previous node in the shortest path transversal.
+	@return: A tuple containing two dictionaries, each keyed by target nodes.
+		1. Shortest path spanning tree (each key points to previous node in the shortest path transversal).
+		2. Shortest distance from given source to each target node.
 	Inaccessible targetNodes do not appear in either dictionary.
 	"""
 	# Initialization
@@ -158,4 +158,4 @@ def shortest_path(graph, source):
 						dist[v] = alt
 						previous[v] = u
 
-	return (dist, previous)
+	return previous, dist
