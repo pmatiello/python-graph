@@ -77,7 +77,7 @@ def _first_unvisited(graph, visited):
 	@type  visited: list
 	@param visited: List of nodes.
 	
-	@rtype:  *
+	@rtype:  node
 	@return: First unvisited node.
 	"""
 	for each in graph.get_nodes():
