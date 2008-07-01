@@ -8,6 +8,12 @@ AUTHORS
 Pedro Matiello <pmatiello@gmail.com>
 
 
+CONTRIBUTORS
+
+Rhys Ulerich <rhys.ulerich@gmail.com>
+	* Dijkstra's Shortest path algorithm.
+
+
 LICENSE
 
 This software is provided under the MIT license. See accompanying COPYING file for details.
