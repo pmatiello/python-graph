@@ -101,6 +101,19 @@ class graph:
 		return self.nodes[node]
 
 
+	def has_node(self, node):
+		"""
+		Return whether the requested node exists.
+
+		@type  node: node
+		@param node: Node identifier
+
+		@rtype:  boolean
+		@return: Truth-value for node existence.
+		"""
+		return self.nodes.has_key(node)
+
+
 	def add_nodes(self, nodelist):
 		"""
 		Create num nodes.
@@ -118,10 +131,10 @@ class graph:
 
 		@attention: this function should not be used in directed graphs: use add_arrow() instead.
 
-		@type  u: *
+		@type  u: node
 		@param u: One node.
 
-		@type  v: *
+		@type  v: node
 		@param v: Other node.
 		
 		@type  wt: number
@@ -139,10 +152,10 @@ class graph:
 		"""
 		Add an arrow (u,v) to the directed graph connecting node u to node v.
 
-		@type  u: *
+		@type  u: node
 		@param u: One node.
 
-		@type  v: *
+		@type  v: node
 		@param v: Other node.
 
 		@type  wt: number
@@ -159,10 +172,10 @@ class graph:
 
 		@attention: this function should not be used in directed graphs: use del_arrow() instead.
 
-		@type  u: *
+		@type  u: node
 		@param u: One node.
 
-		@type  v: *
+		@type  v: node
 		@param v: Other node.
 		"""
 		if (v in self.nodes[u]):
@@ -176,10 +189,10 @@ class graph:
 		"""
 		Remove an arrow (u, v) from the directed graph.
 
-		@type  u: *
+		@type  u: node
 		@param u: One node.
 
-		@type  v: *
+		@type  v: node
 		@param v: Other node.
 		"""
 		if (v in self.nodes[u]):
@@ -191,32 +204,64 @@ class graph:
 		"""
 		Get the weight of an arrow.
 
-		@type  u: *
+		@type  u: node
 		@param u: One node.
 
-		@type  v: *
+		@type  v: node
 		@param v: Other node.
 		
 		@rtype:  number
 		@return: Arrow weight
 		"""
-		return(self.weights[(u, v)])
+		return self.weights[(u, v)]
 
 
 	def get_edge_weight(self, u, v):
 		"""
 		Get the weight of an arrow.
 
-		@type  u: *
+		@type  u: node
 		@param u: One node.
 
-		@type  v: *
+		@type  v: node
 		@param v: Other node.
 		
 		@rtype:  number
 		@return: Edge weight
 		"""
-		return(self.weights[(u, v)])
+		return self.weights[(u, v)]
+
+
+	def has_arrow(self, u, v):
+		"""
+		Return whether an arrow from node u to node v exists.
+
+		@type  u: node
+		@param u: One node.
+
+		@type  v: node
+		@param v: Other node.
+
+		@rtype:  boolean
+		@return: Truth-value for arrow existence.
+		"""
+		return self.weights.has_key((u,v))
+
+
+	def has_edge(self, u, v):
+		"""
+		Return whether an edge between nodes u and v exists.
+
+		@type  u: node
+		@param u: One node.
+
+		@type  v: node
+		@param v: Other node.
+
+		@rtype:  boolean
+		@return: Truth-value for edge existence.
+		"""
+		return self.weights.has_key((u,v)) and self.weights.has_key((v,u))
 
 
 	def depth_first_search(self, root=None):
