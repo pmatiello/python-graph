@@ -24,6 +24,8 @@
 
 """
 Sorting algorithms for python-graph.
+
+@sort: topological_sorting
 """
 
 

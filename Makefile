@@ -1,5 +1,5 @@
 docs: graph/*.py
-	epydoc -v --name="python-graph" --url="http://code.google.com/p/python-graph/" --html -o docs graph/*.py
+	epydoc -v --no-frames --name="python-graph" --url="http://code.google.com/p/python-graph/" --html -o docs graph/*.py
 
 edit: graph/*.py
 	gedit graph/*.py &

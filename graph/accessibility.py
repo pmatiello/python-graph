@@ -24,6 +24,8 @@
 
 """
 Accessibility algorithms for python-graph.
+
+@sort: accessibility, connected_components, mutual_accessibility, _dfs
 """
 
 
