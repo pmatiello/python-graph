@@ -33,7 +33,7 @@ __license__ = "MIT"
 
 
 # Imports
-from xml.dom.minidom import Document
+from xml.dom.minidom import Document, parseString
 
 
 # Stubs
@@ -59,11 +59,15 @@ def write(graph, fmt):
 		return _write_xml(graph)
 		
 
-def read(graph, fmt):
-	pass
+def read(graph, string, fmt):
+	if (fmt == None):
+		fmt = 'xml'
+	
+	if (fmt == 'xml'):
+		return _read_xml(graph, string)
 
 
-# python-graph
+# XML
 
 def _write_xml(graph):
 	"""
@@ -94,3 +98,13 @@ def _write_xml(graph):
 			node.appendChild(arrow)
 
 	return grxml.toprettyxml()
+
+
+def _read_xml(graph, string):
+	"""
+	"""
+	dom = parseString(string)
+	for each_node in dom.getElementsByTagName("node"):
+		graph.add_nodes([each_node.getAttribute('id')])
+		for each_arrow in each_node.getElementsByTagName("arrow"):
+			graph.add_arrow(each_node.getAttribute('id'), each_arrow.getAttribute('to'))
