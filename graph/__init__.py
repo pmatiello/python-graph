@@ -1,4 +1,4 @@
-# Copyright (c) 2007 Pedro Matiello <pmatiello@gmail.com>
+# Copyright (c) 2007-2008 Pedro Matiello <pmatiello@gmail.com>
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation
@@ -39,6 +39,7 @@ import searching
 import accessibility
 import sorting
 import minmax
+import readwrite
 
 
 class graph:
@@ -48,7 +49,7 @@ class graph:
 	Basic operations are defined in this file.
 	Algorithms should refer to external files.
 	
-	@sort: __init__, __len__, __str__, add_arrow, add_edge, add_nodes, del_arrow, del_edge, get_arrow_weight, get_edge_weight, get_node, get_nodes, has_arrow, has_edge, has_node, accessibility, breadth_first_search, connected_components, depth_first_search, minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
+	@sort: __init__, __len__, __str__, write, add_arrow, add_edge, add_nodes, del_arrow, del_edge, get_arrow_weight, get_edge_weight, get_node, get_nodes, has_arrow, has_edge, has_node, accessibility, breadth_first_search, connected_components, depth_first_search, minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
 	"""
 
 
@@ -78,6 +79,19 @@ class graph:
 		@return: Size of the graph.
 		"""
 		return len(self.nodes)
+	
+	
+	def write(self, fmt=None):
+		"""
+		Write the graph to a string. Depending of the output format, this string can be used by read() to rebuild the graph.
+		
+		@type  fmt: string
+		@param fmt: Output format.
+
+		@rtype:  string
+		@return: String representing the graph.
+		"""
+		return readwrite.write(self, fmt)
 
 
 	def get_nodes(self):

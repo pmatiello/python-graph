@@ -77,3 +77,6 @@ print "------------------------------------------------------------------------"
 print "Shortest Path from Italy"
 print gr.shortest_path("Italy")
 
+print "------------------------------------------------------------------------"
+print "Graph Output"
+print gr.write()

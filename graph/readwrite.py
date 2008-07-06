@@ -23,9 +23,7 @@
 
 
 """
-Sorting algorithms for python-graph.
-
-@sort: topological_sorting
+Functions for reading and writing graphs.
 """
 
 
@@ -34,21 +32,48 @@ __authors__ = "Pedro Matiello"
 __license__ = "MIT"
 
 
-# Topological sorting
+# Imports
+from xml.dom.minidom import Document
 
-def topological_sorting(graph):
+
+# Stubs
+
+def write(graph, fmt):
 	"""
-	Topological sorting.
-
-	@attention: Topological sorting is meaningful only for directed acyclic graphs.
-
+	Write the graph to a string. Depending of the output format, this string can be used by read() to rebuild the graph.
+	
 	@type  graph: graph
 	@param graph: Graph.
 
-	@rtype:  list
-	@return: Topological sorting for the graph.
+	@type  fmt: string
+	@param fmt: Output format.
+
+	@rtype:  string
+	@return: String representing the graph.
 	"""
-	# The topological sorting of a DAG is equivalent to its reverse postordering.
-	tmp, tmp, post = graph.depth_first_search()
-	post.reverse()
-	return post
+	if (fmt == None):
+		fmt = 'xml'
+	
+	if (fmt == 'xml'):
+		return _write_xml(graph)
+		
+
+def read(graph, fmt):
+	pass
+
+
+# python-graph
+
+def _write_xml(graph):
+	grxml = Document()
+	grxmlr = grxml.createElement('graph')
+	grxml.appendChild(grxmlr)
+	for each_node in graph.get_nodes():
+		node = grxml.createElement('node')
+		node.setAttribute('id',str(each_node))
+		grxmlr.appendChild(node)
+		for each_arrow in graph.get_node(each_node):
+			arrow = grxml.createElement('arrow')
+			arrow.setAttribute('to',str(each_arrow))
+			node.appendChild(arrow)
+	return grxml.toprettyxml()
