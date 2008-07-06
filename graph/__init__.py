@@ -82,6 +82,16 @@ class graph:
 	
 
 	def read(self, string, fmt=None):
+		"""
+		Read a graph from a string. Nodes and arrows specified in the input will be added to the current graph.
+		
+		@type  string: string
+		@param string: Input string specifying a graph.
+
+		@type  fmt: string
+		@param fmt: Input format. Possible formats are:
+			1. XML (default)
+		"""
 		readwrite.read(self, string, fmt)	
 
 
@@ -94,7 +104,7 @@ class graph:
 			1. XML (default)
 
 		@rtype:  string
-		@return: String representing the graph.
+		@return: String specifying the graph.
 		"""
 		return readwrite.write(self, fmt)
 

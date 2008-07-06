@@ -50,7 +50,7 @@ def write(graph, fmt):
 		1. XML (default)
 
 	@rtype:  string
-	@return: String representing the graph.
+	@return: String specifying the graph.
 	"""
 	if (fmt == None):
 		fmt = 'xml'
@@ -60,6 +60,16 @@ def write(graph, fmt):
 		
 
 def read(graph, string, fmt):
+	"""
+	Read a graph from a string. Nodes and arrows specified in the input will be added to the current graph.
+	
+	@type  string: string
+	@param string: Input string specifying a graph.
+
+	@type  fmt: string
+	@param fmt: Input format. Possible formats are:
+		1. XML (default)
+	"""
 	if (fmt == None):
 		fmt = 'xml'
 	
@@ -77,7 +87,7 @@ def _write_xml(graph):
 	@param graph: Graph.
 
 	@rtype:  string
-	@return: String representing the graph as a XML document.
+	@return: String specifying the graph as a XML document.
 	"""
 
 	# Document root
@@ -102,6 +112,13 @@ def _write_xml(graph):
 
 def _read_xml(graph, string):
 	"""
+	Read a graph from a XML document. Nodes and arrows specified in the input will be added to the current graph.
+	
+	@type  graph: graph
+	@param graph: Graph
+
+	@type  string: string
+	@param string: Input string in XML format specifying a graph.
 	"""
 	dom = parseString(string)
 	for each_node in dom.getElementsByTagName("node"):
