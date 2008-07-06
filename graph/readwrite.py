@@ -46,7 +46,8 @@ def write(graph, fmt):
 	@param graph: Graph.
 
 	@type  fmt: string
-	@param fmt: Output format.
+	@param fmt: Output format. Possible formats are:
+		1. XML (default)
 
 	@rtype:  string
 	@return: String representing the graph.
@@ -65,15 +66,31 @@ def read(graph, fmt):
 # python-graph
 
 def _write_xml(graph):
+	"""
+	Return a string representing the given graph as a XML document.
+	
+	@type  graph: graph
+	@param graph: Graph.
+
+	@rtype:  string
+	@return: String representing the graph as a XML document.
+	"""
+
+	# Document root
 	grxml = Document()
 	grxmlr = grxml.createElement('graph')
 	grxml.appendChild(grxmlr)
+
+	# Each node...
 	for each_node in graph.get_nodes():
 		node = grxml.createElement('node')
 		node.setAttribute('id',str(each_node))
 		grxmlr.appendChild(node)
+
+		# and its outgoing arrows
 		for each_arrow in graph.get_node(each_node):
 			arrow = grxml.createElement('arrow')
 			arrow.setAttribute('to',str(each_arrow))
 			node.appendChild(arrow)
+
 	return grxml.toprettyxml()

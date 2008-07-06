@@ -86,7 +86,8 @@ class graph:
 		Write the graph to a string. Depending of the output format, this string can be used by read() to rebuild the graph.
 		
 		@type  fmt: string
-		@param fmt: Output format.
+		@param fmt: Output format. Possible formats are:
+			1. XML (default)
 
 		@rtype:  string
 		@return: String representing the graph.
