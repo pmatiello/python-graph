@@ -2,65 +2,65 @@
 <graph>
 	<node id="Brazil"/>
 	<node id="Netherlands">
-		<arrow to="Belgium"/>
-		<arrow to="Germany"/>
+		<arrow to="Belgium" wt="1"/>
+		<arrow to="Germany" wt="2"/>
 	</node>
 	<node id="Italy">
-		<arrow to="France"/>
-		<arrow to="Germany"/>
+		<arrow to="France" wt="3"/>
+		<arrow to="Germany" wt="3"/>
 	</node>
 	<node id="Portugal">
-		<arrow to="Spain"/>
+		<arrow to="Spain" wt="1"/>
 	</node>
 	<node id="Lemuria">
-		<arrow to="Atlantis"/>
-		<arrow to="Ys"/>
+		<arrow to="Atlantis" wt="1"/>
+		<arrow to="Ys" wt="1"/>
 	</node>
 	<node id="Scotland">
-		<arrow to="England"/>
-		<arrow to="Wales"/>
+		<arrow to="England" wt="2"/>
+		<arrow to="Wales" wt="1"/>
 	</node>
 	<node id="France">
-		<arrow to="Spain"/>
-		<arrow to="Belgium"/>
-		<arrow to="Germany"/>
-		<arrow to="Italy"/>
+		<arrow to="Spain" wt="3"/>
+		<arrow to="Belgium" wt="2"/>
+		<arrow to="Germany" wt="3"/>
+		<arrow to="Italy" wt="3"/>
 	</node>
 	<node id="Wonderland">
-		<arrow to="Atlantis"/>
+		<arrow to="Atlantis" wt="1"/>
 	</node>
 	<node id="Germany">
-		<arrow to="France"/>
-		<arrow to="Belgium"/>
-		<arrow to="Netherlands"/>
-		<arrow to="Italy"/>
+		<arrow to="France" wt="3"/>
+		<arrow to="Belgium" wt="2"/>
+		<arrow to="Netherlands" wt="2"/>
+		<arrow to="Italy" wt="3"/>
 	</node>
 	<node id="Ireland"/>
 	<node id="Wales">
-		<arrow to="England"/>
-		<arrow to="Scotland"/>
+		<arrow to="England" wt="1"/>
+		<arrow to="Scotland" wt="1"/>
 	</node>
 	<node id="Belgium">
-		<arrow to="France"/>
-		<arrow to="Netherlands"/>
-		<arrow to="Germany"/>
+		<arrow to="France" wt="2"/>
+		<arrow to="Netherlands" wt="1"/>
+		<arrow to="Germany" wt="2"/>
 	</node>
 	<node id="England">
-		<arrow to="Wales"/>
-		<arrow to="Scotland"/>
+		<arrow to="Wales" wt="1"/>
+		<arrow to="Scotland" wt="2"/>
 	</node>
 	<node id="Ys">
-		<arrow to="Wonderland"/>
-		<arrow to="Brazil"/>
+		<arrow to="Wonderland" wt="1"/>
+		<arrow to="Brazil" wt="1"/>
 	</node>
 	<node id="Atlantis">
-		<arrow to="Wonderland"/>
-		<arrow to="Brazil"/>
-		<arrow to="Lemuria"/>
+		<arrow to="Wonderland" wt="1"/>
+		<arrow to="Brazil" wt="1"/>
+		<arrow to="Lemuria" wt="1"/>
 	</node>
 	<node id="Spain">
-		<arrow to="Portugal"/>
-		<arrow to="France"/>
+		<arrow to="Portugal" wt="1"/>
+		<arrow to="France" wt="3"/>
 	</node>
 </graph>
 
