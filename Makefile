@@ -6,6 +6,3 @@ edit: graph/*.py
 
 clean: graph/*.pyc
 	rm graph/*.pyc
-
-example: example.py
-	python example.py

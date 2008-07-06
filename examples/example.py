@@ -3,6 +3,10 @@
 # Copyright (c) 2007 Pedro Matiello <pmatiello@gmail.com>
 # License: MIT (see COPYING file)
 
+import sys
+
+sys.path.append('..')
+
 import graph
 
 print "Example"

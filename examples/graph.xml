@@ -1,0 +1,66 @@
+<?xml version="1.0" ?>
+<graph>
+	<node id="Brazil"/>
+	<node id="Netherlands">
+		<arrow to="Belgium"/>
+		<arrow to="Germany"/>
+	</node>
+	<node id="Italy">
+		<arrow to="France"/>
+		<arrow to="Germany"/>
+	</node>
+	<node id="Portugal">
+		<arrow to="Spain"/>
+	</node>
+	<node id="Lemuria">
+		<arrow to="Atlantis"/>
+		<arrow to="Ys"/>
+	</node>
+	<node id="Scotland">
+		<arrow to="England"/>
+		<arrow to="Wales"/>
+	</node>
+	<node id="France">
+		<arrow to="Spain"/>
+		<arrow to="Belgium"/>
+		<arrow to="Germany"/>
+		<arrow to="Italy"/>
+	</node>
+	<node id="Wonderland">
+		<arrow to="Atlantis"/>
+	</node>
+	<node id="Germany">
+		<arrow to="France"/>
+		<arrow to="Belgium"/>
+		<arrow to="Netherlands"/>
+		<arrow to="Italy"/>
+	</node>
+	<node id="Ireland"/>
+	<node id="Wales">
+		<arrow to="England"/>
+		<arrow to="Scotland"/>
+	</node>
+	<node id="Belgium">
+		<arrow to="France"/>
+		<arrow to="Netherlands"/>
+		<arrow to="Germany"/>
+	</node>
+	<node id="England">
+		<arrow to="Wales"/>
+		<arrow to="Scotland"/>
+	</node>
+	<node id="Ys">
+		<arrow to="Wonderland"/>
+		<arrow to="Brazil"/>
+	</node>
+	<node id="Atlantis">
+		<arrow to="Wonderland"/>
+		<arrow to="Brazil"/>
+		<arrow to="Lemuria"/>
+	</node>
+	<node id="Spain">
+		<arrow to="Portugal"/>
+		<arrow to="France"/>
+	</node>
+</graph>
+
