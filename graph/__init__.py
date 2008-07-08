@@ -147,7 +147,9 @@ class graph:
 
 	def add_nodes(self, nodelist):
 		"""
-		Create num nodes.
+		Add given nodes to the graph.
+		
+		@attention: While nodes can be of any type, it's strongly recommended to use only numbers and single-line strings has node identificators if you intend to use write().
 
 		@type  nodelist: list
 		@param nodelist: List of nodes to be added to the graph.
@@ -160,7 +162,7 @@ class graph:
 		"""
 		Add an edge (u,v) to the graph connecting nodes u and v.
 
-		@attention: this function should not be used in directed graphs: use add_arrow() instead.
+		@attention: This function should not be used in directed graphs: use add_arrow() instead.
 
 		@type  u: node
 		@param u: One node.
@@ -201,7 +203,7 @@ class graph:
 		"""
 		Remove an edge (u, v) from the graph.
 
-		@attention: this function should not be used in directed graphs: use del_arrow() instead.
+		@attention: This function should not be used in directed graphs: use del_arrow() instead.
 
 		@type  u: node
 		@param u: One node.
