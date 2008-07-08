@@ -24,6 +24,8 @@
 
 """
 Functions for reading and writing graphs.
+
+@sort: read, write, _read_xml, _write_xml
 """
 
 
@@ -105,6 +107,7 @@ def _write_xml(graph):
 		for each_arrow in graph.get_node(each_node):
 			arrow = grxml.createElement('arrow')
 			arrow.setAttribute('to',str(each_arrow))
+			arrow.setAttribute('wt',str(graph.get_arrow_weight(each_node, each_arrow)))
 			node.appendChild(arrow)
 
 	return grxml.toprettyxml()
@@ -124,4 +127,4 @@ def _read_xml(graph, string):
 	for each_node in dom.getElementsByTagName("node"):
 		graph.add_nodes([each_node.getAttribute('id')])
 		for each_arrow in each_node.getElementsByTagName("arrow"):
-			graph.add_arrow(each_node.getAttribute('id'), each_arrow.getAttribute('to'))
+			graph.add_arrow(each_node.getAttribute('id'), each_arrow.getAttribute('to'), wt=float(each_arrow.getAttribute('wt')))
