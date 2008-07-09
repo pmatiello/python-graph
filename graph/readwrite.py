@@ -49,7 +49,8 @@ def write(graph, fmt):
 
 	@type  fmt: string
 	@param fmt: Output format. Possible formats are:
-		1. XML (default)
+		1. 'xml' - XML (default)
+		2. 'dot' - DOT Language (for GraphViz)
 
 	@rtype:  string
 	@return: String specifying the graph.
@@ -59,6 +60,8 @@ def write(graph, fmt):
 	
 	if (fmt == 'xml'):
 		return _write_xml(graph)
+	elif (fmt == 'dot'):
+		return _write_dot(graph)
 		
 
 def read(graph, string, fmt):
@@ -70,7 +73,7 @@ def read(graph, string, fmt):
 
 	@type  fmt: string
 	@param fmt: Input format. Possible formats are:
-		1. XML (default)
+		1. 'xml' - XML (default)
 	"""
 	if (fmt == None):
 		fmt = 'xml'
@@ -83,7 +86,7 @@ def read(graph, string, fmt):
 
 def _write_xml(graph):
 	"""
-	Return a string representing the given graph as a XML document.
+	Return a string specifying the given graph as a XML document.
 	
 	@type  graph: graph
 	@param graph: Graph.
@@ -128,3 +131,84 @@ def _read_xml(graph, string):
 		graph.add_nodes([each_node.getAttribute('id')])
 		for each_arrow in each_node.getElementsByTagName("arrow"):
 			graph.add_arrow(each_node.getAttribute('id'), each_arrow.getAttribute('to'), wt=float(each_arrow.getAttribute('wt')))
+
+
+# DOT Language
+
+def _write_dot(graph):
+	"""
+	Return a string specifying the given graph in DOT Language (which can be used by GraphViz to generate a visualization of the given graph).
+	
+	@type  graph: graph
+	@param graph: Graph.
+
+	@rtype:  string
+	@return: String specifying the graph in DOT Language.
+	"""
+
+	# Pre
+	doc = ""
+	edgemark = " -- "
+	docstart = "graph graphname"
+	
+	# Check graph type
+	for each_node in graph.get_nodes():
+		for each_arrow in graph.get_node(each_node):
+			if (not graph.has_edge(each_node, each_arrow)):
+				return _write_dot_digraph(graph)
+	return _write_dot_graph(graph)
+
+
+def _write_dot_graph(graph):
+	"""
+	Return a string specifying the given graph in DOT Language.
+	
+	@type  graph: graph
+	@param graph: Graph.
+
+	@rtype:  string
+	@return: String specifying the graph in DOT Language.
+	"""
+
+	# Start document
+	doc = ""
+	edgemark = " -- "
+	doc = doc + "graph graphname" + "\n{\n"
+
+	# Add nodes
+	for each_node in graph.get_nodes():
+		doc = doc + "\t" + each_node + "\n"
+		# Add edges
+		for each_arrow in graph.get_node(each_node):
+			if (graph.has_edge(each_node, each_arrow) and (each_node < each_arrow)):
+				doc = doc + "\t" + each_node + edgemark + each_arrow + "\n"
+	# Finish
+	doc = doc + "}"
+	return doc
+
+
+def _write_dot_digraph(graph):
+	"""
+	Return a string specifying the given digraph in DOT Language.
+	
+	@type  graph: graph
+	@param graph: Graph.
+
+	@rtype:  string
+	@return: String specifying the graph in DOT Language.
+	"""
+
+	# Start document
+	doc = ""
+	edgemark = " -> "
+	doc = doc + "digraph graphname" + "\n{\n"
+
+	# Add nodes
+	for each_node in graph.get_nodes():
+		doc = doc + "\t" + each_node + "\n"
+		# Add edges
+		for each_arrow in graph.get_node(each_node):
+			doc = doc + "\t" + each_node + edgemark + each_arrow + "\n"
+	# Finish
+	doc = doc + "}"
+	return doc

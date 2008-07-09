@@ -90,7 +90,7 @@ class graph:
 
 		@type  fmt: string
 		@param fmt: Input format. Possible formats are:
-			1. XML (default)
+			1. 'xml' - XML (default)
 		"""
 		readwrite.read(self, string, fmt)	
 
@@ -101,7 +101,8 @@ class graph:
 		
 		@type  fmt: string
 		@param fmt: Output format. Possible formats are:
-			1. XML (default)
+			1. 'xml' - XML (default)
+			2. 'dot' - DOT Language (for GraphViz)
 
 		@rtype:  string
 		@return: String specifying the graph.
