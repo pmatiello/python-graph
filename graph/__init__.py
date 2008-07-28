@@ -299,8 +299,25 @@ class graph:
 		return self.weights.has_key((u,v)) and self.weights.has_key((v,u))
 
 
+	def add_graph(self, graph):
+		"""
+		Add a spanning tree to the graph.
+		
+		@type  graph: graph
+		@param graph: Graph
+		"""
+		self.add_nodes(graph.get_nodes())
+		for each_node in graph.get_nodes():
+			for each_arrow in graph.get_node(each_node):
+				self.add_arrow(each_node, each_arrow)
+
+
 	def add_spanning_tree(self, st):
 		"""
+		Add a spanning tree to the graph.
+		
+		@type  st: dictionary
+		@param st: Spanning tree.
 		"""
 		self.add_nodes(st.keys())
 		for each in st:
