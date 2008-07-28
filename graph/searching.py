@@ -48,9 +48,9 @@ def depth_first_search(graph, root=None):
 
 	@rtype:  tuple
 	@return: A tupple containing a dictionary and two lists:
-		1. Generated spanning tree;
-		2. Graph's preordering;
-		3. Graph's postordering.
+		1. Generated spanning tree
+		2. Graph's preordering
+		3. Graph's postordering
 	"""
 	visited = {}			# List for marking visited and non-visited nodes
 	spanning_tree = {}		# Spanning tree
