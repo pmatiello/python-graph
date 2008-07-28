@@ -51,6 +51,7 @@ def write(graph, fmt):
 	@param fmt: Output format. Possible formats are:
 		1. 'xml' - XML (default)
 		2. 'dot' - DOT Language (for GraphViz)
+		3. 'dotwt' - DOT Language with weight information
 
 	@rtype:  string
 	@return: String specifying the graph.
@@ -61,7 +62,10 @@ def write(graph, fmt):
 	if (fmt == 'xml'):
 		return _write_xml(graph)
 	elif (fmt == 'dot'):
-		return _write_dot(graph)
+		return _write_dot(graph, 0)
+	elif (fmt == 'dotwt'):
+		return _write_dot(graph, 1)
+		
 		
 
 def read(graph, string, fmt):
@@ -135,7 +139,7 @@ def _read_xml(graph, string):
 
 # DOT Language
 
-def _write_dot(graph):
+def _write_dot(graph, labeled):
 	"""
 	Return a string specifying the given graph in DOT Language (which can be used by GraphViz to generate a visualization of the given graph).
 	
@@ -155,11 +159,11 @@ def _write_dot(graph):
 	for each_node in graph.get_nodes():
 		for each_arrow in graph.get_node(each_node):
 			if (not graph.has_edge(each_node, each_arrow)):
-				return _write_dot_digraph(graph)
-	return _write_dot_graph(graph)
+				return _write_dot_digraph(graph, labeled)
+	return _write_dot_graph(graph, labeled)
 
 
-def _write_dot_graph(graph):
+def _write_dot_graph(graph, labeled):
 	"""
 	Return a string specifying the given graph in DOT Language.
 	
@@ -181,13 +185,16 @@ def _write_dot_graph(graph):
 		# Add edges
 		for each_arrow in graph.get_node(each_node):
 			if (graph.has_edge(each_node, each_arrow) and (each_node < each_arrow)):
-				doc = doc + "\t" + each_node + edgemark + each_arrow + " [label= " + str(graph.get_arrow_weight(each_node, each_arrow)) + "]\n"
+				if (labeled):
+					doc = doc + "\t" + each_node + edgemark + each_arrow + " [label= " + str(graph.get_arrow_weight(each_node, each_arrow)) + "]\n"
+				else:
+					doc = doc + "\t" + each_node + edgemark + each_arrow + "\n"
 	# Finish
 	doc = doc + "}"
 	return doc
 
 
-def _write_dot_digraph(graph):
+def _write_dot_digraph(graph, labeled):
 	"""
 	Return a string specifying the given digraph in DOT Language.
 	
@@ -208,7 +215,10 @@ def _write_dot_digraph(graph):
 		doc = doc + "\t" + each_node + "\n"
 		# Add edges
 		for each_arrow in graph.get_node(each_node):
-			doc = doc + "\t" + each_node + edgemark + each_arrow + " [label= " + str(graph.get_arrow_weight(each_node, each_arrow)) + "]\n"
+			if (labeled):
+				doc = doc + "\t" + each_node + edgemark + each_arrow + " [label= " + str(graph.get_arrow_weight(each_node, each_arrow)) + "]\n"
+			else:
+				doc = doc + "\t" + each_node + edgemark + each_arrow + "\n"
 	# Finish
 	doc = doc + "}"
 	return doc

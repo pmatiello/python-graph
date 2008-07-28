@@ -103,6 +103,7 @@ class graph:
 		@param fmt: Output format. Possible formats are:
 			1. 'xml' - XML (default)
 			2. 'dot' - DOT Language (for GraphViz)
+			3. 'dotwt' - DOT Language with weight information
 
 		@rtype:  string
 		@return: String specifying the graph.
