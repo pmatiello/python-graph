@@ -299,6 +299,15 @@ class graph:
 		return self.weights.has_key((u,v)) and self.weights.has_key((v,u))
 
 
+	def add_spanning_tree(self, st):
+		"""
+		"""
+		self.add_nodes(st.keys())
+		for each in st:
+			if (st[each]):
+				self.add_arrow(st[each], each)
+
+
 	def depth_first_search(self, root=None):
 		"""
 		Depht-first search.
@@ -395,8 +404,8 @@ class graph:
 
 		@rtype:  tuple
 		@return: A tuple containing two dictionaries, each keyed by target nodes.
-			1. Shortest path spanning tree (each key points to previous node in the shortest path transversal).
-			2. Shortest distance from given source to each target node.
+			1. Shortest path spanning tree (each key points to previous node in the shortest path transversal)
+			2. Shortest distance from given source to each target node
 		Inaccessible target nodes do not appear in either dictionary.
 		"""
 		return minmax.shortest_path(self, source)
