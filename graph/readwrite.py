@@ -150,11 +150,6 @@ def _write_dot(graph, labeled):
 	@return: String specifying the graph in DOT Language.
 	"""
 
-	# Pre
-	doc = ""
-	edgemark = " -- "
-	docstart = "graph graphname"
-	
 	# Check graph type
 	for each_node in graph.get_nodes():
 		for each_arrow in graph.get_node(each_node):
