@@ -25,7 +25,7 @@
 """
 Accessibility algorithms for python-graph.
 
-@sort: accessibility, connected_components, cut_edges, mutual_accessibility, _cut_dfs, _dfs
+@sort: accessibility, connected_components, cut_edges, cut_nodes, mutual_accessibility, _cut_dfs, _dfs
 """
 
 
@@ -131,7 +131,7 @@ def _dfs(graph, visited, count, node):
 			_dfs(graph, visited, count, each)
 
 
-# Cut Edge identification
+# Cut-Edge and Cut-Vertex identification
 
 def cut_edges(graph):
 	"""
@@ -142,18 +142,52 @@ def cut_edges(graph):
 	"""
 	pre = {}
 	low = {}
+	spanning_tree = {}
 	reply = []
 	count = 0
-	parent = None
 	for each in graph.get_nodes():
 		if (not pre.has_key(each)):
-			_cut_dfs(graph, pre, low, count, reply, each, parent)
+			spanning_tree[each] = None
+			_cut_dfs(graph, spanning_tree, pre, low, count, reply, each)
 	return reply
 
 
-def _cut_dfs(graph, pre, low, count, reply, node, parent):
+def cut_nodes(graph):
 	"""
-	Depth first search adapted for identification of cut-edges.
+	Return the cut-nodes of the given graph.
+	
+	@rtype:  list
+	@return: List of cut-nodes.
+	"""
+	pre = {}
+	low = {}
+	reply = {}
+	spanning_tree = {}
+	count = 0
+	for each in graph.get_nodes():
+		if (not pre.has_key(each)):
+			spanning_tree[each] = None
+			_cut_dfs(graph, spanning_tree, pre, low, count, [], each)
+
+	for each in graph.get_nodes():
+		if (spanning_tree[each] != None):
+			for other in graph.get_node(each):
+				if (pre[other] > pre[each] and low[other] >= pre[each]):
+					reply[each] = 1
+		else:
+			children = 0
+			for other in graph.get_nodes():
+				if (spanning_tree[other] == each):
+					children = children + 1
+			if (children >= 2):
+				reply[each] = 1
+
+	return reply.keys()
+
+
+def _cut_dfs(graph, spanning_tree, pre, low, count, reply, node):
+	"""
+	Depth first search adapted for identification of cut-edges and cut-nodes.
 	
 	@type  graph: graph
 	@param graph: Graph
@@ -182,10 +216,11 @@ def _cut_dfs(graph, pre, low, count, reply, node, parent):
 	
 	for each in graph.get_node(node):
 		if (not pre.has_key(each)):
-			_cut_dfs(graph, pre, low, count, reply, each, node)
+			spanning_tree[each] = node
+			_cut_dfs(graph, spanning_tree, pre, low, count, reply, each)
 			if (low[node] > low[each]):
 				low[node] = low[each]
 			if (low[each] == pre[each]):
 				reply.append((node, each))
-		elif (low[node] > pre[each] and parent != each):
+		elif (low[node] > pre[each] and spanning_tree[node] != each):
 			low[node] = pre[each]
