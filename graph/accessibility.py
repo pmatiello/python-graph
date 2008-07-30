@@ -25,7 +25,7 @@
 """
 Accessibility algorithms for python-graph.
 
-@sort: accessibility, connected_components, mutual_accessibility, _dfs
+@sort: accessibility, connected_components, cut_edges, mutual_accessibility, _cut_dfs, _dfs
 """
 
 
@@ -106,7 +106,7 @@ def connected_components(graph):
 	return visited
 
 
-# Limited DFS implementation used by algorithms here
+# Limited DFS implementations used by algorithms here
 
 def _dfs(graph, visited, count, node):
 	"""
@@ -118,6 +118,9 @@ def _dfs(graph, visited, count, node):
 	@type  visited: dictionary
 	@param visited: List of nodes (visited nodes are marked non-zero).
 
+	@type  count: number
+	@param count: Counter of connected components.
+
 	@type  node: number
 	@param node: Node to be explored by DFS.
 	"""
@@ -127,3 +130,60 @@ def _dfs(graph, visited, count, node):
 		if (not each in visited):
 			_dfs(graph, visited, count, each)
 
+
+# Cut Edge identification
+
+def cut_edges(graph):
+	"""
+	Return the cut-edges of the given graph.
+	
+	@rtype:  list
+	@return: List of cut-edges.
+	"""
+	pre = {}
+	low = {}
+	reply = []
+	count = 0
+	parent = None
+	_cut_dfs(graph, pre, low, count, reply, graph.get_nodes()[0], parent)
+	return reply
+
+
+def _cut_dfs(graph, pre, low, count, reply, node, parent):
+	"""
+	Depth first search adapted for identification of cut-edges.
+	
+	@type  graph: graph
+	@param graph: Graph
+	
+	@type  pre: dictionary
+	@param pre: Graph's preordering.
+	
+	@type  low: dictionary
+	@param low: Associates to each node, the preordering index of the node of lowest preordering accessible from the given node.
+	
+	@type  count: number
+	@param count: Counter for preordering.
+	
+	@type  reply: list
+	@param reply: List of cut-edges.
+	
+	@type  node: *
+	@param node: Node to be explored by DFS.
+	
+	@type  parent: *
+	@param parent: Parent of given node.
+	"""
+	pre[node] = count
+	low[node] = count
+	count = count + 1
+	
+	for each in graph.get_node(node):
+		if (not pre.has_key(each)):
+			_cut_dfs(graph, pre, low, count, reply, each, node)
+			if (low[node] > low[each]):
+				low[node] = low[each]
+			if (low[each] == pre[each]):
+				reply.append((node, each))
+		elif (low[node] > pre[each] and parent != each):
+			low[node] = pre[each]
