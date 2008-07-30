@@ -145,7 +145,9 @@ def cut_edges(graph):
 	reply = []
 	count = 0
 	parent = None
-	_cut_dfs(graph, pre, low, count, reply, graph.get_nodes()[0], parent)
+	for each in graph.get_nodes():
+		if (not pre.has_key(each)):
+			_cut_dfs(graph, pre, low, count, reply, each, parent)
 	return reply
 
 
