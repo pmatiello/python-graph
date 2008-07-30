@@ -346,7 +346,7 @@ class graph:
 		@param root: Optional root node (will explore only root's connected component)
 
 		@rtype:  dictionary
-		@return: Generated spanning_tree
+		@return: Generated spanning tree
 		"""
 		return searching.breadth_first_search(self, root)
 
