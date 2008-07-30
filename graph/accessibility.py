@@ -207,7 +207,7 @@ def _cut_dfs(graph, spanning_tree, pre, low, count, reply, node):
 	@type  reply: list
 	@param reply: List of cut-edges.
 	
-	@type  node: *
+	@type  node: node
 	@param node: Node to be explored by DFS.
 	"""
 	pre[node] = count
