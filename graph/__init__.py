@@ -148,7 +148,7 @@ class graph:
 		"""
 		Add given nodes to the graph.
 		
-		@attention: While nodes can be of any type, it's strongly recommended to use only numbers and single-line strings has node identificators if you intend to use write().
+		@attention: While nodes can be of any type, it's strongly recommended to use only numbers and single-line strings as node identificators if you intend to use write().
 
 		@type  nodelist: list
 		@param nodelist: List of nodes to be added to the graph.
