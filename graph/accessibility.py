@@ -192,6 +192,9 @@ def _cut_dfs(graph, spanning_tree, pre, low, count, reply, node):
 	@type  graph: graph
 	@param graph: Graph
 	
+	@type  spanning_tree: dictionary
+	@param spanning_tree: Spanning tree being built for the graph by DFS.
+
 	@type  pre: dictionary
 	@param pre: Graph's preordering.
 	
@@ -206,9 +209,6 @@ def _cut_dfs(graph, spanning_tree, pre, low, count, reply, node):
 	
 	@type  node: *
 	@param node: Node to be explored by DFS.
-	
-	@type  parent: *
-	@param parent: Parent of given node.
 	"""
 	pre[node] = count
 	low[node] = count
