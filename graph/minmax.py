@@ -37,7 +37,7 @@ __license__ = "MIT"
 
 # Minimal spanning tree
 
-def minimal_spanning_tree(graph):
+def minimal_spanning_tree(graph, root=None):
 	"""
 	Minimal spanning tree.
 
@@ -45,6 +45,9 @@ def minimal_spanning_tree(graph):
 
 	@type  graph: graph
 	@param graph: Graph.
+	
+	@type  root: node
+	@param root: Optional root node (will explore only root's connected component)
 
 	@rtype:  dictionary
 	@return: Generated spanning tree.
@@ -53,16 +56,23 @@ def minimal_spanning_tree(graph):
 	spanning_tree = {}		# MInimal Spanning tree
 
 	# Initialization
-	for each in graph.get_nodes():
-		spanning_tree[each] = None
-	root = 1
+	if (root):
+		visited.append(root)
+		nroot = root
+		spanning_tree[root] = None
+	else:
+		nroot = 1
 	
 	# Algorithm loop
-	while (root):
+	while (nroot):
 		larrow = _lightest_arrow(graph, visited)
 		if (larrow == (-1, -1)):
-			root = _first_unvisited(graph, visited)
-			visited.append(root)
+			if (root):
+				break
+			nroot = _first_unvisited(graph, visited)
+			if (nroot):
+				spanning_tree[nroot] = None
+			visited.append(nroot)
 		else:
 			spanning_tree[larrow[1]] = larrow[0]
 			visited.append(larrow[1])

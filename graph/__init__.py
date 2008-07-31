@@ -412,16 +412,19 @@ class graph:
 		return accessibility.connected_components(self)
 
 
-	def minimal_spanning_tree(self):
+	def minimal_spanning_tree(self, root=None):
 		"""
 		Minimal spanning tree.
+
+		@type  root: node
+		@param root: Optional root node (will explore only root's connected component)
 
 		@attention: Minimal spanning tree meaningful only for weighted graphs.
 
 		@rtype:  list
 		@return: Generated spanning tree.
 		"""
-		return minmax.minimal_spanning_tree(self)
+		return minmax.minimal_spanning_tree(self, root)
 
 
 	def shortest_path(self, source):
