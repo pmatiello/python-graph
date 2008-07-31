@@ -35,10 +35,11 @@ __license__ = "MIT"
 
 
 # Imports
-import searching
 import accessibility
-import sorting
+import generators
 import minmax
+import searching
+import sorting
 import readwrite
 
 
@@ -46,7 +47,7 @@ class graph:
 	"""
 	Graph class.
 
-	@sort: __init__, __len__, __str__, read, write, add_arrow, add_edge, add_graph, add_nodes, add_spanning_tree, del_arrow, del_edge, get_arrow_weight, get_edge_weight, get_node, get_nodes, has_arrow, has_edge, has_node, accessibility, breadth_first_search, connected_components, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
+	@sort: __init__, __len__, __str__, generate, read, write, add_arrow, add_edge, add_graph, add_nodes, add_spanning_tree, del_arrow, del_edge, get_arrow_weight, get_edge_weight, get_node, get_nodes, has_arrow, has_edge, has_node, accessibility, breadth_first_search, connected_components, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
 	"""
 
 
@@ -106,6 +107,19 @@ class graph:
 		@return: String specifying the graph.
 		"""
 		return readwrite.write(self, fmt)
+	
+	
+	def generate(self, num_nodes, num_edges):
+		"""
+		Add nodes and random edges to the graph.
+		
+		@type  num_nodes: number
+		@param num_nodes: Number of nodes.
+		
+		@type  num_edges: number
+		@param num_edges: Number of edges.
+		"""
+		generators.generate(self, num_nodes, num_edges)
 
 
 	def get_nodes(self):

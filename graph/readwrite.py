@@ -175,14 +175,14 @@ def _write_dot_graph(graph, labeled):
 
 	# Add nodes
 	for each_node in graph.get_nodes():
-		doc = doc + "\t" + each_node + "\n"
+		doc = doc + "\t" + str(each_node) + "\n"
 		# Add edges
 		for each_arrow in graph.get_node(each_node):
 			if (graph.has_edge(each_node, each_arrow) and (each_node < each_arrow)):
 				if (labeled):
-					doc = doc + "\t" + each_node + " -- " + each_arrow + " [label= " + str(graph.get_arrow_weight(each_node, each_arrow)) + "]\n"
+					doc = doc + "\t" + str(each_node) + " -- " + str(each_arrow) + " [label= " + str(graph.get_arrow_weight(each_node, each_arrow)) + "]\n"
 				else:
-					doc = doc + "\t" + each_node + " -- " + each_arrow + "\n"
+					doc = doc + "\t" + str(each_node) + " -- " + str(each_arrow) + "\n"
 	# Finish
 	doc = doc + "}"
 	return doc
@@ -205,13 +205,13 @@ def _write_dot_digraph(graph, labeled):
 
 	# Add nodes
 	for each_node in graph.get_nodes():
-		doc = doc + "\t" + each_node + "\n"
+		doc = doc + "\t" + str(each_node) + "\n"
 		# Add edges
 		for each_arrow in graph.get_node(each_node):
 			if (labeled):
-				doc = doc + "\t" + each_node + " -> " + each_arrow + " [label= " + str(graph.get_arrow_weight(each_node, each_arrow)) + "]\n"
+				doc = doc + "\t" + str(each_node) + " -> " + str(each_arrow) + " [label= " + str(graph.get_arrow_weight(each_node, each_arrow)) + "]\n"
 			else:
-				doc = doc + "\t" + each_node + " -> " + each_arrow + "\n"
+				doc = doc + "\t" + str(each_node) + " -> " + str(each_arrow) + "\n"
 	# Finish
 	doc = doc + "}"
 	return doc
