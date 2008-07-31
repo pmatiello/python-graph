@@ -109,7 +109,7 @@ class graph:
 		return readwrite.write(self, fmt)
 	
 	
-	def generate(self, num_nodes, num_edges):
+	def generate(self, num_nodes, num_edges, directed=False):
 		"""
 		Add nodes and random edges to the graph.
 		
@@ -118,8 +118,11 @@ class graph:
 		
 		@type  num_edges: number
 		@param num_edges: Number of edges.
+	
+		@type  directed: boolean
+		@param directed: Wether the generated graph should be directed or not.
 		"""
-		generators.generate(self, num_nodes, num_edges)
+		generators.generate(self, num_nodes, num_edges, directed)
 
 
 	def get_nodes(self):

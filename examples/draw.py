@@ -35,4 +35,4 @@ dot = gr.write(fmt='dot')
 # Print graph as PNG image
 gvv = gv.readstring(dot)
 gv.layout(gvv,'neato')
-gv.render(gvv,'png')
+gv.render(gvv,'png','graph.png')

@@ -40,7 +40,7 @@ from random import randint
 
 # Generator
 
-def generate(graph, num_nodes, num_edges):
+def generate(graph, num_nodes, num_edges, directed=False):
 	"""
 	Add nodes and random edges to the graph.
 	
@@ -52,6 +52,9 @@ def generate(graph, num_nodes, num_edges):
 	
 	@type  num_edges: number
 	@param num_edges: Number of edges.
+	
+	@type  directed: boolean
+	@param directed: Wether the generated graph should be directed or not.
 	"""
 	# Nodes first
 	nodes = xrange(num_nodes)
@@ -61,7 +64,7 @@ def generate(graph, num_nodes, num_edges):
 	edges = []
 	for x in nodes:
 		for y in nodes:
-			if (x > y):
+			if ((directed and x != y) or (x > y)):
 				edges.append((x, y))
 	
 	# Randomize the list
@@ -72,4 +75,7 @@ def generate(graph, num_nodes, num_edges):
 	# Add edges to the graph
 	for i in xrange(num_edges):
 		each = edges[i]
-		graph.add_edge(each[0], each[1])
+		if (directed):
+			graph.add_arrow(each[0], each[1])
+		else:
+			graph.add_edge(each[0], each[1])
