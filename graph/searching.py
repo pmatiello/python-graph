@@ -91,7 +91,7 @@ def _dfs(graph, visited, spanning_tree, pre, post, node):
 	@type  post: list
 	@param post: Graph's postordering.
 
-	@type  node: *
+	@type  node: node
 	@param node: Node to be explored by DFS.
 	"""
 	visited[node] = 1

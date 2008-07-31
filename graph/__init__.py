@@ -139,7 +139,7 @@ class graph:
 		"""
 		Return all outgoing edges from given node.
 
-		@type  node: *
+		@type  node: node
 		@param node: Node identifier
 
 		@rtype:  list
