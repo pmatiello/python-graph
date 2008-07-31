@@ -97,7 +97,7 @@ def _dfs(graph, visited, spanning_tree, pre, post, node):
 	visited[node] = 1
 	pre.append(node)
 	# Explore recursively the connected component
-	for each in graph.get_node(node):
+	for each in graph.get_edges(node):
 		if (not each in visited):
 			spanning_tree[each] = node
 			_dfs(graph, visited, spanning_tree, pre, post, each)
@@ -155,7 +155,7 @@ def _bfs(graph, queue, spanning_tree):
 	while (queue != []):
 		node = queue.pop(0)
 
-		for other in graph.get_node(node):
+		for other in graph.get_edges(node):
 			if (not other in spanning_tree):
 				queue.append(other)
 				spanning_tree[other] = node

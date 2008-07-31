@@ -135,9 +135,9 @@ class graph:
 		return self.nodes.keys()
 
 
-	def get_node(self, node):
+	def get_edges(self, node):
 		"""
-		Return requested node.
+		Return all outgoing edges from given node.
 
 		@type  node: *
 		@param node: Node identifier
@@ -322,7 +322,7 @@ class graph:
 		"""
 		self.add_nodes(graph.get_nodes())
 		for each_node in graph.get_nodes():
-			for each_arrow in graph.get_node(each_node):
+			for each_arrow in graph.get_edges(each_node):
 				self.add_arrow(each_node, each_arrow)
 
 
