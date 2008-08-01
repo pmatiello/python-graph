@@ -7,7 +7,6 @@
 	</node>
 	<node id="Italy">
 		<arrow to="France" wt="3"/>
-		<arrow to="Germany" wt="3"/>
 	</node>
 	<node id="Portugal">
 		<arrow to="Spain" wt="1"/>
@@ -33,7 +32,6 @@
 		<arrow to="France" wt="3"/>
 		<arrow to="Belgium" wt="2"/>
 		<arrow to="Netherlands" wt="2"/>
-		<arrow to="Italy" wt="3"/>
 	</node>
 	<node id="Ireland"/>
 	<node id="Wales">
