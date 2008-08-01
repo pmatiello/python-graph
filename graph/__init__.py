@@ -480,6 +480,8 @@ class hypergraph:
 	To allow that, a structure called hyperedge-node is used here. Ordinary edges then link ordinary nodes to hyperedge-nodes. A hyperedge, as usually understood, is a hyperedge-node and all edges that link to it.
 	
 	@attention: This class is still experimental and incomplete (most functions are stubs).
+	
+	@sort: __init__, __len__, __str__, generate, read, write, add_edge, add_hyperedges, add_nodes, del_edge, get_edge_weight, get_edges, get_nodes, has_edge, has_node, accessibility, breadth_first_search, connected_components, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
 	"""
 
 
@@ -560,35 +562,35 @@ class hypergraph:
 		pass
 
 
-	def get_nodes(self, hyper=True):
+	def get_nodes(self, ordinary=True, hyperedge=True):
 		"""
 		Return node list.
 		
-		@type  hyper: boolean
-		@param hyper: Wether hyperedge-nodes should be returned in the list.
+		@type  ordinary: boolean
+		@param ordinary: Wether ordinary should be returned in the list.
+
+		@type  hyperedge: boolean
+		@param hyperedge: Wether hyperedge-nodes should be returned in the list.
 
 		@rtype:  list
 		@return: Node list.
 		"""
-		if (hyper):
+		if (ordinary and hyperedge):
 			return self.all_nodes.keys()
-		else:
+		elif (ordinary and not hyperedge):
 			return self.nodes.keys()
+		elif (not ordinary and hyperedge):
+			return self.hyperedges
+		else:
+			return []
 
 
-	def get_hyperedges(self):
-		"""
-		Return hyperedge list.
-		
-		@rtype:  list
-		@return: Node list.
-		"""
-		return self.hyperedges.keys()
-
-
-	def get_edges(self, node):
+	def get_edges(self, node, ordinary=False):
 		"""
 		Return all outgoing edges from given node.
+		
+		@type  ordinary: boolean
+		@param ordinary: If set to true, will discover and return adjacent ordinary nodes instead of hyperedge-nodes.
 
 		@type  node: node
 		@param node: Node identifier
@@ -597,7 +599,13 @@ class hypergraph:
 		@return: List of nodes directly accessible from given node.
 		"""
 		if (node in self.nodes):
-			return self.nodes[node]
+			if (discover):
+				reply = []
+				for each in self.nodes[node]:
+					reply = reply + self.hyperedges[each]
+				return reply
+			else:
+				return self.nodes[node]
 		else:
 			return self.hyperedges[node]
 
@@ -728,8 +736,8 @@ class hypergraph:
 		"""
 		st, pre, post = searching.depth_first_search(self, root)
 		
-		nodes = self.get_nodes(hyper=False)
-		hyperedges = self.get_hyperedges()
+		nodes = self.get_nodes(hyperedge=False)
+		hyperedges = self.get_nodes(ordinary=False)
 		
 		for each in st.keys():
 			if (each in nodes):
