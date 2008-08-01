@@ -48,6 +48,8 @@ import readwrite
 class graph:
 	"""
 	Graph class.
+	
+	Graphs are built of nodes and edges (or arrows).
 
 	@sort: __init__, __len__, __str__, generate, read, write, add_arrow, add_edge, add_graph, add_nodes, add_spanning_tree, del_arrow, del_edge, get_arrow_weight, get_edge_weight, get_edges, get_nodes, has_arrow, has_edge, has_node, accessibility, breadth_first_search, connected_components, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
 	"""
@@ -473,6 +475,10 @@ class hypergraph:
 	"""
 	Hypergraph class.
 	
+	Hypergraphs are a generalization of graphs where an edge can connect more than two nodes.
+	
+	To allow that, a structure called hyperedge-node is used here. Ordinary edges then link ordinary nodes to hyperedge-nodes. A hyperedge, as usually understood, is a hyperedge-node and all edges that link to it.
+	
 	@attention: This class is still experimental and incomplete (most functions are stubs).
 	"""
 
@@ -490,20 +496,20 @@ class hypergraph:
 
 	def __str__(self):
 		"""
-		Return a string representing the graph when requested by str() (or print).
+		Return a string representing the hypergraph when requested by str() (or print).
 
 		@rtype:  string
-		@return: String representing the graph.
+		@return: String representing the hypergraph.
 		"""
-		return "<hypergraph object " + str(self.get_nodes()) + " " + str(self.weights) + ">"
+		return "<hypergraph object " + str(self.get_nodes()) + " " + self.get_hyperedges() + " " + str(self.weights) + ">"
 
 
 	def __len__(self):
 		"""
-		Return the size of the graph when requested by len().
+		Return the size of the hypergraph when requested by len().
 
 		@rtype:  number
-		@return: Size of the graph.
+		@return: Size of the hypergraph.
 		"""
 		return len(self.nodes)
 	
@@ -611,7 +617,7 @@ class hypergraph:
 
 	def add_nodes(self, nodelist):
 		"""
-		Add given nodes to the graph.
+		Add given nodes to the hypergraph.
 		
 		@attention: While nodes can be of any type, it's strongly recommended to use only numbers and single-line strings as node identificators if you intend to use write().
 
@@ -625,10 +631,8 @@ class hypergraph:
 
 	def add_hyperedges(self, nodelist):
 		"""
-		Add given hyperedges to the graph.
+		Add given hyperedge-nodes to the hypergraph.
 		
-		@attention: Hyperedges are represented as nodes.
-
 		@type  nodelist: list
 		@param nodelist: List of nodes to be added to the graph.
 		"""
@@ -639,9 +643,7 @@ class hypergraph:
 
 	def add_edge(self, node, hyperedge):
 		"""
-		Add an edge (u,v) to the graph connecting given node and hyperedge.
-
-		@attention: This function should not be used in directed graphs: use add_arrow() instead.
+		Add an edge to the graph connecting given node and hyperedge.
 
 		@type  node: node
 		@param node: Ordinary node.
