@@ -477,7 +477,7 @@ class hypergraph:
 	
 	Hypergraphs are a generalization of graphs where an edge can connect more than two nodes.
 	
-	To allow that, a structure called hyperedge-node is used here. Ordinary edges then link ordinary nodes to hyperedge-nodes. A hyperedge, as usually understood, is a hyperedge-node and all edges that link to it.
+	To allow that, a structure called hyperedge-node is used here. Ordinary edges then link real nodes to hyperedge-nodes. A hyperedge, as usually understood, is composed of a hyperedge-node and all edges that link to it.
 	
 	@attention: This class is still experimental and incomplete (most functions are stubs).
 	
@@ -489,10 +489,9 @@ class hypergraph:
 		"""
 		Initialize a hypergraph.
 		"""
-		self.all_nodes = {}		# Ordinary nodes and hyperedges
-		self.nodes = {}			# Ordinary nodes
+		self.nodes = {}			# Real nodes
 		self.edges = {}			# Ordinary edges (between nodes and hyperedges)
-		self.hyperedges = {} 	# Hyperedges
+		self.hyperedges = {} 	# Hyperedge-nodes
 		self.weights = {}		# Hyperedge weight list
 
 
@@ -562,12 +561,12 @@ class hypergraph:
 		pass
 
 
-	def get_nodes(self, ordinary=True, hyperedge=True):
+	def get_nodes(self, real=True, hyperedge=True):
 		"""
 		Return node list.
 		
-		@type  ordinary: boolean
-		@param ordinary: Wether ordinary should be returned in the list.
+		@type  real: boolean
+		@param real: Wether real nodes should be returned in the list.
 
 		@type  hyperedge: boolean
 		@param hyperedge: Wether hyperedge-nodes should be returned in the list.
@@ -575,22 +574,22 @@ class hypergraph:
 		@rtype:  list
 		@return: Node list.
 		"""
-		if (ordinary and hyperedge):
-			return self.all_nodes.keys()
-		elif (ordinary and not hyperedge):
+		if (real and hyperedge):
+			return self.nodes.keys() + self.hyperedges.keys()
+		elif (real and not hyperedge):
 			return self.nodes.keys()
-		elif (not ordinary and hyperedge):
+		elif (not real and hyperedge):
 			return self.hyperedges
 		else:
 			return []
 
 
-	def get_edges(self, node, ordinary=False):
+	def get_edges(self, node, follow=False):
 		"""
 		Return all outgoing edges from given node.
 		
-		@type  ordinary: boolean
-		@param ordinary: If set to true, will discover and return adjacent ordinary nodes instead of hyperedge-nodes.
+		@type  follow: boolean
+		@param follow: If set to true, will discover and return adjacent real nodes instead of hyperedge-nodes.
 
 		@type  node: node
 		@param node: Node identifier
@@ -599,7 +598,7 @@ class hypergraph:
 		@return: List of nodes directly accessible from given node.
 		"""
 		if (node in self.nodes):
-			if (discover):
+			if (follow):
 				reply = []
 				for each in self.nodes[node]:
 					reply = reply + self.hyperedges[each]
@@ -620,7 +619,7 @@ class hypergraph:
 		@rtype:  boolean
 		@return: Truth-value for node existence.
 		"""
-		return self.all_nodes.has_key(node)
+		return (self.nodes.has_key(node) or self.hyperedges.has_key(node))
 
 
 	def add_nodes(self, nodelist):
@@ -633,7 +632,6 @@ class hypergraph:
 		@param nodelist: List of nodes to be added to the graph.
 		"""
 		for each in nodelist:
-			self.all_nodes[each] = []
 			self.nodes[each] = []
 
 
@@ -645,7 +643,6 @@ class hypergraph:
 		@param nodelist: List of nodes to be added to the graph.
 		"""
 		for each in nodelist:
-			self.all_nodes[each] = []
 			self.hyperedges[each] = []
 
 
@@ -734,21 +731,26 @@ class hypergraph:
 			2. Graph's preordering
 			3. Graph's postordering
 		"""
-		st, pre, post = searching.depth_first_search(self, root)
+		st_, pre_, post_ = searching.depth_first_search(self, root)
+		st = {}
+		pre = []
+		post = []
 		
 		nodes = self.get_nodes(hyperedge=False)
-		hyperedges = self.get_nodes(ordinary=False)
+		hyperedges = self.get_nodes(real=False)
 		
-		for each in st.keys():
+		for each in st_.keys():
 			if (each in nodes):
-				if (st[each] != None and st[each] in hyperedges):
-					st[each] = st[st[each]]
+				if (st_[each] in nodes or st_[each] == None):
+					st[each] = st_[each]
+				else:
+					st[each] = st_[st_[each]]
 
-		for each in st.keys():
-			if (each in hyperedges):
-				del st[each]
-				del pre[pre.index(each)]
-				del post[post.index(each)]
+		for i in xrange(len(pre_)):
+			if (pre_[i] in nodes):
+				pre.append(pre_[i])
+			if (post_[i] in nodes):
+				post.append(post_[i])
 		
 		return st, pre, post
 
