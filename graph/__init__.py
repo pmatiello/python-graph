@@ -51,7 +51,7 @@ class graph:
 	
 	Graphs are built of nodes and edges (or arrows).
 
-	@sort: __init__, __len__, __str__, generate, read, write, add_arrow, add_edge, add_graph, add_nodes, add_spanning_tree, del_arrow, del_edge, get_arrow_weight, get_edge_weight, get_edges, get_nodes, has_arrow, has_edge, has_node, accessibility, breadth_first_search, connected_components, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
+	@sort: __init__, __len__, __str__, generate, read, write, add_arrow, add_edge, add_graph, add_node, add_nodes, add_spanning_tree, del_arrow, del_edge, get_arrow_weight, get_edge_weight, get_edges, get_nodes, has_arrow, has_edge, has_node, accessibility, breadth_first_search, connected_components, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
 	"""
 
 
@@ -165,17 +165,31 @@ class graph:
 		return self.nodes.has_key(node)
 
 
+	def add_node(self, node):
+		"""
+		Add given node to the graph.
+		
+		@attention: While nodes can be of any type, it's strongly recommended to use only numbers and single-line strings as node identifiers if you intend to use write().
+
+		@type  node: node
+		@param node: Node identifier.
+		"""
+		if (not node in self.nodes.keys()):
+			self.nodes[node] = []
+
+
 	def add_nodes(self, nodelist):
 		"""
 		Add given nodes to the graph.
 		
-		@attention: While nodes can be of any type, it's strongly recommended to use only numbers and single-line strings as node identificators if you intend to use write().
+		@attention: While nodes can be of any type, it's strongly recommended to use only numbers and single-line strings as node identifiers if you intend to use write().
 
 		@type  nodelist: list
 		@param nodelist: List of nodes to be added to the graph.
 		"""
 		for each in nodelist:
-			self.nodes[each] = []
+			if (not each in self.nodes.keys()):
+				self.nodes[each] = []
 
 
 	def add_edge(self, u, v, wt=1):
@@ -479,7 +493,7 @@ class hypergraph:
 	
 	@attention: This class is still experimental and incomplete (most functions are stubs).
 	
-	@sort: __init__, __len__, __str__, generate, read, write, add_edge, add_hyperedges, add_nodes, del_edge, get_edge_weight, get_edges, get_nodes, has_edge, has_node, accessibility, breadth_first_search, connected_components, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
+	@sort: __init__, __len__, __str__, generate, read, write, add_edge, add_hyperedge, add_hyperedges, add_hypergraph, add_node, add_nodes, del_edge, get_edge_weight, get_edges, get_nodes, has_edge, has_node, accessibility, breadth_first_search, connected_components, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
 	"""
 
 
@@ -515,6 +529,8 @@ class hypergraph:
 
 	def read(self, string, fmt=None):
 		"""
+		TODO
+		
 		Read a graph from a string. Nodes and arrows specified in the input will be added to the current graph.
 		
 		@type  string: string
@@ -529,6 +545,8 @@ class hypergraph:
 
 	def write(self, fmt=None):
 		"""
+		TODO
+
 		Write the graph to a string. Depending of the output format, this string can be used by read() to rebuild the graph.
 		
 		@type  fmt: string
@@ -545,6 +563,8 @@ class hypergraph:
 	
 	def generate(self, num_nodes, num_edges, directed=False):
 		"""
+		TODO
+		
 		Add nodes and random edges to the graph.
 		
 		@type  num_nodes: number
@@ -620,30 +640,65 @@ class hypergraph:
 		return (self.nodes.has_key(node) or self.hyperedges.has_key(node))
 
 
+	def add_node(self, node):
+		"""
+		Add given real node to the hypergraph.
+		
+		@attention: While nodes can be of any type, it's strongly recommended to use only numbers and single-line strings as node identifiers if you intend to use write().
+
+		@type  node: node
+		@param node: Node identifier.
+		"""
+		if (not node in self.nodes.keys()):
+			self.nodes[node] = []
+
+
 	def add_nodes(self, nodelist):
 		"""
-		Add given nodes to the hypergraph.
+		Add given real nodes to the hypergraph.
 		
-		@attention: While nodes can be of any type, it's strongly recommended to use only numbers and single-line strings as node identificators if you intend to use write().
+		@attention: While nodes can be of any type, it's strongly recommended to use only numbers and single-line strings as node identifiers if you intend to use write().
 
 		@type  nodelist: list
 		@param nodelist: List of nodes to be added to the graph.
 		"""
 		for each in nodelist:
-			self.nodes[each] = []
+			if (not each in self.nodes.keys()):
+				self.nodes[each] = []
 
 
-	def add_hyperedges(self, nodelist):
+	def add_hyperedge(self, hyperedge, wt=1):
 		"""
 		Add given hyperedge-nodes to the hypergraph.
 
-		@attention: While hyperedge-nodes can be of any type, it's strongly recommended to use only numbers and single-line strings as node identificators if you intend to use write().
+		@attention: While hyperedge-nodes can be of any type, it's strongly recommended to use only numbers and single-line strings as node identifiers if you intend to use write().
 		
-		@type  nodelist: list
-		@param nodelist: List of nodes to be added to the graph.
+		@type  hyperedge: node
+		@param hyperedge: Hyperedge-node identifier.
+
+		@type  wt: number
+		@param wt: Edge weight.
 		"""
-		for each in nodelist:
-			self.hyperedges[each] = []
+		if (not hyperedge in self.hyperedges.keys()):
+			self.hyperedges[hyperedge] = []
+			self.weights[hyperedge] = wt
+
+
+	def add_hyperedges(self, edgelist):
+		"""
+		Add given hyperedge-nodes to the hypergraph.
+
+		@attention: While hyperedge-nodes can be of any type, it's strongly recommended to use only numbers and single-line strings as node identifiers if you intend to use write().
+		
+		@attention: All hyperedges added by this function will have the standard weight (wt=1). Use add_hyperedge() instead if you need to set the weight to any other value.
+		
+		@type  edgelist: list
+		@param edgelist: List of hyperedge-nodes to be added to the graph.
+		"""
+		for each in edgelist:
+			if (not each in self.hyperedges.keys()):
+				self.hyperedges[each] = []
+				self.weights[each] = 1
 
 
 	def add_edge(self, node, hyperedge):
@@ -677,6 +732,8 @@ class hypergraph:
 
 	def get_edge_weight(self, node, hyperedge):
 		"""
+		TODO
+		
 		Get the weight of an arrow.
 
 		@type  node: node
@@ -693,6 +750,8 @@ class hypergraph:
 
 	def has_edge(self, node, hyperedge):
 		"""
+		TODO
+		
 		Return whether an edge linking given node and hyperedge-node exists.
 
 		@type  node: node
@@ -709,6 +768,8 @@ class hypergraph:
 
 	def add_hypergraph(self, graph):
 		"""
+		TODO
+		
 		Add other hypergraph to the hypergraph.
 		
 		@type  graph: graph
@@ -756,6 +817,8 @@ class hypergraph:
 
 	def breadth_first_search(self, root=None):
 		"""
+		TODO
+		
 		Breadth-first search.
 
 		@type  root: node
@@ -769,6 +832,8 @@ class hypergraph:
 
 	def accessibility(self):
 		"""
+		TODO
+		
 		Accessibility matrix (transitive closure).
 
 		@rtype:  dictionary
@@ -779,6 +844,8 @@ class hypergraph:
 
 	def mutual_accessibility(self):
 		"""
+		TODO
+		
 		Mutual-accessibility matrix (strongly connected components).
 
 		@rtype:  list
@@ -789,6 +856,8 @@ class hypergraph:
 
 	def topological_sorting(self):
 		"""
+		TODO
+		
 		Topological sorting.
 
 		@attention: Topological sorting is meaningful only for directed acyclic graphs.
@@ -801,6 +870,8 @@ class hypergraph:
 
 	def connected_components(self):
 		"""
+		TODO
+		
 		Connected components.
 
 		@attention: Indentification of connected components is meaningful only for non-directed graphs.
@@ -813,6 +884,8 @@ class hypergraph:
 
 	def minimal_spanning_tree(self, root=None):
 		"""
+		TODO
+		
 		Minimal spanning tree.
 
 		@type  root: node
@@ -828,6 +901,8 @@ class hypergraph:
 
 	def shortest_path(self, source):
 		"""
+		TODO
+		
 		Return the shortest path distance between source node and all other nodes using Dijkstra's algorithm.
 		
 		@attention: All weights must be nonnegative.
@@ -846,6 +921,8 @@ class hypergraph:
 	
 	def cut_edges(self):
 		"""
+		TODO
+		
 		Return the cut-edges of the given graph.
 		
 		@rtype:  list
@@ -856,6 +933,8 @@ class hypergraph:
 
 	def cut_nodes(self):
 		"""
+		TODO
+		
 		Return the cut-nodes of the given graph.
 		
 		@rtype:  list
