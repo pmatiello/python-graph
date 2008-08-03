@@ -514,7 +514,7 @@ class hypergraph:
 		@rtype:  string
 		@return: String representing the hypergraph.
 		"""
-		return "<hypergraph object " + str(self.get_nodes()) + " " + str(self.get_hyperedges()) + " " + str(self.weights) + ">"
+		return "<hypergraph object " + str(self.get_nodes()) + " " + str(self.weights) + ">"
 
 
 	def __len__(self):
@@ -745,13 +745,11 @@ class hypergraph:
 		@rtype:  number
 		@return: Edge weight
 		"""
-		pass
+		return self.weights[hyperedge]
 
 
 	def has_edge(self, node, hyperedge):
 		"""
-		TODO
-		
 		Return whether an edge linking given node and hyperedge-node exists.
 
 		@type  node: node
@@ -763,7 +761,7 @@ class hypergraph:
 		@rtype:  boolean
 		@return: Truth-value for edge existence.
 		"""
-		pass
+		return (hyperedge in self.nodes[node] and node in self.hyperedges[hyperedge])
 
 
 	def add_hypergraph(self, graph):
