@@ -901,8 +901,6 @@ class hypergraph:
 
 	def connected_components(self):
 		"""
-		TODO
-		
 		Connected components.
 
 		@attention: Indentification of connected components is meaningful only for non-directed graphs.
@@ -910,8 +908,16 @@ class hypergraph:
 		@rtype:  dictionary
 		@return: Pairing that associates each node to its connected component.
 		"""
-		pass
-
+		components_ = accessibility.connected_components(self)
+		components = {}
+		
+		nodes = self.get_nodes(hyperedge=False)
+		
+		for each in components_.keys():
+			if (each in nodes):
+				components[each] = components_[each]
+		
+		return components
 
 	def minimal_spanning_tree(self, root=None):
 		"""
