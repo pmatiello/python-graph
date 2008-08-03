@@ -669,7 +669,7 @@ class hypergraph:
 
 	def add_hyperedge(self, hyperedge, wt=1):
 		"""
-		Add given hyperedge-nodes to the hypergraph.
+		Add given hyperedge-node to the hypergraph.
 
 		@attention: While hyperedge-nodes can be of any type, it's strongly recommended to use only numbers and single-line strings as node identifiers if you intend to use write().
 		
