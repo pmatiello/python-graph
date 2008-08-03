@@ -819,7 +819,6 @@ class hypergraph:
 		post = []
 		
 		nodes = self.get_nodes(hyperedge=False)
-		hyperedges = self.get_nodes(real=False)
 		
 		for each in st_.keys():
 			if (each in nodes):
@@ -849,7 +848,19 @@ class hypergraph:
 		@rtype:  dictionary
 		@return: Generated spanning tree
 		"""
-		pass
+		st_ = searching.breadth_first_search(self, root)
+		st = {}
+		
+		nodes = self.get_nodes(hyperedge=False)
+		
+		for each in st_.keys():
+			if (each in nodes):
+				if (st_[each] in nodes or st_[each] == None):
+					st[each] = st_[each]
+				else:
+					st[each] = st_[st_[each]]
+
+		return st
 
 
 	def accessibility(self):
