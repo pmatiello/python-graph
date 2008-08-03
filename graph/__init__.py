@@ -870,7 +870,18 @@ class hypergraph:
 		@rtype:  dictionary
 		@return: Accessibility information for each node.
 		"""
-		pass
+		access_ = accessibility.accessibility(self)
+		access = {}
+		
+		nodes = self.get_nodes(hyperedge=False)
+		
+		for each in self.nodes.keys():
+			access[each] = []
+			for other in access_[each]:
+				if (other in nodes):
+					access[each].append(other)
+		
+		return access
 
 
 	def mutual_accessibility(self):
