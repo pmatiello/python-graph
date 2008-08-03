@@ -194,7 +194,7 @@ class graph:
 		@param wt: Edge weight.
 		
 		"""
-		if (v not in self.nodes[u]):
+		if (v not in self.nodes[u] and u not in self.nodes[v]):
 			self.nodes[u].append(v)
 			self.nodes[v].append(u)
 			self.weights[(u, v)] = wt
@@ -231,11 +231,10 @@ class graph:
 		@type  v: node
 		@param v: Other node.
 		"""
-		if (v in self.nodes[u]):
-			self.nodes[u].remove(v)
-			self.nodes[v].remove(u)
-			del(self.weights[(u,v)])
-			del(self.weights[(v,u)])
+		self.nodes[u].remove(v)
+		self.nodes[v].remove(u)
+		del(self.weights[(u,v)])
+		del(self.weights[(v,u)])
 
 
 	def del_arrow(self, u, v):
@@ -248,9 +247,8 @@ class graph:
 		@type  v: node
 		@param v: Other node.
 		"""
-		if (v in self.nodes[u]):
-			self.nodes[u].remove(v)
-			del(self.weights[(u,v)])
+		self.nodes[u].remove(v)
+		del(self.weights[(u,v)])
 
 
 	def get_arrow_weight(self, u, v):
@@ -502,7 +500,7 @@ class hypergraph:
 		@rtype:  string
 		@return: String representing the hypergraph.
 		"""
-		return "<hypergraph object " + str(self.get_nodes()) + " " + self.get_hyperedges() + " " + str(self.weights) + ">"
+		return "<hypergraph object " + str(self.get_nodes()) + " " + str(self.get_hyperedges()) + " " + str(self.weights) + ">"
 
 
 	def __len__(self):
@@ -513,7 +511,7 @@ class hypergraph:
 		@return: Size of the hypergraph.
 		"""
 		return len(self.nodes)
-	
+
 
 	def read(self, string, fmt=None):
 		"""
@@ -638,6 +636,8 @@ class hypergraph:
 	def add_hyperedges(self, nodelist):
 		"""
 		Add given hyperedge-nodes to the hypergraph.
+
+		@attention: While hyperedge-nodes can be of any type, it's strongly recommended to use only numbers and single-line strings as node identificators if you intend to use write().
 		
 		@type  nodelist: list
 		@param nodelist: List of nodes to be added to the graph.
@@ -648,43 +648,42 @@ class hypergraph:
 
 	def add_edge(self, node, hyperedge):
 		"""
-		Add an edge to the graph connecting given node and hyperedge.
+		Add an edge to the hypergraph connecting given node and hyperedge-node.
 
 		@type  node: node
-		@param node: Ordinary node.
+		@param node: Real node.
 
 		@type  hyperedge: node
-		@param hyperedge: Hyperedge node.
+		@param hyperedge: Hyperedge-node.
 		"""
 		if (hyperedge not in self.nodes[node]):
 			self.nodes[node].append(hyperedge)
 			self.hyperedges[hyperedge].append(node)
 
 
-	def del_edge(self, u, v):
+	def del_edge(self, node, hyperedge):
 		"""
-		Remove an edge (u, v) from the graph.
+		Remove the edge linking given node and hyperedge-node from the hypergraph.
 
-		@attention: This function should not be used in directed graphs: use del_arrow() instead.
+		@type  node: node
+		@param node: Real node.
 
-		@type  u: node
-		@param u: One node.
-
-		@type  v: node
-		@param v: Other node.
+		@type  hyperedge: node
+		@param hyperedge: Hyperedge-node.
 		"""
-		pass
+		self.nodes[node].remove(hyperedge)
+		self.nodes[hyperedge].remove(node)
 
 
-	def get_edge_weight(self, u, v):
+	def get_edge_weight(self, node, hyperedge):
 		"""
 		Get the weight of an arrow.
 
-		@type  u: node
-		@param u: One node.
+		@type  node: node
+		@param node: Real node.
 
-		@type  v: node
-		@param v: Other node.
+		@type  hyperedge: node
+		@param hyperedge: Hyperedge-node.
 		
 		@rtype:  number
 		@return: Edge weight
@@ -692,15 +691,15 @@ class hypergraph:
 		pass
 
 
-	def has_edge(self, u, v):
+	def has_edge(self, node, hyperedge):
 		"""
-		Return whether an edge between nodes u and v exists.
+		Return whether an edge linking given node and hyperedge-node exists.
 
-		@type  u: node
-		@param u: One node.
+		@type  node: node
+		@param node: Real node.
 
-		@type  v: node
-		@param v: Other node.
+		@type  hyperedge: node
+		@param hyperedge: Hyperedge-node.
 
 		@rtype:  boolean
 		@return: Truth-value for edge existence.
@@ -708,9 +707,9 @@ class hypergraph:
 		pass
 
 
-	def add_graph(self, graph):
+	def add_hypergraph(self, graph):
 		"""
-		Add other graph to the graph.
+		Add other hypergraph to the hypergraph.
 		
 		@type  graph: graph
 		@param graph: Graph
