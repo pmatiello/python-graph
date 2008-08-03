@@ -860,11 +860,9 @@ class hypergraph:
 
 		return st
 
-
+ 
 	def accessibility(self):
 		"""
-		TODO
-		
 		Accessibility matrix (transitive closure).
 
 		@rtype:  dictionary
@@ -929,6 +927,7 @@ class hypergraph:
 				components[each] = components_[each]
 		
 		return components
+
 
 	def minimal_spanning_tree(self, root=None):
 		"""
