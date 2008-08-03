@@ -493,7 +493,7 @@ class hypergraph:
 	
 	@attention: This class is still experimental and incomplete (most functions are stubs).
 	
-	@sort: __init__, __len__, __str__, generate, read, write, add_edge, add_hyperedge, add_hyperedges, add_hypergraph, add_node, add_nodes, del_edge, get_edge_weight, get_edges, get_nodes, has_edge, has_node, accessibility, breadth_first_search, connected_components, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
+	@sort: __init__, __len__, __str__, generate, read, write, add_edge, add_hyperedge, add_hyperedges, add_hypergraph, add_node, add_nodes, del_edge, get_edge_weight, get_edges, get_hyperedge_weight, get_nodes, has_edge, has_node, accessibility, breadth_first_search, connected_components, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
 	"""
 
 
@@ -627,17 +627,30 @@ class hypergraph:
 			return self.hyperedges[node]
 
 
-	def has_node(self, node):
+	def has_node(self, node, real=True, hyperedge=True):
 		"""
 		Return whether the requested node exists.
 
 		@type  node: node
 		@param node: Node identifier
 
+		@type  real: boolean
+		@param real: Wether real nodes should considered.
+
+		@type  hyperedge: boolean
+		@param hyperedge: Wether hyperedge-nodes should be considered.
+
 		@rtype:  boolean
 		@return: Truth-value for node existence.
 		"""
-		return (self.nodes.has_key(node) or self.hyperedges.has_key(node))
+		if (real and hyperedge):
+			return (self.nodes.has_key(node) or self.hyperedges.has_key(node))
+		elif (real and not hyperedge):
+			return self.nodes.has_key(node)
+		elif (not real and hyperedge):
+			return self.hyperedges.has_key(node)
+		else:
+			return None
 
 
 	def add_node(self, node):
@@ -732,12 +745,23 @@ class hypergraph:
 
 	def get_edge_weight(self, node, hyperedge):
 		"""
-		TODO
-		
-		Get the weight of an arrow.
+		Get the weight of an edge.
 
 		@type  node: node
 		@param node: Real node.
+
+		@type  hyperedge: node
+		@param hyperedge: Hyperedge-node.
+		
+		@rtype:  number
+		@return: Edge weight
+		"""
+		return self.weights[hyperedge]
+
+
+	def get_hyperedge_weight(self, hyperedge):
+		"""
+		Get the weight of an hyperedge.
 
 		@type  hyperedge: node
 		@param hyperedge: Hyperedge-node.
