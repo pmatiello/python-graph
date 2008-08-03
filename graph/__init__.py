@@ -838,8 +838,6 @@ class hypergraph:
 
 	def breadth_first_search(self, root=None):
 		"""
-		TODO
-		
 		Breadth-first search.
 
 		@type  root: node
