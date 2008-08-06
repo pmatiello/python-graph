@@ -597,7 +597,7 @@ class hypergraph:
 		elif (real and not hyperedge):
 			return self.nodes.keys()
 		elif (not real and hyperedge):
-			return self.hyperedges
+			return self.hyperedges.keys()
 		else:
 			return []
 
@@ -676,8 +676,7 @@ class hypergraph:
 		@param nodelist: List of nodes to be added to the graph.
 		"""
 		for each in nodelist:
-			if (not each in self.nodes.keys()):
-				self.nodes[each] = []
+			self.add_node(each)
 
 
 	def add_hyperedge(self, hyperedge, wt=1):
@@ -709,9 +708,7 @@ class hypergraph:
 		@param edgelist: List of hyperedge-nodes to be added to the graph.
 		"""
 		for each in edgelist:
-			if (not each in self.hyperedges.keys()):
-				self.hyperedges[each] = []
-				self.weights[each] = 1
+				self.add_hyperedge(each)
 
 
 	def add_edge(self, node, hyperedge):
