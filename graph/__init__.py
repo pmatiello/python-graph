@@ -487,13 +487,11 @@ class hypergraph:
 	"""
 	Hypergraph class.
 	
-	Hypergraphs are a generalization of graphs where an edge can connect more than two nodes.
+	Hypergraphs are a generalization of graphs where an edge (hyperedge) can connect more than two nodes.
 	
-	To allow that, a structure called hyperedge-node is used here. Ordinary edges then link real nodes to hyperedge-nodes. A hyperedge, as usually understood, is composed of a hyperedge-node and all edges that link to it.
+	@attention: This class is still experimental and incomplete.
 	
-	@attention: This class is still experimental and incomplete (most functions are stubs).
-	
-	@sort: __init__, __len__, __str__, generate, read, write, add_edge, add_hyperedge, add_hyperedges, add_hypergraph, add_node, add_nodes, del_edge, get_edge_weight, get_edges, get_hyperedge_weight, get_nodes, has_edge, has_node, accessibility, breadth_first_search, connected_components, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
+	@sort: __init__, __len__, __str__, generate, read, write, add_hyperedge, add_hyperedges, add_hypergraph, add_node, add_nodes, del_edge, get_hyperedges, get_links, get_nodes, has_node, link
 	"""
 
 
@@ -501,10 +499,9 @@ class hypergraph:
 		"""
 		Initialize a hypergraph.
 		"""
-		self.nodes = {}			# Real nodes
-		self.edges = {}			# Ordinary edges (between nodes and hyperedges)
-		self.hyperedges = {} 	# Hyperedge-nodes
-		self.weights = {}		# Hyperedge weight list
+		self.nodes = {}			# Nodes
+		self.hyperedges = {} 	# Hyperedges
+		self.graph = graph()	# Ordinary graph
 
 
 	def __str__(self):
@@ -514,7 +511,7 @@ class hypergraph:
 		@rtype:  string
 		@return: String representing the hypergraph.
 		"""
-		return "<hypergraph object " + str(self.get_nodes()) + " " + str(self.weights) + ">"
+		pass
 
 
 	def __len__(self):
@@ -529,8 +526,6 @@ class hypergraph:
 
 	def read(self, string, fmt=None):
 		"""
-		TODO
-		
 		Read a graph from a string. Nodes and arrows specified in the input will be added to the current graph.
 		
 		@type  string: string
@@ -545,8 +540,6 @@ class hypergraph:
 
 	def write(self, fmt=None):
 		"""
-		TODO
-
 		Write the graph to a string. Depending of the output format, this string can be used by read() to rebuild the graph.
 		
 		@type  fmt: string
@@ -563,8 +556,6 @@ class hypergraph:
 	
 	def generate(self, num_nodes, num_edges, directed=False):
 		"""
-		TODO
-		
 		Add nodes and random edges to the graph.
 		
 		@type  num_nodes: number
@@ -579,52 +570,40 @@ class hypergraph:
 		pass
 
 
-	def get_nodes(self, real=True, hyperedge=True):
+	def get_nodes(self):
 		"""
 		Return node list.
 		
-		@type  real: boolean
-		@param real: Wether real nodes should be returned in the list.
-
-		@type  hyperedge: boolean
-		@param hyperedge: Wether hyperedge-nodes should be returned in the list.
-
 		@rtype:  list
 		@return: Node list.
 		"""
-		if (real and hyperedge):
-			return self.nodes.keys() + self.hyperedges.keys()
-		elif (real and not hyperedge):
-			return self.nodes.keys()
-		elif (not real and hyperedge):
-			return self.hyperedges.keys()
-		else:
-			return []
+		return self.nodes.keys()
 
 
-	def get_edges(self, node, follow=False):
+	def get_hyperedges(self, node):
 		"""
-		Return all outgoing edges from given node.
+		Return all hyperedges linked to the given node.
 		
-		@type  follow: boolean
-		@param follow: If set to true, will discover and return adjacent real nodes instead of hyperedge-nodes.
-
 		@type  node: node
 		@param node: Node identifier
 
 		@rtype:  list
-		@return: List of nodes directly accessible from given node.
+		@return: List of hyperedges linked to the given node.
 		"""
-		if (node in self.nodes):
-			if (follow):
-				reply = []
-				for each in self.nodes[node]:
-					reply = reply + self.hyperedges[each]
-				return reply
-			else:
-				return self.nodes[node]
-		else:
-			return self.hyperedges[node]
+		return self.nodes[node]
+	
+	
+	def get_links(self, hyperedge):
+		"""
+		Return all nodes linked to the given hyperedge
+		
+		@type  hyperedge: hyperedge
+		@param hyperedge: Hyperedge identifier
+		
+		@rtype:  list
+		@return: List of nodes linked to the given hyperedge.
+		"""
+		return self.hyperedges[hyperedge]
 
 
 	def has_node(self, node, real=True, hyperedge=True):
@@ -643,19 +622,12 @@ class hypergraph:
 		@rtype:  boolean
 		@return: Truth-value for node existence.
 		"""
-		if (real and hyperedge):
-			return (self.nodes.has_key(node) or self.hyperedges.has_key(node))
-		elif (real and not hyperedge):
-			return self.nodes.has_key(node)
-		elif (not real and hyperedge):
-			return self.hyperedges.has_key(node)
-		else:
-			return None
+		return self.nodes.has_key(node)
 
 
 	def add_node(self, node):
 		"""
-		Add given real node to the hypergraph.
+		Add given node to the hypergraph.
 		
 		@attention: While nodes can be of any type, it's strongly recommended to use only numbers and single-line strings as node identifiers if you intend to use write().
 
@@ -664,11 +636,12 @@ class hypergraph:
 		"""
 		if (not node in self.nodes.keys()):
 			self.nodes[node] = []
+			self.graph.add_node((node,'n'))
 
 
 	def add_nodes(self, nodelist):
 		"""
-		Add given real nodes to the hypergraph.
+		Add given nodes to the hypergraph.
 		
 		@attention: While nodes can be of any type, it's strongly recommended to use only numbers and single-line strings as node identifiers if you intend to use write().
 
@@ -679,51 +652,47 @@ class hypergraph:
 			self.add_node(each)
 
 
-	def add_hyperedge(self, hyperedge, wt=1):
+	def add_hyperedge(self, hyperedge):
 		"""
-		Add given hyperedge-node to the hypergraph.
+		Add given hyperedge to the hypergraph.
 
 		@attention: While hyperedge-nodes can be of any type, it's strongly recommended to use only numbers and single-line strings as node identifiers if you intend to use write().
 		
-		@type  hyperedge: node
-		@param hyperedge: Hyperedge-node identifier.
-
-		@type  wt: number
-		@param wt: Edge weight.
+		@type  hyperedge: hyperedge
+		@param hyperedge: Hyperedge identifier.
 		"""
 		if (not hyperedge in self.hyperedges.keys()):
 			self.hyperedges[hyperedge] = []
-			self.weights[hyperedge] = wt
+			self.graph.add_node((hyperedge,'h'))
 
 
 	def add_hyperedges(self, edgelist):
 		"""
-		Add given hyperedge-nodes to the hypergraph.
+		Add given hyperedges to the hypergraph.
 
 		@attention: While hyperedge-nodes can be of any type, it's strongly recommended to use only numbers and single-line strings as node identifiers if you intend to use write().
-		
-		@attention: All hyperedges added by this function will have the standard weight (wt=1). Use add_hyperedge() instead if you need to set the weight to any other value.
 		
 		@type  edgelist: list
 		@param edgelist: List of hyperedge-nodes to be added to the graph.
 		"""
 		for each in edgelist:
-				self.add_hyperedge(each)
+			self.add_hyperedge(each)
 
 
-	def add_edge(self, node, hyperedge):
+	def link(self, node, hyperedge):
 		"""
-		Add an edge to the hypergraph connecting given node and hyperedge-node.
+		Link given node and hyperedge.
 
 		@type  node: node
-		@param node: Real node.
+		@param node: Node.
 
 		@type  hyperedge: node
-		@param hyperedge: Hyperedge-node.
+		@param hyperedge: Hyperedge.
 		"""
 		if (hyperedge not in self.nodes[node]):
 			self.nodes[node].append(hyperedge)
 			self.hyperedges[hyperedge].append(node)
+			self.graph.add_edge((node,'n'), (hyperedge,'h'))
 
 
 	def del_edge(self, node, hyperedge):
@@ -737,52 +706,7 @@ class hypergraph:
 		@param hyperedge: Hyperedge-node.
 		"""
 		self.nodes[node].remove(hyperedge)
-		self.nodes[hyperedge].remove(node)
-
-
-	def get_edge_weight(self, node, hyperedge):
-		"""
-		Get the weight of an edge.
-
-		@type  node: node
-		@param node: Real node.
-
-		@type  hyperedge: node
-		@param hyperedge: Hyperedge-node.
-		
-		@rtype:  number
-		@return: Edge weight
-		"""
-		return self.weights[hyperedge]
-
-
-	def get_hyperedge_weight(self, hyperedge):
-		"""
-		Get the weight of an hyperedge.
-
-		@type  hyperedge: node
-		@param hyperedge: Hyperedge-node.
-		
-		@rtype:  number
-		@return: Edge weight
-		"""
-		return self.weights[hyperedge]
-
-
-	def has_edge(self, node, hyperedge):
-		"""
-		Return whether an edge linking given node and hyperedge-node exists.
-
-		@type  node: node
-		@param node: Real node.
-
-		@type  hyperedge: node
-		@param hyperedge: Hyperedge-node.
-
-		@rtype:  boolean
-		@return: Truth-value for edge existence.
-		"""
-		return (hyperedge in self.nodes[node] and node in self.hyperedges[hyperedge])
+		self.hyperedges[hyperedge].remove(node)
 
 
 	def add_hypergraph(self, graph):
@@ -797,67 +721,6 @@ class hypergraph:
 		pass
 
 
-	def depth_first_search(self, root=None):
-		"""
-		Depht-first search.
-		
-		@type  root: node
-		@param root: Optional root node (will explore only root's connected component)
-
-		@rtype:  tuple
-		@return:  tupple containing a dictionary and two lists:
-			1. Generated spanning tree
-			2. Graph's preordering
-			3. Graph's postordering
-		"""
-		st_, pre_, post_ = searching.depth_first_search(self, root)
-		st = {}
-		pre = []
-		post = []
-		
-		nodes = self.get_nodes(hyperedge=False)
-		
-		for each in st_.keys():
-			if (each in nodes):
-				if (st_[each] in nodes or st_[each] == None):
-					st[each] = st_[each]
-				else:
-					st[each] = st_[st_[each]]
-
-		for i in xrange(len(pre_)):
-			if (pre_[i] in nodes):
-				pre.append(pre_[i])
-			if (post_[i] in nodes):
-				post.append(post_[i])
-		
-		return st, pre, post
-
-
-	def breadth_first_search(self, root=None):
-		"""
-		Breadth-first search.
-
-		@type  root: node
-		@param root: Optional root node (will explore only root's connected component)
-
-		@rtype:  dictionary
-		@return: Generated spanning tree
-		"""
-		st_ = searching.breadth_first_search(self, root)
-		st = {}
-		
-		nodes = self.get_nodes(hyperedge=False)
-		
-		for each in st_.keys():
-			if (each in nodes):
-				if (st_[each] in nodes or st_[each] == None):
-					st[each] = st_[each]
-				else:
-					st[each] = st_[st_[each]]
-
-		return st
-
- 
 	def accessibility(self):
 		"""
 		Accessibility matrix (transitive closure).
@@ -865,123 +728,14 @@ class hypergraph:
 		@rtype:  dictionary
 		@return: Accessibility information for each node.
 		"""
-		access_ = accessibility.accessibility(self)
+		access_ = accessibility.accessibility(self.graph)
 		access = {}
 		
-		nodes = self.get_nodes(hyperedge=False)
-		
-		for each in self.nodes.keys():
-			access[each] = []
-			for other in access_[each]:
-				if (other in nodes):
-					access[each].append(other)
+		for each in access_.keys():
+			if (each[1] == 'n'):
+				access[each[0]] = []
+				for other in access_[each]:
+					if (other[1] == 'n'):
+						access[each[0]].append(other[0])
 		
 		return access
-
-
-	def mutual_accessibility(self):
-		"""
-		TODO
-		
-		Mutual-accessibility matrix (strongly connected components).
-
-		@rtype:  list
-		@return: Mutual-accessibility information for each node.
-		"""
-		pass
-
-
-	def topological_sorting(self):
-		"""
-		TODO
-		
-		Topological sorting.
-
-		@attention: Topological sorting is meaningful only for directed acyclic graphs.
-
-		@rtype:  list
-		@return: Topological sorting for the graph.
-		"""
-		pass
-
-
-	def connected_components(self):
-		"""
-		Connected components.
-
-		@attention: Indentification of connected components is meaningful only for non-directed graphs.
-
-		@rtype:  dictionary
-		@return: Pairing that associates each node to its connected component.
-		"""
-		components_ = accessibility.connected_components(self)
-		components = {}
-		
-		nodes = self.get_nodes(hyperedge=False)
-		
-		for each in components_.keys():
-			if (each in nodes):
-				components[each] = components_[each]
-		
-		return components
-
-
-	def minimal_spanning_tree(self, root=None):
-		"""
-		TODO
-		
-		Minimal spanning tree.
-
-		@type  root: node
-		@param root: Optional root node (will explore only root's connected component)
-
-		@attention: Minimal spanning tree meaningful only for weighted graphs.
-
-		@rtype:  list
-		@return: Generated spanning tree.
-		"""
-		pass
-
-
-	def shortest_path(self, source):
-		"""
-		TODO
-		
-		Return the shortest path distance between source node and all other nodes using Dijkstra's algorithm.
-		
-		@attention: All weights must be nonnegative.
-
-		@type  source: node
-		@param source: Node from which to start the search.
-
-		@rtype:  tuple
-		@return: A tuple containing two dictionaries, each keyed by target nodes.
-			1. Shortest path spanning tree (each key points to previous node in the shortest path transversal)
-			2. Shortest distance from given source to each target node
-		Inaccessible target nodes do not appear in either dictionary.
-		"""
-		pass
-	
-	
-	def cut_edges(self):
-		"""
-		TODO
-		
-		Return the cut-edges of the given graph.
-		
-		@rtype:  list
-		@return: List of cut-edges.
-		"""
-		pass
-
-
-	def cut_nodes(self):
-		"""
-		TODO
-		
-		Return the cut-nodes of the given graph.
-		
-		@rtype:  list
-		@return: List of cut-nodes.
-		"""
-		pass
