@@ -491,7 +491,7 @@ class hypergraph:
 	
 	@attention: This class is still experimental and incomplete.
 	
-	@sort: __init__, __len__, __str__, generate, read, write, add_hyperedge, add_hyperedges, add_hypergraph, add_node, add_nodes, del_edge, get_hyperedges, get_links, get_nodes, has_node, link
+	@sort: __init__, __len__, __str__, generate, read, write, add_hyperedge, add_hyperedges, add_hypergraph, add_node, add_nodes, get_hyperedges, get_links, get_nodes, has_node, link, unlink
 	"""
 
 
@@ -606,18 +606,12 @@ class hypergraph:
 		return self.hyperedges[hyperedge]
 
 
-	def has_node(self, node, real=True, hyperedge=True):
+	def has_node(self, node):
 		"""
 		Return whether the requested node exists.
 
 		@type  node: node
 		@param node: Node identifier
-
-		@type  real: boolean
-		@param real: Wether real nodes should considered.
-
-		@type  hyperedge: boolean
-		@param hyperedge: Wether hyperedge-nodes should be considered.
 
 		@rtype:  boolean
 		@return: Truth-value for node existence.
@@ -695,15 +689,15 @@ class hypergraph:
 			self.graph.add_edge((node,'n'), (hyperedge,'h'))
 
 
-	def del_edge(self, node, hyperedge):
+	def unlink(self, node, hyperedge):
 		"""
-		Remove the edge linking given node and hyperedge-node from the hypergraph.
+		Unlink given node and hyperedge.
 
 		@type  node: node
-		@param node: Real node.
+		@param node: Node.
 
-		@type  hyperedge: node
-		@param hyperedge: Hyperedge-node.
+		@type  hyperedge: hyperedge
+		@param hyperedge: Hyperedge.
 		"""
 		self.nodes[node].remove(hyperedge)
 		self.hyperedges[hyperedge].remove(node)
