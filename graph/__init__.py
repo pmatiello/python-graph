@@ -188,8 +188,7 @@ class graph:
 		@param nodelist: List of nodes to be added to the graph.
 		"""
 		for each in nodelist:
-			if (not each in self.nodes.keys()):
-				self.nodes[each] = []
+			self.add_node(each)
 
 
 	def add_edge(self, u, v, wt=1):
@@ -733,3 +732,20 @@ class hypergraph:
 						access[each[0]].append(other[0])
 		
 		return access
+	
+	
+	def connected_components(self):
+		"""
+		Connected components.
+
+		@rtype:  dictionary
+		@return: Pairing that associates each node to its connected component.
+		"""
+		components_ = accessibility.connected_components(self.graph)
+		components = {}
+		
+		for each in components_.keys():
+			if (each[1] == 'n'):
+				components[each[0]] = components_[each]
+		
+		return components
