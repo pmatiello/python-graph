@@ -171,10 +171,6 @@ def cut_nodes(graph):
 			spanning_tree[each] = None
 			_cut_dfs(graph, spanning_tree, pre, low, [], each)
 
-	print "node","\t\t","low","\t","pre"
-	for each in graph.get_nodes():
-		print each, "\t", low[each], "\t", pre[each]
-
 	# Find cuts
 	for each in graph.get_nodes():
 		if (spanning_tree[each] != None):					# If node is not a root
