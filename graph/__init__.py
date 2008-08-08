@@ -762,7 +762,7 @@ class hypergraph:
 		cut_nodes = []
 		
 		for each in cut_nodes_:
-			if (each[1] == 'h'):
+			if (each[1] == 'n'):
 				cut_nodes.append(each[0])
 		
 		return cut_nodes
