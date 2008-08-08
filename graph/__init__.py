@@ -704,8 +704,6 @@ class hypergraph:
 
 	def add_hypergraph(self, graph):
 		"""
-		TODO
-		
 		Add other hypergraph to the hypergraph.
 		
 		@type  graph: graph
