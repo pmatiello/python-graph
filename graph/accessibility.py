@@ -159,27 +159,30 @@ def cut_nodes(graph):
 	@rtype:  list
 	@return: List of cut-nodes.
 	"""
-	pre = {}
-	low = {}
+	pre = {}	# Pre-ordering
+	low = {}	# Lowest pre[] reachable from this node going down the spanning tree plus only one edge up
 	reply = {}
 	spanning_tree = {}
 	count = 0
+
+	# Create spanning trees, calculate pre[], low[]
 	for each in graph.get_nodes():
 		if (not pre.has_key(each)):
 			spanning_tree[each] = None
 			_cut_dfs(graph, spanning_tree, pre, low, count, [], each)
 
+	# Find cuts
 	for each in graph.get_nodes():
-		if (spanning_tree[each] != None):
+		if (spanning_tree[each] != None):									# If node is not a root
 			for other in graph.get_edges(each):
-				if (pre[other] > pre[each] and low[other] >= pre[each]):
+				if (pre[other] > pre[each] and low[other] >= pre[each]):	# No back-edge from other to a ancestral of each
 					reply[each] = 1
-		else:
+		else:																# If node is a root
 			children = 0
 			for other in graph.get_nodes():
 				if (spanning_tree[other] == each):
 					children = children + 1
-			if (children >= 2):
+			if (children >= 2):												# root is cut-vertex iff it has two or more children
 				reply[each] = 1
 
 	return reply.keys()
