@@ -215,3 +215,19 @@ def _write_dot_digraph(graph, labeled):
 	# Finish
 	doc = doc + "}"
 	return doc
+
+
+def _write_dot_hypergraph(graph):
+	# Start document
+	doc = ""
+	doc = doc + "graph graphname" + "\n{\n"
+
+	# Add nodes
+	for each_hyperedge in graph.hyperedges:
+		doc = doc + "\t" + str(each_hyperedge) + " [shape=point]\n"
+	for each_node in graph.get_nodes():
+		for each_link in graph.get_hyperedges(each_node):
+			doc = doc + "\t" + str(each_node) + " -- " + str(each_link) + "\n"
+
+	doc = doc + "}"
+	return doc

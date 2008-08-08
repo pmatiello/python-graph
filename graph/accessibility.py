@@ -33,7 +33,6 @@ Accessibility algorithms for python-graph.
 __authors__ = "Pedro Matiello"
 __license__ = "MIT"
 
-
 # Transitive-closure
 
 def accessibility(graph):
@@ -144,11 +143,12 @@ def cut_edges(graph):
 	low = {}
 	spanning_tree = {}
 	reply = []
-	count = 0
+	pre[None] = 0
+
 	for each in graph.get_nodes():
 		if (not pre.has_key(each)):
 			spanning_tree[each] = None
-			_cut_dfs(graph, spanning_tree, pre, low, count, reply, each)
+			_cut_dfs(graph, spanning_tree, pre, low, reply, each)
 	return reply
 
 
@@ -163,32 +163,36 @@ def cut_nodes(graph):
 	low = {}	# Lowest pre[] reachable from this node going down the spanning tree plus only one edge up
 	reply = {}
 	spanning_tree = {}
-	count = 0
-
+	pre[None] = 0
+	
 	# Create spanning trees, calculate pre[], low[]
 	for each in graph.get_nodes():
 		if (not pre.has_key(each)):
 			spanning_tree[each] = None
-			_cut_dfs(graph, spanning_tree, pre, low, count, [], each)
+			_cut_dfs(graph, spanning_tree, pre, low, [], each)
+
+	print "node","\t\t","low","\t","pre"
+	for each in graph.get_nodes():
+		print each, "\t", low[each], "\t", pre[each]
 
 	# Find cuts
 	for each in graph.get_nodes():
-		if (spanning_tree[each] != None):									# If node is not a root
+		if (spanning_tree[each] != None):					# If node is not a root
 			for other in graph.get_edges(each):
-				if (pre[other] > pre[each] and low[other] >= pre[each]):	# No back-edge from other to a ancestral of each
+				if (low[other] >= pre[each] and spanning_tree[other] == each): # No back-edge from descendent to a ancestral of each
 					reply[each] = 1
-		else:																# If node is a root
+		else:												# If node is a root
 			children = 0
 			for other in graph.get_nodes():
 				if (spanning_tree[other] == each):
 					children = children + 1
-			if (children >= 2):												# root is cut-vertex iff it has two or more children
+			if (children >= 2):								# root is cut-vertex iff it has two or more children
 				reply[each] = 1
 
 	return reply.keys()
 
 
-def _cut_dfs(graph, spanning_tree, pre, low, count, reply, node):
+def _cut_dfs(graph, spanning_tree, pre, low, reply, node):
 	"""
 	Depth first search adapted for identification of cut-edges and cut-nodes.
 	
@@ -203,24 +207,21 @@ def _cut_dfs(graph, spanning_tree, pre, low, count, reply, node):
 	
 	@type  low: dictionary
 	@param low: Associates to each node, the preordering index of the node of lowest preordering accessible from the given node.
-	
-	@type  count: number
-	@param count: Counter for preordering.
-	
+
 	@type  reply: list
 	@param reply: List of cut-edges.
 	
 	@type  node: node
 	@param node: Node to be explored by DFS.
 	"""
-	pre[node] = count
-	low[node] = count
-	count = count + 1
+	pre[node] = pre[None]
+	low[node] = pre[None]
+	pre[None] = pre[None] + 1
 	
 	for each in graph.get_edges(node):
 		if (not pre.has_key(each)):
 			spanning_tree[each] = node
-			_cut_dfs(graph, spanning_tree, pre, low, count, reply, each)
+			_cut_dfs(graph, spanning_tree, pre, low, reply, each)
 			if (low[node] > low[each]):
 				low[node] = low[each]
 			if (low[each] == pre[each]):
