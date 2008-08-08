@@ -25,7 +25,7 @@
 """
 Functions for reading and writing graphs.
 
-@sort: read, write, _read_xml, _write_xml
+@sort: read, write, write_hypergraph
 """
 
 
@@ -65,7 +65,31 @@ def write(graph, fmt):
 		return _write_dot(graph, 0)
 	elif (fmt == 'dotwt'):
 		return _write_dot(graph, 1)
-		
+
+
+def write_hypergraph(hypergraph, fmt):
+	"""
+	Write the hypergraph to a string. Depending of the output format, this string can be used by read() to rebuild the graph.
+	
+	@type  hypergraph: hypergraph
+	@param hypergraph: Hypergraph.
+
+	@type  fmt: string
+	@param fmt: Output format. Possible formats are:
+		1. 'xml' - XML (default)
+		2. 'dot' - DOT Language (for GraphViz)
+		3. 'dotclr' - DOT Language (with coloured hyperedges)
+
+	@rtype:  string
+	@return: String specifying the graph.
+	"""
+	if (fmt == None):
+		fmt = 'xml'
+	
+	if (fmt == 'xml'):
+		return _write_xml_hypergraph(hypergraph)
+	elif (fmt == 'dot'):
+		return _write_dot_hypergraph(hypergraph)	
 		
 
 def read(graph, string, fmt):
@@ -149,7 +173,6 @@ def _write_dot(graph, labeled):
 	@rtype:  string
 	@return: String specifying the graph in DOT Language.
 	"""
-
 	# Check graph type
 	for each_node in graph.get_nodes():
 		for each_arrow in graph.get_edges(each_node):
@@ -168,7 +191,6 @@ def _write_dot_graph(graph, labeled):
 	@rtype:  string
 	@return: String specifying the graph in DOT Language.
 	"""
-
 	# Start document
 	doc = ""
 	doc = doc + "graph graphname" + "\n{\n"
@@ -198,7 +220,6 @@ def _write_dot_digraph(graph, labeled):
 	@rtype:  string
 	@return: String specifying the graph in DOT Language.
 	"""
-
 	# Start document
 	doc = ""
 	doc = doc + "digraph graphname" + "\n{\n"
@@ -218,6 +239,15 @@ def _write_dot_digraph(graph, labeled):
 
 
 def _write_dot_hypergraph(graph):
+	"""
+	Return a string specifying the given hypergraph in DOT Language.
+	
+	@type  graph: hypergraph
+	@param graph: Hypergraph.
+
+	@rtype:  string
+	@return: String specifying the hypergraph in DOT Language.
+	"""
 	# Start document
 	doc = ""
 	doc = doc + "graph graphname" + "\n{\n"

@@ -550,7 +550,7 @@ class hypergraph:
 		@rtype:  string
 		@return: String specifying the graph.
 		"""
-		return readwrite._write_dot_hypergraph(self)
+		return readwrite.write_hypergraph(self, fmt)
 	
 	
 	def generate(self, num_nodes, num_edges, directed=False):
