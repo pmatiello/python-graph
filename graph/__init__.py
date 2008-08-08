@@ -749,3 +749,20 @@ class hypergraph:
 				components[each[0]] = components_[each]
 		
 		return components
+
+	
+	def cut_nodes(self):
+		"""
+		Return the cut-nodes of the given hypergraph.
+		
+		@rtype:  list
+		@return: List of cut-nodes.
+		"""
+		cut_nodes_ = accessibility.cut_nodes(self.graph)
+		cut_nodes = []
+		
+		for each in cut_nodes_:
+			if (each[1] == 'n'):
+				cut_nodes.append(each[0])
+		
+		return cut_nodes
