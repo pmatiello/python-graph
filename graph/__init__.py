@@ -83,7 +83,7 @@ class graph:
 		return len(self.nodes)
 	
 
-	def read(self, string, fmt=None):
+	def read(self, string, fmt='xml'):
 		"""
 		Read a graph from a string. Nodes and arrows specified in the input will be added to the current graph.
 		
@@ -94,10 +94,11 @@ class graph:
 		@param fmt: Input format. Possible formats are:
 			1. 'xml' - XML (default)
 		"""
-		readwrite.read(self, string, fmt)	
+		if (fmt == 'xml'):
+			readwrite.read_xml(string)
 
 
-	def write(self, fmt=None):
+	def write(self, fmt='xml'):
 		"""
 		Write the graph to a string. Depending of the output format, this string can be used by read() to rebuild the graph.
 		
@@ -110,9 +111,14 @@ class graph:
 		@rtype:  string
 		@return: String specifying the graph.
 		"""
-		return readwrite.write(self, fmt)
-	
-	
+		if (fmt == 'xml'):
+			return readwrite.write_xml(self)
+		elif (fmt == 'dot'):
+			return readwrite.write_dot(self)
+		elif (fmt == 'dotwt'):
+			return readwrite.write_dot(self, labeled=True)
+
+
 	def generate(self, num_nodes, num_edges, directed=False):
 		"""
 		Add nodes and random edges to the graph.
@@ -124,7 +130,7 @@ class graph:
 		@param num_edges: Number of edges.
 	
 		@type  directed: boolean
-		@param directed: Wether the generated graph should be directed or not.
+		@param directed: Whether the generated graph should be directed or not.
 		"""
 		generators.generate(self, num_nodes, num_edges, directed)
 
@@ -545,12 +551,17 @@ class hypergraph:
 		@param fmt: Output format. Possible formats are:
 			1. 'xml' - XML (default)
 			2. 'dot' - DOT Language (for GraphViz)
-			3. 'dotwt' - DOT Language with weight information
+			3. 'dotclr' - DOT Language, coloured
 
 		@rtype:  string
 		@return: String specifying the graph.
 		"""
-		return readwrite.write_hypergraph(self, fmt)
+		if (fmt == 'xml'):
+			return readwrite.write_xml_hypergraph(self)
+		elif (fmt == 'dot'):
+			return readwrite.write_dot_hypergraph(self)
+		elif (fmt == 'dotclr'):
+			return readwrite.write_dot_hypergraph(self, coloured=True)
 	
 	
 	def generate(self, num_nodes, num_edges, directed=False):
@@ -564,7 +575,7 @@ class hypergraph:
 		@param num_edges: Number of edges.
 	
 		@type  directed: boolean
-		@param directed: Wether the generated graph should be directed or not.
+		@param directed: Whether the generated graph should be directed or not.
 		"""
 		pass
 
@@ -579,30 +590,32 @@ class hypergraph:
 		return self.nodes.keys()
 
 
-	def get_hyperedges(self, node):
+	def get_hyperedges(self):
 		"""
-		Return all hyperedges linked to the given node.
-		
-		@type  node: node
-		@param node: Node identifier
+		Return hyperedge list.
 
 		@rtype:  list
 		@return: List of hyperedges linked to the given node.
 		"""
-		return self.nodes[node]
-	
-	
-	def get_links(self, hyperedge):
+		return self.hyperedges.keys()
+
+
+	def get_links(self, obj):
 		"""
-		Return all nodes linked to the given hyperedge
+		Return all objects linked to the given one.
 		
-		@type  hyperedge: hyperedge
-		@param hyperedge: Hyperedge identifier
+		If given a node, linked hyperedges will be returned. If given a hyperedge, linked nodes will be returned.
+		
+		@type  obj: node or hyperedge
+		@param obj: Object identifier.
 		
 		@rtype:  list
-		@return: List of nodes linked to the given hyperedge.
+		@return: List of objects linked to the given one.
 		"""
-		return self.hyperedges[hyperedge]
+		if (obj in self.nodes):
+			return self.nodes[obj]
+		else:
+			return self.hyperedges[hyperedge]
 
 
 	def has_node(self, node):

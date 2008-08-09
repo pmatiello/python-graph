@@ -25,7 +25,7 @@
 """
 Functions for reading and writing graphs.
 
-@sort: read, write, write_hypergraph
+@sort: read_xml, write_xml, write_dot, write_dot_hypergraph
 """
 
 
@@ -38,81 +38,17 @@ __license__ = "MIT"
 from xml.dom.minidom import Document, parseString
 
 
-# Stubs
-
-def write(graph, fmt):
-	"""
-	Write the graph to a string. Depending of the output format, this string can be used by read() to rebuild the graph.
-	
-	@type  graph: graph
-	@param graph: Graph.
-
-	@type  fmt: string
-	@param fmt: Output format. Possible formats are:
-		1. 'xml' - XML (default)
-		2. 'dot' - DOT Language (for GraphViz)
-		3. 'dotwt' - DOT Language with weight information
-
-	@rtype:  string
-	@return: String specifying the graph.
-	"""
-	if (fmt == None):
-		fmt = 'xml'
-	
-	if (fmt == 'xml'):
-		return _write_xml(graph)
-	elif (fmt == 'dot'):
-		return _write_dot(graph, 0)
-	elif (fmt == 'dotwt'):
-		return _write_dot(graph, 1)
-
-
-def write_hypergraph(hypergraph, fmt):
-	"""
-	Write the hypergraph to a string. Depending of the output format, this string can be used by read() to rebuild the graph.
-	
-	@type  hypergraph: hypergraph
-	@param hypergraph: Hypergraph.
-
-	@type  fmt: string
-	@param fmt: Output format. Possible formats are:
-		1. 'xml' - XML (default)
-		2. 'dot' - DOT Language (for GraphViz)
-		3. 'dotclr' - DOT Language (with coloured hyperedges)
-
-	@rtype:  string
-	@return: String specifying the graph.
-	"""
-	if (fmt == None):
-		fmt = 'xml'
-	
-	if (fmt == 'xml'):
-		return _write_xml_hypergraph(hypergraph)
-	elif (fmt == 'dot'):
-		return _write_dot_hypergraph(hypergraph)	
-		
-
-def read(graph, string, fmt):
-	"""
-	Read a graph from a string. Nodes and arrows specified in the input will be added to the current graph.
-	
-	@type  string: string
-	@param string: Input string specifying a graph.
-
-	@type  fmt: string
-	@param fmt: Input format. Possible formats are:
-		1. 'xml' - XML (default)
-	"""
-	if (fmt == None):
-		fmt = 'xml'
-	
-	if (fmt == 'xml'):
-		return _read_xml(graph, string)
+# Values
+colors = ['aquamarine4', 'blue4', 'brown4', 'cornflowerblue', 'cyan4',
+			'darkgreen', 'darkorange3', 'darkorchid4', 'darkseagreen4', 'darkslategray',
+			'deeppink4', 'deepskyblue4', 'firebrick3', 'hotpink3', 'indianred3',
+			'indigo', 'lightblue4', 'lightseagreen', 'lightskyblue4', 'magenta4',
+			'maroon', 'palevioletred3', 'steelblue', 'violetred3']
 
 
 # XML
 
-def _write_xml(graph):
+def write_xml(graph):
 	"""
 	Return a string specifying the given graph as a XML document.
 	
@@ -144,7 +80,7 @@ def _write_xml(graph):
 	return grxml.toprettyxml()
 
 
-def _read_xml(graph, string):
+def read_xml(graph, string):
 	"""
 	Read a graph from a XML document. Nodes and arrows specified in the input will be added to the current graph.
 	
@@ -163,12 +99,15 @@ def _read_xml(graph, string):
 
 # DOT Language
 
-def _write_dot(graph, labeled):
+def write_dot(graph, labeled=False):
 	"""
 	Return a string specifying the given graph in DOT Language (which can be used by GraphViz to generate a visualization of the given graph).
 	
 	@type  graph: graph
 	@param graph: Graph.
+	
+	@type  labeled: boolean
+	@param labeled: Whether edges/arrows should be labeled with its weight.
 
 	@rtype:  string
 	@return: String specifying the graph in DOT Language.
@@ -188,12 +127,16 @@ def _write_dot_graph(graph, labeled):
 	@type  graph: graph
 	@param graph: Graph.
 
+	@type  labeled: boolean
+	@param labeled: Whether edges should be labeled with its weight.
+
 	@rtype:  string
 	@return: String specifying the graph in DOT Language.
 	"""
 	# Start document
 	doc = ""
 	doc = doc + "graph graphname" + "\n{\n"
+	label = "\n"
 
 	# Add nodes
 	for each_node in graph.get_nodes():
@@ -202,9 +145,8 @@ def _write_dot_graph(graph, labeled):
 		for each_arrow in graph.get_edges(each_node):
 			if (graph.has_edge(each_node, each_arrow) and (each_node < each_arrow)):
 				if (labeled):
-					doc = doc + "\t" + str(each_node) + " -- " + str(each_arrow) + " [label= " + str(graph.get_arrow_weight(each_node, each_arrow)) + "]\n"
-				else:
-					doc = doc + "\t" + str(each_node) + " -- " + str(each_arrow) + "\n"
+					label = " [label= " + str(graph.get_arrow_weight(each_node, each_arrow)) + "]\n"
+				doc = doc + "\t" + str(each_node) + " -- " + str(each_arrow) + label
 	# Finish
 	doc = doc + "}"
 	return doc
@@ -217,12 +159,16 @@ def _write_dot_digraph(graph, labeled):
 	@type  graph: graph
 	@param graph: Graph.
 
+	@type  labeled: boolean
+	@param labeled: Whether arrows should be labeled with its weight.
+
 	@rtype:  string
 	@return: String specifying the graph in DOT Language.
 	"""
 	# Start document
 	doc = ""
 	doc = doc + "digraph graphname" + "\n{\n"
+	label = "\n"
 
 	# Add nodes
 	for each_node in graph.get_nodes():
@@ -230,20 +176,22 @@ def _write_dot_digraph(graph, labeled):
 		# Add edges
 		for each_arrow in graph.get_edges(each_node):
 			if (labeled):
-				doc = doc + "\t" + str(each_node) + " -> " + str(each_arrow) + " [label= " + str(graph.get_arrow_weight(each_node, each_arrow)) + "]\n"
-			else:
-				doc = doc + "\t" + str(each_node) + " -> " + str(each_arrow) + "\n"
+				label = " [label= " + str(graph.get_arrow_weight(each_node, each_arrow)) + "]\n"
+			doc = doc + "\t" + str(each_node) + " -> " + str(each_arrow) + label
 	# Finish
 	doc = doc + "}"
 	return doc
 
 
-def _write_dot_hypergraph(graph):
+def write_dot_hypergraph(hypergraph, coloured=False):
 	"""
 	Return a string specifying the given hypergraph in DOT Language.
 	
-	@type  graph: hypergraph
-	@param graph: Hypergraph.
+	@type  hypergraph: hypergraph
+	@param hypergraph: Hypergraph.
+	
+	@type  coloured: boolean
+	@param coloured: Whether hyperedges should be coloured.
 
 	@rtype:  string
 	@return: String specifying the hypergraph in DOT Language.
@@ -251,13 +199,25 @@ def _write_dot_hypergraph(graph):
 	# Start document
 	doc = ""
 	doc = doc + "graph graphname" + "\n{\n"
+	colortable = {}
+	colorcount = 0
+
 
 	# Add nodes
-	for each_hyperedge in graph.hyperedges:
-		doc = doc + "\t" + str(each_hyperedge) + " [shape=point]\n"
-	for each_node in graph.get_nodes():
-		for each_link in graph.get_hyperedges(each_node):
-			doc = doc + "\t" + str(each_node) + " -- " + str(each_link) + "\n"
+	color = ''
+	for each_hyperedge in hypergraph.get_hyperedges():
+		colortable[each_hyperedge] = colors[colorcount % len(colors)]
+		colorcount = colorcount + 1
+		if (coloured):
+			color = " color=" + colortable[each_hyperedge]
+		doc = doc + "\t" + str(each_hyperedge) + " [" + "shape=point" + color + "]\n"
+	
+	color = "\n"
+	for each_node in hypergraph.get_nodes():
+		for each_link in hypergraph.get_links(each_node):
+			if (coloured):
+				color = " [color=" + colortable[each_link] + "]\n"
+			doc = doc + "\t" + str(each_node) + " -- " + str(each_link) + color
 
 	doc = doc + "}"
 	return doc

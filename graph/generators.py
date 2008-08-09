@@ -54,7 +54,7 @@ def generate(graph, num_nodes, num_edges, directed=False):
 	@param num_edges: Number of edges.
 	
 	@type  directed: boolean
-	@param directed: Wether the generated graph should be directed or not.
+	@param directed: Whether the generated graph should be directed or not.
 	"""
 	# Nodes first
 	nodes = xrange(num_nodes)
