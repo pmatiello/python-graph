@@ -80,6 +80,42 @@ def write_xml(graph):
 	return grxml.toprettyxml()
 
 
+def write_xml_hypergraph(hypergraph):
+	"""
+	Return a string specifying the given hypergraph as a XML document.
+	
+	@type  hypergraph: hypergraph
+	@param hypergraph: Hypergraph.
+
+	@rtype:  string
+	@return: String specifying the graph as a XML document.
+	"""
+
+	# Document root
+	grxml = Document()
+	grxmlr = grxml.createElement('hypergraph')
+	grxml.appendChild(grxmlr)
+
+	# Each node...
+	nodes = hypergraph.get_nodes()
+	hyperedges = hypergraph.get_hyperedges()
+	for each_node in (nodes + hyperedges):
+		if (each_node in nodes):
+			node = grxml.createElement('node')
+		else:
+			node = grxml.createElement('hyperedge')
+		node.setAttribute('id',str(each_node))
+		grxmlr.appendChild(node)
+
+		# and its outgoing arrows
+		for each_arrow in hypergraph.get_links(each_node):
+			arrow = grxml.createElement('link')
+			arrow.setAttribute('to',str(each_arrow))
+			node.appendChild(arrow)
+
+	return grxml.toprettyxml()
+
+
 def read_xml(graph, string):
 	"""
 	Read a graph from a XML document. Nodes and arrows specified in the input will be added to the current graph.
@@ -92,9 +128,30 @@ def read_xml(graph, string):
 	"""
 	dom = parseString(string)
 	for each_node in dom.getElementsByTagName("node"):
-		graph.add_nodes([each_node.getAttribute('id')])
+		graph.add_node(each_node.getAttribute('id'))
 		for each_arrow in each_node.getElementsByTagName("arrow"):
 			graph.add_arrow(each_node.getAttribute('id'), each_arrow.getAttribute('to'), wt=float(each_arrow.getAttribute('wt')))
+
+
+def read_xml_hypergraph(hypergraph, string):
+	"""
+	Read a graph from a XML document. Nodes and hyperedges specified in the input will be added to the current graph.
+	
+	@type  hypergraph: hypergraph
+	@param hypergraph: Hypergraph
+
+	@type  string: string
+	@param string: Input string in XML format specifying a graph.
+	"""
+	dom = parseString(string)
+	for each_node in dom.getElementsByTagName("node"):
+		hypergraph.add_nodes(each_node.getAttribute('id'))
+	for each_node in dom.getElementsByTagName("hyperedge"):
+		hypergraph.add_hyperedges(each_node.getAttribute('id'))
+	dom = parseString(string)
+	for each_node in dom.getElementsByTagName("node"):
+		for each_arrow in each_node.getElementsByTagName("link"):
+			hypergraph.link(each_node.getAttribute('id'), each_arrow.getAttribute('to'))
 
 
 # DOT Language

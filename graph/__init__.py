@@ -95,7 +95,7 @@ class graph:
 			1. 'xml' - XML (default)
 		"""
 		if (fmt == 'xml'):
-			readwrite.read_xml(string)
+			readwrite.read_xml(self, string)
 
 
 	def write(self, fmt='xml'):
@@ -516,7 +516,7 @@ class hypergraph:
 		@rtype:  string
 		@return: String representing the hypergraph.
 		"""
-		pass
+		return "<hypergraph object " + str(self.get_nodes()) + " " + str(self.hyperedges) + ">"
 
 
 	def __len__(self):
@@ -529,7 +529,7 @@ class hypergraph:
 		return len(self.nodes)
 
 
-	def read(self, string, fmt=None):
+	def read(self, string, fmt='xml'):
 		"""
 		Read a graph from a string. Nodes and arrows specified in the input will be added to the current graph.
 		
@@ -540,10 +540,11 @@ class hypergraph:
 		@param fmt: Input format. Possible formats are:
 			1. 'xml' - XML (default)
 		"""
-		pass
+		if (fmt == 'xml'):
+			readwrite.read_xml_hypergraph(self, string)
 
 
-	def write(self, fmt=None):
+	def write(self, fmt='xml'):
 		"""
 		Write the graph to a string. Depending of the output format, this string can be used by read() to rebuild the graph.
 		
@@ -615,7 +616,7 @@ class hypergraph:
 		if (obj in self.nodes):
 			return self.nodes[obj]
 		else:
-			return self.hyperedges[hyperedge]
+			return self.hyperedges[obj]
 
 
 	def has_node(self, node):
