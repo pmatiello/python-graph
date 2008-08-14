@@ -531,7 +531,7 @@ class hypergraph:
 
 	def read(self, string, fmt='xml'):
 		"""
-		Read a graph from a string. Nodes and arrows specified in the input will be added to the current graph.
+		Read a hypergraph from a string. Nodes and hyperedges specified in the input will be added to the current graph.
 		
 		@type  string: string
 		@param string: Input string specifying a graph.
@@ -546,7 +546,7 @@ class hypergraph:
 
 	def write(self, fmt='xml'):
 		"""
-		Write the graph to a string. Depending of the output format, this string can be used by read() to rebuild the graph.
+		Write the hypergraph to a string. Depending of the output format, this string can be used by read() to rebuild the graph.
 		
 		@type  fmt: string
 		@param fmt: Output format. Possible formats are:
