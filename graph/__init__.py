@@ -51,7 +51,7 @@ class graph:
 	
 	Graphs are built of nodes and edges (or arrows).
 
-	@sort: __init__, __len__, __str__, generate, read, write, add_arrow, add_edge, add_graph, add_node, add_nodes, add_spanning_tree, del_arrow, del_edge, get_arrow_weight, get_edge_weight, get_edges, get_nodes, has_arrow, has_edge, has_node, accessibility, breadth_first_search, connected_components, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
+	@sort: __init__, __len__, __str__, generate, read, write, add_arrow, add_edge, add_graph, add_node, add_nodes, complete, add_spanning_tree, del_arrow, del_edge, get_arrow_weight, get_edge_weight, get_edges, get_nodes, has_arrow, has_edge, has_node, inverse, accessibility, breadth_first_search, connected_components, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
 	"""
 
 
@@ -332,6 +332,33 @@ class graph:
 		@return: Truth-value for edge existence.
 		"""
 		return self.weights.has_key((u,v)) and self.weights.has_key((v,u))
+	
+	
+	def complete(self):
+		"""
+		Make the graph a complete graph.
+		
+		@attention: This will modify the current graph.
+		"""
+		for each in self.get_nodes():
+			for other in self.get_nodes():
+				if (each != other):
+					self.add_arrow(each, other)
+	
+	
+	def inverse(self):
+		"""
+		Return the inverse of the graph.
+		
+		@rtype:  graph
+		@return: Complement graph for the graph.
+		"""
+		inv = graph()
+		inv.add_nodes(self.get_nodes())
+		inv.complete()
+		for each in self.weights.keys():
+			inv.del_arrow(each[0], each[1])
+		return inv
 
 
 	def add_graph(self, graph):
