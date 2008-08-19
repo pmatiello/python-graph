@@ -30,7 +30,7 @@ A library for working with graphs in Python.
 
 
 # Module metadata
-__authors__ = "Pedro Matiello"
+__authors__ = "Pedro Matiello, Christian Muise"
 __license__ = "MIT"
 
 
@@ -822,3 +822,18 @@ class hypergraph:
 				cut_nodes.append(each[0])
 		
 		return cut_nodes
+		
+	def rank(self):
+		"""
+		Return the rank of the given hypergraph.
+		
+		@rtype:  int
+		@return: Rank of graph.
+		"""
+		max_rank = 0
+		
+		for each in hyperedges:
+			if len(each) > max_rank:
+				max_rank = len(each)
+				
+		return max_rank
