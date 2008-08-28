@@ -51,7 +51,7 @@ class graph:
 	
 	Graphs are built of nodes and edges (or arrows).
 
-	@sort: __init__, __len__, __str__, generate, read, write, add_arrow, add_edge, add_graph, add_node, add_nodes, complete, add_spanning_tree, del_arrow, del_edge, get_arrow_weight, get_edge_weight, get_edges, get_nodes, has_arrow, has_edge, has_node, inverse, accessibility, breadth_first_search, connected_components, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
+	@sort: __init__, __len__, __str__, generate, read, write, add_arrow, add_edge, add_graph, add_node, add_nodes, complete, add_spanning_tree, del_arrow, del_edge, get_arrow_weight, get_edge_weight, get_edges, get_neighbours, get_nodes, has_arrow, has_edge, has_node, inverse, accessibility, breadth_first_search, connected_components, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
 	"""
 
 
@@ -380,7 +380,7 @@ class graph:
 		"""
 		self.add_nodes(graph.get_nodes())
 		for each_node in graph.get_nodes():
-			for each_arrow in graph.get_edges(each_node):
+			for each_arrow in graph.get_neighbours(each_node):
 				self.add_arrow(each_node, each_arrow)
 
 
