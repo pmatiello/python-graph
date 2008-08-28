@@ -26,7 +26,7 @@ gr.add_edge("Germany","Belgium")
 gr.add_edge("Germany","Netherlands")
 gr.add_edge("England","Wales")
 gr.add_edge("England","Scotland")
-gr.add_edge("Scotland","Wales")
+gr.add_edge("Scotland","Wales",label="moo")
 
 # Print to DOT Language
 dot = gr.write(fmt='dot')
