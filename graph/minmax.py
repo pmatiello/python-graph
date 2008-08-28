@@ -115,7 +115,7 @@ def _lightest_arrow(graph, visited):
 	lightest_arrow = (-1, -1)
 	weight = -1
 	for each in visited:
-		for other in graph.get_edges(each):
+		for other in graph.get_neighbours(each):
 			if (not other in visited):
 				w = graph.get_arrow_weight(each, other)
 				if (w < weight or weight < 0):
@@ -164,7 +164,7 @@ def shortest_path(graph, source):
 
 		# Process reachable, remaining nodes from u
 		if (dist.has_key(u)):
-			for v in graph.get_edges(u):
+			for v in graph.get_neighbours(u):
 				if v in q:
 					alt = dist[u] + graph.get_arrow_weight(u, v)
 					if (not dist.has_key(v)) or (alt < dist[v]):

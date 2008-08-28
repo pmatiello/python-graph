@@ -145,9 +145,9 @@ class graph:
 		return self.nodes.keys()
 
 
-	def get_edges(self, node):
+	def get_neighbours(self, node):
 		"""
-		Return all outgoing edges from given node.
+		Return all nodes that have an incoming arrow from the given node.
 
 		@type  node: node
 		@param node: Node identifier
@@ -156,6 +156,16 @@ class graph:
 		@return: List of nodes directly accessible from given node.
 		"""
 		return self.nodes[node]
+	
+	
+	def get_edges(self):
+		"""
+		Return all edges/arrows in the graph.
+		
+		@rtype:  list
+		@return: List of all edges/arrows in the graph.
+		"""
+		return self.weights.keys()
 
 
 	def has_node(self, node):

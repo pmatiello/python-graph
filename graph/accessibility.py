@@ -125,7 +125,7 @@ def _dfs(graph, visited, count, node):
 	"""
 	visited[node] = count
 	# Explore recursively the connected component
-	for each in graph.get_edges(node):
+	for each in graph.get_neighbours(node):
 		if (not each in visited):
 			_dfs(graph, visited, count, each)
 
@@ -174,7 +174,7 @@ def cut_nodes(graph):
 	# Find cuts
 	for each in graph.get_nodes():
 		if (spanning_tree[each] != None):					# If node is not a root
-			for other in graph.get_edges(each):
+			for other in graph.get_neighbours(each):
 				if (low[other] >= pre[each] and spanning_tree[other] == each): # No back-edge from descendent to a ancestral of each
 					reply[each] = 1
 		else:												# If node is a root
@@ -214,7 +214,7 @@ def _cut_dfs(graph, spanning_tree, pre, low, reply, node):
 	low[node] = pre[None]
 	pre[None] = pre[None] + 1
 	
-	for each in graph.get_edges(node):
+	for each in graph.get_neighbours(node):
 		if (not pre.has_key(each)):
 			spanning_tree[each] = node
 			_cut_dfs(graph, spanning_tree, pre, low, reply, each)

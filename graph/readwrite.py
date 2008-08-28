@@ -71,7 +71,7 @@ def write_xml(graph):
 		grxmlr.appendChild(node)
 
 		# and its outgoing arrows
-		for each_arrow in graph.get_edges(each_node):
+		for each_arrow in graph.get_neighbours(each_node):
 			arrow = grxml.createElement('arrow')
 			arrow.setAttribute('to',str(each_arrow))
 			arrow.setAttribute('wt',str(graph.get_arrow_weight(each_node, each_arrow)))
@@ -171,7 +171,7 @@ def write_dot(graph, labeled=False):
 	"""
 	# Check graph type
 	for each_node in graph.get_nodes():
-		for each_arrow in graph.get_edges(each_node):
+		for each_arrow in graph.get_neighbours(each_node):
 			if (not graph.has_edge(each_node, each_arrow)):
 				return _write_dot_digraph(graph, labeled)
 	return _write_dot_graph(graph, labeled)
@@ -199,7 +199,7 @@ def _write_dot_graph(graph, labeled):
 	for each_node in graph.get_nodes():
 		doc = doc + "\t" + str(each_node) + "\n"
 		# Add edges
-		for each_arrow in graph.get_edges(each_node):
+		for each_arrow in graph.get_neighbours(each_node):
 			if (graph.has_edge(each_node, each_arrow) and (each_node < each_arrow)):
 				if (labeled):
 					label = " [label= " + str(graph.get_arrow_weight(each_node, each_arrow)) + "]\n"
@@ -231,7 +231,7 @@ def _write_dot_digraph(graph, labeled):
 	for each_node in graph.get_nodes():
 		doc = doc + "\t" + str(each_node) + "\n"
 		# Add edges
-		for each_arrow in graph.get_edges(each_node):
+		for each_arrow in graph.get_neighbours(each_node):
 			if (labeled):
 				label = " [label= " + str(graph.get_arrow_weight(each_node, each_arrow)) + "]\n"
 			doc = doc + "\t" + str(each_node) + " -> " + str(each_arrow) + label
