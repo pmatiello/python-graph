@@ -51,7 +51,7 @@ class graph:
 	
 	Graphs are built of nodes and edges (or arrows).
 
-	@sort: __init__, __len__, __str__, generate, read, write, add_arrow, add_edge, add_graph, add_node, add_nodes, complete, add_spanning_tree, del_arrow, del_edge, get_arrow_weight, get_edge_weight, get_edges, get_neighbours, get_nodes, has_arrow, has_edge, has_node, inverse, accessibility, breadth_first_search, connected_components, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
+	@sort: __init__, __len__, __str__, generate, read, write, add_arrow, add_edge, add_graph, add_node, add_nodes, complete, add_spanning_tree, del_arrow, del_edge, get_arrow_label, get_arrow_weight, get_edge_label, get_edge_weight, get_edges, get_neighbours, get_nodes, has_arrow, has_edge, has_node, inverse, accessibility, breadth_first_search, connected_components, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
 	"""
 
 
@@ -60,7 +60,7 @@ class graph:
 		Initialize a graph.
 		"""
 		self.nodes = {}		# Arrow/Edge lists	(like an adjacency list)
-		self.weights = {}	# Arrow/Edge weight list
+		self.edges = {}		# Arrow/Edge label and weight information
 
 
 	def __str__(self):
@@ -70,7 +70,7 @@ class graph:
 		@rtype:  string
 		@return: String representing the graph.
 		"""
-		return "<graph object " + str(self.get_nodes()) + " " + str(self.weights) + ">"
+		return "<graph object " + str(self.get_nodes()) + " " + str(self.get_edges()) + ">"
 
 
 	def __len__(self):
@@ -116,7 +116,7 @@ class graph:
 		elif (fmt == 'dot'):
 			return readwrite.write_dot(self)
 		elif (fmt == 'dotwt'):
-			return readwrite.write_dot(self, labeled=True)
+			return readwrite.write_dot(self, wt=True)
 
 
 	def generate(self, num_nodes, num_edges, directed=False):
@@ -147,7 +147,7 @@ class graph:
 
 	def get_neighbours(self, node):
 		"""
-		Return all nodes that have an incoming arrow from the given node.
+		Return all nodes that are directly accessible from given node.
 
 		@type  node: node
 		@param node: Node identifier
@@ -165,7 +165,7 @@ class graph:
 		@rtype:  list
 		@return: List of all edges/arrows in the graph.
 		"""
-		return self.weights.keys()
+		return self.edges.keys()
 
 
 	def has_node(self, node):
@@ -207,7 +207,7 @@ class graph:
 			self.add_node(each)
 
 
-	def add_edge(self, u, v, wt=1):
+	def add_edge(self, u, v, wt=1, label=''):
 		"""
 		Add an edge (u,v) to the graph connecting nodes u and v.
 
@@ -222,15 +222,17 @@ class graph:
 		@type  wt: number
 		@param wt: Edge weight.
 		
+		@type  label: string
+		@param label: Edge label.
 		"""
 		if (v not in self.nodes[u] and u not in self.nodes[v]):
 			self.nodes[u].append(v)
 			self.nodes[v].append(u)
-			self.weights[(u, v)] = wt
-			self.weights[(v, u)] = wt
+			self.edges[(u, v)] = [label, wt]
+			self.edges[(v, u)] = [label, wt]
 
 
-	def add_arrow(self, u, v, wt=1):
+	def add_arrow(self, u, v, wt=1, label=''):
 		"""
 		Add an arrow (u,v) to the directed graph connecting node u to node v.
 
@@ -242,10 +244,13 @@ class graph:
 
 		@type  wt: number
 		@param wt: Arrow weight.
+
+		@type  label: string
+		@param label: Arrow label.
 		"""
 		if (v not in self.nodes[u]):
 			self.nodes[u].append(v)
-			self.weights[(u, v)] = wt
+			self.edges[(u, v)] = [label, wt]
 
 
 	def del_edge(self, u, v):
@@ -262,8 +267,8 @@ class graph:
 		"""
 		self.nodes[u].remove(v)
 		self.nodes[v].remove(u)
-		del(self.weights[(u,v)])
-		del(self.weights[(v,u)])
+		del(self.edges[(u,v)])
+		del(self.edges[(v,u)])
 
 
 	def del_arrow(self, u, v):
@@ -277,7 +282,7 @@ class graph:
 		@param v: Other node.
 		"""
 		self.nodes[u].remove(v)
-		del(self.weights[(u,v)])
+		del(self.edges[(u,v)])
 
 
 	def get_arrow_weight(self, u, v):
@@ -293,7 +298,7 @@ class graph:
 		@rtype:  number
 		@return: Arrow weight
 		"""
-		return self.weights[(u, v)]
+		return self.edges[(u, v)][1]
 
 
 	def get_edge_weight(self, u, v):
@@ -309,7 +314,39 @@ class graph:
 		@rtype:  number
 		@return: Edge weight
 		"""
-		return self.weights[(u, v)]
+		return self.edges[(u, v)][1]
+
+
+	def get_arrow_label(self, u, v):
+		"""
+		Get the label of an arrow.
+
+		@type  u: node
+		@param u: One node.
+
+		@type  v: node
+		@param v: Other node.
+		
+		@rtype:  string
+		@return: Arrow label
+		"""
+		return self.edges[(u, v)][0]
+
+
+	def get_edge_label(self, u, v):
+		"""
+		Get the label of an arrow.
+
+		@type  u: node
+		@param u: One node.
+
+		@type  v: node
+		@param v: Other node.
+		
+		@rtype:  string
+		@return: Edge label
+		"""
+		return self.edges[(u, v)][0]
 
 
 	def has_arrow(self, u, v):
@@ -325,7 +362,7 @@ class graph:
 		@rtype:  boolean
 		@return: Truth-value for arrow existence.
 		"""
-		return self.weights.has_key((u,v))
+		return self.edges.has_key((u,v))
 
 
 	def has_edge(self, u, v):
@@ -341,7 +378,7 @@ class graph:
 		@rtype:  boolean
 		@return: Truth-value for edge existence.
 		"""
-		return self.weights.has_key((u,v)) and self.weights.has_key((v,u))
+		return self.edges.has_key((u,v)) and self.edges.has_key((v,u))
 	
 	
 	def complete(self):
@@ -366,7 +403,7 @@ class graph:
 		inv = graph()
 		inv.add_nodes(self.get_nodes())
 		inv.complete()
-		for each in self.weights.keys():
+		for each in self.edges.keys():
 			inv.del_arrow(each[0], each[1])
 		return inv
 
@@ -530,8 +567,6 @@ class hypergraph:
 	Hypergraph class.
 	
 	Hypergraphs are a generalization of graphs where an edge (hyperedge) can connect more than two nodes.
-	
-	@attention: This class is still experimental and incomplete.
 	
 	@sort: __init__, __len__, __str__, generate, read, write, add_hyperedge, add_hyperedges, add_hypergraph, add_node, add_nodes, get_hyperedges, get_links, get_nodes, has_node, link, unlink, accessibility, connected_components, cut_hyperedges, cut_nodes
 	"""

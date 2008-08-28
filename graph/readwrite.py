@@ -75,6 +75,7 @@ def write_xml(graph):
 			arrow = grxml.createElement('arrow')
 			arrow.setAttribute('to',str(each_arrow))
 			arrow.setAttribute('wt',str(graph.get_arrow_weight(each_node, each_arrow)))
+			arrow.setAttribute('label',str(graph.get_arrow_label(each_node, each_arrow)))
 			node.appendChild(arrow)
 
 	return grxml.toprettyxml()
@@ -130,7 +131,7 @@ def read_xml(graph, string):
 	for each_node in dom.getElementsByTagName("node"):
 		graph.add_node(each_node.getAttribute('id'))
 		for each_arrow in each_node.getElementsByTagName("arrow"):
-			graph.add_arrow(each_node.getAttribute('id'), each_arrow.getAttribute('to'), wt=float(each_arrow.getAttribute('wt')))
+			graph.add_arrow(each_node.getAttribute('id'), each_arrow.getAttribute('to'), wt=float(each_arrow.getAttribute('wt')), label=each_arrow.getAttribute('wt'))
 
 
 def read_xml_hypergraph(hypergraph, string):
@@ -156,15 +157,15 @@ def read_xml_hypergraph(hypergraph, string):
 
 # DOT Language
 
-def write_dot(graph, labeled=False):
+def write_dot(graph, wt=False):
 	"""
 	Return a string specifying the given graph in DOT Language (which can be used by GraphViz to generate a visualization of the given graph).
 	
 	@type  graph: graph
 	@param graph: Graph.
 	
-	@type  labeled: boolean
-	@param labeled: Whether edges/arrows should be labeled with its weight.
+	@type  wt: boolean
+	@param wt: Whether edges/arrows should be wt with its weight.
 
 	@rtype:  string
 	@return: String specifying the graph in DOT Language.
@@ -173,19 +174,19 @@ def write_dot(graph, labeled=False):
 	for each_node in graph.get_nodes():
 		for each_arrow in graph.get_neighbours(each_node):
 			if (not graph.has_edge(each_node, each_arrow)):
-				return _write_dot_digraph(graph, labeled)
-	return _write_dot_graph(graph, labeled)
+				return _write_dot_digraph(graph, wt)
+	return _write_dot_graph(graph, wt)
 
 
-def _write_dot_graph(graph, labeled):
+def _write_dot_graph(graph, wt):
 	"""
 	Return a string specifying the given graph in DOT Language.
 	
 	@type  graph: graph
 	@param graph: Graph.
 
-	@type  labeled: boolean
-	@param labeled: Whether edges should be labeled with its weight.
+	@type  wt: boolean
+	@param wt: Whether edges should be wt with its weight.
 
 	@rtype:  string
 	@return: String specifying the graph in DOT Language.
@@ -201,23 +202,27 @@ def _write_dot_graph(graph, labeled):
 		# Add edges
 		for each_arrow in graph.get_neighbours(each_node):
 			if (graph.has_edge(each_node, each_arrow) and (each_node < each_arrow)):
-				if (labeled):
+				label = ''
+				if (wt):
 					label = " [label= " + str(graph.get_arrow_weight(each_node, each_arrow)) + "]\n"
+				elif (graph.get_arrow_label(each_node, each_arrow)):
+					print each_node, each_arrow
+					label = " [label= " + graph.get_arrow_label(each_node, each_arrow) + "]\n"
 				doc = doc + "\t" + str(each_node) + " -- " + str(each_arrow) + label
 	# Finish
 	doc = doc + "}"
 	return doc
 
 
-def _write_dot_digraph(graph, labeled):
+def _write_dot_digraph(graph, wt):
 	"""
 	Return a string specifying the given digraph in DOT Language.
 	
 	@type  graph: graph
 	@param graph: Graph.
 
-	@type  labeled: boolean
-	@param labeled: Whether arrows should be labeled with its weight.
+	@type  wt: boolean
+	@param wt: Whether arrows should be wt with its weight.
 
 	@rtype:  string
 	@return: String specifying the graph in DOT Language.
@@ -232,8 +237,11 @@ def _write_dot_digraph(graph, labeled):
 		doc = doc + "\t" + str(each_node) + "\n"
 		# Add edges
 		for each_arrow in graph.get_neighbours(each_node):
-			if (labeled):
+			label = ''
+			if (wt):
 				label = " [label= " + str(graph.get_arrow_weight(each_node, each_arrow)) + "]\n"
+			elif (graph.get_arrow_label(each_node, each_arrow)):
+				label = " [label= ." + graph.get_arrow_label(each_node, each_arrow) + "]\n"
 			doc = doc + "\t" + str(each_node) + " -> " + str(each_arrow) + label
 	# Finish
 	doc = doc + "}"
