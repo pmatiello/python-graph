@@ -206,7 +206,6 @@ def _write_dot_graph(graph, wt):
 				if (wt):
 					label = " [label= " + str(graph.get_arrow_weight(each_node, each_arrow)) + "]\n"
 				elif (graph.get_arrow_label(each_node, each_arrow)):
-					print each_node, each_arrow
 					label = " [label= " + graph.get_arrow_label(each_node, each_arrow) + "]\n"
 				doc = doc + "\t" + str(each_node) + " -- " + str(each_arrow) + label
 	# Finish

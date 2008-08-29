@@ -67,10 +67,10 @@ def minimal_spanning_tree(graph, root=None):
 	while (nroot):
 		larrow = _lightest_arrow(graph, visited)
 		if (larrow == (-1, -1)):
-			if (root):
+			if (root is not None):
 				break
 			nroot = _first_unvisited(graph, visited)
-			if (nroot):
+			if (nroot is not None):
 				spanning_tree[nroot] = None
 			visited.append(nroot)
 		else:

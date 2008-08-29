@@ -6,26 +6,30 @@ CHANGELOG
 
 Release 1.1.0	[??? ??, 2008]
 
-Hypergraph support;
-Fixed bug in cut-node identification;
-Complete and complement graph generation;
+Enhancements:
+	Hypergraph support (Issue 4);
+	Complete and complement graph generation.
+
+Fixes:
+	Fixed bug in cut-node identification;
+	Fixed bug causing wrong results for graphs with nodes labelled with values that evaluate to False (Issue 7).
 
 Important API Changes:
 	get_edges() now return all edges in the graph;
-	get_neighbours() has the former behaviour of get_edges()
+	get_neighbours() has the former behaviour of get_edges().
 
 
 Release 1.0.0	[Aug 01, 2008]
 
 Adds some operations;
-Rrandom graph generation;
+Random graph generation;
 Cut-vertex/cut-edge identification.
 
 
 Release 0.85	[Jul 27, 2008]
 
-Adds DOT-Language output;
-Install script included.
+Adds DOT-Language output (Issue 1);
+Install script included (Issue 3).
 
 
 Release 0.75	[Jul 06, 2008]
@@ -37,7 +41,7 @@ Docs are bundled now.
 Release 0.65	[Jun 25, 2008]
 
 DFS, BFS and MST can be generated for given roots;
-Added Dijkstra's shortest path algorithm.
+Added Dijkstra's shortest path algorithm (Issue 2).
 
 
 Release 0.50	[May 13, 2008]

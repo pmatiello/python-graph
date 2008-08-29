@@ -58,7 +58,7 @@ def depth_first_search(graph, root=None):
 	post = []				# Graph's postordering
 
 	# DFS from one node only
-	if (root != None):
+	if (root is not None):
 		spanning_tree[root] = None
 		_dfs(graph, visited, spanning_tree, pre, post, root)
 		return spanning_tree, pre, post
@@ -123,7 +123,7 @@ def breadth_first_search(graph, root=None):
 	spanning_tree = {}	# Spanning tree
 
 	# BFS from one node only
-	if (root != None):
+	if (root is not None):
 		queue.append(root)
 		spanning_tree[root] = None
 		_bfs(graph, queue, spanning_tree)

@@ -430,7 +430,7 @@ class graph:
 		"""
 		self.add_nodes(st.keys())
 		for each in st:
-			if (st[each]):
+			if (st[each] is not None):
 				self.add_arrow(st[each], each)
 
 

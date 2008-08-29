@@ -173,7 +173,7 @@ def cut_nodes(graph):
 
 	# Find cuts
 	for each in graph.get_nodes():
-		if (spanning_tree[each] != None):					# If node is not a root
+		if (spanning_tree[each] is not None):				# If node is not a root
 			for other in graph.get_neighbours(each):
 				if (low[other] >= pre[each] and spanning_tree[other] == each): # No back-edge from descendent to a ancestral of each
 					reply[each] = 1
