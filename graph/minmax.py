@@ -56,7 +56,7 @@ def minimal_spanning_tree(graph, root=None):
 	spanning_tree = {}		# MInimal Spanning tree
 
 	# Initialization
-	if (root):
+	if (root is not None):
 		visited.append(root)
 		nroot = root
 		spanning_tree[root] = None
@@ -64,7 +64,7 @@ def minimal_spanning_tree(graph, root=None):
 		nroot = 1
 	
 	# Algorithm loop
-	while (nroot):
+	while (nroot is not None):
 		larrow = _lightest_arrow(graph, visited)
 		if (larrow == (-1, -1)):
 			if (root is not None):
