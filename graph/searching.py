@@ -65,11 +65,9 @@ def depth_first_search(graph, root=None):
 	
 	# Algorithm loop
 	for each in graph.get_nodes():
-		# Select a non-visited node
-		if (not each in visited):
+		if (not each in visited):									# Select a non-visited node
 			spanning_tree[each] = None
-			# Explore node's connected component
-			_dfs(graph, visited, spanning_tree, pre, post, each)
+			_dfs(graph, visited, spanning_tree, pre, post, each)	# Explore node's connected component
 
 	return spanning_tree, pre, post
 
