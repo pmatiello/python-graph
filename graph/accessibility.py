@@ -50,7 +50,8 @@ def accessibility(graph):
 	# For each node i, mark each node j if that exists a path from i to j.
 	for each in graph.get_nodes():
 		access = {}
-		_dfs(graph, access, 1, each)	# Perform DFS to explore all reachable nodes
+		# Perform DFS to explore all reachable nodes
+		_dfs(graph, access, 1, each)
 		accessibility[each] = access.keys()
 	return accessibility
 
@@ -173,16 +174,20 @@ def cut_nodes(graph):
 
 	# Find cuts
 	for each in graph.get_nodes():
-		if (spanning_tree[each] is not None):				# If node is not a root
+		# If node is not a root
+		if (spanning_tree[each] is not None):
 			for other in graph.get_neighbours(each):
-				if (low[other] >= pre[each] and spanning_tree[other] == each): # No back-edge from descendent to a ancestral of each
+				# If there is no back-edge from descendent to a ancestral of each
+				if (low[other] >= pre[each] and spanning_tree[other] == each):
 					reply[each] = 1
-		else:												# If node is a root
+		# If node is a root
+		else:
 			children = 0
 			for other in graph.get_nodes():
 				if (spanning_tree[other] == each):
 					children = children + 1
-			if (children >= 2):								# root is cut-vertex iff it has two or more children
+			# root is cut-vertex iff it has two or more children
+			if (children >= 2):
 				reply[each] = 1
 
 	return reply.keys()
