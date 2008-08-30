@@ -25,7 +25,8 @@
 """
 Accessibility algorithms for python-graph.
 
-@sort: accessibility, connected_components, cut_edges, cut_nodes, mutual_accessibility, _cut_dfs, _dfs
+@sort: accessibility, connected_components, cut_edges, cut_nodes, mutual_accessibility, _cut_dfs,
+_dfs
 """
 
 
@@ -173,16 +174,20 @@ def cut_nodes(graph):
 
 	# Find cuts
 	for each in graph.get_nodes():
-		if (spanning_tree[each] is not None):				# If node is not a root
+		# If node is not a root
+		if (spanning_tree[each] is not None):
 			for other in graph.get_neighbours(each):
-				if (low[other] >= pre[each] and spanning_tree[other] == each): # No back-edge from descendent to a ancestral of each
+				# If there is no back-edge from descendent to a ancestral of each
+				if (low[other] >= pre[each] and spanning_tree[other] == each):
 					reply[each] = 1
-		else:												# If node is a root
+		# If node is a root
+		else:												
 			children = 0
 			for other in graph.get_nodes():
 				if (spanning_tree[other] == each):
 					children = children + 1
-			if (children >= 2):								# root is cut-vertex iff it has two or more children
+			# root is cut-vertex iff it has two or more children
+			if (children >= 2):
 				reply[each] = 1
 
 	return reply.keys()
@@ -202,7 +207,8 @@ def _cut_dfs(graph, spanning_tree, pre, low, reply, node):
 	@param pre: Graph's preordering.
 	
 	@type  low: dictionary
-	@param low: Associates to each node, the preordering index of the node of lowest preordering accessible from the given node.
+	@param low: Associates to each node, the preordering index of the node of lowest preordering
+	accessible from the given node.
 
 	@type  reply: list
 	@param reply: List of cut-edges.

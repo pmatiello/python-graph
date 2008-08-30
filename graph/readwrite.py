@@ -119,7 +119,8 @@ def write_xml_hypergraph(hypergraph):
 
 def read_xml(graph, string):
 	"""
-	Read a graph from a XML document. Nodes and arrows specified in the input will be added to the current graph.
+	Read a graph from a XML document. Nodes and arrows specified in the input will be added to the
+	current graph.
 	
 	@type  graph: graph
 	@param graph: Graph
@@ -131,12 +132,14 @@ def read_xml(graph, string):
 	for each_node in dom.getElementsByTagName("node"):
 		graph.add_node(each_node.getAttribute('id'))
 		for each_arrow in each_node.getElementsByTagName("arrow"):
-			graph.add_arrow(each_node.getAttribute('id'), each_arrow.getAttribute('to'), wt=float(each_arrow.getAttribute('wt')), label=each_arrow.getAttribute('wt'))
+			graph.add_arrow(each_node.getAttribute('id'), each_arrow.getAttribute('to'),
+				wt=float(each_arrow.getAttribute('wt')), label=each_arrow.getAttribute('wt'))
 
 
 def read_xml_hypergraph(hypergraph, string):
 	"""
-	Read a graph from a XML document. Nodes and hyperedges specified in the input will be added to the current graph.
+	Read a graph from a XML document. Nodes and hyperedges specified in the input will be added to
+	the current graph.
 	
 	@type  hypergraph: hypergraph
 	@param hypergraph: Hypergraph
@@ -159,7 +162,8 @@ def read_xml_hypergraph(hypergraph, string):
 
 def write_dot(graph, wt=False):
 	"""
-	Return a string specifying the given graph in DOT Language (which can be used by GraphViz to generate a visualization of the given graph).
+	Return a string specifying the given graph in DOT Language (which can be used by GraphViz to
+	generate a visualization of the given graph).
 	
 	@type  graph: graph
 	@param graph: Graph.
