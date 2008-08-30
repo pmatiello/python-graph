@@ -8,7 +8,8 @@ Release 1.1.0	[??? ??, 2008]
 
 Enhancements:
 	Hypergraph support (Issue 4);
-	Complete and complement graph generation.
+	Complete and complement graph generation;
+	Weights in random generated graphs (Issue 8).
 
 Fixes:
 	Fixed bug in cut-node identification;

@@ -40,7 +40,7 @@ from random import randint
 
 # Generator
 
-def generate(graph, num_nodes, num_edges, directed=False):
+def generate(graph, num_nodes, num_edges, directed=False, weight_range=(1, 1)):
 	"""
 	Add nodes and random edges to the graph.
 	
@@ -55,6 +55,10 @@ def generate(graph, num_nodes, num_edges, directed=False):
 	
 	@type  directed: boolean
 	@param directed: Whether the generated graph should be directed or not.
+
+        @type  weight_range: tuple
+        @param weight_range: tuple of two integers as lower and upper limits on
+               randomly generated weights (uniform distribution).
 	"""
 	# Nodes first
 	nodes = xrange(num_nodes)
@@ -62,10 +66,11 @@ def generate(graph, num_nodes, num_edges, directed=False):
 	
 	# Build a list of all possible edges
 	edges = []
+        edges_append = edges.append
 	for x in nodes:
 		for y in nodes:
 			if ((directed and x != y) or (x > y)):
-				edges.append((x, y))
+				edges_append((x, y))
 	
 	# Randomize the list
 	for i in xrange(len(edges)):
@@ -73,9 +78,9 @@ def generate(graph, num_nodes, num_edges, directed=False):
 		edges[i], edges[r] = edges[r], edges[i]
 	
 	# Add edges to the graph
+        graph_add = graph.add_arrow if directed else graph.add_edge
+        min_wt = min(weight_range)
+        max_wt = max(weight_range)
 	for i in xrange(num_edges):
 		each = edges[i]
-		if (directed):
-			graph.add_arrow(each[0], each[1])
-		else:
-			graph.add_edge(each[0], each[1])
+                graph_add(each[0], each[1], wt = randint(min_wt, max_wt))

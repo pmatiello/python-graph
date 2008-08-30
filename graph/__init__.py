@@ -119,7 +119,7 @@ class graph:
 			return readwrite.write_dot(self, wt=True)
 
 
-	def generate(self, num_nodes, num_edges, directed=False):
+	def generate(self, num_nodes, num_edges, directed=False, weight_range=(1, 1)):
 		"""
 		Add nodes and random edges to the graph.
 		
@@ -131,8 +131,12 @@ class graph:
 	
 		@type  directed: boolean
 		@param directed: Whether the generated graph should be directed or not.
+
+                @type  weight_range: tuple
+                @param weight_range: tuple of two integers as lower and upper limits on
+                                     randomly generated weights (uniform distribution).
 		"""
-		generators.generate(self, num_nodes, num_edges, directed)
+		generators.generate(self, num_nodes, num_edges, directed, weight_range)
 
 
 	def get_nodes(self):
@@ -296,14 +300,30 @@ class graph:
 		@param v: Other node.
 		
 		@rtype:  number
-		@return: Arrow weight
+		@return: Arrow weight.
 		"""
 		return self.edges[(u, v)][1]
 
 
+	def set_arrow_weight(self, u, v, wt):
+		"""
+		Set the weight of an arrow.
+
+		@type  u: node
+		@param u: One node.
+
+		@type  v: node
+		@param v: Other node.
+
+		@type  wt: number
+		@param wt: Arrow weight.
+		"""
+		self.edges[(u, v)][1] = wt
+
+
 	def get_edge_weight(self, u, v):
 		"""
-		Get the weight of an arrow.
+		Get the weight of an edge.
 
 		@type  u: node
 		@param u: One node.
@@ -312,9 +332,26 @@ class graph:
 		@param v: Other node.
 		
 		@rtype:  number
-		@return: Edge weight
+		@return: Edge weight.
 		"""
 		return self.edges[(u, v)][1]
+
+
+	def set_edge_weight(self, u, v, wt):
+		"""
+		Set the weight of an edge.
+
+		@type  u: node
+		@param u: One node.
+
+		@type  v: node
+		@param v: Other node.
+
+		@type  wt: number
+		@param wt: Edge weight.
+		"""
+		self.edges[(u, v)][1] = wt
+		self.edges[(v, u)][1] = wt
 
 
 	def get_arrow_label(self, u, v):
@@ -328,14 +365,30 @@ class graph:
 		@param v: Other node.
 		
 		@rtype:  string
-		@return: Arrow label
+		@return: Arrow label.
 		"""
 		return self.edges[(u, v)][0]
 
 
+	def set_arrow_label(self, u, v, label):
+		"""
+		Set the label of an arrow.
+
+		@type  u: node
+		@param u: One node.
+
+		@type  v: node
+		@param v: Other node.
+
+		@type  label: string
+		@param label: Arrow label.
+		"""
+		self.edges[(u, v)][0] = label
+
+
 	def get_edge_label(self, u, v):
 		"""
-		Get the label of an arrow.
+		Get the label of an edge.
 
 		@type  u: node
 		@param u: One node.
@@ -347,6 +400,23 @@ class graph:
 		@return: Edge label
 		"""
 		return self.edges[(u, v)][0]
+
+
+	def set_edge_label(self, u, v, label):
+		"""
+		Set the label of an edge.
+
+		@type  u: node
+		@param u: One node.
+
+		@type  v: node
+		@param v: Other node.
+
+		@type  label: string
+		@param label: Edge label.
+		"""
+		self.edges[(u, v)][0] = label
+		self.edges[(v, u)][0] = label
 
 
 	def has_arrow(self, u, v):
