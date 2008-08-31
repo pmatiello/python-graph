@@ -5,7 +5,7 @@ from distutils.core import setup
 
 setup(
     name = "python-graph",
-    version = "1.0.0",
+    version = "1.1.0",
 	packages = ['graph'],
 
     # metadata for upload to PyPI
