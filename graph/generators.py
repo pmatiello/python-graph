@@ -1,4 +1,5 @@
 # Copyright (c) 2007-2008 Pedro Matiello <pmatiello@gmail.com>
+#                         Zsolt Haraszti <zsolt@drawwell.net>
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation
@@ -30,7 +31,7 @@ Random graph generators for python-graph.
 
 
 # Module metadata
-__authors__ = "Pedro Matiello"
+__authors__ = "Pedro Matiello, Zsolt Haraszti"
 __license__ = "MIT"
 
 
