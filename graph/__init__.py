@@ -30,7 +30,7 @@ A library for working with graphs in Python.
 
 
 # Module metadata
-__authors__ = "Pedro Matiello, Christian Muise"
+__authors__ = "Pedro Matiello, Christian Muise, Zsolt Haraszti"
 __license__ = "MIT"
 
 
@@ -856,16 +856,6 @@ class hypergraph:
 		"""
 		self.nodes[node].remove(hyperedge)
 		self.hyperedges[hyperedge].remove(node)
-
-
-	def add_hypergraph(self, graph):
-		"""
-		Add other hypergraph to the hypergraph.
-		
-		@type  graph: graph
-		@param graph: Graph
-		"""
-		pass
 
 
 	def accessibility(self):
