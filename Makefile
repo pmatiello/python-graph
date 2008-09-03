@@ -8,5 +8,8 @@ edit: graph/*.py
 	gedit graph/__init__.py &
 	gedit graph/*.py &
 
-clean: graph/*.pyc
+clean:
+	rm -rf docs
+	rm -rf dist
+	rm -rf build
 	rm graph/*.pyc

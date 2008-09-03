@@ -34,6 +34,7 @@ A library for working with graphs in Python.
 # Module metadata
 __authors__ = "Pedro Matiello, Christian Muise, Zsolt Haraszti"
 __license__ = "MIT"
+__version__ = "1.1.1"
 
 
 # Imports
@@ -640,7 +641,7 @@ class hypergraph:
 	
 	Hypergraphs are a generalization of graphs where an edge (hyperedge) can connect more than two nodes.
 	
-	@sort: __init__, __len__, __str__, generate, read, write, add_hyperedge, add_hyperedges, add_hypergraph, add_node, add_nodes, get_hyperedges, get_links, get_nodes, has_node, link, unlink, accessibility, connected_components, cut_hyperedges, cut_nodes
+	@sort: __init__, __len__, __str__, generate, read, write, add_hyperedge, add_hyperedges, add_node, add_nodes, get_hyperedges, get_links, get_nodes, has_node, link, unlink, accessibility, connected_components, cut_hyperedges, cut_nodes
 	"""
 
 
