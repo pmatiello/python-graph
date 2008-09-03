@@ -198,16 +198,23 @@ def _write_dot_graph(graph, wt):
 
 	# Add nodes
 	for each_node in graph.get_nodes():
-		doc = doc + "\t" + str(each_node) + "\n"
+		doc = doc + "\t\"%s\"\n" % str(each_node)
 		# Add edges
 		for each_arrow in graph.get_neighbours(each_node):
 			if (graph.has_edge(each_node, each_arrow) and (each_node < each_arrow)):
-				label = ''
+				labelvars = {
+					'label' : graph.get_arrow_label(each_node, each_arrow),
+					'weigth': graph.get_arrow_weight(each_node, each_arrow)
+				}
 				if (wt):
-					label = " [label= " + str(graph.get_arrow_weight(each_node, each_arrow)) + "]\n"
-				elif (graph.get_arrow_label(each_node, each_arrow)):
-					label = " [label= " + graph.get_arrow_label(each_node, each_arrow) + "]\n"
-				doc = doc + "\t" + str(each_node) + " -- " + str(each_arrow) + label
+					label = '[label="%(label)s (%(weigth)d)"]\n' % labelvars
+				else:
+					label = '[label="%(label)s"]\n' % labelvars
+				arrowvars = {
+					'from' : str(each_node),
+					'to' : str(each_arrow)
+				}
+				doc = doc + '\t"%(from)s" -- "%(to)s" ' % arrowvars + label
 	# Finish
 	doc = doc + "}"
 	return doc
@@ -228,20 +235,27 @@ def _write_dot_digraph(graph, wt):
 	"""
 	# Start document
 	doc = ""
-	doc = doc + "digraph graphname" + "\n{\n"
+	doc = doc + "graph graphname" + "\n{\n"
 	label = "\n"
 
 	# Add nodes
 	for each_node in graph.get_nodes():
-		doc = doc + "\t" + str(each_node) + "\n"
-		# Add edges
+		doc = doc + "\t\"%s\"\n" % str(each_node)
+		# Add arrows
 		for each_arrow in graph.get_neighbours(each_node):
-			label = ''
+			labelvars = {
+				'label' : graph.get_arrow_label(each_node, each_arrow),
+				'weigth': graph.get_arrow_weight(each_node, each_arrow)
+			}
 			if (wt):
-				label = " [label= " + str(graph.get_arrow_weight(each_node, each_arrow)) + "]\n"
-			elif (graph.get_arrow_label(each_node, each_arrow)):
-				label = " [label= ." + graph.get_arrow_label(each_node, each_arrow) + "]\n"
-			doc = doc + "\t" + str(each_node) + " -> " + str(each_arrow) + label
+				label = '[label="%(label)s (%(weigth)d)"]\n' % labelvars
+			else:
+				label = '[label="%(label)s"]\n' % labelvars
+			arrowvars = {
+				'from' : str(each_node),
+				'to' : str(each_arrow)
+			}
+			doc = doc + '\t"%(from)s" -- "%(to)s" ' % arrowvars + label
 	# Finish
 	doc = doc + "}"
 	return doc
