@@ -281,21 +281,32 @@ def write_dot_hypergraph(hypergraph, coloured=False):
 	colorcount = 0
 
 
-	# Add nodes
+	# Add hyperedges
 	color = ''
 	for each_hyperedge in hypergraph.get_hyperedges():
 		colortable[each_hyperedge] = colors[colorcount % len(colors)]
 		colorcount = colorcount + 1
 		if (coloured):
-			color = " color=" + colortable[each_hyperedge]
-		doc = doc + "\t" + str(each_hyperedge) + " [" + "shape=point" + color + "]\n"
+			color = " color=%s" % colortable[each_hyperedge]
+		vars = {
+			'hyperedge' : str(each_hyperedge),
+			'color' : color
+		}
+		doc = doc + '\t"%(hyperedge)s" [shape=point %(color)s]\n' % vars
 	
 	color = "\n"
+	# Add nodes and links
 	for each_node in hypergraph.get_nodes():
+		doc = doc + "\t\"%s\"\n" % str(each_node)
 		for each_link in hypergraph.get_links(each_node):
 			if (coloured):
-				color = " [color=" + colortable[each_link] + "]\n"
-			doc = doc + "\t" + str(each_node) + " -- " + str(each_link) + color
+				color = " [color=%s]\n" % colortable[each_link]
+			linkvars = {
+				'node' : str(each_node),
+				'hyperedge' : str(each_link)
+			}
+			doc = doc + '\t %(node)s -- %(hyperedge)s' % linkvars + color
 
 	doc = doc + "}"
+	print doc
 	return doc
