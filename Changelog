@@ -7,8 +7,9 @@ CHANGELOG
 Release 1.1.1	[]
 
 	Enhancements:
-		Better output to DOT Language.
-	
+		Better output to DOT Language;
+		Improved install script.
+
 
 Release 1.1.0	[Aug 31, 2008]
 
