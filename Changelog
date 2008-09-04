@@ -4,11 +4,16 @@ A library for working with graphs in Python
 
 CHANGELOG
 
-Release 1.1.1	[]
+Release 1.1.1	[Sep 4, 2008]
 
 	Enhancements:
-		Better output to DOT Language;
 		Improved install script.
+	
+	Fixes:
+		DOT Language output now works for nodes/edges labelled with spaces.
+	
+	Important API Changes:
+		get_neighbours() is now get_neighbors() (Issue 9).
 
 
 Release 1.1.0	[Aug 31, 2008]

@@ -6,7 +6,7 @@ import os
 
 # Startup
 appname = "python-graph"
-appversion = "1.1.0"
+appversion = "1.1.1"
 docfolder = '/usr/share/doc/' + appname + '-' + appversion + '/'
 docfiles = os.listdir('docs')
 for i in xrange(len(docfiles)):
