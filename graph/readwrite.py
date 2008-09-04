@@ -173,7 +173,7 @@ def write_dot(graph, wt=False):
 	# Check graph type
 	for each_node in graph.get_nodes():
 		for each_arrow in graph.get_neighbours(each_node):
-			if (not graph.has_edge(each_node, each_arrow)):
+			if (not graph.has_edge(each_node, each_arrow) or graph.get_arrow_weight(each_node, each_arrow) != graph.get_arrow_weight(each_arrow, each_node)):
 				return _write_dot_digraph(graph, wt)
 	return _write_dot_graph(graph, wt)
 
@@ -235,7 +235,7 @@ def _write_dot_digraph(graph, wt):
 	"""
 	# Start document
 	doc = ""
-	doc = doc + "graph graphname" + "\n{\n"
+	doc = doc + "digraph graphname" + "\n{\n"
 	label = "\n"
 
 	# Add nodes
@@ -255,7 +255,7 @@ def _write_dot_digraph(graph, wt):
 				'from' : str(each_node),
 				'to' : str(each_arrow)
 			}
-			doc = doc + '\t"%(from)s" -- "%(to)s" ' % arrowvars + label
+			doc = doc + '\t"%(from)s" -> "%(to)s" ' % arrowvars + label
 	# Finish
 	doc = doc + "}"
 	return doc
