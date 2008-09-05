@@ -64,6 +64,8 @@ class graph (object):
 		"""
 		self.nodes = {}		# Arrow/Edge lists	(like an adjacency list)
 		self.edges = {}		# Arrow/Edge label and weight information
+		self.node_attr = {}	# Node attributes (for Graphviz)
+		self.edge_attr = {}	# Edge attributes (for Graphviz)
 
 
 	def __str__(self):
@@ -187,7 +189,7 @@ class graph (object):
 		return self.nodes.has_key(node)
 
 
-	def add_node(self, node):
+	def add_node(self, node, attrs=[]):
 		"""
 		Add given node to the graph.
 		
@@ -195,9 +197,13 @@ class graph (object):
 
 		@type  node: node
 		@param node: Node identifier.
+		
+		@type  attr: list
+		@param attr: List of node attributes specified as (attribute, value) tuples.
 		"""
 		if (not node in self.nodes.keys()):
 			self.nodes[node] = []
+			self.node_attr[node] = attrs
 
 
 	def add_nodes(self, nodelist):
@@ -213,7 +219,7 @@ class graph (object):
 			self.add_node(each)
 
 
-	def add_edge(self, u, v, wt=1, label=''):
+	def add_edge(self, u, v, wt=1, label='', attrs=[]):
 		"""
 		Add an edge (u,v) to the graph connecting nodes u and v.
 
@@ -230,12 +236,17 @@ class graph (object):
 		
 		@type  label: string
 		@param label: Edge label.
+		
+		@type  attr: list
+		@param attr: List of node attributes specified as (attribute, value) tuples.
 		"""
 		if (v not in self.nodes[u] and u not in self.nodes[v]):
 			self.nodes[u].append(v)
 			self.nodes[v].append(u)
 			self.edges[(u, v)] = [label, wt]
 			self.edges[(v, u)] = [label, wt]
+			self.edge_attr[(u, v)] = attrs
+			self.edge_attr[(v, u)] = attrs
 
 
 	def add_arrow(self, u, v, wt=1, label=''):
@@ -419,6 +430,32 @@ class graph (object):
 		"""
 		self.edges[(u, v)][0] = label
 		self.edges[(v, u)][0] = label
+	
+	
+	def add_node_attribute(self, node, attr):
+		"""
+		Add attribute to the given node.
+
+		@type  node: node
+		@param node: Node identifier
+
+		@type  attr: tuple
+		@param attr: Tuple in the form (attribute, value).
+		"""
+		self.node_attr[node] = self.node_attr[node] + [attr]
+
+
+	def get_node_attributes(self, node):
+		"""
+		Return the attributes of the given node.
+
+		@type  node: node
+		@param node: Node identifier
+
+		@rtype:  list
+		@return: List of tuples in the form (attribute, value).
+		"""
+		return self.node_attr[node]
 
 
 	def has_arrow(self, u, v):

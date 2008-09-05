@@ -14,7 +14,10 @@ gr = graph.graph()
 
 # Add nodes and edges
 gr.add_nodes(["Portugal","Spain","France","Germany","Belgium","Netherlands","Italy"])
-gr.add_nodes(["England","Ireland","Scotland","Wales"])
+gr.add_node("England", attrs=[('shape','circle'),('color','red')])
+gr.add_node("Ireland")
+gr.add_node("Scotland")
+gr.add_node("Wales")
 
 gr.add_edge("Portugal", "Spain")
 gr.add_edge("Spain","France")

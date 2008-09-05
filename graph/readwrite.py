@@ -69,6 +69,11 @@ def write_xml(graph):
 		node = grxml.createElement('node')
 		node.setAttribute('id',str(each_node))
 		grxmlr.appendChild(node)
+		for each_attr in graph.get_node_attributes(each_node):
+			attr = grxml.createElement('attribute')
+			attr.setAttribute('attr', each_attr[0])
+			attr.setAttribute('value', each_attr[1])
+			node.appendChild(attr)
 
 		# and its outgoing arrows
 		for each_arrow in graph.get_neighbors(each_node):
@@ -131,7 +136,10 @@ def read_xml(graph, string):
 	for each_node in dom.getElementsByTagName("node"):
 		graph.add_node(each_node.getAttribute('id'))
 		for each_arrow in each_node.getElementsByTagName("arrow"):
-			graph.add_arrow(each_node.getAttribute('id'), each_arrow.getAttribute('to'), wt=float(each_arrow.getAttribute('wt')), label=each_arrow.getAttribute('wt'))
+			graph.add_arrow(each_node.getAttribute('id'), each_arrow.getAttribute('to'), wt=float(each_arrow.getAttribute('wt')), label=each_arrow.getAttribute('label'))
+		for each_attr in each_node.getElementsByTagName("attribute"):
+			graph.add_node_attribute(each_node.getAttribute('id'), (each_attr.getAttribute('attr'), each_attr.getAttribute('value')))
+
 
 
 def read_xml_hypergraph(hypergraph, string):

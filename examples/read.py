@@ -14,4 +14,4 @@ string = inputfile.read()
 inputfile.close()
 
 gr.read(string)
-print gr
+print gr.write()

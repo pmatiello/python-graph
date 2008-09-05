@@ -5,33 +5,31 @@
 
 import sys
 sys.path.append('..')
+sys.path.append('/usr/lib/graphviz/python/')
 import graph
+import gv
 
 # Graph creation
 gr = graph.graph()
 
 # Add nodes and edges
 gr.add_nodes(["Portugal","Spain","France","Germany","Belgium","Netherlands","Italy"])
-gr.add_nodes(["England","Ireland","Scotland","Wales"])
-gr.add_nodes(["Atlantis","Wonderland","Brazil","Lemuria","Ys"])
-gr.add_edge("Portugal", "Spain", wt=1)
-gr.add_edge("Spain","France", wt=3)
-gr.add_edge("France","Belgium", wt=2)
-gr.add_edge("France","Germany", wt=3)
-gr.add_edge("France","Italy", wt=3)
-gr.add_edge("Belgium","Netherlands", wt=1)
-gr.add_edge("Germany","Belgium", wt=2)
-gr.add_edge("Germany","Netherlands", wt=2)
-gr.add_edge("England","Wales", wt=1)
-gr.add_edge("England","Scotland", wt=2)
-gr.add_edge("Scotland","Wales", wt=1)
+gr.add_node("England", attrs=[('shape','circle'),('color','red')])
+gr.add_node("Ireland")
+gr.add_node("Scotland")
+gr.add_node("Wales")
 
-gr.add_edge("Atlantis","Wonderland")
-gr.add_arrow("Atlantis","Brazil")
-gr.add_edge("Atlantis","Lemuria")
-gr.add_arrow("Lemuria","Ys")
-gr.add_arrow("Ys","Wonderland")
-gr.add_arrow("Ys","Brazil")
+gr.add_edge("Portugal", "Spain")
+gr.add_edge("Spain","France")
+gr.add_edge("France","Belgium")
+gr.add_edge("France","Germany")
+gr.add_edge("France","Italy",)
+gr.add_edge("Belgium","Netherlands", wt=0.5)
+gr.add_edge("Germany","Belgium")
+gr.add_edge("Germany","Netherlands", wt=7)
+gr.add_edge("England","Wales")
+gr.add_edge("England","Scotland")
+gr.add_edge("Scotland","Wales")
 
-# print to XML
-print gr.write()
+# Print to DOT Language
+print gr.write(fmt='xml')

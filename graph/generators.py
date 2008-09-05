@@ -57,10 +57,10 @@ def generate(graph, num_nodes, num_edges, directed=False, weight_range=(1, 1)):
 	@type  directed: boolean
 	@param directed: Whether the generated graph should be directed or not.
 
-        @type  weight_range: tuple
-        @param weight_range: tuple of two integers as lower and upper limits on
-               randomly generated weights (uniform distribution).
+	@type  weight_range: tuple
+	@param weight_range: tuple of two integers as lower and upper limits on randomly generated weights (uniform distribution).
 	"""
+	graph_add = graph.add_arrow if directed else graph.add_edge
 	# Nodes first
 	nodes = xrange(num_nodes)
 	graph.add_nodes(nodes)
@@ -78,10 +78,9 @@ def generate(graph, num_nodes, num_edges, directed=False, weight_range=(1, 1)):
 		r = randint(0, len(edges)-1)
 		edges[i], edges[r] = edges[r], edges[i]
 	
-	# Add edges to the graph
-        graph_add = graph.add_arrow if directed else graph.add_edge
-        min_wt = min(weight_range)
-        max_wt = max(weight_range)
+		# Add edges to the graph
+		min_wt = min(weight_range)
+		max_wt = max(weight_range)
 	for i in xrange(num_edges):
 		each = edges[i]
-                graph_add(each[0], each[1], wt = randint(min_wt, max_wt))
+		graph_add(each[0], each[1], wt = randint(min_wt, max_wt))
