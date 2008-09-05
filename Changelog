@@ -10,7 +10,7 @@ Enhancements:
 	Moved to new class style.
 	
 Fixes:
-	Install now works with a prefix.
+	Install now works with a prefix (Issue 10).
 	Shortest path spanning trees did not had an explicit root.
 
 
