@@ -6,23 +6,24 @@ CHANGELOG
 
 Release 1.1.2	[??? ?, 2008]
 
-	Enhancements:
-		Moved to new class style.
+Enhancements:
+	Moved to new class style.
 	
-	Fixes:
-		Install now works with a prefix.
+Fixes:
+	Install now works with a prefix.
+	Shortest path spanning trees did not had an explicit root.
 
 
 Release 1.1.1	[Sep 4, 2008]
 
-	Enhancements:
-		Improved install script.
+Enhancements:
+	Improved install script.
 	
-	Fixes:
-		DOT Language output now works for nodes/edges labelled with spaces.
+Fixes:
+	DOT Language output now works for nodes/edges labelled with spaces.
 	
-	Important API Changes:
-		get_neighbours() is now get_neighbors() (Issue 9).
+Important API Changes:
+	get_neighbours() is now get_neighbors() (Issue 9).
 
 
 Release 1.1.0	[Aug 31, 2008]
