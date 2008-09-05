@@ -94,7 +94,7 @@ def _first_unvisited(graph, visited):
 	@return: First unvisited node.
 	"""
 	for each in graph.get_nodes():
-		if (not each in visited):
+		if (each not in visited):
 			return each
 	return None
 
@@ -116,7 +116,7 @@ def _lightest_arrow(graph, visited):
 	weight = -1
 	for each in visited:
 		for other in graph.get_neighbors(each):
-			if (not other in visited):
+			if (other not in visited):
 				w = graph.get_arrow_weight(each, other)
 				if (w < weight or weight < 0):
 					lightest_arrow = (each, other)

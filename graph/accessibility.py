@@ -99,7 +99,7 @@ def connected_components(graph):
 
 	# For 'each' node not found to belong to a connected component, find its connected component.
 	for each in graph.get_nodes():
-		if (not each in visited):
+		if (each not in visited):
 			_dfs(graph, visited, count, each)
 			count = count + 1
 	
@@ -127,7 +127,7 @@ def _dfs(graph, visited, count, node):
 	visited[node] = count
 	# Explore recursively the connected component
 	for each in graph.get_neighbors(node):
-		if (not each in visited):
+		if (each not in visited):
 			_dfs(graph, visited, count, each)
 
 
