@@ -451,8 +451,8 @@ class graph (object):
 		@return: Truth-value for edge existence.
 		"""
 		return self.edges.has_key((u,v)) and self.edges.has_key((v,u))
-	
-	
+
+
 	def complete(self):
 		"""
 		Make the graph a complete graph.
@@ -463,8 +463,8 @@ class graph (object):
 			for other in self.get_nodes():
 				if (each != other):
 					self.add_arrow(each, other)
-	
-	
+
+
 	def inverse(self):
 		"""
 		Return the inverse of the graph.

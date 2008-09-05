@@ -220,3 +220,43 @@ try:
 except:
 	print "failed"
 	no = no + 1
+
+# Cut-nodes
+try:
+	print "   Cut-nodes...",
+	grc = graph.graph()
+	grc.generate(50,100)
+	cuts = grc.cut_nodes()
+	max1 = 0
+	pairing = grc.connected_components()
+	for each in pairing.keys():
+		if (pairing[each] > max1):
+			max1 = pairing[each]
+	if (len(cuts)):
+		for each in grc.get_edges():
+			if (each[1] == cuts[0]):
+				grc.del_edge(each[0],each[1])
+		del(grc.nodes[cuts[0]])
+		max2 = 0
+		pairing = grc.connected_components()
+		for each in pairing.keys():
+			if (pairing[each] > max2):
+				max2 = pairing[each]
+		if (max1 != max2):
+			print "ok"
+			yes = yes + 1
+		else:
+			print "failed"
+			no = no + 1
+	else:
+		print "could not check"
+except:
+	print "failed"
+	no = no + 1
+
+
+# Summary
+print
+print yes+no, "tests were made.",
+print yes, "were successful,",
+print no, "failed."
