@@ -4,10 +4,12 @@
 from distutils.core import setup
 import os
 
+print locals()
+
 # Startup
 appname = "python-graph"
 appversion = "1.1.1"
-docfolder = '/usr/share/doc/' + appname + '-' + appversion + '/'
+docfolder = 'share/doc/' + appname + '-' + appversion + '/'
 docfiles = os.listdir('docs')
 for i in xrange(len(docfiles)):
 	docfiles[i] = 'docs/' + docfiles[i]
