@@ -34,7 +34,7 @@ A library for working with graphs in Python.
 # Module metadata
 __authors__ = "Pedro Matiello, Christian Muise, Zsolt Haraszti"
 __license__ = "MIT"
-__version__ = "1.1.1"
+__version__ = "1.1.2"
 
 
 # Imports
