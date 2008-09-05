@@ -77,7 +77,7 @@ except:
 # Breadth-first search
 try:
 	print "   Breadth-first search...",
-	gr.breadth_first_search()
+	print gr.breadth_first_search()[1]
 	print "ok"
 	yes = yes + 1
 except:
@@ -170,7 +170,7 @@ print "Correctness tests"
 try:
 	print "   Compared connectivity...",
 	access = gr.accessibility()[0]
-	bfs = gr.breadth_first_search(root=0).keys()
+	bfs = gr.breadth_first_search(root=0)[0].keys()
 	dfs = gr.depth_first_search(root=0)[0].keys()
 	mst = gr.minimal_spanning_tree(root=0).keys()
 	short = gr.shortest_path(0)[0].keys()

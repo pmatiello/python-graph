@@ -8,7 +8,7 @@ print locals()
 
 # Startup
 appname = "python-graph"
-appversion = "1.1.2"
+appversion = "1.2.0"
 docfolder = 'share/doc/' + appname + '-' + appversion + '/'
 docfiles = os.listdir('docs')
 for i in xrange(len(docfiles)):

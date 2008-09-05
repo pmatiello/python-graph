@@ -34,7 +34,7 @@ A library for working with graphs in Python.
 # Module metadata
 __authors__ = "Pedro Matiello, Christian Muise, Zsolt Haraszti"
 __license__ = "MIT"
-__version__ = "1.1.2"
+__version__ = "1.2.0"
 
 
 # Imports
@@ -530,7 +530,9 @@ class graph (object):
 		@param root: Optional root node (will explore only root's connected component)
 
 		@rtype:  dictionary
-		@return: Generated spanning tree
+		@return: A tuple containing a dictionary and a list.
+			1. Generated spanning tree
+			2. Graph's level-based ordering
 		"""
 		return searching.breadth_first_search(self, root)
 
