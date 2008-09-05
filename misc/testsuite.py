@@ -28,8 +28,6 @@
 python-graph
 
 This file contains tests for many python graph algorithms and operations.
-
-@attention: This is only a crash test. Correctness isn't being verified yet.
 """
 
 
@@ -164,7 +162,7 @@ except:
 	print "failed"
 	no = no + 1
 
-# Result comparison test
+# Correctness tests
 print
 print "Correctness tests"
 
