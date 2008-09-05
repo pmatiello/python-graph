@@ -77,7 +77,7 @@ except:
 # Breadth-first search
 try:
 	print "   Breadth-first search...",
-	print gr.breadth_first_search()[1]
+	gr.breadth_first_search()
 	print "ok"
 	yes = yes + 1
 except:
@@ -166,9 +166,9 @@ except:
 print
 print "Correctness tests"
 
-# Connectivity
+# Connectivity (compared)
 try:
-	print "   Compared connectivity...",
+	print "   Connectivity...",
 	access = gr.accessibility()[0]
 	bfs = gr.breadth_first_search(root=0)[0].keys()
 	dfs = gr.depth_first_search(root=0)[0].keys()
