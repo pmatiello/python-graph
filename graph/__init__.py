@@ -48,7 +48,7 @@ import readwrite
 
 # Graph class
 
-class graph:
+class graph (object):
 	"""
 	Graph class.
 	
@@ -135,9 +135,8 @@ class graph:
 		@type  directed: boolean
 		@param directed: Whether the generated graph should be directed or not.
 
-                @type  weight_range: tuple
-                @param weight_range: tuple of two integers as lower and upper limits on
-                                     randomly generated weights (uniform distribution).
+		@type  weight_range: tuple
+		@param weight_range: tuple of two integers as lower and upper limits on randomly generated weights (uniform distribution).
 		"""
 		generators.generate(self, num_nodes, num_edges, directed, weight_range)
 
@@ -635,7 +634,7 @@ class graph:
 
 # Hypergraph class
 
-class hypergraph:
+class hypergraph (object):
 	"""
 	Hypergraph class.
 	
