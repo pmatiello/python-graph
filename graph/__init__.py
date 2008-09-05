@@ -440,7 +440,7 @@ class graph (object):
 		@param node: Node identifier
 
 		@type  attr: tuple
-		@param attr: Tuple attribute in the form (attribute, value).
+		@param attr: Node attribute specified as a tuple in the form (attribute, value).
 		"""
 		self.node_attr[node] = self.node_attr[node] + [attr]
 
