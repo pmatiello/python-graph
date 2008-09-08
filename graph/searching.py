@@ -64,7 +64,7 @@ def depth_first_search(graph, root=None):
 		return spanning_tree, pre, post
 	
 	# Algorithm loop
-	for each in graph.get_nodes():
+	for each in graph:
 		# Select a non-visited node
 		if (each not in visited):
 			spanning_tree[each] = None
@@ -99,7 +99,7 @@ def _dfs(graph, visited, spanning_tree, pre, post, node):
 	visited[node] = 1
 	pre.append(node)
 	# Explore recursively the connected component
-	for each in graph.get_neighbors(node):
+	for each in graph[node]:
 		if (each not in visited):
 			spanning_tree[each] = node
 			_dfs(graph, visited, spanning_tree, pre, post, each)
@@ -136,7 +136,7 @@ def breadth_first_search(graph, root=None):
 		return spanning_tree, ordering
 
 	# Algorithm
-	for each in graph.get_nodes():
+	for each in graph:
 		if (each not in spanning_tree):
 			queue.append(each)
 			ordering.append(root)
@@ -165,7 +165,7 @@ def _bfs(graph, queue, spanning_tree, ordering):
 	while (queue != []):
 		node = queue.pop(0)
 
-		for other in graph.get_neighbors(node):
+		for other in graph[node]:
 			if (other not in spanning_tree):
 				queue.append(other)
 				ordering.append(other)

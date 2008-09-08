@@ -65,7 +65,7 @@ def write_xml(graph):
 	grxml.appendChild(grxmlr)
 
 	# Each node...
-	for each_node in graph.get_nodes():
+	for each_node in graph:
 		node = grxml.createElement('node')
 		node.setAttribute('id',str(each_node))
 		grxmlr.appendChild(node)
@@ -76,7 +76,7 @@ def write_xml(graph):
 			node.appendChild(attr)
 
 		# and its outgoing arrows
-		for each_arrow in graph.get_neighbors(each_node):
+		for each_arrow in graph[each_node]:
 			arrow = grxml.createElement('arrow')
 			arrow.setAttribute('to',str(each_arrow))
 			arrow.setAttribute('wt',str(graph.get_arrow_weight(each_node, each_arrow)))
@@ -103,7 +103,7 @@ def write_xml_hypergraph(hypergraph):
 	grxml.appendChild(grxmlr)
 
 	# Each node...
-	nodes = hypergraph.get_nodes()
+	nodes = hypergraph
 	hyperedges = hypergraph.get_hyperedges()
 	for each_node in (nodes + hyperedges):
 		if (each_node in nodes):
@@ -179,8 +179,8 @@ def write_dot(graph, wt=False):
 	@return: String specifying the graph in DOT Language.
 	"""
 	# Check graph type
-	for each_node in graph.get_nodes():
-		for each_arrow in graph.get_neighbors(each_node):
+	for each_node in graph:
+		for each_arrow in graph[each_node]:
 			if (not graph.has_edge(each_node, each_arrow) or graph.get_arrow_weight(each_node, each_arrow) != graph.get_arrow_weight(each_arrow, each_node)):
 				return _write_dot_digraph(graph, wt)
 	return _write_dot_graph(graph, wt)
@@ -205,10 +205,10 @@ def _write_dot_graph(graph, wt):
 	label = "\n"
 
 	# Add nodes
-	for each_node in graph.get_nodes():
+	for each_node in graph:
 		doc = doc + "\t\"%s\"\n" % str(each_node)
 		# Add edges
-		for each_arrow in graph.get_neighbors(each_node):
+		for each_arrow in graph[each_node]:
 			if (graph.has_edge(each_node, each_arrow) and (each_node < each_arrow)):
 				labelvars = {
 					'label' : graph.get_arrow_label(each_node, each_arrow),
@@ -247,10 +247,10 @@ def _write_dot_digraph(graph, wt):
 	label = "\n"
 
 	# Add nodes
-	for each_node in graph.get_nodes():
+	for each_node in graph:
 		doc = doc + "\t\"%s\"\n" % str(each_node)
 		# Add arrows
-		for each_arrow in graph.get_neighbors(each_node):
+		for each_arrow in graph[each_node]:
 			labelvars = {
 				'label' : graph.get_arrow_label(each_node, each_arrow),
 				'weigth': graph.get_arrow_weight(each_node, each_arrow)
@@ -304,7 +304,7 @@ def write_dot_hypergraph(hypergraph, coloured=False):
 	
 	color = "\n"
 	# Add nodes and links
-	for each_node in hypergraph.get_nodes():
+	for each_node in hypergraph:
 		doc = doc + "\t\"%s\"\n" % str(each_node)
 		for each_link in hypergraph.get_links(each_node):
 			if (coloured):

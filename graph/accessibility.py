@@ -48,7 +48,7 @@ def accessibility(graph):
 	accessibility = {}		# Accessibility matrix
 
 	# For each node i, mark each node j if that exists a path from i to j.
-	for each in graph.get_nodes():
+	for each in graph:
 		access = {}
 		# Perform DFS to explore all reachable nodes
 		_dfs(graph, access, 1, each)
@@ -71,9 +71,9 @@ def mutual_accessibility(graph):
 	mutual_access = {}
 	access = graph.accessibility()
 
-	for i in graph.get_nodes():
+	for i in graph:
 		mutual_access[i] = []
-		for j in graph.get_nodes():
+		for j in graph:
 			if (i in access[j] and j in access[i]):
 				mutual_access[i].append(j)
 
@@ -98,7 +98,7 @@ def connected_components(graph):
 	count = 1
 
 	# For 'each' node not found to belong to a connected component, find its connected component.
-	for each in graph.get_nodes():
+	for each in graph:
 		if (each not in visited):
 			_dfs(graph, visited, count, each)
 			count = count + 1
@@ -126,7 +126,7 @@ def _dfs(graph, visited, count, node):
 	"""
 	visited[node] = count
 	# Explore recursively the connected component
-	for each in graph.get_neighbors(node):
+	for each in graph[node]:
 		if (each not in visited):
 			_dfs(graph, visited, count, each)
 
@@ -146,7 +146,7 @@ def cut_edges(graph):
 	reply = []
 	pre[None] = 0
 
-	for each in graph.get_nodes():
+	for each in graph:
 		if (not pre.has_key(each)):
 			spanning_tree[each] = None
 			_cut_dfs(graph, spanning_tree, pre, low, reply, each)
@@ -167,23 +167,23 @@ def cut_nodes(graph):
 	pre[None] = 0
 	
 	# Create spanning trees, calculate pre[], low[]
-	for each in graph.get_nodes():
+	for each in graph:
 		if (not pre.has_key(each)):
 			spanning_tree[each] = None
 			_cut_dfs(graph, spanning_tree, pre, low, [], each)
 
 	# Find cuts
-	for each in graph.get_nodes():
+	for each in graph:
 		# If node is not a root
 		if (spanning_tree[each] is not None):
-			for other in graph.get_neighbors(each):
+			for other in graph[each]:
 				# If there is no back-edge from descendent to a ancestral of each
 				if (low[other] >= pre[each] and spanning_tree[other] == each):
 					reply[each] = 1
 		# If node is a root
 		else:
 			children = 0
-			for other in graph.get_nodes():
+			for other in graph:
 				if (spanning_tree[other] == each):
 					children = children + 1
 			# root is cut-vertex iff it has two or more children
@@ -219,7 +219,7 @@ def _cut_dfs(graph, spanning_tree, pre, low, reply, node):
 	low[node] = pre[None]
 	pre[None] = pre[None] + 1
 	
-	for each in graph.get_neighbors(node):
+	for each in graph[node]:
 		if (not pre.has_key(each)):
 			spanning_tree[each] = node
 			_cut_dfs(graph, spanning_tree, pre, low, reply, each)

@@ -86,7 +86,29 @@ class graph (object):
 		@return: Size of the graph.
 		"""
 		return len(self.nodes)
-	
+
+
+	def __iter__(self):
+		"""
+		Return a iterator passing through all nodes in the graph.
+		
+		@rtype:  iterator
+		@return: Iterator passing through all nodes in the graph.
+		"""
+		for each in self.nodes.iterkeys():
+			yield each
+
+
+	def __getitem__(self, node):
+		"""
+		Return a iterator passing through all neighbors of the given node.
+		
+		@rtype:  iterator
+		@return: Iterator passing through all neighbors of the given node.
+		"""
+		for each in self.nodes[node]:
+			yield each
+
 
 	def read(self, string, fmt='xml'):
 		"""
