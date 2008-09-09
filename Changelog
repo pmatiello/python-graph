@@ -8,11 +8,12 @@ Release 1.2.0	[??? ?, 2008]
 
 Enhancements:
 	Moved to new class style;
+	Graphs and digraphs are separated classes now;
 	Added level-based ordering to breadth first search;
 	Graph object is now iterable;
 	Graph object is now a container and graphobj[nodeid] iterates too;
 	Support for node and edge attributes (Issue 5);
-	Graphs and digraphs are separated classes now.
+	Node deletion.
 	
 Fixes:
 	Install now works with a prefix (Issue 10).
