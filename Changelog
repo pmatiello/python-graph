@@ -16,11 +16,11 @@ Enhancements:
 	Node deletion.
 	
 Fixes:
-	Install now works with a prefix (Issue 10).
+	Install now works with a prefix (Issue 10);
 	Shortest path spanning trees did not had an explicit root.
 
 Important API Changes:
-	breadth_first_search() now returns a tuple.
+	breadth_first_search() now returns a tuple;
 	Arrow methods are gone. Use class digraph + edge methods for directed graphs now.
 
 
