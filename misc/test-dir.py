@@ -39,7 +39,7 @@ import graph
 
 # Now work
 print "python-graph test suite"
-gr = graph.graph()
+gr = graph.digraph()
 yes = 0
 no = 0
 print "------------------------------------"
@@ -87,7 +87,7 @@ except:
 # Connected components
 try:
 	print "   Connected components...",
-	gr.connected_components
+	gr.mutual_accessibility()
 	print "ok"
 	yes = yes + 1
 except:
