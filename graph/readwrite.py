@@ -150,7 +150,9 @@ def read_xml(graph, string):
 	for each_edge in dom.getElementsByTagName("edge"):
 		graph.add_edge(each_edge.getAttribute('from'), each_edge.getAttribute('to'), wt=float(each_edge.getAttribute('wt')), label=each_edge.getAttribute('label'))
 		for each_attr in each_edge.getElementsByTagName("attribute"):
-			graph.add_edge_attribute(each_edge.getAttribute('from'), each_edge.getAttribute('to'), (each_attr.getAttribute('attr'), each_attr.getAttribute('value')))
+			attr_tuple = (each_attr.getAttribute('attr'), each_attr.getAttribute('value'))
+			if (attr_tuple not in graph.get_edge_attributes(each_edge.getAttribute('from'), each_edge.getAttribute('to'))):
+				graph.add_edge_attribute(each_edge.getAttribute('from'), each_edge.getAttribute('to'), attr_tuple)
 
 
 def read_xml_hypergraph(hypergraph, string):
