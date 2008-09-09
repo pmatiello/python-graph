@@ -9,10 +9,7 @@
 	<node id="Ireland"/>
 	<node id="Wales"/>
 	<node id="Belgium"/>
-	<node id="England">
-		<attribute attr="shape" value="circle"/>
-		<attribute attr="color" value="red"/>
-	</node>
+	<node id="England"/>
 	<node id="Spain"/>
 	<edge from="Spain" label="" to="France" wt="1"/>
 	<edge from="France" label="" to="Spain" wt="1"/>
@@ -26,14 +23,10 @@
 	<edge from="Wales" label="" to="England" wt="1"/>
 	<edge from="Netherlands" label="" to="Germany" wt="1"/>
 	<edge from="Scotland" label="" to="Wales" wt="1"/>
-	<edge from="Portugal" label="" to="Spain" wt="1">
-		<attribute attr="color" value="blue"/>
-	</edge>
+	<edge from="Portugal" label="" to="Spain" wt="1"/>
 	<edge from="Belgium" label="" to="Netherlands" wt="1"/>
 	<edge from="Scotland" label="" to="England" wt="1"/>
-	<edge from="Spain" label="" to="Portugal" wt="1">
-		<attribute attr="color" value="blue"/>
-	</edge>
+	<edge from="Spain" label="" to="Portugal" wt="1"/>
 	<edge from="Germany" label="" to="Netherlands" wt="1"/>
 	<edge from="Germany" label="" to="Belgium" wt="1"/>
 	<edge from="France" label="" to="Germany" wt="1"/>
