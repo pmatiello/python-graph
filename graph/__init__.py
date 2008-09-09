@@ -46,7 +46,7 @@ import sorting
 import readwrite
 
 
-# Graph class
+# Graph class --------------------------------------------------------------------------------------
 
 class graph (object):
 	"""
@@ -584,7 +584,7 @@ class graph (object):
 		return accessibility.cut_nodes(self)
 
 
-# Digraph class
+# Digraph class ------------------------------------------------------------------------------------
 
 class digraph (object):
 	"""
@@ -1114,7 +1114,7 @@ class digraph (object):
 		return accessibility.cut_nodes(self)
 
 
-# Hypergraph class
+# Hypergraph class ---------------------------------------------------------------------------------
 
 class hypergraph (object):
 	"""
