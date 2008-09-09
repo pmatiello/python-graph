@@ -817,7 +817,7 @@ class digraph (object):
 		@type  attrs: list
 		@param attrs: List of node attributes specified as (attribute, value) tuples.
 		"""
-		if (v not in self.nodes[u] and u not in self.nodes[v]):
+		if (v not in self.nodes[u]):
 			self.nodes[u].append(v)
 			self.edges[(u, v)] = [label, wt]
 			self.edge_attr[(u, v)] = attrs
@@ -972,7 +972,7 @@ class digraph (object):
 		@rtype:  boolean
 		@return: Truth-value for edge existence.
 		"""
-		return self.edges.has_key((u,v)) and self.edges.has_key((v,u))
+		return self.edges.has_key((u,v))
 
 
 	def complete(self):

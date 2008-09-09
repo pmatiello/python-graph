@@ -194,7 +194,7 @@ def _dot_node_str(graph, node, wt):
 
 def _dot_edge_str(graph, u, v, wt):
 	line = '\t"%s" -- "%s" [ ' % (str(u), str(v))
-	attrlist = graph.get_edge_attributes(u, v)
+	attrlist = graph.get_edge_attributes(u, v) + [('label',graph.get_edge_label(u, v))]
 	for each in attrlist:
 		attr = '%s="%s" ' % (each[0], each[1])
 		line = line + attr
@@ -204,7 +204,7 @@ def _dot_edge_str(graph, u, v, wt):
 
 def _dot_arrow_str(graph, u, v, wt):
 	line = '\t"%s" -> "%s" [ ' % (str(u), str(v))
-	attrlist = graph.get_edge_attributes(u, v)
+	attrlist = graph.get_edge_attributes(u, v) + [('label',graph.get_edge_label(u, v))]
 	for each in attrlist:
 		attr = '%s="%s" ' % (each[0], each[1])
 		line = line + attr
