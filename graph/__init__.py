@@ -52,9 +52,9 @@ class graph (object):
 	"""
 	Graph class.
 	
-	Graphs are built of nodes and edges (or arrows).
+	Graphs are built of nodes and edges.
 
-	@sort: __init__, __getitem__, __iter__, __len__, __str__, generate, read, write, add_arrow, add_edge, add_graph, add_node, add_nodes, add_node_attribute, complete, add_spanning_tree, del_arrow, del_edge, get_arrow_label, get_arrow_weight, get_edge_label, get_edge_weight, get_edges, get_neighbors, get_nodes, get_node_attributes, has_arrow, has_edge, has_node, inverse, set_arrow_label, set_arrow_weight, set_edge_label, set_edge_weight, accessibility, breadth_first_search, connected_components, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
+	@sort: __init__, __getitem__, __iter__, __len__, __str__, generate, read, write, add_edge, add_graph, add_node, add_nodes, add_node_attribute, complete, add_spanning_tree, del_edge, get_edge_label, get_edge_weight, get_edges, get_neighbors, get_nodes, get_node_attributes, has_edge, has_node, inverse, set_edge_label, set_edge_weight, accessibility, breadth_first_search, connected_components, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, mutual_accessibility, shortest_path
 	"""
 
 
@@ -62,8 +62,8 @@ class graph (object):
 		"""
 		Initialize a graph.
 		"""
-		self.nodes = {}		# Arrow/Edge lists	(like an adjacency list)
-		self.edges = {}		# Arrow/Edge label and weight information
+		self.nodes = {}		# Edge lists	(like an adjacency list)
+		self.edges = {}		# Edge label and weight information
 		self.node_attr = {}	# Node attributes (for Graphviz)
 		self.edge_attr = {}	# Edge attributes (for Graphviz)
 
@@ -112,7 +112,7 @@ class graph (object):
 
 	def read(self, string, fmt='xml'):
 		"""
-		Read a graph from a string. Nodes and arrows specified in the input will be added to the current graph.
+		Read a graph from a string. Nodes and edges specified in the input will be added to the current graph.
 		
 		@type  string: string
 		@param string: Input string specifying a graph.
@@ -141,9 +141,9 @@ class graph (object):
 		if (fmt == 'xml'):
 			return readwrite.write_xml(self)
 		elif (fmt == 'dot'):
-			return readwrite.write_dot(self)
+			return readwrite.write_dot_graph(self, False)
 		elif (fmt == 'dotwt'):
-			return readwrite.write_dot(self, wt=True)
+			return readwrite.write_dot_graph(self, True)
 
 
 	def generate(self, num_nodes, num_edges, directed=False, weight_range=(1, 1)):
@@ -190,10 +190,10 @@ class graph (object):
 	
 	def get_edges(self):
 		"""
-		Return all edges/arrows in the graph.
+		Return all edges in the graph.
 		
 		@rtype:  list
-		@return: List of all edges/arrows in the graph.
+		@return: List of all edges in the graph.
 		"""
 		return self.edges.keys()
 
@@ -245,8 +245,6 @@ class graph (object):
 		"""
 		Add an edge (u,v) to the graph connecting nodes u and v.
 
-		@attention: This function should not be used in directed graphs: use add_arrow() instead.
-
 		@type  u: node
 		@param u: One node.
 
@@ -271,36 +269,9 @@ class graph (object):
 			self.edge_attr[(v, u)] = attrs
 
 
-	def add_arrow(self, u, v, wt=1, label='', attrs=[]):
-		"""
-		Add an arrow (u,v) to the directed graph connecting node u to node v.
-
-		@type  u: node
-		@param u: One node.
-
-		@type  v: node
-		@param v: Other node.
-
-		@type  wt: number
-		@param wt: Arrow weight.
-
-		@type  label: string
-		@param label: Arrow label.
-
-		@type  attrs: list
-		@param attrs: List of node attributes specified as (attribute, value) tuples.
-		"""
-		if (v not in self.nodes[u]):
-			self.nodes[u].append(v)
-			self.edges[(u, v)] = [label, wt]
-			self.edge_attr[(u, v)] = attrs
-
-
 	def del_edge(self, u, v):
 		"""
 		Remove an edge (u, v) from the graph.
-
-		@attention: This function should not be used in directed graphs: use del_arrow() instead.
 
 		@type  u: node
 		@param u: One node.
@@ -312,52 +283,6 @@ class graph (object):
 		self.nodes[v].remove(u)
 		del(self.edges[(u,v)])
 		del(self.edges[(v,u)])
-
-
-	def del_arrow(self, u, v):
-		"""
-		Remove an arrow (u, v) from the directed graph.
-
-		@type  u: node
-		@param u: One node.
-
-		@type  v: node
-		@param v: Other node.
-		"""
-		self.nodes[u].remove(v)
-		del(self.edges[(u,v)])
-
-
-	def get_arrow_weight(self, u, v):
-		"""
-		Get the weight of an arrow.
-
-		@type  u: node
-		@param u: One node.
-
-		@type  v: node
-		@param v: Other node.
-		
-		@rtype:  number
-		@return: Arrow weight.
-		"""
-		return self.edges[(u, v)][1]
-
-
-	def set_arrow_weight(self, u, v, wt):
-		"""
-		Set the weight of an arrow.
-
-		@type  u: node
-		@param u: One node.
-
-		@type  v: node
-		@param v: Other node.
-
-		@type  wt: number
-		@param wt: Arrow weight.
-		"""
-		self.edges[(u, v)][1] = wt
 
 
 	def get_edge_weight(self, u, v):
@@ -391,38 +316,6 @@ class graph (object):
 		"""
 		self.edges[(u, v)][1] = wt
 		self.edges[(v, u)][1] = wt
-
-
-	def get_arrow_label(self, u, v):
-		"""
-		Get the label of an arrow.
-
-		@type  u: node
-		@param u: One node.
-
-		@type  v: node
-		@param v: Other node.
-		
-		@rtype:  string
-		@return: Arrow label.
-		"""
-		return self.edges[(u, v)][0]
-
-
-	def set_arrow_label(self, u, v, label):
-		"""
-		Set the label of an arrow.
-
-		@type  u: node
-		@param u: One node.
-
-		@type  v: node
-		@param v: Other node.
-
-		@type  label: string
-		@param label: Arrow label.
-		"""
-		self.edges[(u, v)][0] = label
 
 
 	def get_edge_label(self, u, v):
@@ -517,9 +410,518 @@ class graph (object):
 		return self.edge_attr[(u,v)]
 
 
-	def add_arrow_attribute(self, u, v, attr):
+	def has_edge(self, u, v):
 		"""
-		Add attribute to the given arrow.
+		Return whether an edge between nodes u and v exists.
+
+		@type  u: node
+		@param u: One node.
+
+		@type  v: node
+		@param v: Other node.
+
+		@rtype:  boolean
+		@return: Truth-value for edge existence.
+		"""
+		return self.edges.has_key((u,v)) and self.edges.has_key((v,u))
+
+
+	def complete(self):
+		"""
+		Make the graph a complete graph.
+		
+		@attention: This will modify the current graph.
+		"""
+		for each in self.get_nodes():
+			for other in self.get_nodes():
+				if (each != other):
+					self.add_edge(each, other)
+
+
+	def inverse(self):
+		"""
+		Return the inverse of the graph.
+		
+		@rtype:  graph
+		@return: Complement graph for the graph.
+		"""
+		inv = graph()
+		inv.add_nodes(self.get_nodes())
+		inv.complete()
+		for each in self.edges.keys():
+			inv.del_edge(each[0], each[1])
+		return inv
+
+
+	def add_graph(self, graph):
+		"""
+		Add other graph to the graph.
+		
+		@type  graph: graph
+		@param graph: Graph
+		"""
+		self.add_nodes(graph.get_nodes())
+		for each_node in graph.get_nodes():
+			for each_edge in graph.get_neighbors(each_node):
+				self.add_edge(each_node, each_edge)
+
+
+	def add_spanning_tree(self, st):
+		"""
+		Add a spanning tree to the graph.
+		
+		@type  st: dictionary
+		@param st: Spanning tree.
+		"""
+		self.add_nodes(st.keys())
+		for each in st:
+			if (st[each] is not None):
+				self.add_edge(st[each], each)
+
+
+	def depth_first_search(self, root=None):
+		"""
+		Depht-first search.
+		
+		@type  root: node
+		@param root: Optional root node (will explore only root's connected component)
+
+		@rtype:  tuple
+		@return:  tupple containing a dictionary and two lists:
+			1. Generated spanning tree
+			2. Graph's preordering
+			3. Graph's postordering
+		"""
+		return searching.depth_first_search(self, root)
+
+
+	def breadth_first_search(self, root=None):
+		"""
+		Breadth-first search.
+
+		@type  root: node
+		@param root: Optional root node (will explore only root's connected component)
+
+		@rtype:  dictionary
+		@return: A tuple containing a dictionary and a list.
+			1. Generated spanning tree
+			2. Graph's level-based ordering
+		"""
+		return searching.breadth_first_search(self, root)
+
+
+	def accessibility(self):
+		"""
+		Accessibility matrix (transitive closure).
+
+		@rtype:  dictionary
+		@return: Accessibility information for each node.
+		"""
+		return accessibility.accessibility(self)
+
+
+	def mutual_accessibility(self):
+		"""
+		Mutual-accessibility matrix (strongly connected components).
+
+		@rtype:  list
+		@return: Mutual-accessibility information for each node.
+		"""
+		return accessibility.mutual_accessibility(self)
+
+
+	def connected_components(self):
+		"""
+		Connected components.
+
+		@attention: Indentification of connected components is meaningful only for non-directed graphs.
+
+		@rtype:  dictionary
+		@return: Pairing that associates each node to its connected component.
+		"""
+		return accessibility.connected_components(self)
+
+
+	def minimal_spanning_tree(self, root=None):
+		"""
+		Minimal spanning tree.
+
+		@type  root: node
+		@param root: Optional root node (will explore only root's connected component)
+
+		@attention: Minimal spanning tree meaningful only for weighted graphs.
+
+		@rtype:  list
+		@return: Generated spanning tree.
+		"""
+		return minmax.minimal_spanning_tree(self, root)
+
+
+	def shortest_path(self, source):
+		"""
+		Return the shortest path distance between source node and all other nodes using Dijkstra's algorithm.
+		
+		@attention: All weights must be nonnegative.
+
+		@type  source: node
+		@param source: Node from which to start the search.
+
+		@rtype:  tuple
+		@return: A tuple containing two dictionaries, each keyed by target nodes.
+			1. Shortest path spanning tree (each key points to previous node in the shortest path transversal)
+			2. Shortest distance from given source to each target node
+		Inaccessible target nodes do not appear in either dictionary.
+		"""
+		return minmax.shortest_path(self, source)
+	
+	
+	def cut_edges(self):
+		"""
+		Return the cut-edges of the given graph.
+		
+		@rtype:  list
+		@return: List of cut-edges.
+		"""
+		return accessibility.cut_edges(self)
+
+
+	def cut_nodes(self):
+		"""
+		Return the cut-nodes of the given graph.
+		
+		@rtype:  list
+		@return: List of cut-nodes.
+		"""
+		return accessibility.cut_nodes(self)
+
+
+# Digraph class
+
+class digraph (object):
+	"""
+	Digraph class.
+	
+	Digraphs are built of nodes and directed edges.
+
+	@sort: __init__, __getitem__, __iter__, __len__, __str__, generate, read, write, add_edge, add_graph, add_node, add_nodes, add_node_attribute, complete, add_spanning_tree, del_edge, get_edge_label, get_edge_weight, get_edges, get_neighbors, get_nodes, get_node_attributes, has_edge, has_node, inverse, set_edge_label, set_edge_weight, accessibility, breadth_first_search, connected_components, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
+	"""
+
+
+	def __init__(self):
+		"""
+		Initialize a graph.
+		"""
+		self.nodes = {}		# Edge lists	(like an adjacency list)
+		self.edges = {}		# Edge label and weight information
+		self.node_attr = {}	# Node attributes (for Graphviz)
+		self.edge_attr = {}	# Edge attributes (for Graphviz)
+
+
+	def __str__(self):
+		"""
+		Return a string representing the graph when requested by str() (or print).
+
+		@rtype:  string
+		@return: String representing the graph.
+		"""
+		return "<graph object " + str(self.get_nodes()) + " " + str(self.get_edges()) + ">"
+
+
+	def __len__(self):
+		"""
+		Return the size of the graph when requested by len().
+
+		@rtype:  number
+		@return: Size of the graph.
+		"""
+		return len(self.nodes)
+
+
+	def __iter__(self):
+		"""
+		Return a iterator passing through all nodes in the graph.
+		
+		@rtype:  iterator
+		@return: Iterator passing through all nodes in the graph.
+		"""
+		for each in self.nodes.iterkeys():
+			yield each
+
+
+	def __getitem__(self, node):
+		"""
+		Return a iterator passing through all neighbors of the given node.
+		
+		@rtype:  iterator
+		@return: Iterator passing through all neighbors of the given node.
+		"""
+		for each in self.nodes[node]:
+			yield each
+
+
+	def read(self, string, fmt='xml'):
+		"""
+		Read a graph from a string. Nodes and edges specified in the input will be added to the current graph.
+		
+		@type  string: string
+		@param string: Input string specifying a graph.
+
+		@type  fmt: string
+		@param fmt: Input format. Possible formats are:
+			1. 'xml' - XML (default)
+		"""
+		if (fmt == 'xml'):
+			readwrite.read_xml(self, string)
+
+
+	def write(self, fmt='xml'):
+		"""
+		Write the graph to a string. Depending of the output format, this string can be used by read() to rebuild the graph.
+		
+		@type  fmt: string
+		@param fmt: Output format. Possible formats are:
+			1. 'xml' - XML (default)
+			2. 'dot' - DOT Language (for GraphViz)
+			3. 'dotwt' - DOT Language with weight information
+
+		@rtype:  string
+		@return: String specifying the graph.
+		"""
+		if (fmt == 'xml'):
+			return readwrite.write_xml(self)
+		elif (fmt == 'dot'):
+			return readwrite.write_dot_digraph(self, False)
+		elif (fmt == 'dotwt'):
+			return readwrite.write_dot_digraph(self, True)
+
+
+	def generate(self, num_nodes, num_edges, directed=False, weight_range=(1, 1)):
+		"""
+		Add nodes and random edges to the graph.
+		
+		@type  num_nodes: number
+		@param num_nodes: Number of nodes.
+		
+		@type  num_edges: number
+		@param num_edges: Number of edges.
+	
+		@type  directed: boolean
+		@param directed: Whether the generated graph should be directed or not.
+
+		@type  weight_range: tuple
+		@param weight_range: tuple of two integers as lower and upper limits on randomly generated weights (uniform distribution).
+		"""
+		generators.generate(self, num_nodes, num_edges, directed, weight_range)
+
+
+	def get_nodes(self):
+		"""
+		Return node list.
+
+		@rtype:  list
+		@return: Node list.
+		"""
+		return self.nodes.keys()
+
+
+	def get_neighbors(self, node):
+		"""
+		Return all nodes that are directly accessible from given node.
+
+		@type  node: node
+		@param node: Node identifier
+
+		@rtype:  list
+		@return: List of nodes directly accessible from given node.
+		"""
+		return self.nodes[node]
+	
+	
+	def get_edges(self):
+		"""
+		Return all edges in the graph.
+		
+		@rtype:  list
+		@return: List of all edges in the graph.
+		"""
+		return self.edges.keys()
+
+
+	def has_node(self, node):
+		"""
+		Return whether the requested node exists.
+
+		@type  node: node
+		@param node: Node identifier
+
+		@rtype:  boolean
+		@return: Truth-value for node existence.
+		"""
+		return self.nodes.has_key(node)
+
+
+	def add_node(self, node, attrs=[]):
+		"""
+		Add given node to the graph.
+		
+		@attention: While nodes can be of any type, it's strongly recommended to use only numbers and single-line strings as node identifiers if you intend to use write().
+
+		@type  node: node
+		@param node: Node identifier.
+		
+		@type  attrs: list
+		@param attrs: List of node attributes specified as (attribute, value) tuples.
+		"""
+		if (not node in self.nodes.keys()):
+			self.nodes[node] = []
+			self.node_attr[node] = attrs
+
+
+	def add_nodes(self, nodelist):
+		"""
+		Add given nodes to the graph.
+		
+		@attention: While nodes can be of any type, it's strongly recommended to use only numbers and single-line strings as node identifiers if you intend to use write().
+
+		@type  nodelist: list
+		@param nodelist: List of nodes to be added to the graph.
+		"""
+		for each in nodelist:
+			self.add_node(each)
+
+
+	def add_edge(self, u, v, wt=1, label='', attrs=[]):
+		"""
+		Add an directed edge (u,v) to the graph connecting nodes u to v.
+
+		@type  u: node
+		@param u: One node.
+
+		@type  v: node
+		@param v: Other node.
+		
+		@type  wt: number
+		@param wt: Edge weight.
+		
+		@type  label: string
+		@param label: Edge label.
+		
+		@type  attrs: list
+		@param attrs: List of node attributes specified as (attribute, value) tuples.
+		"""
+		if (v not in self.nodes[u] and u not in self.nodes[v]):
+			self.nodes[u].append(v)
+			self.edges[(u, v)] = [label, wt]
+			self.edge_attr[(u, v)] = attrs
+
+
+	def del_edge(self, u, v):
+		"""
+		Remove an directed edge (u, v) from the graph.
+
+		@type  u: node
+		@param u: One node.
+
+		@type  v: node
+		@param v: Other node.
+		"""
+		self.nodes[u].remove(v)
+		del(self.edges[(u,v)])
+
+
+	def get_edge_weight(self, u, v):
+		"""
+		Get the weight of an edge.
+
+		@type  u: node
+		@param u: One node.
+
+		@type  v: node
+		@param v: Other node.
+		
+		@rtype:  number
+		@return: Edge weight.
+		"""
+		return self.edges[(u, v)][1]
+
+
+	def set_edge_weight(self, u, v, wt):
+		"""
+		Set the weight of an edge.
+
+		@type  u: node
+		@param u: One node.
+
+		@type  v: node
+		@param v: Other node.
+
+		@type  wt: number
+		@param wt: Edge weight.
+		"""
+		self.edges[(u, v)][1] = wt
+
+
+	def get_edge_label(self, u, v):
+		"""
+		Get the label of an edge.
+
+		@type  u: node
+		@param u: One node.
+
+		@type  v: node
+		@param v: Other node.
+		
+		@rtype:  string
+		@return: Edge label
+		"""
+		return self.edges[(u, v)][0]
+
+
+	def set_edge_label(self, u, v, label):
+		"""
+		Set the label of an edge.
+
+		@type  u: node
+		@param u: One node.
+
+		@type  v: node
+		@param v: Other node.
+
+		@type  label: string
+		@param label: Edge label.
+		"""
+		self.edges[(u, v)][0] = label
+	
+	
+	def add_node_attribute(self, node, attr):
+		"""
+		Add attribute to the given node.
+
+		@type  node: node
+		@param node: Node identifier
+
+		@type  attr: tuple
+		@param attr: Node attribute specified as a tuple in the form (attribute, value).
+		"""
+		self.node_attr[node] = self.node_attr[node] + [attr]
+
+
+	def get_node_attributes(self, node):
+		"""
+		Return the attributes of the given node.
+
+		@type  node: node
+		@param node: Node identifier
+
+		@rtype:  list
+		@return: List of attributes specified tuples in the form (attribute, value).
+		"""
+		return self.node_attr[node]
+
+
+	def add_edge_attribute(self, u, v, attr):
+		"""
+		Add attribute to the given edge.
 
 		@type  u: node
 		@param u: One node.
@@ -530,12 +932,12 @@ class graph (object):
 		@type  attr: tuple
 		@param attr: Node attribute specified as a tuple in the form (attribute, value).
 		"""
-		self.edge_attr[(u, v)] = self.edge_attr[(u, v)] + [attr]
+		self.edge_attr[(u,v)] = self.edge_attr[(u,v)] + [attr]
 
 
-	def get_arrow_attributes(self, u, v):
+	def get_edge_attributes(self, u, v):
 		"""
-		Return the attributes of the given arrow.
+		Return the attributes of the given edge.
 
 		@type  u: node
 		@param u: One node.
@@ -547,22 +949,6 @@ class graph (object):
 		@return: List of attributes specified tuples in the form (attribute, value).
 		"""
 		return self.edge_attr[(u,v)]
-
-
-	def has_arrow(self, u, v):
-		"""
-		Return whether an arrow from node u to node v exists.
-
-		@type  u: node
-		@param u: One node.
-
-		@type  v: node
-		@param v: Other node.
-
-		@rtype:  boolean
-		@return: Truth-value for arrow existence.
-		"""
-		return self.edges.has_key((u,v))
 
 
 	def has_edge(self, u, v):
@@ -590,7 +976,7 @@ class graph (object):
 		for each in self.get_nodes():
 			for other in self.get_nodes():
 				if (each != other):
-					self.add_arrow(each, other)
+					self.add_edge(each, other)
 
 
 	def inverse(self):
@@ -604,7 +990,7 @@ class graph (object):
 		inv.add_nodes(self.get_nodes())
 		inv.complete()
 		for each in self.edges.keys():
-			inv.del_arrow(each[0], each[1])
+			inv.del_edge(each[0], each[1])
 		return inv
 
 
@@ -617,8 +1003,8 @@ class graph (object):
 		"""
 		self.add_nodes(graph.get_nodes())
 		for each_node in graph.get_nodes():
-			for each_arrow in graph.get_neighbors(each_node):
-				self.add_arrow(each_node, each_arrow)
+			for each_edge in graph.get_neighbors(each_node):
+				self.add_edge(each_node, each_edge)
 
 
 	def add_spanning_tree(self, st):
@@ -631,7 +1017,7 @@ class graph (object):
 		self.add_nodes(st.keys())
 		for each in st:
 			if (st[each] is not None):
-				self.add_arrow(st[each], each)
+				self.add_edge(st[each], each)
 
 
 	def depth_first_search(self, root=None):

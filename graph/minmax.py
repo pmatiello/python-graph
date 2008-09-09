@@ -26,7 +26,7 @@
 """
 Minimization and maximization algorithms for python-graph.
 
-@sort: minimal_spanning_tree, shortest_path, _first_unvisited, _lightest_arrow
+@sort: minimal_spanning_tree, shortest_path, _first_unvisited, _lightest_edge
 """
 
 
@@ -65,8 +65,8 @@ def minimal_spanning_tree(graph, root=None):
 	
 	# Algorithm loop
 	while (nroot is not None):
-		larrow = _lightest_arrow(graph, visited)
-		if (larrow == (-1, -1)):
+		ledge = _lightest_edge(graph, visited)
+		if (ledge == (-1, -1)):
 			if (root is not None):
 				break
 			nroot = _first_unvisited(graph, visited)
@@ -74,8 +74,8 @@ def minimal_spanning_tree(graph, root=None):
 				spanning_tree[nroot] = None
 			visited.append(nroot)
 		else:
-			spanning_tree[larrow[1]] = larrow[0]
-			visited.append(larrow[1])
+			spanning_tree[ledge[1]] = ledge[0]
+			visited.append(ledge[1])
 
 	return spanning_tree
 
@@ -99,9 +99,9 @@ def _first_unvisited(graph, visited):
 	return None
 
 
-def _lightest_arrow(graph, visited):
+def _lightest_edge(graph, visited):
 	"""
-	Return the lightest arrow in graph going from a visited node to an unvisited one.
+	Return the lightest edge in graph going from a visited node to an unvisited one.
 	
 	@type  graph: graph
 	@param graph: Graph.
@@ -110,18 +110,18 @@ def _lightest_arrow(graph, visited):
 	@param visited: List of nodes.
 
 	@rtype:  tuple
-	@return: Lightest arrow in graph going from a visited node to an unvisited one.
+	@return: Lightest edge in graph going from a visited node to an unvisited one.
 	"""
-	lightest_arrow = (-1, -1)
+	lightest_edge = (-1, -1)
 	weight = -1
 	for each in visited:
 		for other in graph[each]:
 			if (other not in visited):
-				w = graph.get_arrow_weight(each, other)
+				w = graph.get_edge_weight(each, other)
 				if (w < weight or weight < 0):
-					lightest_arrow = (each, other)
+					lightest_edge = (each, other)
 					weight = w
-	return lightest_arrow
+	return lightest_edge
 
 
 # Shortest Path
@@ -166,7 +166,7 @@ def shortest_path(graph, source):
 		if (dist.has_key(u)):
 			for v in graph[u]:
 				if v in q:
-					alt = dist[u] + graph.get_arrow_weight(u, v)
+					alt = dist[u] + graph.get_edge_weight(u, v)
 					if (not dist.has_key(v)) or (alt < dist[v]):
 						dist[v] = alt
 						previous[v] = u

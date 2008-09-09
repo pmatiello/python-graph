@@ -65,7 +65,7 @@ def write_xml(graph):
 	grxml.appendChild(grxmlr)
 
 	# Each node...
-	for each_node in graph:
+	for each_node in graph.get_nodes():
 		node = grxml.createElement('node')
 		node.setAttribute('id',str(each_node))
 		grxmlr.appendChild(node)
@@ -75,13 +75,19 @@ def write_xml(graph):
 			attr.setAttribute('value', each_attr[1])
 			node.appendChild(attr)
 
-		# and its outgoing arrows
-		for each_arrow in graph[each_node]:
-			arrow = grxml.createElement('arrow')
-			arrow.setAttribute('to',str(each_arrow))
-			arrow.setAttribute('wt',str(graph.get_arrow_weight(each_node, each_arrow)))
-			arrow.setAttribute('label',str(graph.get_arrow_label(each_node, each_arrow)))
-			node.appendChild(arrow)
+	# Each edge...
+	for edge_from, edge_to in graph.get_edges():
+		edge = grxml.createElement('edge')
+		edge.setAttribute('from',str(edge_from))
+		edge.setAttribute('to',str(edge_to))
+		edge.setAttribute('wt',str(graph.get_edge_weight(edge_from, edge_to)))
+		edge.setAttribute('label',str(graph.get_edge_label(edge_from, edge_to)))
+		grxmlr.appendChild(edge)
+		for attr_name, attr_value in graph.get_edge_attributes(edge_from, edge_to):
+			attr = grxml.createElement('attribute')
+			attr.setAttribute('attr', attr_name)
+			attr.setAttribute('value', attr_value)
+			edge.appendChild(attr)
 
 	return grxml.toprettyxml()
 
@@ -113,18 +119,18 @@ def write_xml_hypergraph(hypergraph):
 		node.setAttribute('id',str(each_node))
 		grxmlr.appendChild(node)
 
-		# and its outgoing arrows
-		for each_arrow in hypergraph.get_links(each_node):
-			arrow = grxml.createElement('link')
-			arrow.setAttribute('to',str(each_arrow))
-			node.appendChild(arrow)
+		# and its outgoing edge
+		for each_edge in hypergraph.get_links(each_node):
+			edge = grxml.createElement('link')
+			edge.setAttribute('to',str(each_edge))
+			node.appendChild(edge)
 
 	return grxml.toprettyxml()
 
 
 def read_xml(graph, string):
 	"""
-	Read a graph from a XML document. Nodes and arrows specified in the input will be added to the current graph.
+	Read a graph from a XML document. Nodes and edges specified in the input will be added to the current graph.
 	
 	@type  graph: graph
 	@param graph: Graph
@@ -133,13 +139,18 @@ def read_xml(graph, string):
 	@param string: Input string in XML format specifying a graph.
 	"""
 	dom = parseString(string)
+	
+	# Read nodes...
 	for each_node in dom.getElementsByTagName("node"):
 		graph.add_node(each_node.getAttribute('id'))
-		for each_arrow in each_node.getElementsByTagName("arrow"):
-			graph.add_arrow(each_node.getAttribute('id'), each_arrow.getAttribute('to'), wt=float(each_arrow.getAttribute('wt')), label=each_arrow.getAttribute('label'))
 		for each_attr in each_node.getElementsByTagName("attribute"):
 			graph.add_node_attribute(each_node.getAttribute('id'), (each_attr.getAttribute('attr'), each_attr.getAttribute('value')))
 
+	# Read edges...
+	for each_edge in dom.getElementsByTagName("edge"):
+		graph.add_edge(each_edge.getAttribute('from'), each_edge.getAttribute('to'), wt=float(each_edge.getAttribute('wt')), label=each_edge.getAttribute('label'))
+		for each_attr in each_edge.getElementsByTagName("attribute"):
+			graph.add_edge_attribute(each_edge.getAttribute('from'), each_edge.getAttribute('to'), (each_attr.getAttribute('attr'), each_attr.getAttribute('value')))
 
 
 def read_xml_hypergraph(hypergraph, string):
@@ -159,32 +170,11 @@ def read_xml_hypergraph(hypergraph, string):
 		hypergraph.add_hyperedges(each_node.getAttribute('id'))
 	dom = parseString(string)
 	for each_node in dom.getElementsByTagName("node"):
-		for each_arrow in each_node.getElementsByTagName("link"):
-			hypergraph.link(each_node.getAttribute('id'), each_arrow.getAttribute('to'))
+		for each_edge in each_node.getElementsByTagName("link"):
+			hypergraph.link(each_node.getAttribute('id'), each_edge.getAttribute('to'))
 
 
 # DOT Language
-
-def write_dot(graph, wt=False):
-	"""
-	Return a string specifying the given graph in DOT Language (which can be used by GraphViz to generate a visualization of the given graph).
-	
-	@type  graph: graph
-	@param graph: Graph.
-	
-	@type  wt: boolean
-	@param wt: Whether edges/arrows should be wt with its weight.
-
-	@rtype:  string
-	@return: String specifying the graph in DOT Language.
-	"""
-	# Check graph type
-	for each_node in graph:
-		for each_arrow in graph[each_node]:
-			if (not graph.has_edge(each_node, each_arrow) or graph.get_arrow_weight(each_node, each_arrow) != graph.get_arrow_weight(each_arrow, each_node)):
-				return _write_dot_digraph(graph, wt)
-	return _write_dot_graph(graph, wt)
-
 
 def _dot_node_str(graph, node, wt):
 	line = '\t"%s" [ ' % str(node)
@@ -198,7 +188,7 @@ def _dot_node_str(graph, node, wt):
 
 def _dot_edge_str(graph, u, v, wt):
 	line = '\t"%s" -- "%s" [ ' % (str(u), str(v))
-	attrlist = graph.get_arrow_attributes(u, v)
+	attrlist = graph.get_edge_attributes(u, v)
 	for each in attrlist:
 		attr = '%s="%s" ' % (each[0], each[1])
 		line = line + attr
@@ -208,7 +198,7 @@ def _dot_edge_str(graph, u, v, wt):
 
 def _dot_arrow_str(graph, u, v, wt):
 	line = '\t"%s" -> "%s" [ ' % (str(u), str(v))
-	attrlist = graph.get_arrow_attributes(u, v)
+	attrlist = graph.get_edge_attributes(u, v)
 	for each in attrlist:
 		attr = '%s="%s" ' % (each[0], each[1])
 		line = line + attr
@@ -216,7 +206,7 @@ def _dot_arrow_str(graph, u, v, wt):
 	return line
 
 
-def _write_dot_graph(graph, wt):
+def write_dot_graph(graph, wt):
 	"""
 	Return a string specifying the given graph in DOT Language.
 	
@@ -224,7 +214,7 @@ def _write_dot_graph(graph, wt):
 	@param graph: Graph.
 
 	@type  wt: boolean
-	@param wt: Whether edges should be wt with its weight.
+	@param wt: Whether edges should be labelled with its weight.
 
 	@rtype:  string
 	@return: String specifying the graph in DOT Language.
@@ -233,12 +223,13 @@ def _write_dot_graph(graph, wt):
 	for node in graph:
 		doc = doc + _dot_node_str(graph, node, wt)
 		for edge in graph[node]:
-			doc = doc + _dot_edge_str(graph, node, edge, wt)
+			if (node >= edge):
+				doc = doc + _dot_edge_str(graph, node, edge, wt)
 	doc = doc + '}'
 	return doc
 
 
-def _write_dot_digraph(graph, wt):
+def write_dot_digraph(graph, wt):
 	"""
 	Return a string specifying the given digraph in DOT Language.
 	
@@ -246,7 +237,7 @@ def _write_dot_digraph(graph, wt):
 	@param graph: Graph.
 
 	@type  wt: boolean
-	@param wt: Whether arrows should be wt with its weight.
+	@param wt: Whether arrows should be labelled with its weight.
 
 	@rtype:  string
 	@return: String specifying the graph in DOT Language.
@@ -255,8 +246,7 @@ def _write_dot_digraph(graph, wt):
 	for node in graph:
 		doc = doc + _dot_node_str(graph, node, wt)
 		for edge in graph[node]:
-			if (node >= edge):
-				doc = doc + _dot_arrow_str(graph, node, edge, wt)
+			doc = doc + _dot_arrow_str(graph, node, edge, wt)
 	doc = doc + '}'
 	return doc
 

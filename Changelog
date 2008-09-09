@@ -11,7 +11,8 @@ Enhancements:
 	Added level-based ordering to breadth first search;
 	Graph object is now iterable;
 	Graph object is now a container and graphobj[nodeid] iterates too.
-	Support for node and edge attributes.
+	Support for node and edge attributes;
+	Graphs and digraphs are separated classes now.
 	
 Fixes:
 	Install now works with a prefix (Issue 10).
@@ -19,6 +20,7 @@ Fixes:
 
 Important API Changes:
 	breadth_first_search() now returns a tuple.
+	Arrow methods are gone. Use class digraph + edge methods for directed graphs now.
 
 
 Release 1.1.1	[Sep 4, 2008]
