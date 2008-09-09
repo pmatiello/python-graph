@@ -9,6 +9,8 @@ Release 1.2.0	[??? ?, 2008]
 Enhancements:
 	Moved to new class style;
 	Added level-based ordering to breadth first search;
+	Graph object is now iterable;
+	Graph object is now a container and graphobj[nodeid] iterates too.
 	Support for node and edge attributes.
 	
 Fixes:

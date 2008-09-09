@@ -19,7 +19,7 @@ gr.add_node("Ireland")
 gr.add_node("Scotland")
 gr.add_node("Wales")
 
-gr.add_edge("Portugal", "Spain")
+gr.add_edge("Portugal", "Spain",attrs=[('color','blue')])
 gr.add_edge("Spain","France")
 gr.add_edge("France","Belgium")
 gr.add_edge("France","Germany")
@@ -33,6 +33,7 @@ gr.add_edge("Scotland","Wales")
 
 # Print to DOT Language
 dot = gr.write(fmt='dot')
+print dot
 
 # Print graph as PNG image
 gvv = gv.readstring(dot)

@@ -54,7 +54,7 @@ class graph (object):
 	
 	Graphs are built of nodes and edges (or arrows).
 
-	@sort: __init__, __len__, __str__, generate, read, write, add_arrow, add_edge, add_graph, add_node, add_nodes, add_node_attribute, complete, add_spanning_tree, del_arrow, del_edge, get_arrow_label, get_arrow_weight, get_edge_label, get_edge_weight, get_edges, get_neighbors, get_nodes, get_node_attributes, has_arrow, has_edge, has_node, inverse, set_arrow_label, set_arrow_weight, set_edge_label, set_edge_weight, accessibility, breadth_first_search, connected_components, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
+	@sort: __init__, __getitem__, __iter__, __len__, __str__, generate, read, write, add_arrow, add_edge, add_graph, add_node, add_nodes, add_node_attribute, complete, add_spanning_tree, del_arrow, del_edge, get_arrow_label, get_arrow_weight, get_edge_label, get_edge_weight, get_edges, get_neighbors, get_nodes, get_node_attributes, has_arrow, has_edge, has_node, inverse, set_arrow_label, set_arrow_weight, set_edge_label, set_edge_weight, accessibility, breadth_first_search, connected_components, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
 	"""
 
 
@@ -271,7 +271,7 @@ class graph (object):
 			self.edge_attr[(v, u)] = attrs
 
 
-	def add_arrow(self, u, v, wt=1, label=''):
+	def add_arrow(self, u, v, wt=1, label='', attrs=[]):
 		"""
 		Add an arrow (u,v) to the directed graph connecting node u to node v.
 
@@ -286,10 +286,14 @@ class graph (object):
 
 		@type  label: string
 		@param label: Arrow label.
+
+		@type  attrs: list
+		@param attrs: List of node attributes specified as (attribute, value) tuples.
 		"""
 		if (v not in self.nodes[u]):
 			self.nodes[u].append(v)
 			self.edges[(u, v)] = [label, wt]
+			self.edge_attr[(u, v)] = attrs
 
 
 	def del_edge(self, u, v):
@@ -478,6 +482,71 @@ class graph (object):
 		@return: List of attributes specified tuples in the form (attribute, value).
 		"""
 		return self.node_attr[node]
+
+
+	def add_edge_attribute(self, u, v, attr):
+		"""
+		Add attribute to the given edge.
+
+		@type  u: node
+		@param u: One node.
+
+		@type  v: node
+		@param v: Other node.
+
+		@type  attr: tuple
+		@param attr: Node attribute specified as a tuple in the form (attribute, value).
+		"""
+		self.edge_attr[(u,v)] = self.edge_attr[(u,v)] + [attr]
+		self.edge_attr[(v,u)] = self.edge_attr[(v,u)] + [attr]
+
+
+	def get_edge_attributes(self, u, v):
+		"""
+		Return the attributes of the given edge.
+
+		@type  u: node
+		@param u: One node.
+
+		@type  v: node
+		@param v: Other node.
+
+		@rtype:  list
+		@return: List of attributes specified tuples in the form (attribute, value).
+		"""
+		return self.edge_attr[(u,v)]
+
+
+	def add_arrow_attribute(self, u, v, attr):
+		"""
+		Add attribute to the given arrow.
+
+		@type  u: node
+		@param u: One node.
+
+		@type  v: node
+		@param v: Other node.
+
+		@type  attr: tuple
+		@param attr: Node attribute specified as a tuple in the form (attribute, value).
+		"""
+		self.edge_attr[(u, v)] = self.edge_attr[(u, v)] + [attr]
+
+
+	def get_arrow_attributes(self, u, v):
+		"""
+		Return the attributes of the given arrow.
+
+		@type  u: node
+		@param u: One node.
+
+		@type  v: node
+		@param v: Other node.
+
+		@rtype:  list
+		@return: List of attributes specified tuples in the form (attribute, value).
+		"""
+		return self.edge_attr[(u,v)]
 
 
 	def has_arrow(self, u, v):

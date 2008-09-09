@@ -186,6 +186,36 @@ def write_dot(graph, wt=False):
 	return _write_dot_graph(graph, wt)
 
 
+def _dot_node_str(graph, node, wt):
+	line = '\t"%s" [ ' % str(node)
+	attrlist = graph.get_node_attributes(node)
+	for each in attrlist:
+		attr = '%s="%s" ' % (each[0], each[1])
+		line = line + attr
+	line = line + ']\n'
+	return line
+
+
+def _dot_edge_str(graph, u, v, wt):
+	line = '\t"%s" -- "%s" [ ' % (str(u), str(v))
+	attrlist = graph.get_arrow_attributes(u, v)
+	for each in attrlist:
+		attr = '%s="%s" ' % (each[0], each[1])
+		line = line + attr
+	line = line + ']\n'
+	return line
+
+
+def _dot_arrow_str(graph, u, v, wt):
+	line = '\t"%s" -> "%s" [ ' % (str(u), str(v))
+	attrlist = graph.get_arrow_attributes(u, v)
+	for each in attrlist:
+		attr = '%s="%s" ' % (each[0], each[1])
+		line = line + attr
+	line = line + ']\n'
+	return line
+
+
 def _write_dot_graph(graph, wt):
 	"""
 	Return a string specifying the given graph in DOT Language.
@@ -199,32 +229,12 @@ def _write_dot_graph(graph, wt):
 	@rtype:  string
 	@return: String specifying the graph in DOT Language.
 	"""
-	# Start document
-	doc = ""
-	doc = doc + "graph graphname" + "\n{\n"
-	label = "\n"
-
-	# Add nodes
-	for each_node in graph:
-		doc = doc + "\t\"%s\"\n" % str(each_node)
-		# Add edges
-		for each_arrow in graph[each_node]:
-			if (graph.has_edge(each_node, each_arrow) and (each_node < each_arrow)):
-				labelvars = {
-					'label' : graph.get_arrow_label(each_node, each_arrow),
-					'weigth': graph.get_arrow_weight(each_node, each_arrow)
-				}
-				if (wt):
-					label = '[label="%(label)s (%(weigth)d)"]\n' % labelvars
-				else:
-					label = '[label="%(label)s"]\n' % labelvars
-				arrowvars = {
-					'from' : str(each_node),
-					'to' : str(each_arrow)
-				}
-				doc = doc + '\t"%(from)s" -- "%(to)s" ' % arrowvars + label
-	# Finish
-	doc = doc + "}"
+	doc = 'graph graphname \n{\n'
+	for node in graph:
+		doc = doc + _dot_node_str(graph, node, wt)
+		for edge in graph[node]:
+			doc = doc + _dot_edge_str(graph, node, edge, wt)
+	doc = doc + '}'
 	return doc
 
 
@@ -241,31 +251,13 @@ def _write_dot_digraph(graph, wt):
 	@rtype:  string
 	@return: String specifying the graph in DOT Language.
 	"""
-	# Start document
-	doc = ""
-	doc = doc + "digraph graphname" + "\n{\n"
-	label = "\n"
-
-	# Add nodes
-	for each_node in graph:
-		doc = doc + "\t\"%s\"\n" % str(each_node)
-		# Add arrows
-		for each_arrow in graph[each_node]:
-			labelvars = {
-				'label' : graph.get_arrow_label(each_node, each_arrow),
-				'weigth': graph.get_arrow_weight(each_node, each_arrow)
-			}
-			if (wt):
-				label = '[label="%(label)s (%(weigth)d)"]\n' % labelvars
-			else:
-				label = '[label="%(label)s"]\n' % labelvars
-			arrowvars = {
-				'from' : str(each_node),
-				'to' : str(each_arrow)
-			}
-			doc = doc + '\t"%(from)s" -> "%(to)s" ' % arrowvars + label
-	# Finish
-	doc = doc + "}"
+	doc = 'digraph graphname \n{\n'
+	for node in graph:
+		doc = doc + _dot_node_str(graph, node, wt)
+		for edge in graph[node]:
+			if (node >= edge):
+				doc = doc + _dot_arrow_str(graph, node, edge, wt)
+	doc = doc + '}'
 	return doc
 
 
