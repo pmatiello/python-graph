@@ -155,14 +155,11 @@ class graph (object):
 		
 		@type  num_edges: number
 		@param num_edges: Number of edges.
-	
-		@type  directed: boolean
-		@param directed: Whether the generated graph should be directed or not.
 
 		@type  weight_range: tuple
 		@param weight_range: tuple of two integers as lower and upper limits on randomly generated weights (uniform distribution).
 		"""
-		generators.generate(self, num_nodes, num_edges, directed, weight_range)
+		generators.generate(self, num_nodes, num_edges, weight_range)
 
 
 	def get_nodes(self):
@@ -687,7 +684,7 @@ class digraph (object):
 			return readwrite.write_dot_digraph(self, True)
 
 
-	def generate(self, num_nodes, num_edges, directed=False, weight_range=(1, 1)):
+	def generate(self, num_nodes, num_edges, weight_range=(1, 1)):
 		"""
 		Add nodes and random edges to the graph.
 		
@@ -696,14 +693,11 @@ class digraph (object):
 		
 		@type  num_edges: number
 		@param num_edges: Number of edges.
-	
-		@type  directed: boolean
-		@param directed: Whether the generated graph should be directed or not.
 
 		@type  weight_range: tuple
 		@param weight_range: tuple of two integers as lower and upper limits on randomly generated weights (uniform distribution).
 		"""
-		generators.generate(self, num_nodes, num_edges, directed, weight_range)
+		generators.generate(self, num_nodes, num_edges, weight_range)
 
 
 	def get_nodes(self):
@@ -1196,22 +1190,6 @@ class hypergraph (object):
 		elif (fmt == 'dotclr'):
 			return readwrite.write_dot_hypergraph(self, coloured=True)
 	
-	
-	def generate(self, num_nodes, num_edges, directed=False):
-		"""
-		Add nodes and random edges to the graph.
-		
-		@type  num_nodes: number
-		@param num_nodes: Number of nodes.
-		
-		@type  num_edges: number
-		@param num_edges: Number of edges.
-	
-		@type  directed: boolean
-		@param directed: Whether the generated graph should be directed or not.
-		"""
-		pass
-
 
 	def get_nodes(self):
 		"""

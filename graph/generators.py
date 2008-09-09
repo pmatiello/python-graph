@@ -36,12 +36,13 @@ __license__ = "MIT"
 
 
 # Imports
+import graph as classes
 from random import randint
 
 
 # Generator
 
-def generate(graph, num_nodes, num_edges, directed=False, weight_range=(1, 1)):
+def generate(graph, num_nodes, num_edges, weight_range=(1, 1)):
 	"""
 	Add nodes and random edges to the graph.
 	
@@ -53,13 +54,13 @@ def generate(graph, num_nodes, num_edges, directed=False, weight_range=(1, 1)):
 	
 	@type  num_edges: number
 	@param num_edges: Number of edges.
-	
-	@type  directed: boolean
-	@param directed: Whether the generated graph should be directed or not.
 
 	@type  weight_range: tuple
 	@param weight_range: tuple of two integers as lower and upper limits on randomly generated weights (uniform distribution).
 	"""
+	# Discover if graph is directed or not
+ 	directed = (type(graph) == classes.digraph)
+
 	# Nodes first
 	nodes = xrange(num_nodes)
 	graph.add_nodes(nodes)

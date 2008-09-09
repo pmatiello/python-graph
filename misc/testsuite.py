@@ -52,7 +52,7 @@ print "Crash test"
 # Generate random graph
 try:
 	print "   Generating random graph...",
-	gr.generate(200, 3000, directed=False, weight_range=(1,10))
+	gr.generate(200, 3000, weight_range=(1,10))
 	print "ok"
 	yes = yes + 1
 except:
@@ -133,16 +133,6 @@ except:
 	print "failed"
 	no = no + 1
 
-# Mutual-accessibility
-try:
-	print "   Mutual-accessibility...",
-	gr.mutual_accessibility()
-	print "ok"
-	yes = yes + 1
-except:
-	print "failed"
-	no = no + 1
-
 # Shortest path
 try:
 	print "   Shortest path...",
@@ -151,16 +141,6 @@ try:
 	yes = yes + 1
 except:
 	print "   failed"
-
-# Topological sorting
-try:
-	print "   Topological sorting...",
-	gr.topological_sorting()
-	print "ok"
-	yes = yes + 1
-except:
-	print "failed"
-	no = no + 1
 
 # Correctness tests
 print
