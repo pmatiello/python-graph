@@ -57,7 +57,7 @@ class graph (object):
 	@sort: __init__, __getitem__, __iter__, __len__, __str__, generate, read, write, add_edge,
 	add_graph, add_node, add_nodes, add_node_attribute, complete, add_spanning_tree, del_edge,
 	get_edge_label, get_edge_weight, get_edges, get_neighbors, get_nodes, get_node_attributes,
-	has_edge, has_node, inverse, set_edge_label, set_edge_weight, accessibility,
+	has_edge, has_node, inverse, order, set_edge_label, set_edge_weight, accessibility,
 	breadth_first_search, connected_components, cut_edges, cut_nodes, depth_first_search,
 	minimal_spanning_tree, shortest_path
 	"""
@@ -431,6 +431,16 @@ class graph (object):
 		@return: Truth-value for edge existence.
 		"""
 		return self.edges.has_key((u,v)) and self.edges.has_key((v,u))
+	
+	
+	def order(self, node):
+		"""
+		Return the order of the given node.
+		
+		@rtype:  number
+		@return: Order of the given node.
+		"""
+		return len(self.get_neighbors(node))
 
 
 	def complete(self):
@@ -607,7 +617,7 @@ class digraph (object):
 	@sort: __init__, __getitem__, __iter__, __len__, __str__, generate, read, write, add_edge,
 	add_graph, add_node, add_nodes, add_node_attribute, complete, add_spanning_tree, del_edge,
 	get_edge_label, get_edge_weight, get_edges, get_neighbors, get_nodes, get_node_attributes,
-	has_edge, has_node, inverse, set_edge_label, set_edge_weight, accessibility,
+	has_edge, has_node, inverse, order, set_edge_label, set_edge_weight, accessibility,
 	breadth_first_search, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree,
 	mutual_accessibility, shortest_path, topological_sorting
 	"""
@@ -973,6 +983,16 @@ class digraph (object):
 		@return: Truth-value for edge existence.
 		"""
 		return self.edges.has_key((u,v))
+
+	
+	def order(self, node):
+		"""
+		Return the order of the given node.
+		
+		@rtype:  number
+		@return: Order of the given node.
+		"""
+		return len(self.get_neighbors(node))
 
 
 	def complete(self):
