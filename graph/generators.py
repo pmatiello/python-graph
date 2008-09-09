@@ -56,7 +56,8 @@ def generate(graph, num_nodes, num_edges, weight_range=(1, 1)):
 	@param num_edges: Number of edges.
 
 	@type  weight_range: tuple
-	@param weight_range: tuple of two integers as lower and upper limits on randomly generated weights (uniform distribution).
+	@param weight_range: tuple of two integers as lower and upper limits on randomly generated
+	weights (uniform distribution).
 	"""
 	# Discover if graph is directed or not
  	directed = (type(graph) == classes.digraph)

@@ -54,7 +54,12 @@ class graph (object):
 	
 	Graphs are built of nodes and edges.
 
-	@sort: __init__, __getitem__, __iter__, __len__, __str__, generate, read, write, add_edge, add_graph, add_node, add_nodes, add_node_attribute, complete, add_spanning_tree, del_edge, get_edge_label, get_edge_weight, get_edges, get_neighbors, get_nodes, get_node_attributes, has_edge, has_node, inverse, set_edge_label, set_edge_weight, accessibility, breadth_first_search, connected_components, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, shortest_path
+	@sort: __init__, __getitem__, __iter__, __len__, __str__, generate, read, write, add_edge,
+	add_graph, add_node, add_nodes, add_node_attribute, complete, add_spanning_tree, del_edge,
+	get_edge_label, get_edge_weight, get_edges, get_neighbors, get_nodes, get_node_attributes,
+	has_edge, has_node, inverse, set_edge_label, set_edge_weight, accessibility,
+	breadth_first_search, connected_components, cut_edges, cut_nodes, depth_first_search,
+	minimal_spanning_tree, shortest_path
 	"""
 
 
@@ -112,7 +117,8 @@ class graph (object):
 
 	def read(self, string, fmt='xml'):
 		"""
-		Read a graph from a string. Nodes and edges specified in the input will be added to the current graph.
+		Read a graph from a string. Nodes and edges specified in the input will be added to the
+		current graph.
 		
 		@type  string: string
 		@param string: Input string specifying a graph.
@@ -127,7 +133,8 @@ class graph (object):
 
 	def write(self, fmt='xml'):
 		"""
-		Write the graph to a string. Depending of the output format, this string can be used by read() to rebuild the graph.
+		Write the graph to a string. Depending of the output format, this string can be used by
+		read() to rebuild the graph.
 		
 		@type  fmt: string
 		@param fmt: Output format. Possible formats are:
@@ -157,7 +164,8 @@ class graph (object):
 		@param num_edges: Number of edges.
 
 		@type  weight_range: tuple
-		@param weight_range: tuple of two integers as lower and upper limits on randomly generated weights (uniform distribution).
+		@param weight_range: tuple of two integers as lower and upper limits on randomly generated
+		weights (uniform distribution).
 		"""
 		generators.generate(self, num_nodes, num_edges, weight_range)
 
@@ -212,7 +220,8 @@ class graph (object):
 		"""
 		Add given node to the graph.
 		
-		@attention: While nodes can be of any type, it's strongly recommended to use only numbers and single-line strings as node identifiers if you intend to use write().
+		@attention: While nodes can be of any type, it's strongly recommended to use only numbers
+		and single-line strings as node identifiers if you intend to use write().
 
 		@type  node: node
 		@param node: Node identifier.
@@ -229,7 +238,8 @@ class graph (object):
 		"""
 		Add given nodes to the graph.
 		
-		@attention: While nodes can be of any type, it's strongly recommended to use only numbers and single-line strings as node identifiers if you intend to use write().
+		@attention: While nodes can be of any type, it's strongly recommended to use only numbers
+		and single-line strings as node identifiers if you intend to use write().
 
 		@type  nodelist: list
 		@param nodelist: List of nodes to be added to the graph.
@@ -523,7 +533,8 @@ class graph (object):
 		"""
 		Connected components.
 
-		@attention: Indentification of connected components is meaningful only for non-directed graphs.
+		@attention: Indentification of connected components is meaningful only for non-directed
+		graphs.
 
 		@rtype:  dictionary
 		@return: Pairing that associates each node to its connected component.
@@ -548,7 +559,8 @@ class graph (object):
 
 	def shortest_path(self, source):
 		"""
-		Return the shortest path distance between source node and all other nodes using Dijkstra's algorithm.
+		Return the shortest path distance between source node and all other nodes using Dijkstra's
+		algorithm.
 		
 		@attention: All weights must be nonnegative.
 
@@ -557,7 +569,7 @@ class graph (object):
 
 		@rtype:  tuple
 		@return: A tuple containing two dictionaries, each keyed by target nodes.
-			1. Shortest path spanning tree (each key points to previous node in the shortest path transversal)
+			1. Shortest path spanning tree
 			2. Shortest distance from given source to each target node
 		Inaccessible target nodes do not appear in either dictionary.
 		"""
@@ -592,7 +604,12 @@ class digraph (object):
 	
 	Digraphs are built of nodes and directed edges.
 
-	@sort: __init__, __getitem__, __iter__, __len__, __str__, generate, read, write, add_edge, add_graph, add_node, add_nodes, add_node_attribute, complete, add_spanning_tree, del_edge, get_edge_label, get_edge_weight, get_edges, get_neighbors, get_nodes, get_node_attributes, has_edge, has_node, inverse, set_edge_label, set_edge_weight, breadth_first_search, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
+	@sort: __init__, __getitem__, __iter__, __len__, __str__, generate, read, write, add_edge,
+	add_graph, add_node, add_nodes, add_node_attribute, complete, add_spanning_tree, del_edge,
+	get_edge_label, get_edge_weight, get_edges, get_neighbors, get_nodes, get_node_attributes,
+	has_edge, has_node, inverse, set_edge_label, set_edge_weight, accessibility,
+	breadth_first_search, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree,
+	mutual_accessibility, shortest_path, topological_sorting
 	"""
 
 
@@ -650,7 +667,8 @@ class digraph (object):
 
 	def read(self, string, fmt='xml'):
 		"""
-		Read a graph from a string. Nodes and edges specified in the input will be added to the current graph.
+		Read a graph from a string. Nodes and edges specified in the input will be added to the
+		current graph.
 		
 		@type  string: string
 		@param string: Input string specifying a graph.
@@ -665,7 +683,8 @@ class digraph (object):
 
 	def write(self, fmt='xml'):
 		"""
-		Write the graph to a string. Depending of the output format, this string can be used by read() to rebuild the graph.
+		Write the graph to a string. Depending of the output format, this string can be used by
+		read() to rebuild the graph.
 		
 		@type  fmt: string
 		@param fmt: Output format. Possible formats are:
@@ -695,7 +714,8 @@ class digraph (object):
 		@param num_edges: Number of edges.
 
 		@type  weight_range: tuple
-		@param weight_range: tuple of two integers as lower and upper limits on randomly generated weights (uniform distribution).
+		@param weight_range: tuple of two integers as lower and upper limits on randomly generated
+		weights (uniform distribution).
 		"""
 		generators.generate(self, num_nodes, num_edges, weight_range)
 
@@ -750,7 +770,8 @@ class digraph (object):
 		"""
 		Add given node to the graph.
 		
-		@attention: While nodes can be of any type, it's strongly recommended to use only numbers and single-line strings as node identifiers if you intend to use write().
+		@attention: While nodes can be of any type, it's strongly recommended to use only numbers
+		and single-line strings as node identifiers if you intend to use write().
 
 		@type  node: node
 		@param node: Node identifier.
@@ -767,7 +788,8 @@ class digraph (object):
 		"""
 		Add given nodes to the graph.
 		
-		@attention: While nodes can be of any type, it's strongly recommended to use only numbers and single-line strings as node identifiers if you intend to use write().
+		@attention: While nodes can be of any type, it's strongly recommended to use only numbers
+		and single-line strings as node identifiers if you intend to use write().
 
 		@type  nodelist: list
 		@param nodelist: List of nodes to be added to the graph.
@@ -1024,6 +1046,16 @@ class digraph (object):
 		return searching.depth_first_search(self, root)
 
 
+	def accessibility(self):
+		"""
+		Accessibility matrix (transitive closure).
+
+		@rtype:  dictionary
+		@return: Accessibility information for each node.
+		"""
+		return accessibility.accessibility(self)
+
+
 	def breadth_first_search(self, root=None):
 		"""
 		Breadth-first search.
@@ -1078,7 +1110,8 @@ class digraph (object):
 
 	def shortest_path(self, source):
 		"""
-		Return the shortest path distance between source node and all other nodes using Dijkstra's algorithm.
+		Return the shortest path distance between source node and all other nodes using Dijkstra's
+		algorithm.
 		
 		@attention: All weights must be nonnegative.
 
@@ -1087,7 +1120,7 @@ class digraph (object):
 
 		@rtype:  tuple
 		@return: A tuple containing two dictionaries, each keyed by target nodes.
-			1. Shortest path spanning tree (each key points to previous node in the shortest path transversal)
+			1. Shortest path spanning tree
 			2. Shortest distance from given source to each target node
 		Inaccessible target nodes do not appear in either dictionary.
 		"""
@@ -1120,9 +1153,12 @@ class hypergraph (object):
 	"""
 	Hypergraph class.
 	
-	Hypergraphs are a generalization of graphs where an edge (hyperedge) can connect more than two nodes.
+	Hypergraphs are a generalization of graphs where an edge (called hyperedge) can connect more
+	than two nodes.
 	
-	@sort: __init__, __len__, __str__, read, write, add_hyperedge, add_hyperedges, add_node, add_nodes, get_hyperedges, get_links, get_nodes, has_node, link, unlink, accessibility, connected_components, cut_hyperedges, cut_nodes
+	@sort: __init__, __len__, __str__, read, write, add_hyperedge, add_hyperedges, add_node,
+	add_nodes, get_hyperedges, get_links, get_nodes, has_node, link, unlink, accessibility,
+	connected_components, cut_hyperedges, cut_nodes
 	"""
 
 
@@ -1157,7 +1193,8 @@ class hypergraph (object):
 
 	def read(self, string, fmt='xml'):
 		"""
-		Read a hypergraph from a string. Nodes and hyperedges specified in the input will be added to the current graph.
+		Read a hypergraph from a string. Nodes and hyperedges specified in the input will be added
+		to the current graph.
 		
 		@type  string: string
 		@param string: Input string specifying a graph.
@@ -1172,7 +1209,8 @@ class hypergraph (object):
 
 	def write(self, fmt='xml'):
 		"""
-		Write the hypergraph to a string. Depending of the output format, this string can be used by read() to rebuild the graph.
+		Write the hypergraph to a string. Depending of the output format, this string can be used by
+		read() to rebuild the graph.
 		
 		@type  fmt: string
 		@param fmt: Output format. Possible formats are:
@@ -1215,7 +1253,8 @@ class hypergraph (object):
 		"""
 		Return all objects linked to the given one.
 		
-		If given a node, linked hyperedges will be returned. If given a hyperedge, linked nodes will be returned.
+		If given a node, linked hyperedges will be returned. If given a hyperedge, linked nodes will
+		be returned.
 		
 		@type  obj: node or hyperedge
 		@param obj: Object identifier.
@@ -1246,7 +1285,8 @@ class hypergraph (object):
 		"""
 		Add given node to the hypergraph.
 		
-		@attention: While nodes can be of any type, it's strongly recommended to use only numbers and single-line strings as node identifiers if you intend to use write().
+		@attention: While nodes can be of any type, it's strongly recommended to use only numbers
+		and single-line strings as node identifiers if you intend to use write().
 
 		@type  node: node
 		@param node: Node identifier.
@@ -1260,7 +1300,8 @@ class hypergraph (object):
 		"""
 		Add given nodes to the hypergraph.
 		
-		@attention: While nodes can be of any type, it's strongly recommended to use only numbers and single-line strings as node identifiers if you intend to use write().
+		@attention: While nodes can be of any type, it's strongly recommended to use only numbers
+		and single-line strings as node identifiers if you intend to use write().
 
 		@type  nodelist: list
 		@param nodelist: List of nodes to be added to the graph.
@@ -1273,7 +1314,8 @@ class hypergraph (object):
 		"""
 		Add given hyperedge to the hypergraph.
 
-		@attention: While hyperedge-nodes can be of any type, it's strongly recommended to use only numbers and single-line strings as node identifiers if you intend to use write().
+		@attention: While hyperedge-nodes can be of any type, it's strongly recommended to use only
+		numbers and single-line strings as node identifiers if you intend to use write().
 		
 		@type  hyperedge: hyperedge
 		@param hyperedge: Hyperedge identifier.
@@ -1287,7 +1329,8 @@ class hypergraph (object):
 		"""
 		Add given hyperedges to the hypergraph.
 
-		@attention: While hyperedge-nodes can be of any type, it's strongly recommended to use only numbers and single-line strings as node identifiers if you intend to use write().
+		@attention: While hyperedge-nodes can be of any type, it's strongly recommended to use only
+		numbers and single-line strings as node identifiers if you intend to use write().
 		
 		@type  edgelist: list
 		@param edgelist: List of hyperedge-nodes to be added to the graph.

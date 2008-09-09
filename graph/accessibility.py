@@ -25,7 +25,7 @@
 """
 Accessibility algorithms for python-graph.
 
-@sort: accessibility, connected_components, cut_edges, cut_nodes, mutual_accessibility, _cut_dfs, _dfs
+@sort: accessibility, connected_components, cut_edges, cut_nodes, mutual_accessibility
 """
 
 
@@ -161,7 +161,7 @@ def cut_nodes(graph):
 	@return: List of cut-nodes.
 	"""
 	pre = {}	# Pre-ordering
-	low = {}	# Lowest pre[] reachable from this node going down the spanning tree plus only one edge up
+	low = {}	# Lowest pre[] reachable from this node going down the spanning tree + one backedge
 	reply = {}
 	spanning_tree = {}
 	pre[None] = 0
@@ -207,7 +207,8 @@ def _cut_dfs(graph, spanning_tree, pre, low, reply, node):
 	@param pre: Graph's preordering.
 	
 	@type  low: dictionary
-	@param low: Associates to each node, the preordering index of the node of lowest preordering accessible from the given node.
+	@param low: Associates to each node, the preordering index of the node of lowest preordering
+	accessible from the given node.
 
 	@type  reply: list
 	@param reply: List of cut-edges.

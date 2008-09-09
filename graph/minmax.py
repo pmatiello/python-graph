@@ -141,7 +141,7 @@ def shortest_path(graph, source):
 
 	@rtype:  tuple
 	@return: A tuple containing two dictionaries, each keyed by target nodes.
-		1. Shortest path spanning tree (each key points to previous node in the shortest path transversal)
+		1. Shortest path spanning tree
 		2. Shortest distance from given source to each target node
 	Inaccessible target nodes do not appear in either dictionary.
 	"""
@@ -154,7 +154,6 @@ def shortest_path(graph, source):
 	while q:
 		# examine_min process performed using O(nodes) pass here.
 		# May be improved using another examine_min data structure.
-		# See http://www.personal.kent.edu/~rmuhamma/Algorithms/MyAlgorithms/GraphAlgor/dijkstraAlgor.htm
 		u = q[0]
 		for node in q[1:]:
 			if ((not dist.has_key(u)) 
