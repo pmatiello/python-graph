@@ -57,7 +57,7 @@ class graph (object):
 	@sort: __init__, __getitem__, __iter__, __len__, __str__, generate, read, write, add_edge,
 	add_graph, add_node, add_nodes, add_node_attribute, complete, add_spanning_tree, del_edge,
 	get_edge_label, get_edge_weight, get_edges, get_neighbors, get_nodes, get_node_attributes,
-	has_edge, has_node, inverse, order, set_edge_label, set_edge_weight, accessibility,
+	get_order, has_edge, has_node, inverse, set_edge_label, set_edge_weight, accessibility,
 	breadth_first_search, connected_components, cut_edges, cut_nodes, depth_first_search,
 	minimal_spanning_tree, shortest_path
 	"""
@@ -67,10 +67,10 @@ class graph (object):
 		"""
 		Initialize a graph.
 		"""
-		self.nodes = {}		# Edge lists	(like an adjacency list)
-		self.edges = {}		# Edge label and weight information
-		self.node_attr = {}	# Node attributes (for Graphviz)
-		self.edge_attr = {}	# Edge attributes (for Graphviz)
+		self.nodes = {}		# Pairing: Node -> Neighbors
+		self.edges = {}		# pairing: Edge -> (Label, Weight)
+		self.node_attr = {}	# Pairing: Node -> Attributes
+		self.edge_attr = {}	# Pairing: Edge -> Attributes
 
 
 	def __str__(self):
@@ -276,6 +276,21 @@ class graph (object):
 			self.edge_attr[(v, u)] = attrs
 
 
+	def del_node(self, node):
+		"""
+		Remove a node from the graph.
+		
+		@type  node: node
+		@param node: Node identifier.
+		"""
+		neighbors = self.get_neighbors(node) + []
+		for each in neighbors:
+			print each
+			self.del_edge(each, node)
+		del(self.nodes[node])
+		del(self.node_attr[node])
+
+
 	def del_edge(self, u, v):
 		"""
 		Remove an edge (u, v) from the graph.
@@ -433,7 +448,7 @@ class graph (object):
 		return self.edges.has_key((u,v)) and self.edges.has_key((v,u))
 	
 	
-	def order(self, node):
+	def get_order(self, node):
 		"""
 		Return the order of the given node.
 		
@@ -616,26 +631,27 @@ class digraph (object):
 
 	@sort: __init__, __getitem__, __iter__, __len__, __str__, generate, read, write, add_edge,
 	add_graph, add_node, add_nodes, add_node_attribute, complete, add_spanning_tree, del_edge,
-	get_edge_label, get_edge_weight, get_edges, get_neighbors, get_nodes, get_node_attributes,
-	has_edge, has_node, inverse, order, set_edge_label, set_edge_weight, accessibility,
-	breadth_first_search, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree,
-	mutual_accessibility, shortest_path, topological_sorting
+	get_degree, get_edge_label, get_edge_weight, get_edges, get_neighbors, get_nodes,
+	get_node_attributes, get_order, has_edge, has_node, inverse, set_edge_label, set_edge_weight,
+	accessibility, breadth_first_search, cut_edges, cut_nodes, depth_first_search,
+	minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
 	"""
 
 
 	def __init__(self):
 		"""
-		Initialize a graph.
+		Initialize a digraph.
 		"""
-		self.nodes = {}		# Edge lists	(like an adjacency list)
-		self.edges = {}		# Edge label and weight information
-		self.node_attr = {}	# Node attributes (for Graphviz)
-		self.edge_attr = {}	# Edge attributes (for Graphviz)
+		self.nodes = {}		# Pairing: Node -> Neighbors
+		self.edges = {}		# Pairing: Edge -> (Label, Weight)
+		self.incidence = {}	# Pairing: Node -> Incident nodes
+		self.node_attr = {}	# Pairing: Node -> Attributes
+		self.edge_attr = {}	# Pairing: Edge -> Attributes
 
 
 	def __str__(self):
 		"""
-		Return a string representing the graph when requested by str() (or print).
+		Return a string representing the digraph when requested by str() (or print).
 
 		@rtype:  string
 		@return: String representing the graph.
@@ -645,7 +661,7 @@ class digraph (object):
 
 	def __len__(self):
 		"""
-		Return the size of the graph when requested by len().
+		Return the size of the digraph when requested by len().
 
 		@rtype:  number
 		@return: Size of the graph.
@@ -655,10 +671,10 @@ class digraph (object):
 
 	def __iter__(self):
 		"""
-		Return a iterator passing through all nodes in the graph.
+		Return a iterator passing through all nodes in the digraph.
 		
 		@rtype:  iterator
-		@return: Iterator passing through all nodes in the graph.
+		@return: Iterator passing through all nodes in the digraph.
 		"""
 		for each in self.nodes.iterkeys():
 			yield each
@@ -791,6 +807,7 @@ class digraph (object):
 		"""
 		if (not node in self.nodes.keys()):
 			self.nodes[node] = []
+			self.incidence[node] = []
 			self.node_attr[node] = attrs
 
 
@@ -829,6 +846,7 @@ class digraph (object):
 		"""
 		if (v not in self.nodes[u]):
 			self.nodes[u].append(v)
+			self.incidence[v].append(u)
 			self.edges[(u, v)] = [label, wt]
 			self.edge_attr[(u, v)] = attrs
 
@@ -844,6 +862,7 @@ class digraph (object):
 		@param v: Other node.
 		"""
 		self.nodes[u].remove(v)
+		self.incidence[v].remove(u)
 		del(self.edges[(u,v)])
 
 
@@ -985,7 +1004,7 @@ class digraph (object):
 		return self.edges.has_key((u,v))
 
 	
-	def order(self, node):
+	def get_order(self, node):
 		"""
 		Return the order of the given node.
 		
@@ -993,6 +1012,16 @@ class digraph (object):
 		@return: Order of the given node.
 		"""
 		return len(self.get_neighbors(node))
+
+
+	def get_degree(self, node):
+		"""
+		Return the degree of the given node.
+		
+		@rtype:  number
+		@return: Order of the given node.
+		"""
+		return len(self.incidence[node])
 
 
 	def complete(self):
