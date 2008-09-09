@@ -68,7 +68,7 @@ class graph (object):
 		Initialize a graph.
 		"""
 		self.nodes = {}		# Pairing: Node -> Neighbors
-		self.edges = {}		# pairing: Edge -> (Label, Weight)
+		self.edges = {}		# Pairing: Edge -> (Label, Weight)
 		self.node_attr = {}	# Pairing: Node -> Attributes
 		self.edge_attr = {}	# Pairing: Edge -> Attributes
 
@@ -754,17 +754,24 @@ class digraph (object):
 		return self.nodes.keys()
 
 
-	def get_neighbors(self, node):
+	def get_neighbors(self, node, direct=False):
 		"""
 		Return all nodes that are directly accessible from given node.
 
 		@type  node: node
 		@param node: Node identifier
+		
+		@type  direct: boolean
+		@param direct: Direct (accessible from given node) or reverse (that access given node)
+		neighbors.
 
 		@rtype:  list
 		@return: List of nodes directly accessible from given node.
 		"""
-		return self.nodes[node]
+		if (direct):
+			return self.nodes[node]
+		else:
+			return self.incidence[node]
 	
 	
 	def get_edges(self):
@@ -847,6 +854,22 @@ class digraph (object):
 			self.incidence[v].append(u)
 			self.edges[(u, v)] = [label, wt]
 			self.edge_attr[(u, v)] = attrs
+
+
+	def del_node(self, node):
+		"""
+		Remove a node from the graph.
+		
+		@type  node: node
+		@param node: Node identifier.
+		"""
+		for each in list(self.get_neighbors(node, direct=False)):
+			self.del_edge(each, node)
+			if (self.has_edge(node, each)):
+				self.del_edge(node, each)
+		del(self.nodes[node])
+		del(self.incidence[node])
+		del(self.node_attr[node])
 
 
 	def del_edge(self, u, v):
