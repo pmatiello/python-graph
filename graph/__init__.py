@@ -54,7 +54,7 @@ class graph (object):
 	
 	Graphs are built of nodes and edges.
 
-	@sort: __init__, __getitem__, __iter__, __len__, __str__, generate, read, write, add_edge, add_graph, add_node, add_nodes, add_node_attribute, complete, add_spanning_tree, del_edge, get_edge_label, get_edge_weight, get_edges, get_neighbors, get_nodes, get_node_attributes, has_edge, has_node, inverse, set_edge_label, set_edge_weight, accessibility, breadth_first_search, connected_components, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, mutual_accessibility, shortest_path
+	@sort: __init__, __getitem__, __iter__, __len__, __str__, generate, read, write, add_edge, add_graph, add_node, add_nodes, add_node_attribute, complete, add_spanning_tree, del_edge, get_edge_label, get_edge_weight, get_edges, get_neighbors, get_nodes, get_node_attributes, has_edge, has_node, inverse, set_edge_label, set_edge_weight, accessibility, breadth_first_search, connected_components, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, shortest_path
 	"""
 
 
@@ -522,16 +522,6 @@ class graph (object):
 		return accessibility.accessibility(self)
 
 
-	def mutual_accessibility(self):
-		"""
-		Mutual-accessibility matrix (strongly connected components).
-
-		@rtype:  list
-		@return: Mutual-accessibility information for each node.
-		"""
-		return accessibility.mutual_accessibility(self)
-
-
 	def connected_components(self):
 		"""
 		Connected components.
@@ -605,7 +595,7 @@ class digraph (object):
 	
 	Digraphs are built of nodes and directed edges.
 
-	@sort: __init__, __getitem__, __iter__, __len__, __str__, generate, read, write, add_edge, add_graph, add_node, add_nodes, add_node_attribute, complete, add_spanning_tree, del_edge, get_edge_label, get_edge_weight, get_edges, get_neighbors, get_nodes, get_node_attributes, has_edge, has_node, inverse, set_edge_label, set_edge_weight, accessibility, breadth_first_search, connected_components, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
+	@sort: __init__, __getitem__, __iter__, __len__, __str__, generate, read, write, add_edge, add_graph, add_node, add_nodes, add_node_attribute, complete, add_spanning_tree, del_edge, get_edge_label, get_edge_weight, get_edges, get_neighbors, get_nodes, get_node_attributes, has_edge, has_node, inverse, set_edge_label, set_edge_weight, breadth_first_search, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
 	"""
 
 
@@ -1055,16 +1045,6 @@ class digraph (object):
 		return searching.breadth_first_search(self, root)
 
 
-	def accessibility(self):
-		"""
-		Accessibility matrix (transitive closure).
-
-		@rtype:  dictionary
-		@return: Accessibility information for each node.
-		"""
-		return accessibility.accessibility(self)
-
-
 	def mutual_accessibility(self):
 		"""
 		Mutual-accessibility matrix (strongly connected components).
@@ -1085,18 +1065,6 @@ class digraph (object):
 		@return: Topological sorting for the graph.
 		"""
 		return sorting.topological_sorting(self)
-
-
-	def connected_components(self):
-		"""
-		Connected components.
-
-		@attention: Indentification of connected components is meaningful only for non-directed graphs.
-
-		@rtype:  dictionary
-		@return: Pairing that associates each node to its connected component.
-		"""
-		return accessibility.connected_components(self)
 
 
 	def minimal_spanning_tree(self, root=None):
