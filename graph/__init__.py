@@ -153,7 +153,7 @@ class graph (object):
 			return readwrite.write_dot_graph(self, True)
 
 
-	def generate(self, num_nodes, num_edges, directed=False, weight_range=(1, 1)):
+	def generate(self, num_nodes, num_edges, weight_range=(1, 1)):
 		"""
 		Add nodes and random edges to the graph.
 		
