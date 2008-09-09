@@ -56,10 +56,10 @@ class graph (object):
 
 	@sort: __init__, __getitem__, __iter__, __len__, __str__, generate, read, write, add_edge,
 	add_graph, add_node, add_nodes, add_node_attribute, complete, add_spanning_tree, del_edge,
-	get_edge_label, get_edge_weight, get_edges, get_neighbors, get_nodes, get_node_attributes,
-	get_order, has_edge, has_node, inverse, set_edge_label, set_edge_weight, accessibility,
-	breadth_first_search, connected_components, cut_edges, cut_nodes, depth_first_search,
-	minimal_spanning_tree, shortest_path
+	get_edge_label, del_node, get_edge_weight, get_edges, get_neighbors, get_nodes,
+	get_node_attributes, get_order, has_edge, has_node, inverse, set_edge_label, set_edge_weight,
+	accessibility, breadth_first_search, connected_components, cut_edges, cut_nodes,
+	depth_first_search, minimal_spanning_tree, shortest_path
 	"""
 
 
@@ -629,7 +629,7 @@ class digraph (object):
 
 	@sort: __init__, __getitem__, __iter__, __len__, __str__, generate, read, write, add_edge,
 	add_graph, add_node, add_nodes, add_node_attribute, complete, add_spanning_tree, del_edge,
-	get_degree, get_edge_label, get_edge_weight, get_edges, get_neighbors, get_nodes,
+	del_node, get_degree, get_edge_label, get_edge_weight, get_edges, get_neighbors, get_nodes,
 	get_node_attributes, get_order, has_edge, has_node, inverse, set_edge_label, set_edge_weight,
 	accessibility, breadth_first_search, cut_edges, cut_nodes, depth_first_search,
 	minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
@@ -754,24 +754,31 @@ class digraph (object):
 		return self.nodes.keys()
 
 
-	def get_neighbors(self, node, direct=False):
+	def get_neighbors(self, node):
 		"""
 		Return all nodes that are directly accessible from given node.
 
 		@type  node: node
 		@param node: Node identifier
-		
-		@type  direct: boolean
-		@param direct: Direct (accessible from given node) or reverse (that access given node)
-		neighbors.
 
 		@rtype:  list
 		@return: List of nodes directly accessible from given node.
 		"""
-		if (direct):
-			return self.nodes[node]
-		else:
-			return self.incidence[node]
+		return self.nodes[node]
+	
+	
+	def get_incidents(self, node):
+		"""
+		Return all nodes that are incident to the given node.
+		
+		@type  node: node
+		@param node: Node identifier
+
+		@rtype:  list
+		@return: List of nodes directly accessible from given node.	
+		"""
+		return self.incidence[node]
+		
 	
 	
 	def get_edges(self):
@@ -863,7 +870,7 @@ class digraph (object):
 		@type  node: node
 		@param node: Node identifier.
 		"""
-		for each in list(self.get_neighbors(node, direct=False)):
+		for each in list(self.get_incidents(node)):
 			self.del_edge(each, node)
 			if (self.has_edge(node, each)):
 				self.del_edge(node, each)
