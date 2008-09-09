@@ -25,7 +25,7 @@
 """
 Functions for reading and writing graphs.
 
-@sort: read_xml, write_xml, write_dot, write_dot_hypergraph
+@sort: read_xml, write_xml, write_dot_graph, write_dot_digraph, write_dot_hypergraph
 """
 
 

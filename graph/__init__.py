@@ -457,6 +457,8 @@ class graph (object):
 		"""
 		Add other graph to the graph.
 		
+		@attention: Attributes and labels are not preserved.
+		
 		@type  graph: graph
 		@param graph: Graph
 		"""
@@ -997,6 +999,8 @@ class digraph (object):
 	def add_graph(self, graph):
 		"""
 		Add other graph to the graph.
+		
+		@attention: Attributes and labels are not preserved.
 		
 		@type  graph: graph
 		@param graph: Graph
