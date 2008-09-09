@@ -283,9 +283,7 @@ class graph (object):
 		@type  node: node
 		@param node: Node identifier.
 		"""
-		neighbors = self.get_neighbors(node) + []
-		for each in neighbors:
-			print each
+		for each in list(self.get_neighbors(node)):
 			self.del_edge(each, node)
 		del(self.nodes[node])
 		del(self.node_attr[node])
