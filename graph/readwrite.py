@@ -109,7 +109,7 @@ def write_xml_hypergraph(hypergraph):
 	grxml.appendChild(grxmlr)
 
 	# Each node...
-	nodes = hypergraph
+	nodes = hypergraph.get_nodes()
 	hyperedges = hypergraph.get_hyperedges()
 	for each_node in (nodes + hyperedges):
 		if (each_node in nodes):
@@ -292,7 +292,7 @@ def write_dot_hypergraph(hypergraph, coloured=False):
 	
 	color = "\n"
 	# Add nodes and links
-	for each_node in hypergraph:
+	for each_node in hypergraph.get_nodes():
 		doc = doc + "\t\"%s\"\n" % str(each_node)
 		for each_link in hypergraph.get_links(each_node):
 			if (coloured):
@@ -304,5 +304,4 @@ def write_dot_hypergraph(hypergraph, coloured=False):
 			doc = doc + '\t %(node)s -- %(hyperedge)s' % linkvars + color
 
 	doc = doc + "}"
-	print doc
 	return doc
