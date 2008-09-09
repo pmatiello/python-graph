@@ -121,7 +121,8 @@ try:
 	print "ok"
 	yes = yes + 1
 except:
-	print "   failed"
+	print "failed"
+	no = no + 1	
 
 # Minimal spanning tree
 try:
@@ -140,7 +141,17 @@ try:
 	print "ok"
 	yes = yes + 1
 except:
-	print "   failed"
+	print "failed"
+	no = no + 1	
+
+# Topological sorting
+try:
+	print "   Topological sorting...",
+	gr.topological_sorting()
+	print "ok"
+	yes = yes + 1
+except:
+	print "failed"
 
 # Correctness tests
 print
