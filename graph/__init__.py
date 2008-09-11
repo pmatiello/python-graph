@@ -54,12 +54,13 @@ class graph (object):
 	
 	Graphs are built of nodes and edges.
 
-	@sort: __init__, __getitem__, __iter__, __len__, __str__, generate, read, write, add_edge,
-	add_graph, add_node, add_nodes, add_node_attribute, complete, add_spanning_tree, del_edge,
-	get_edge_label, del_node, get_edge_weight, get_edges, get_neighbors, get_nodes,
-	get_node_attributes, get_order, has_edge, has_node, inverse, set_edge_label, set_edge_weight,
-	accessibility, breadth_first_search, connected_components, cut_edges, cut_nodes,
-	depth_first_search, minimal_spanning_tree, shortest_path
+	@sort:  __init__, __getitem__, __iter__, __len__, __str__, add_edge, add_edge_attribute,
+	add_graph, add_node, add_node_attribute, add_nodes, add_spanning_tree, complete, del_edge,
+	del_node, get_edge_attributes, get_edge_label, get_edges, get_edge_weight, get_neighbors,
+	get_node_attributes, get_nodes, get_order, has_edge, has_node, inverse, set_edge_label,
+	set_edge_weight, generate, read, write, accessibility, breadth_first_search,
+	connected_components, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree,
+	shortest_path
 	"""
 
 
@@ -627,12 +628,13 @@ class digraph (object):
 	
 	Digraphs are built of nodes and directed edges.
 
-	@sort: __init__, __getitem__, __iter__, __len__, __str__, generate, read, write, add_edge,
-	add_graph, add_node, add_nodes, add_node_attribute, complete, add_spanning_tree, del_edge,
-	del_node, get_degree, get_edge_label, get_edge_weight, get_edges, get_neighbors, get_nodes,
-	get_node_attributes, get_order, has_edge, has_node, inverse, set_edge_label, set_edge_weight,
-	accessibility, breadth_first_search, cut_edges, cut_nodes, depth_first_search,
-	minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
+	@sort: __init__, __getitem__, __iter__, __len__, __str__, add_edge, add_edge_attribute,
+	add_graph, add_node, add_node_attribute, add_nodes, add_spanning_tree, complete, del_edge,
+	del_node, get_degree, get_edge_attributes, get_edge_label, get_edges, get_edge_weight,
+	get_incidents, get_neighbors, get_node_attributes, get_nodes,, get_order, has_edge, has_node,
+	inverse, set_edge_label, set_edge_weight,, read, generate, write, accessibility,
+	breadth_first_search, cut_edges, cut_nodes, depth_first_search,, minimal_spanning_tree,
+	mutual_accessibility, shortest_path, topological_sorting
 	"""
 
 
