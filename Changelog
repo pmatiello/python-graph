@@ -4,7 +4,20 @@ A library for working with graphs in Python
 
 CHANGELOG
 
-Release 1.2.0	[Sep 9, 2008]
+
+Release 1.2.1	[??? ??, ????]
+
+Enhancements:
+
+Fixes:
+
+Important API Changes:
+	get_order() is now get_node_order();
+	get_degree() is now get_node_degree();
+	inverse() is now get_inverse().
+
+
+Release 1.2.0	[Sep 09, 2008]
 
 Enhancements:
 	Moved to new class style;
@@ -24,7 +37,7 @@ Important API Changes:
 	Arrow methods are gone. Use class digraph + edge methods for directed graphs now.
 
 
-Release 1.1.1	[Sep 4, 2008]
+Release 1.1.1	[Sep 04, 2008]
 
 Enhancements:
 	Improved install script.
