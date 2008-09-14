@@ -56,9 +56,9 @@ class graph (object):
 
 	@sort:  __init__, __getitem__, __iter__, __len__, __str__, add_edge, add_edge_attribute,
 	add_graph, add_node, add_node_attribute, add_nodes, add_spanning_tree, complete, del_edge,
-	del_node, get_edge_attributes, get_edge_label, get_edges, get_edge_weight, get_neighbors,
-	get_node_attributes, get_nodes, get_order, has_edge, has_node, inverse, set_edge_label,
-	set_edge_weight, generate, read, write, accessibility, breadth_first_search,
+	del_node, get_edge_attributes, get_edge_label, get_edges, get_edge_weight, get_inverse,
+	get_neighbors, get_node_attributes, get_node_order, get_nodes, has_edge, has_node,
+	set_edge_label, set_edge_weight, generate, read, write, accessibility, breadth_first_search,
 	connected_components, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree,
 	shortest_path
 	"""
@@ -447,7 +447,7 @@ class graph (object):
 		return self.edges.has_key((u,v)) and self.edges.has_key((v,u))
 	
 	
-	def get_order(self, node):
+	def get_node_order(self, node):
 		"""
 		Return the order of the given node.
 		
@@ -469,9 +469,9 @@ class graph (object):
 					self.add_edge(each, other)
 
 
-	def inverse(self):
+	def get_inverse(self):
 		"""
-		Return the inverse of the graph.
+		Return the get_inverse of the graph.
 		
 		@rtype:  graph
 		@return: Complement graph for the graph.
@@ -630,10 +630,10 @@ class digraph (object):
 
 	@sort: __init__, __getitem__, __iter__, __len__, __str__, add_edge, add_edge_attribute,
 	add_graph, add_node, add_node_attribute, add_nodes, add_spanning_tree, complete, del_edge,
-	del_node, get_degree, get_edge_attributes, get_edge_label, get_edges, get_edge_weight,
-	get_incidents, get_neighbors, get_node_attributes, get_nodes,, get_order, has_edge, has_node,
-	inverse, set_edge_label, set_edge_weight,, read, generate, write, accessibility,
-	breadth_first_search, cut_edges, cut_nodes, depth_first_search,, minimal_spanning_tree,
+	del_node, get_edge_attributes, get_edge_label, get_edges, get_edge_weight, get_incidents,
+	get_inverse, get_neighbors, get_node_attributes, get_node_degree, get_node_order, get_nodes,
+	has_edge, has_node, set_edge_label, set_edge_weight, read, generate, write, accessibility,
+	breadth_first_search, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree,
 	mutual_accessibility, shortest_path, topological_sorting
 	"""
 
@@ -1034,7 +1034,7 @@ class digraph (object):
 		return self.edges.has_key((u,v))
 
 	
-	def get_order(self, node):
+	def get_node_order(self, node):
 		"""
 		Return the order of the given node.
 		
@@ -1044,7 +1044,7 @@ class digraph (object):
 		return len(self.get_neighbors(node))
 
 
-	def get_degree(self, node):
+	def get_node_degree(self, node):
 		"""
 		Return the degree of the given node.
 		
@@ -1066,9 +1066,9 @@ class digraph (object):
 					self.add_edge(each, other)
 
 
-	def inverse(self):
+	def get_inverse(self):
 		"""
-		Return the inverse of the graph.
+		Return the get_inverse of the graph.
 		
 		@rtype:  graph
 		@return: Complement graph for the graph.
