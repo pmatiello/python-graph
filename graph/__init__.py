@@ -471,7 +471,7 @@ class graph (object):
 
 	def get_inverse(self):
 		"""
-		Return the get_inverse of the graph.
+		Return the inverse of the graph.
 		
 		@rtype:  graph
 		@return: Complement graph for the graph.
@@ -1068,7 +1068,7 @@ class digraph (object):
 
 	def get_inverse(self):
 		"""
-		Return the get_inverse of the graph.
+		Return the inverse of the graph.
 		
 		@rtype:  graph
 		@return: Complement graph for the graph.
