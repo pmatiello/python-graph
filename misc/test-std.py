@@ -213,10 +213,10 @@ try:
 		if (pairing[each] > max1):
 			max1 = pairing[each]
 	if (len(cuts)):
-		for each in grc.get_edges():
+		for each in grc.edges():
 			if (each[1] == cuts[0]):
 				grc.del_edge(each[0],each[1])
-		del(grc.nodes[cuts[0]])
+		del(grc.node_neighbors[cuts[0]])
 		max2 = 0
 		pairing = grc.connected_components()
 		for each in pairing.keys():

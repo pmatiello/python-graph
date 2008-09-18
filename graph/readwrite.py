@@ -65,7 +65,7 @@ def write_xml(graph):
 	grxml.appendChild(grxmlr)
 
 	# Each node...
-	for each_node in graph.get_nodes():
+	for each_node in graph.nodes():
 		node = grxml.createElement('node')
 		node.setAttribute('id',str(each_node))
 		grxmlr.appendChild(node)
@@ -76,7 +76,7 @@ def write_xml(graph):
 			node.appendChild(attr)
 
 	# Each edge...
-	for edge_from, edge_to in graph.get_edges():
+	for edge_from, edge_to in graph.edges():
 		edge = grxml.createElement('edge')
 		edge.setAttribute('from',str(edge_from))
 		edge.setAttribute('to',str(edge_to))
@@ -109,7 +109,7 @@ def write_xml_hypergraph(hypergraph):
 	grxml.appendChild(grxmlr)
 
 	# Each node...
-	nodes = hypergraph.get_nodes()
+	nodes = hypergraph.nodes()
 	hyperedges = hypergraph.get_hyperedges()
 	for each_node in (nodes + hyperedges):
 		if (each_node in nodes):
@@ -292,7 +292,7 @@ def write_dot_hypergraph(hypergraph, coloured=False):
 	
 	color = "\n"
 	# Add nodes and links
-	for each_node in hypergraph.get_nodes():
+	for each_node in hypergraph.nodes():
 		doc = doc + "\t\"%s\"\n" % str(each_node)
 		for each_link in hypergraph.get_links(each_node):
 			if (coloured):

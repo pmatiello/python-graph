@@ -148,7 +148,7 @@ def shortest_path(graph, source):
 	# Initialization
 	dist	 = { source: 0 }
 	previous = { source: None}
-	q = graph.get_nodes()
+	q = graph.nodes()
 
 	# Algorithm loop
 	while q:
