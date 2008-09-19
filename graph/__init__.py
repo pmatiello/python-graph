@@ -85,7 +85,7 @@ class graph (object):
 
 	def __len__(self):
 		"""
-		Return the size of the graph when requested by len().
+		Return the order of the graph when requested by len().
 
 		@rtype:  number
 		@return: Size of the graph.
@@ -660,7 +660,7 @@ class digraph (object):
 
 	def __len__(self):
 		"""
-		Return the size of the digraph when requested by len().
+		Return the order of the digraph when requested by len().
 
 		@rtype:  number
 		@return: Size of the graph.
@@ -1234,9 +1234,9 @@ class hypergraph (object):
 	Hypergraphs are a generalization of graphs where an edge (called hyperedge) can connect more
 	than two nodes.
 	
-	@sort: __init__, __len__, __str__, read, write, add_hyperedge, add_hyperedges, add_node,
-	add_nodes, has_node, hyperedges, link, links, nodes, unlink, accessibility,
-	connected_components, cut_hyperedges, cut_nodes
+	@sort: __init__, __len__, __str__, add_hyperedge, add_hyperedges, add_node,	add_nodes, has_node,
+	hyperedges, link, links, nodes, unlink, read, write, accessibility,	connected_components,
+	cut_hyperedges, cut_nodes
 	"""
 
 
@@ -1244,8 +1244,8 @@ class hypergraph (object):
 		"""
 		Initialize a hypergraph.
 		"""
-		self.node_links = {}			# Nodes
-		self.edge_links = {} 	# Hyperedges
+		self.node_links = {}	# Pairing: Node -> Hyperedge
+		self.edge_links = {} 	# Pairing: Hyperedge -> Node
 		self.graph = graph()	# Ordinary graph
 
 
