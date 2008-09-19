@@ -1139,7 +1139,7 @@ class digraph (object):
 			2. 'pre' - Preordering (default)
 			1. 'post' - Postordering
 		"""
-		for each in transversal.transversal(self, node, order):
+		for each in transversal.tree_transversal(self, node, order):
 			yield each
 
 
