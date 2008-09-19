@@ -40,7 +40,7 @@ __license__ = "MIT"
 
 # Imports
 import sys
-sys.path.append('../python-graph/')
+sys.path.append('..')
 import graph
 sys.path.append('/usr/lib/graphviz/python/')
 import gv
