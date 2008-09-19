@@ -8,6 +8,7 @@ CHANGELOG
 Release 1.3.0	[??? ??, ????]
 
 Enhancements:
+	Tree transversals (preorder and postorder).
 
 Fixes:
 

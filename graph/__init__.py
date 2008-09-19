@@ -59,7 +59,7 @@ class graph (object):
 	add_graph, add_node, add_node_attribute, add_nodes, add_spanning_tree, complete, del_edge,
 	del_node, edges, get_edge_attributes, get_edge_label, get_edge_weight, get_node_attributes,
 	has_edge, has_node, inverse, neighbors, nodes, order, set_edge_label, set_edge_weight,
-	transversal, generate, read, write, accessibility, breadth_first_search, connected_components,
+	tree_transversal, generate, read, write, accessibility, breadth_first_search, connected_components,
 	cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, shortest_path
 	"""
 
@@ -512,9 +512,10 @@ class graph (object):
 				self.add_edge(st[each], each)
 
 
-	def transversal(self, node, order='pre'):
+	def tree_transversal(self, node, order='pre'):
 		"""
-		Iterates a depth-first transversal starting on given node.
+		Iterates a tree transversal on the given graph's depth-first search spanning tree rooted in
+		the	given node.
 
 		@type  node: node
 		@param node: Node.
@@ -524,7 +525,7 @@ class graph (object):
 			2. 'pre' - Preordering (default)
 			1. 'post' - Postordering
 		"""
-		for each in transversal.transversal(self, node, order):
+		for each in transversal.tree_transversal(self, node, order):
 			yield each
 
 
@@ -648,7 +649,7 @@ class digraph (object):
 	add_graph, add_node, add_node_attribute, add_nodes, add_spanning_tree, complete, degree,
 	del_edge, del_node, edges, get_edge_attributes, get_edge_label, get_edge_weight,
 	get_node_attributes, has_edge, has_node, incidents, inverse, neighbors, nodes, order,
-	set_edge_label, set_edge_weight, transversal, generate, read, write, accessibility,
+	set_edge_label, set_edge_weight, tree_transversal, generate, read, write, accessibility,
 	breadth_first_search, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree,
 	mutual_accessibility, shortest_path, topological_sorting
 	"""
@@ -1125,9 +1126,10 @@ class digraph (object):
 				self.add_edge(st[each], each)
 
 
-	def transversal(self, node, order='pre'):
+	def tree_transversal(self, node, order='pre'):
 		"""
-		Iterates a depth-first transversal starting on given node.
+		Iterates a tree transversal on the given graph's depth-first search spanning tree rooted in
+		the	given node.
 
 		@type  node: node
 		@param node: Node.
