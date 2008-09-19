@@ -279,7 +279,7 @@ def write_dot_hypergraph(hypergraph, coloured=False):
 
 	# Add hyperedges
 	color = ''
-	for each_hyperedge in hypergraph.get_hyperedges():
+	for each_hyperedge in hypergraph.hyperedges():
 		colortable[each_hyperedge] = colors[colorcount % len(colors)]
 		colorcount = colorcount + 1
 		if (coloured):
@@ -294,7 +294,7 @@ def write_dot_hypergraph(hypergraph, coloured=False):
 	# Add nodes and links
 	for each_node in hypergraph.nodes():
 		doc = doc + "\t\"%s\"\n" % str(each_node)
-		for each_link in hypergraph.get_links(each_node):
+		for each_link in hypergraph.links(each_node):
 			if (coloured):
 				color = " [color=%s]\n" % colortable[each_link]
 			linkvars = {

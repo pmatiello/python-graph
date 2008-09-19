@@ -1235,7 +1235,7 @@ class hypergraph (object):
 	than two nodes.
 	
 	@sort: __init__, __len__, __str__, read, write, add_hyperedge, add_hyperedges, add_node,
-	add_nodes, get_hyperedges, get_links, nodes, has_node, link, unlink, accessibility,
+	add_nodes, has_node, hyperedges, link, links, nodes, unlink, accessibility,
 	connected_components, cut_hyperedges, cut_nodes
 	"""
 
@@ -1244,8 +1244,8 @@ class hypergraph (object):
 		"""
 		Initialize a hypergraph.
 		"""
-		self.node_neighbors = {}			# Nodes
-		self.hyperedges = {} 	# Hyperedges
+		self.node_links = {}			# Nodes
+		self.edge_links = {} 	# Hyperedges
 		self.graph = graph()	# Ordinary graph
 
 
@@ -1256,7 +1256,7 @@ class hypergraph (object):
 		@rtype:  string
 		@return: String representing the hypergraph.
 		"""
-		return "<hypergraph object " + str(self.nodes()) + " " + str(self.hyperedges) + ">"
+		return "<hypergraph object " + str(self.nodes()) + " " + str(self.edge_links) + ">"
 
 
 	def __len__(self):
@@ -1266,7 +1266,7 @@ class hypergraph (object):
 		@rtype:  number
 		@return: Size of the hypergraph.
 		"""
-		return len(self.node_neighbors)
+		return len(self.node_links)
 
 
 	def read(self, string, fmt='xml'):
@@ -1314,20 +1314,20 @@ class hypergraph (object):
 		@rtype:  list
 		@return: Node list.
 		"""
-		return self.node_neighbors.keys()
+		return self.node_links.keys()
 
 
-	def get_hyperedges(self):
+	def hyperedges(self):
 		"""
 		Return hyperedge list.
 
 		@rtype:  list
 		@return: List of hyperedges linked to the given node.
 		"""
-		return self.hyperedges.keys()
+		return self.edge_links.keys()
 
 
-	def get_links(self, obj):
+	def links(self, obj):
 		"""
 		Return all objects linked to the given one.
 		
@@ -1340,10 +1340,10 @@ class hypergraph (object):
 		@rtype:  list
 		@return: List of objects linked to the given one.
 		"""
-		if (obj in self.node_neighbors):
-			return self.node_neighbors[obj]
+		if (obj in self.node_links):
+			return self.node_links[obj]
 		else:
-			return self.hyperedges[obj]
+			return self.edge_links[obj]
 
 
 	def has_node(self, node):
@@ -1356,7 +1356,7 @@ class hypergraph (object):
 		@rtype:  boolean
 		@return: Truth-value for node existence.
 		"""
-		return self.node_neighbors.has_key(node)
+		return self.node_links.has_key(node)
 
 
 	def add_node(self, node):
@@ -1369,8 +1369,8 @@ class hypergraph (object):
 		@type  node: node
 		@param node: Node identifier.
 		"""
-		if (not node in self.node_neighbors.keys()):
-			self.node_neighbors[node] = []
+		if (not node in self.node_links.keys()):
+			self.node_links[node] = []
 			self.graph.add_node((node,'n'))
 
 
@@ -1398,8 +1398,8 @@ class hypergraph (object):
 		@type  hyperedge: hyperedge
 		@param hyperedge: Hyperedge identifier.
 		"""
-		if (not hyperedge in self.hyperedges.keys()):
-			self.hyperedges[hyperedge] = []
+		if (not hyperedge in self.edge_links.keys()):
+			self.edge_links[hyperedge] = []
 			self.graph.add_node((hyperedge,'h'))
 
 
@@ -1427,9 +1427,9 @@ class hypergraph (object):
 		@type  hyperedge: node
 		@param hyperedge: Hyperedge.
 		"""
-		if (hyperedge not in self.node_neighbors[node]):
-			self.node_neighbors[node].append(hyperedge)
-			self.hyperedges[hyperedge].append(node)
+		if (hyperedge not in self.node_links[node]):
+			self.node_links[node].append(hyperedge)
+			self.edge_links[hyperedge].append(node)
 			self.graph.add_edge((node,'n'), (hyperedge,'h'))
 
 
@@ -1443,8 +1443,8 @@ class hypergraph (object):
 		@type  hyperedge: hyperedge
 		@param hyperedge: Hyperedge.
 		"""
-		self.node_neighbors[node].remove(hyperedge)
-		self.hyperedges[hyperedge].remove(node)
+		self.node_links[node].remove(hyperedge)
+		self.edge_links[hyperedge].remove(node)
 
 
 	def accessibility(self):
