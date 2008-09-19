@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+# Copyright (c) 2007-2008 Pedro Matiello <pmatiello@gmail.com>
+# License: MIT (see COPYING file)
+
 import sys
 sys.path.append('..')
 import graph
