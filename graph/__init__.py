@@ -44,6 +44,7 @@ import minmax
 import searching
 import sorting
 import readwrite
+import transversal
 
 
 # Graph class --------------------------------------------------------------------------------------
@@ -57,9 +58,9 @@ class graph (object):
 	@sort:  __init__, __getitem__, __iter__, __len__, __str__, add_edge, add_edge_attribute,
 	add_graph, add_node, add_node_attribute, add_nodes, add_spanning_tree, complete, del_edge,
 	del_node, edges, get_edge_attributes, get_edge_label, get_edge_weight, get_node_attributes,
-	has_edge, has_node, inverse, neighbors, nodes, order, set_edge_label, set_edge_weight, generate,
-	read, write, accessibility, breadth_first_search, connected_components, cut_edges, cut_nodes,
-	depth_first_search, minimal_spanning_tree, shortest_path
+	has_edge, has_node, inverse, neighbors, nodes, order, set_edge_label, set_edge_weight,
+	transversal, generate, read, write, accessibility, breadth_first_search, connected_components,
+	cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, shortest_path
 	"""
 
 
@@ -511,6 +512,22 @@ class graph (object):
 				self.add_edge(st[each], each)
 
 
+	def transversal(self, node, order='pre'):
+		"""
+		Iterates a depth-first transversal starting on given node.
+
+		@type  node: node
+		@param node: Node.
+		
+		@type  order: string
+		@param order: Transversal ordering. Possible values are:
+			2. 'pre' - Preordering (default)
+			1. 'post' - Postordering
+		"""
+		for each in transversal.transversal(self, node, order):
+			yield each
+
+
 	def depth_first_search(self, root=None):
 		"""
 		Depht-first search.
@@ -631,9 +648,9 @@ class digraph (object):
 	add_graph, add_node, add_node_attribute, add_nodes, add_spanning_tree, complete, degree,
 	del_edge, del_node, edges, get_edge_attributes, get_edge_label, get_edge_weight,
 	get_node_attributes, has_edge, has_node, incidents, inverse, neighbors, nodes, order,
-	set_edge_label, set_edge_weight, generate, read, write, accessibility, breadth_first_search,
-	cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree, mutual_accessibility,
-	shortest_path, topological_sorting
+	set_edge_label, set_edge_weight, transversal, generate, read, write, accessibility,
+	breadth_first_search, cut_edges, cut_nodes, depth_first_search, minimal_spanning_tree,
+	mutual_accessibility, shortest_path, topological_sorting
 	"""
 
 
@@ -1106,6 +1123,22 @@ class digraph (object):
 		for each in st:
 			if (st[each] is not None):
 				self.add_edge(st[each], each)
+
+
+	def transversal(self, node, order='pre'):
+		"""
+		Iterates a depth-first transversal starting on given node.
+
+		@type  node: node
+		@param node: Node.
+		
+		@type  order: string
+		@param order: Transversal ordering. Possible values are:
+			2. 'pre' - Preordering (default)
+			1. 'post' - Postordering
+		"""
+		for each in transversal.transversal(self, node, order):
+			yield each
 
 
 	def depth_first_search(self, root=None):
