@@ -1,6 +1,7 @@
 # Copyright (c) 2007-2008 Pedro Matiello <pmatiello@gmail.com>
 #                         Christian Muise <christian.muise@gmail.com>
 #                         Zsolt Haraszti <zsolt@drawwell.net>
+#                         Nathan Davis <davisn90210@gmail.com>
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation
@@ -32,7 +33,7 @@ A library for working with graphs in Python.
 
 
 # Module metadata
-__authors__ = "Pedro Matiello, Christian Muise, Zsolt Haraszti"
+__authors__ = "Pedro Matiello, Christian Muise, Zsolt Haraszti, Nathan Davis"
 __license__ = "MIT"
 __version__ = "1.3.0"
 
@@ -230,7 +231,7 @@ class graph (object):
 		@type  attrs: list
 		@param attrs: List of node attributes specified as (attribute, value) tuples.
 		"""
-		if (not node in self.node_neighbors.keys()):
+		if (not node in self.node_neighbors):
 			self.node_neighbors[node] = []
 			self.node_attr[node] = attrs
 
@@ -836,9 +837,9 @@ class digraph (object):
 		@type  attrs: list
 		@param attrs: List of node attributes specified as (attribute, value) tuples.
 		"""
-		if (not node in self.node_neighbors.keys()):
+		if (node not in self.node_neighbors):
 			self.node_neighbors[node] = []
-			self.node_incidence[node] = []
+			self.incidence[node] = []
 			self.node_attr[node] = attrs
 
 

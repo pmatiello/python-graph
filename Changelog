@@ -8,9 +8,10 @@ CHANGELOG
 Release 1.3.0	[??? ??, ????]
 
 Enhancements:
-	Tree transversals (preorder and postorder).
+	Tree transversals (preorder and postorder);
 
 Fixes:
+	Node insertion is much faster now (Issue 11).
 
 Important API Changes:
 	get_nodes() is now nodes();
