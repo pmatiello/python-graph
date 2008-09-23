@@ -1,7 +1,7 @@
 # Copyright (c) 2007-2008 Pedro Matiello <pmatiello@gmail.com>
 #                         Christian Muise <christian.muise@gmail.com>
-#                         Zsolt Haraszti <zsolt@drawwell.net>
 #                         Nathan Davis <davisn90210@gmail.com>
+#                         Zsolt Haraszti <zsolt@drawwell.net>
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation
@@ -29,13 +29,14 @@
 python-graph
 
 A library for working with graphs in Python.
+
+@newfield contrib: Contributors
+
+@authors: Pedro Matiello, Christian Muise
+@contrib: Nathan Davis, Rhys Ulerich, Zsolt Haraszti
+@license: MIT
+@version: 1.3.0
 """
-
-
-# Module metadata
-__authors__ = "Pedro Matiello, Christian Muise, Zsolt Haraszti, Nathan Davis"
-__license__ = "MIT"
-__version__ = "1.3.0"
 
 
 # Imports

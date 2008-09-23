@@ -26,12 +26,10 @@
 Sorting algorithms for python-graph.
 
 @sort: topological_sorting
+
+@authors: Pedro Matiello
+@license: MIT
 """
-
-
-# Module metadata
-__authors__ = "Pedro Matiello"
-__license__ = "MIT"
 
 
 # Topological sorting

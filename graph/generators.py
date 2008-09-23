@@ -27,12 +27,10 @@
 Random graph generators for python-graph.
 
 @sort: generate
+
+@authors: Pedro Matiello, Zsolt Haraszti
+@license: MIT
 """
-
-
-# Module metadata
-__authors__ = "Pedro Matiello, Zsolt Haraszti"
-__license__ = "MIT"
 
 
 # Imports

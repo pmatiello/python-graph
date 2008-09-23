@@ -25,13 +25,11 @@
 """
 Transversal algorithms for python-graph.
 
-@sort: minimal_spanning_tree, shortest_path, _first_unvisited, _lightest_edge
+@sort: tree_transversal
+
+@authors: Pedro Matiello
+@license: MIT
 """
-
-
-# Module metadata
-__authors__ = "Pedro Matiello, Rhys Ulerich"
-__license__ = "MIT"
 
 
 # Minimal spanning tree

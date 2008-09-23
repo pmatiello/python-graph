@@ -26,12 +26,11 @@
 Accessibility algorithms for python-graph.
 
 @sort: accessibility, connected_components, cut_edges, cut_nodes, mutual_accessibility
+
+@authors: Pedro Matiello
+@license: MIT
 """
 
-
-# Module metadata
-__authors__ = "Pedro Matiello"
-__license__ = "MIT"
 
 # Transitive-closure
 

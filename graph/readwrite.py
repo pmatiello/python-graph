@@ -26,12 +26,10 @@
 Functions for reading and writing graphs.
 
 @sort: read_xml, write_xml, write_dot_graph, write_dot_digraph, write_dot_hypergraph
+
+@authors: Pedro Matiello
+@license: MIT
 """
-
-
-# Module metadata
-__authors__ = "Pedro Matiello"
-__license__ = "MIT"
 
 
 # Imports
