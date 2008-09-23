@@ -23,9 +23,9 @@
 
 
 """
-Transversal algorithms for python-graph.
+Traversal algorithms for python-graph.
 
-@sort: tree_transversal
+@sort: traversal
 
 @authors: Pedro Matiello
 @license: MIT
@@ -34,16 +34,15 @@ Transversal algorithms for python-graph.
 
 # Minimal spanning tree
 
-def tree_transversal(graph, node, order):
+def traversal(graph, node, order):
 	"""
-	Iterates a tree transversal on the given graph's depth-first search spanning tree rooted in
-	the	given node.
+	Graph traversal iterator.
 
 	@type  node: node
 	@param node: Node.
 	
 	@type  order: string
-	@param order: Transversal ordering. Possible values are:
+	@param order: traversal ordering. Possible values are:
 		2. 'pre' - Preordering (default)
 		1. 'post' - Postordering
 	"""
@@ -61,7 +60,7 @@ def tree_transversal(graph, node, order):
 
 def _dfs(graph, visited, node, pre, post):
 	"""
-	Depht-first search subfunction.
+	Depht-first search subfunction for traversals.
 	
 	@type  graph: graph
 	@param graph: Graph.
