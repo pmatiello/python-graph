@@ -27,9 +27,6 @@
 Minimization and maximization algorithms for python-graph.
 
 @sort: minimal_spanning_tree, shortest_path, _first_unvisited, _lightest_edge
-
-@authors: Pedro Matiello, Rhys Ulerich
-@license: MIT
 """
 
 

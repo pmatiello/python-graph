@@ -26,9 +26,6 @@
 Search algorithms for python-graph.
 
 @sort: breadth_first_search, depth_first_search, _bfs, _dfs
-
-@authors: Pedro Matiello, Rhys Ulerich
-@license: MIT
 """
 
 

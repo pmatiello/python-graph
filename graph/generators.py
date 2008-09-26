@@ -27,9 +27,6 @@
 Random graph generators for python-graph.
 
 @sort: generate
-
-@authors: Pedro Matiello, Zsolt Haraszti
-@license: MIT
 """
 
 

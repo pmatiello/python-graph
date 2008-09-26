@@ -14,7 +14,7 @@ Christian Muise <christian.muise@gmail.com>
 	* Various Hypergraph algorithms.
 
 Nathan Davis
-    * Faster node insertion.
+	* Faster node insertion.
 
 Rhys Ulerich <rhys.ulerich@gmail.com>
 	* Dijkstra's Shortest path algorithm.

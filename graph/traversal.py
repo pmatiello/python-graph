@@ -26,9 +26,6 @@
 Traversal algorithms for python-graph.
 
 @sort: traversal
-
-@authors: Pedro Matiello
-@license: MIT
 """
 
 
@@ -45,6 +42,9 @@ def traversal(graph, node, order):
 	@param order: traversal ordering. Possible values are:
 		2. 'pre' - Preordering (default)
 		1. 'post' - Postordering
+	
+	@rtype:  iterator
+	@return: Traversal iterator.
 	"""
 	visited = {}
 	if (order == 'pre'):

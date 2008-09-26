@@ -9,12 +9,14 @@ graph/minmax.py
 graph/readwrite.py
 graph/searching.py
 graph/sorting.py
+graph/traversal.py
 docs/api-objects.txt
 docs/class-tree.html
 docs/crarr.png
 docs/epydoc.css
 docs/epydoc.js
 docs/graph.accessibility-module.html
+docs/graph.digraph-class.html
 docs/graph.generators-module.html
 docs/graph.graph-class.html
 docs/graph.hypergraph-class.html
@@ -23,6 +25,8 @@ docs/graph-module.html
 docs/graph.readwrite-module.html
 docs/graph.searching-module.html
 docs/graph.sorting-module.html
+docs/graph.transversal-module.html
+docs/graph.traversal-module.html
 docs/help.html
 docs/identifier-index.html
 docs/index.html

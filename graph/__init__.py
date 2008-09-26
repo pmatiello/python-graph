@@ -30,11 +30,6 @@ python-graph
 
 A library for working with graphs in Python.
 
-@newfield contrib: Contributors
-
-@authors: Pedro Matiello, Christian Muise
-@contrib: Nathan Davis, Rhys Ulerich, Zsolt Haraszti
-@license: MIT
 @version: 1.3.0
 """
 
@@ -525,6 +520,9 @@ class graph (object):
 		@param order: traversal ordering. Possible values are:
 			2. 'pre' - Preordering (default)
 			1. 'post' - Postordering
+		
+		@rtype:  iterator
+		@return: Traversal iterator.
 		"""
 		for each in traversal.traversal(self, node, order):
 			yield each
@@ -636,6 +634,13 @@ class graph (object):
 		@return: List of cut-nodes.
 		"""
 		return accessibility.cut_nodes(self)
+	
+	
+	# DEPRECATED
+	get_nodes = nodes
+	get_edges = edges
+	get_neighbors = neighbors
+	get_order = order
 
 
 # Digraph class ------------------------------------------------------------------------------------
@@ -1138,6 +1143,9 @@ class digraph (object):
 		@param order: traversal ordering. Possible values are:
 			2. 'pre' - Preordering (default)
 			1. 'post' - Postordering
+		
+		@rtype:  iterator
+		@return: Traversal iterator.
 		"""
 		for each in traversal.traversal(self, node, order):
 			yield each
@@ -1258,6 +1266,15 @@ class digraph (object):
 		@return: List of cut-nodes.
 		"""
 		return accessibility.cut_nodes(self)
+
+
+	# DEPRECATED
+	get_nodes = nodes
+	get_edges = edges
+	get_neighbors = neighbors
+	get_incidents = incidents
+	get_order = order
+	get_degree = degree
 
 
 # Hypergraph class ---------------------------------------------------------------------------------
@@ -1404,7 +1421,7 @@ class hypergraph (object):
 		@type  node: node
 		@param node: Node identifier.
 		"""
-		if (not node in self.node_links.keys()):
+		if (not node in self.node_links):
 			self.node_links[node] = []
 			self.graph.add_node((node,'n'))
 
@@ -1433,7 +1450,7 @@ class hypergraph (object):
 		@type  hyperedge: hyperedge
 		@param hyperedge: Hyperedge identifier.
 		"""
-		if (not hyperedge in self.edge_links.keys()):
+		if (not hyperedge in self.edge_links):
 			self.edge_links[hyperedge] = []
 			self.graph.add_node((hyperedge,'h'))
 

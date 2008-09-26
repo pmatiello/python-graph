@@ -5,13 +5,14 @@ A library for working with graphs in Python
 CHANGELOG
 
 
-Release 1.3.0	[??? ??, ????]
+Release 1.3.0	[Sep 28, 2008]
 
 Enhancements:
-	Tree transversals (preorder and postorder);
+	Tree traversals (preorder and postorder).
 
 Fixes:
 	Node insertion is much faster now (Issue 11).
+	Hypernode/hyperedge insertion also much faster.
 
 Important API Changes:
 	get_nodes() is now nodes();
@@ -20,6 +21,7 @@ Important API Changes:
 	get_incidents() is now incidents();
 	get_order() is now order();
 	get_degree() is now degree().
+	(Former method names are deprecated and will be removed in the next release.)
 
 
 Release 1.2.0	[Sep 09, 2008]

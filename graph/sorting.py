@@ -26,9 +26,6 @@
 Sorting algorithms for python-graph.
 
 @sort: topological_sorting
-
-@authors: Pedro Matiello
-@license: MIT
 """
 
 
