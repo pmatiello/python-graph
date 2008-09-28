@@ -301,6 +301,8 @@ class graph (object):
 		self.node_neighbors[v].remove(u)
 		del(self.edge_properties[(u,v)])
 		del(self.edge_properties[(v,u)])
+		del(self.edge_attr[(u,v)])
+		del(self.edge_attr[(v,u)])
 
 
 	def get_edge_weight(self, u, v):
@@ -477,7 +479,8 @@ class graph (object):
 		inv.add_nodes(self.nodes())
 		inv.complete()
 		for each in self.edge_properties.keys():
-			inv.del_edge(each[0], each[1])
+			if (each in inv.edge_properties):
+				inv.del_edge(each[0], each[1])
 		return inv
 
 
@@ -910,6 +913,7 @@ class digraph (object):
 		self.node_neighbors[u].remove(v)
 		self.node_incidence[v].remove(u)
 		del(self.edge_properties[(u,v)])
+		del(self.edge_attr[(u,v)])
 
 
 	def get_edge_weight(self, u, v):
