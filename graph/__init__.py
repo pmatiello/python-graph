@@ -478,8 +478,8 @@ class graph (object):
 		inv = graph()
 		inv.add_nodes(self.nodes())
 		inv.complete()
-		for each in self.edge_properties.keys():
-			if (each in inv.edge_properties):
+		for each in self.edges():
+			if (not inv.has_edge(each[0], each[1])):
 				inv.del_edge(each[0], each[1])
 		return inv
 
@@ -1096,7 +1096,7 @@ class digraph (object):
 		inv = graph()
 		inv.add_nodes(self.nodes())
 		inv.complete()
-		for each in self.edge_properties.keys():
+		for each in self.edges():
 			inv.del_edge(each[0], each[1])
 		return inv
 

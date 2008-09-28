@@ -51,23 +51,23 @@ class testGraph(unittest.TestCase):
 		self.assertEqual(gr.nodes(),range(100))
 		self.assertEqual(len(gr.edges()), 500*2)
 		for each, other in gr.edges():
-			self.assert_(each in gr)
-			self.assert_(other in gr)
+			self.assertTrue(each in gr)
+			self.assertTrue(other in gr)
 	
 	def testRandomEmptyGraph(self):
 		gr = graph.graph()
 		gr.generate(0,0)
-		self.assert_(gr.nodes() == [])
-		self.assert_(gr.edges() == [])
+		self.assertTrue(gr.nodes() == [])
+		self.assertTrue(gr.edges() == [])
 	
 	def testNodeRemoval(self):
 		gr = graph.graph()
 		gr.generate(10, 30)
 		gr.del_node(0)
-		self.assert_(0 not in gr)
+		self.assertTrue(0 not in gr)
 		for each, other in gr.edges():
-			self.assert_(each in gr)
-			self.assert_(other in gr)
+			self.assertTrue(each in gr)
+			self.assertTrue(other in gr)
 
 	def testGraphInverse(self):
 		gr = graph.graph()
@@ -77,8 +77,8 @@ class testGraph(unittest.TestCase):
 	def testEmptyGraphInverse(self):
 		gr = graph.graph()
 		inv = gr.inverse()
-		self.assert_(gr.nodes() == [])
-		self.assert_(gr.edges() == [])
+		self.assertTrue(gr.nodes() == [])
+		self.assertTrue(gr.edges() == [])
 	
 	def testGraphComplete(self):
 		gr = graph.graph()
@@ -86,20 +86,20 @@ class testGraph(unittest.TestCase):
 		gr.complete()
 		for i in xrange(10):
 			for j in range(10):
-				self.assert_((i, j) in gr.edges() or i == j)
+				self.assertTrue((i, j) in gr.edges() or i == j)
 	
 	def testEmptyGraphComplete(self):
 		gr = graph.graph()
 		gr.complete()
-		self.assert_(gr.nodes() == [])
-		self.assert_(gr.edges() == [])
+		self.assertTrue(gr.nodes() == [])
+		self.assertTrue(gr.edges() == [])
 	
 	def testGraphWithOneNodeComplete(self):
 		gr = graph.graph()
 		gr.add_node(0)
 		gr.complete()
-		self.assert_(gr.nodes() == [0])
-		self.assert_(gr.edges() == [])
+		self.assertTrue(gr.nodes() == [0])
+		self.assertTrue(gr.edges() == [])
 	
 	def testAddGraph(self):
 		gr1 = graph.graph()
@@ -108,9 +108,9 @@ class testGraph(unittest.TestCase):
 		gr2.generate(40, 200)
 		gr1.add_graph(gr2)
 		for each in gr2.nodes():
-			self.assert_(each in gr1)
+			self.assertTrue(each in gr1)
 		for each in gr2.edges():
-			self.assert_(each in gr1.edges())
+			self.assertTrue(each in gr1.edges())
 	
 	def testAddEmptyGraph(self):
 		gr1 = graph.graph()
@@ -118,23 +118,23 @@ class testGraph(unittest.TestCase):
 		gr1c = copy.copy(gr1)
 		gr2 = graph.graph()
 		gr1.add_graph(gr2)
-		self.assert_(gr1.nodes() == gr1c.nodes())
-		self.assert_(gr1.edges() == gr1c.edges())
+		self.assertTrue(gr1.nodes() == gr1c.nodes())
+		self.assertTrue(gr1.edges() == gr1c.edges())
 	
 	def testAddSpanningTree(self):
 		gr = graph.graph()
 		st = {0: None, 1: 0, 2:0, 3: 1, 4: 2, 5: 3}
 		gr.add_spanning_tree(st)
 		for each in st:
-			self.assert_((each, st[each]) in gr.edges() or (each, st[each]) == (0, None))
-			self.assert_((st[each], each) in gr.edges() or (each, st[each]) == (0, None))
+			self.assertTrue((each, st[each]) in gr.edges() or (each, st[each]) == (0, None))
+			self.assertTrue((st[each], each) in gr.edges() or (each, st[each]) == (0, None))
 
 	def testAddEmptySpanningTree(self):
 		gr = graph.graph()
 		st = {}
 		gr.add_spanning_tree(st)
-		self.assert_(gr.nodes() == [])
-		self.assert_(gr.edges() == [])
+		self.assertTrue(gr.nodes() == [])
+		self.assertTrue(gr.edges() == [])
 		
 
 # Run tests
