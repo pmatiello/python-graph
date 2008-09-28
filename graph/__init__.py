@@ -634,13 +634,6 @@ class graph (object):
 		@return: List of cut-nodes.
 		"""
 		return accessibility.cut_nodes(self)
-	
-	
-	# DEPRECATED
-	get_nodes = nodes
-	get_edges = edges
-	get_neighbors = neighbors
-	get_order = order
 
 
 # Digraph class ------------------------------------------------------------------------------------
@@ -1266,15 +1259,6 @@ class digraph (object):
 		@return: List of cut-nodes.
 		"""
 		return accessibility.cut_nodes(self)
-
-
-	# DEPRECATED
-	get_nodes = nodes
-	get_edges = edges
-	get_neighbors = neighbors
-	get_incidents = incidents
-	get_order = order
-	get_degree = degree
 
 
 # Hypergraph class ---------------------------------------------------------------------------------
