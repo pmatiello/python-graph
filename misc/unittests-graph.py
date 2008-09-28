@@ -34,6 +34,7 @@ Unit tests for python-graph
 # Imports
 import sys
 sys.path.append('..')
+import copy
 import graph
 import unittest
 
@@ -53,6 +54,12 @@ class testGraph(unittest.TestCase):
 			self.assert_(each in gr)
 			self.assert_(other in gr)
 	
+	def testRandomEmptyGraph(self):
+		gr = graph.graph()
+		gr.generate(0,0)
+		self.assert_(gr.nodes() == [])
+		self.assert_(gr.edges() == [])
+	
 	def testNodeRemoval(self):
 		gr = graph.graph()
 		gr.generate(10, 30)
@@ -67,6 +74,12 @@ class testGraph(unittest.TestCase):
 		gr.generate(100, 500)
 		inv = gr.inverse()
 	
+	def testEmptyGraphInverse(self):
+		gr = graph.graph()
+		inv = gr.inverse()
+		self.assert_(gr.nodes() == [])
+		self.assert_(gr.edges() == [])
+	
 	def testGraphComplete(self):
 		gr = graph.graph()
 		gr.add_nodes(xrange(10))
@@ -74,6 +87,19 @@ class testGraph(unittest.TestCase):
 		for i in xrange(10):
 			for j in range(10):
 				self.assert_((i, j) in gr.edges() or i == j)
+	
+	def testEmptyGraphComplete(self):
+		gr = graph.graph()
+		gr.complete()
+		self.assert_(gr.nodes() == [])
+		self.assert_(gr.edges() == [])
+	
+	def testGraphWithOneNodeComplete(self):
+		gr = graph.graph()
+		gr.add_node(0)
+		gr.complete()
+		self.assert_(gr.nodes() == [0])
+		self.assert_(gr.edges() == [])
 	
 	def testAddGraph(self):
 		gr1 = graph.graph()
@@ -85,6 +111,31 @@ class testGraph(unittest.TestCase):
 			self.assert_(each in gr1)
 		for each in gr2.edges():
 			self.assert_(each in gr1.edges())
+	
+	def testAddEmptyGraph(self):
+		gr1 = graph.graph()
+		gr1.generate(25, 100)
+		gr1c = copy.copy(gr1)
+		gr2 = graph.graph()
+		gr1.add_graph(gr2)
+		self.assert_(gr1.nodes() == gr1c.nodes())
+		self.assert_(gr1.edges() == gr1c.edges())
+	
+	def testAddSpanningTree(self):
+		gr = graph.graph()
+		st = {0: None, 1: 0, 2:0, 3: 1, 4: 2, 5: 3}
+		gr.add_spanning_tree(st)
+		for each in st:
+			self.assert_((each, st[each]) in gr.edges() or (each, st[each]) == (0, None))
+			self.assert_((st[each], each) in gr.edges() or (each, st[each]) == (0, None))
+
+	def testAddEmptySpanningTree(self):
+		gr = graph.graph()
+		st = {}
+		gr.add_spanning_tree(st)
+		self.assert_(gr.nodes() == [])
+		self.assert_(gr.edges() == [])
+		
 
 # Run tests
 if __name__ == '__main__':
