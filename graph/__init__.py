@@ -893,8 +893,8 @@ class digraph (object):
 		"""
 		for each in list(self.incidents(node)):
 			self.del_edge(each, node)
-			if (self.has_edge(node, each)):
-				self.del_edge(node, each)
+		for each in list(self.neighbors(node)):
+			self.del_edge(node, each)
 		del(self.node_neighbors[node])
 		del(self.node_incidence[node])
 		del(self.node_attr[node])
