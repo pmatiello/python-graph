@@ -7,10 +7,9 @@ CHANGELOG
 
 Release 1.3.1	[??? ??, ????]
 
-Enhancements:
-
 Fixes:
 	Graph inverse was not working.
+	Node removal in digraphs was not deleting all relevant edges (Issue 13).
 
 
 Release 1.3.0	[Sep 28, 2008]
