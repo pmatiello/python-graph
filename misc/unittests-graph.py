@@ -71,8 +71,12 @@ class testGraph(unittest.TestCase):
 
 	def testGraphInverse(self):
 		gr = graph.graph()
-		gr.generate(100, 500)
+		gr.generate(50, 300)
 		inv = gr.inverse()
+		for each in gr.edges():
+			self.assertTrue(each not in inv.edges())
+		for each in inv.edges():
+			self.assertTrue(each not in gr.edges())
 	
 	def testEmptyGraphInverse(self):
 		gr = graph.graph()
