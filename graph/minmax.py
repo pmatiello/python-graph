@@ -26,8 +26,13 @@
 """
 Minimization and maximization algorithms for python-graph.
 
-@sort: minimal_spanning_tree, shortest_path, _first_unvisited, _lightest_edge
+@sort: heuristic_search, minimal_spanning_tree, shortest_path, _first_unvisited, _lightest_edge,
+_reconstruct_path
 """
+
+
+# Imports
+from utils import priority_queue
 
 
 # Minimal spanning tree
@@ -166,3 +171,82 @@ def shortest_path(graph, source):
 						previous[v] = u
 
 	return previous, dist
+
+
+def heuristic_search(G, start, goal, heuristic):
+	"""
+	A* search algorithm.
+	
+	@type G: graph
+	@param G: Graph
+	
+	@type start: node
+	@param start: Start node
+	
+	@type goal: node
+	@param goal: Goal node
+	
+	@type heuristic: function
+	@param heuristic: Heuristic function
+	
+	@rtype: list
+	@return: Optimized path from start to goal node 
+	"""
+	# Nodes (fixes) already evaluated
+	closed_set = set()
+	
+	# Nodes (fixes) which still (tentatively) need to be evaluated
+	open_set = priority_queue([start])
+
+	# Actual shortest path from start to any given fix
+	g = {start: 0}
+	
+	# A log of nodes and their parents
+	p = {start:None}
+
+	while not open_set.empty():
+		current = open_set.pop()
+		if current == goal:
+			path =  [a for a in _reconstruct_path( goal, p )]
+			path.reverse()
+			return path
+			
+		# We have not found the goal
+		closed_set.add(current)
+		for neighbor in G.neighbors(current):
+
+			# The cost of getting to neighbor is the cost of geting to current
+			# plust the cost of getting from current to neighbor.
+			
+			cost = g[current] + G.get_edge_weight(current, neighbor)
+			
+			if (neighbor in open_set) and (cost < g[neighbor]):
+				# Throw away this node because we already have a faster way to get there.
+				open_set.discard(neighbor)
+				
+			if (neighbor in closed_set) and (cost < g[neighbor]):
+				# Throw away this node because we already rejected it.
+				closed_set.discard(neighbor)
+				
+			if neighbor not in open_set and neighbor not in closed_set:
+				# Store the cost of getting here.
+				g[neighbor] = cost
+				
+				# Estimate the usefulness of this node - the cost of getting to it
+				# plus an esitmate of the cost of getting from it to the goal.				
+				priority = cost + heuristic(neighbor, goal)
+				
+				# Schedule it to be investigated later.
+				open_set.insert(neighbor, priority)
+				
+				# Log how we got to this node so that we can re-construct the journey later.
+				p[neighbor] = current
+
+
+def _reconstruct_path( node , parents ):
+	yield node
+	while True:
+		node = parents[ node ]
+		if node == None:
+			break
+		yield node

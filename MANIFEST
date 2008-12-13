@@ -5,11 +5,13 @@ setup.py
 graph/__init__.py
 graph/accessibility.py
 graph/generators.py
+graph/heuristics.py
 graph/minmax.py
 graph/readwrite.py
 graph/searching.py
 graph/sorting.py
 graph/traversal.py
+graph/utils.py
 docs/api-objects.txt
 docs/class-tree.html
 docs/crarr.png

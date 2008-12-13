@@ -19,6 +19,13 @@ Nathan Davis <davisn90210@gmail.com>
 Rhys Ulerich <rhys.ulerich@gmail.com>
 	* Dijkstra's Shortest path algorithm.
 
+Roy Smith <roy@panix.com>
+	* A* search algorithm.
+
+Salim Fadhley <sal@stodge.org>
+	* Porting of Roy Smith's A* implementation to python-graph;
+	* Edmond Chow's heuristic for A*.
+
 Zsolt Haraszti <zsolt@drawwell.net>
 	* Weighted random generated graphs.
 
