@@ -12,7 +12,7 @@ except ImportError, ie:
 
 # Startup
 appname = "python-graph"
-appversion = "1.3.2"
+appversion = "1.4.0"
 
 setup(
         name = appname,

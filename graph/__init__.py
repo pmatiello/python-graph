@@ -30,7 +30,7 @@ python-graph
 
 A library for working with graphs in Python.
 
-@version: 1.3.1
+@version: 1.4.0
 """
 
 
