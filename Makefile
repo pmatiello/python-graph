@@ -12,9 +12,16 @@ docs: graph/*.py
 edit: graph/*.py
 	gedit graph/__init__.py &
 	gedit graph/*.py &
+	
+pypi: docs
+	./setup.py bdist_egg upload
+	
+rpm: docs
+	./setup.py bdist_rpm
 
 clean:
 	rm -rf docs
 	rm -rf dist
 	rm -rf build
 	rm graph/*.pyc
+	rm -rf dist/*.egg
