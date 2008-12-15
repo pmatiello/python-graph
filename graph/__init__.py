@@ -42,6 +42,7 @@ import searching
 import sorting
 import readwrite
 import traversal
+import heuristics
 
 
 # Graph class --------------------------------------------------------------------------------------
