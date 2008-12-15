@@ -1,7 +1,7 @@
 import unittest
 import graph
 
-from python_graph_tests.utils import countries_of_the_world
+from python_graph_tests.utils import nations_of_the_world
 
 class test_graph( unittest.TestCase ):
     """
@@ -12,5 +12,13 @@ class test_graph( unittest.TestCase ):
         self.G = graph.graph()
         countries_of_the_world(G)
         
+    def testBasic1(self):
+        """
+        Test some very basic functionality
+        """
+        englands_neighbors = self.G.neighbors("England")
+        
+        import pdb
+        pdb.set_trace()
         
         
