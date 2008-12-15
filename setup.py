@@ -1,28 +1,25 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
-from distutils.core import setup
+import sys
 import os
+import logging
+
+try:
+    from setuptools import setup, find_packages
+except ImportError, ie:
+    import ez_setup
+    ez_setup.use_setuptools()
 
 # Startup
 appname = "python-graph"
 appversion = "1.3.1"
-docfolder = 'share/doc/' + appname + '-' + appversion + '/'
-docfolder = os.path.normcase(docfolder)
-docfiles = os.listdir('docs')
-docs = os.path.normcase('docs/')
-for i in xrange(len(docfiles)):
-        docfiles[i] = docs + docfiles[i]
 
 setup(
         name = appname,
         version = appversion,
-        packages = ['graph'],
-        data_files = [(docfolder, ['README','Changelog','COPYING']),
-                                (docfolder + docs, docfiles),
-                                ],
-
-        # metadata
+        packages = [ 'graph', ],
+        package_data = {  "":['README','Changelog','COPYING'],
+                          "docs":[ "*.html", "*.css", "*.png", "*.js" ] },
         author = "Pedro Matiello",
         author_email = "pmatiello@gmail.com",
         description = "A library for working with graphs in Python",
@@ -30,5 +27,6 @@ setup(
         keywords = "python graph algorithms library",
         url = "http://code.google.com/p/python-graph/",
         classifiers = ["License :: OSI Approved :: MIT License","Topic :: Software Development :: Libraries :: Python Modules"],
-        long_description = "python-graph is a library for working with graphs in Python. This software provides a suitable data structure for representing graphs and a whole set of important algorithms."
+        long_description = "python-graph is a library for working with graphs in Python. This software provides a suitable data structure for representing graphs and a whole set of important algorithms.",
+        test_suite = "graph.tests",
 )

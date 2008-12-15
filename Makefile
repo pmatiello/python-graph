@@ -1,7 +1,10 @@
 none:
 
-install:
-	./setup.py install
+install: docs
+	./setup.py develop -m
+
+egg: docs
+	./setup.py bdist_egg
 
 docs: graph/*.py
 	epydoc -v --no-frames --no-sourcecode --name="python-graph" --url="http://code.google.com/p/python-graph/" --no-private --html --css misc/epydoc.css -o docs graph/*.py
