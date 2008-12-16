@@ -20,7 +20,12 @@ if (os.name == 'posix'):	# Files to be installed/packaged on Unix-like systems
 	datafiles = ['README', 'COPYING', 'Changelog']
 	docsdir = datadir + '/docs'
 	docsfiles = []
-	for each in os.listdir('docs/'):
+	try:
+		dirlisting = os.listdir('docs/')
+	except:
+		print "Documentation isn't present and will not be installed/packaged."
+		dirlisting = []
+	for each in dirlisting:
 		docsfiles.append('docs/'+each)
 else:	# Other systems
 	datadir = ''
