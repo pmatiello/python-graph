@@ -13,13 +13,16 @@ except ImportError, ie:
 # Startup
 appname = "python-graph"
 appversion = "1.4.0"
+docfiles = []
+for each in os.listdir('docs/'):
+	docfiles = docfiles + ['docs/'+each]
 
 setup(
         name = appname,
         version = appversion,
-        packages = [ 'graph', ],
-        package_data = {  "":['README','Changelog','COPYING'],
-                          "docs":[ "*.html", "*.css", "*.png", "*.js" ] },
+        packages = [ 'graph' ],
+        data_files = [('share/doc/'+appname+appversion+'/docs',docfiles),
+					   ('share/doc/'+appname+appversion,['README', 'Changelog', 'COPYING'])],
         author = "Pedro Matiello",
         author_email = "pmatiello@gmail.com",
         description = "A library for working with graphs in Python",
