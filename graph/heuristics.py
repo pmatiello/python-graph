@@ -41,23 +41,23 @@ class chow(object):
 	For details, check: http://www.edmondchow.com/pubs/levdiff-aaai.pdf 
 	"""
 	
-	def __init__(self, *centers ):
+	def __init__(self, *centers):
 		"""
 		Initialize a Chow heuristic object.
 		"""
 		self.centers = centers
 		self.nodes = {}
 		
-	def optimize( self, thegraph ):
+	def optimize(self, graph):
 		"""
 		Build a dictionary mapping any node to a chow sequence for that node.
 		"""		
 		for center in self.centers:
-			shortest_routes = thegraph.shortest_path( center )[1]
+			shortest_routes = graph.shortest_path(center)[1]
 			for node, weight in shortest_routes.items():
-				self.nodes.setdefault( node, [] ).append( weight )
+				self.nodes.setdefault(node, []).append(weight)
 		
-	def __call__( self, start, end ):
+	def __call__(self, start, end):
 		"""
 		Estimate how far start is from end.
 		"""

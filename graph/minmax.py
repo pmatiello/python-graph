@@ -175,12 +175,12 @@ def shortest_path(graph, source):
 	return previous, dist
 
 
-def heuristic_search(G, start, goal, heuristic):
+def heuristic_search(graph, start, goal, heuristic):
 	"""
 	A* search algorithm.
 	
-	@type G: graph
-	@param G: Graph
+	@type graph: graph
+	@param graph: Graph
 	
 	@type start: node
 	@param start: Start node
@@ -215,12 +215,12 @@ def heuristic_search(G, start, goal, heuristic):
 			
 		# We have not found the goal
 		closed_set.add(current)
-		for neighbor in G.neighbors(current):
+		for neighbor in graph.neighbors(current):
 
 			# The cost of getting to neighbor is the cost of geting to current
 			# plust the cost of getting from current to neighbor.
 			
-			cost = g[current] + G.get_edge_weight(current, neighbor)
+			cost = g[current] + graph.get_edge_weight(current, neighbor)
 			
 			if (neighbor in open_set) and (cost < g[neighbor]):
 				# Throw away this node because we already have a faster way to get there.
@@ -245,7 +245,7 @@ def heuristic_search(G, start, goal, heuristic):
 				p[neighbor] = current
 
 
-def _reconstruct_path( node , parents ):
+def _reconstruct_path(node, parents):
 	yield node
 	while True:
 		node = parents[ node ]
