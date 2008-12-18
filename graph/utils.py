@@ -34,52 +34,52 @@ from heapq import heappush, heappop, heapify
 # Priority Queue
 
 class priority_queue:
-	def __init__(self, list=[]):
-		self.heap = [HeapItem(i, 0) for i in list]
-		heapify(self.heap)
+    def __init__(self, list=[]):
+        self.heap = [HeapItem(i, 0) for i in list]
+        heapify(self.heap)
 
-	def __contains__(self, item):
-		for heap_item in self.heap:
-			if item == heap_item.item:
-				return True
-		return False
+    def __contains__(self, item):
+        for heap_item in self.heap:
+            if item == heap_item.item:
+                return True
+        return False
 
-	def __len__(self):
-		return len(self.heap)
+    def __len__(self):
+        return len(self.heap)
 
-	def empty(self):
-		return len(self.heap) == 0
+    def empty(self):
+        return len(self.heap) == 0
 
-	def insert(self, item, priority):
-		"""
-		Insert item into the queue, with the given priority.
-		"""
-		heappush(self.heap, HeapItem(item, priority))
+    def insert(self, item, priority):
+        """
+        Insert item into the queue, with the given priority.
+        """
+        heappush(self.heap, HeapItem(item, priority))
 
-	def pop(self):
-		"""
-		Return the item with the lowest priority, and remove it	from the queue.
-		"""
-		return heappop(self.heap).item
+    def pop(self):
+        """
+        Return the item with the lowest priority, and remove it    from the queue.
+        """
+        return heappop(self.heap).item
 
-	def peek(self):
-		"""
-		Return the item with the lowest priority. The queue is unchanged.
-		"""
-		return self.heap[0].item
+    def peek(self):
+        """
+        Return the item with the lowest priority. The queue is unchanged.
+        """
+        return self.heap[0].item
 
-	def discard(self, item):
-		new_heap = []
-		for heap_item in self.heap:
-			if item != heap_item.item:
-				new_heap.append(heap_item)
-		self.heap = new_heap
-		heapify(self.heap)
+    def discard(self, item):
+        new_heap = []
+        for heap_item in self.heap:
+            if item != heap_item.item:
+                new_heap.append(heap_item)
+        self.heap = new_heap
+        heapify(self.heap)
 
 class HeapItem:
-	def __init__(self, item, priority):
-		self.item = item
-		self.priority = priority
+    def __init__(self, item, priority):
+        self.item = item
+        self.priority = priority
 
-	def __cmp__(self, other):
-		return cmp(self.priority, other.priority)
+    def __cmp__(self, other):
+        return cmp(self.priority, other.priority)

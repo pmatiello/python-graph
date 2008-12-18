@@ -47,66 +47,66 @@ import gv
 
 
 def load_automaton(filename):
-	"""
-	Read a automaton described as a labelled transition system and build the equivalent graph.
-	
-	@type  filename: string
-	@param filename: Name of the file containing the LTS-described automaton.
-	
-	@rtype:  graph
-	@return: Automaton's graph.
-	"""
-	gr = graph.digraph()
-	infile = file(filename,'r')
-	line = infile.readline()
-	final = []
-	while (line):
-		line = line.replace("\n",'').split(' ')
-		datatype = line[0]
-		data = line[1:]
-		if (datatype == 'Q'):
-			# States
-			for each in data:
-				gr.add_node(each)
-		if (datatype == 'A'):
-			# Alphabet
-			pass
-		if (datatype == 'F'):
-			# Final states
-			final = final + data
-		if (datatype == 's'):
-			# Initial state
-			gr.add_node('.',attrs=[('shape','point')])
-			gr.add_edge('.',data[0])
-		if (datatype == 't'):
-			# Transitions
-			if (gr.has_edge(data[1], data[2])):
-				gr.set_edge_label(data[1], data[2], \
-					gr.get_edge_label(data[1], data[2]) + ', ' + data[0])
-			else:
-				gr.add_edge(data[1], data[2], label=data[0])
-		line = infile.readline()
-	
-	for node in gr:
-		if (node in final and node != '.'):
-			gr.add_node_attribute(node, ('shape','doublecircle'))
-		elif (node != '.'):
-			gr.add_node_attribute(node, ('shape','circle'))
-	
-	return gr, final
+    """
+    Read a automaton described as a labelled transition system and build the equivalent graph.
+    
+    @type  filename: string
+    @param filename: Name of the file containing the LTS-described automaton.
+    
+    @rtype:  graph
+    @return: Automaton's graph.
+    """
+    gr = graph.digraph()
+    infile = file(filename,'r')
+    line = infile.readline()
+    final = []
+    while (line):
+        line = line.replace("\n",'').split(' ')
+        datatype = line[0]
+        data = line[1:]
+        if (datatype == 'Q'):
+            # States
+            for each in data:
+                gr.add_node(each)
+        if (datatype == 'A'):
+            # Alphabet
+            pass
+        if (datatype == 'F'):
+            # Final states
+            final = final + data
+        if (datatype == 's'):
+            # Initial state
+            gr.add_node('.',attrs=[('shape','point')])
+            gr.add_edge('.',data[0])
+        if (datatype == 't'):
+            # Transitions
+            if (gr.has_edge(data[1], data[2])):
+                gr.set_edge_label(data[1], data[2], \
+                    gr.get_edge_label(data[1], data[2]) + ', ' + data[0])
+            else:
+                gr.add_edge(data[1], data[2], label=data[0])
+        line = infile.readline()
+    
+    for node in gr:
+        if (node in final and node != '.'):
+            gr.add_node_attribute(node, ('shape','doublecircle'))
+        elif (node != '.'):
+            gr.add_node_attribute(node, ('shape','circle'))
+    
+    return gr, final
 
 
 # Main
 try:
-	filename = sys.argv[1]
-	gr, final = load_automaton(sys.argv[1])
-	dot = gr.write(fmt='dot')
+    filename = sys.argv[1]
+    gr, final = load_automaton(sys.argv[1])
+    dot = gr.write(fmt='dot')
 except IndexError:
-	print "Syntax: %s filename" % sys.argv[0]
-	sys.exit(1)
+    print "Syntax: %s filename" % sys.argv[0]
+    sys.exit(1)
 except IOError:
-	print "Can't open file %s" % filename
-	sys.exit(2)
+    print "Can't open file %s" % filename
+    sys.exit(2)
 
 
 # Print graph as PNG image

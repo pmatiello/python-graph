@@ -62,4 +62,3 @@ gvv = gv.readstring(dot)
 gv.layout(gvv,'dot')
 gv.render(gvv,'png','europe-st.png')
 
-

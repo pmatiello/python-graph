@@ -32,18 +32,18 @@ Sorting algorithms for python-graph.
 # Topological sorting
 
 def topological_sorting(graph):
-	"""
-	Topological sorting.
+    """
+    Topological sorting.
 
-	@attention: Topological sorting is meaningful only for directed acyclic graphs.
+    @attention: Topological sorting is meaningful only for directed acyclic graphs.
 
-	@type  graph: graph
-	@param graph: Graph.
+    @type  graph: graph
+    @param graph: Graph.
 
-	@rtype:  list
-	@return: Topological sorting for the graph.
-	"""
-	# The topological sorting of a DAG is equivalent to its reverse postordering.
-	tmp, tmp, post = graph.depth_first_search()
-	post.reverse()
-	return post
+    @rtype:  list
+    @return: Topological sorting for the graph.
+    """
+    # The topological sorting of a DAG is equivalent to its reverse postordering.
+    tmp, tmp, post = graph.depth_first_search()
+    post.reverse()
+    return post
