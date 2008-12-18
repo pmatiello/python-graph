@@ -36,13 +36,13 @@ class testAStarEuclideanHeuristic( unittest.TestCase ):
 		self.G.add_node('B', [('position',[2,0])])
 		self.G.add_node('C', [('position',[2,3])])
 		self.G.add_node('D', [('position',[1,2])])
-		self.G.add_edge('A', 'B')
-		self.G.add_edge('A', 'D')
-		self.G.add_edge('B', 'C')
-		self.G.add_edge('D', 'C')			
+		self.G.add_edge('A', 'B', wt=4)
+		self.G.add_edge('A', 'D', wt=5)
+		self.G.add_edge('B', 'C', wt=9)
+		self.G.add_edge('D', 'C', wt=2)			
 
 	def testAStar1(self):
 		heuristic = graph.heuristics.euclidean()
 		heuristic.optimize(self.G)
 		result = graph.minmax.heuristic_search(self.G, 'A', 'C', heuristic )
-		print result
+		assert result == ['A', 'D', 'C']

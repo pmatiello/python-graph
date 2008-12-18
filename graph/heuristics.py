@@ -29,7 +29,6 @@ Set of heuristics to be used with A*.
 
 
 # Imports
-import math
 import warnings
 
 
@@ -86,13 +85,11 @@ class euclidean(object):
 		"""
 		for start in graph.nodes():
 			for end in graph.nodes():
-				start_attr = graph.get_node_attributes(start)
-				for each in start_attr:
+				for each in graph.get_node_attributes(start):
 					if (each[0] == 'position'):
 						start_attr = each[1]
 						break
-				end_attr = graph.get_node_attributes(end)
-				for each in end_attr:
+				for each in graph.get_node_attributes(end):
 					if (each[0] == 'position'):
 						end_attr = each[1]
 						break
