@@ -15,30 +15,30 @@ appname = "python-graph"
 appversion = "1.4.0"
 
 # Extra files
-if (os.name == 'posix'):	# Files to be installed/packaged on Unix-like systems
-	datadir = 'share/doc/'+appname+appversion
-	datafiles = ['README', 'COPYING', 'Changelog']
-	docsdir = datadir + '/docs'
-	docsfiles = []
-	try:
-		dirlisting = os.listdir('docs/')
-	except:
-		print "Documentation isn't present and will not be installed/packaged."
-		dirlisting = []
-	for each in dirlisting:
-		docsfiles.append('docs/'+each)
-else:	# Other systems
-	datadir = ''
-	datafiles = []
-	docsdir = ''
-	docsfiles = []
+if (os.name == 'posix'):    # Files to be installed/packaged on Unix-like systems
+    datadir = 'share/doc/'+appname+appversion
+    datafiles = ['README', 'COPYING', 'Changelog']
+    docsdir = datadir + '/docs'
+    docsfiles = []
+    try:
+        dirlisting = os.listdir('docs/')
+    except:
+        print "Documentation isn't present and will not be installed/packaged."
+        dirlisting = []
+    for each in dirlisting:
+        docsfiles.append('docs/'+each)
+else:    # Other systems
+    datadir = ''
+    datafiles = []
+    docsdir = ''
+    docsfiles = []
 
 setup(
         name = appname,
         version = appversion,
-        packages = [ 'graph' ],
+        packages = ['graph'],
         data_files = [(docsdir,docsfiles),
-					   (datadir,datafiles)],
+                       (datadir,datafiles)],
         author = "Pedro Matiello",
         author_email = "pmatiello@gmail.com",
         description = "A library for working with graphs in Python",
