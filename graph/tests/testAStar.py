@@ -24,6 +24,25 @@ class testAStar( unittest.TestCase ):
 		heuristic = graph.heuristics.chow( "Wales", "North Korea", "Russia" )
 		heuristic.optimize( self.G )
 		result = graph.minmax.heuristic_search( self.G, "England", "India", heuristic )
+		
+	def testAStar_Unreachable(self):
+		heuristic = graph.heuristics.chow( "Wales", "North Korea", "Russia" )
+		
+		self.G.add_node( "Sealand" )
+		self.G.add_edge( "England", "Sealand" )
+		heuristic.optimize( self.G )
+		
+		self.G.del_edge( "England", "Sealand" )
+		
+		try:
+			result = graph.minmax.heuristic_search( self.G, "England", "Sealand" , heuristic )
+		except graph.exceptions.unreachable, _:
+			return
+		
+		assert False, "This test should rase an unreachable error."
+			
+		
+	
 
 class testAStarEuclideanHeuristic( unittest.TestCase ):
 	"""
