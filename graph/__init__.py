@@ -44,7 +44,6 @@ import readwrite
 import traversal
 import heuristics
 
-
 # Graph class --------------------------------------------------------------------------------------
 
 class graph (object):

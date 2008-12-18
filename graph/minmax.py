@@ -1,7 +1,7 @@
 # Copyright (c) 2007-2008 Pedro Matiello <pmatiello@gmail.com>
-#                         Rhys Ulerich <rhys.ulerich@gmail.com>
-#                         Roy Smith <roy@panix.com>
-#                         Salim Fadhley <sal@stodge.org>
+#						 Rhys Ulerich <rhys.ulerich@gmail.com>
+#						 Roy Smith <roy@panix.com>
+#						 Salim Fadhley <sal@stodge.org>
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation
@@ -32,10 +32,8 @@ Minimization and maximization algorithms for python-graph.
 _reconstruct_path
 """
 
-
-# Imports
-from utils import priority_queue
-
+from heapq import heappush, heappop
+from graph.exceptions import unreachable
 
 # Minimal spanning tree
 
@@ -194,61 +192,54 @@ def heuristic_search(graph, start, goal, heuristic):
 	@rtype: list
 	@return: Optimized path from start to goal node 
 	"""
-	# Nodes (fixes) already evaluated
-	closed_set = set()
 	
-	# Nodes (fixes) which still (tentatively) need to be evaluated
-	open_set = priority_queue([start])
+	# The queue stores priority, node, cost to reach, and parent.
+	queue = [ (0, start, 0, None) ]
 
-	# Actual shortest path from start to any given fix
-	g = {start: 0}
+	# This dictionary maps queued nodes to distance of discovered paths
+	# and the computed heuristics to goal. We avoid to compute the heuristics
+	# more than once and to insert too many times the node in the queue.
+	g = {}
+
+	# This maps explored nodes to parent closest to the start
+	explored = {}
 	
-	# A log of nodes and their parents
-	p = {start:None}
-
-	while not open_set.empty():
-		current = open_set.pop()
+	while queue:
+		_, current, dist, parent = heappop(queue)
+		
 		if current == goal:
-			path =  [a for a in _reconstruct_path( goal, p )]
+			path = [current] + [ n for n in _reconstruct_path( parent, explored ) ]
 			path.reverse()
 			return path
-			
-		# We have not found the goal
-		closed_set.add(current)
-		for neighbor in graph.neighbors(current):
 
-			# The cost of getting to neighbor is the cost of geting to current
-			# plust the cost of getting from current to neighbor.
-			
-			cost = g[current] + graph.get_edge_weight(current, neighbor)
-			
-			if (neighbor in open_set) and (cost < g[neighbor]):
-				# Throw away this node because we already have a faster way to get there.
-				open_set.discard(neighbor)
-				
-			if (neighbor in closed_set) and (cost < g[neighbor]):
-				# Throw away this node because we already rejected it.
-				closed_set.discard(neighbor)
-				
-			if neighbor not in open_set and neighbor not in closed_set:
-				# Store the cost of getting here.
-				g[neighbor] = cost
-				
-				# Estimate the usefulness of this node - the cost of getting to it
-				# plus an esitmate of the cost of getting from it to the goal.				
-				priority = cost + heuristic(neighbor, goal)
-				
-				# Schedule it to be investigated later.
-				open_set.insert(neighbor, priority)
-				
-				# Log how we got to this node so that we can re-construct the journey later.
-				p[neighbor] = current
+		if current in explored:
+			continue
 
+		explored[current] = parent
+
+		for neighbor in graph[current]:
+			if neighbor in explored:
+				continue
+			
+			ncost = dist + graph.get_edge_weight(current, neighbor)
+
+			if neighbor in g:
+				qcost, h = g[neighbor]
+				if qcost <= ncost:
+					continue
+				# if ncost < qcost, a longer path to neighbor remains
+				# g. Removing it would need to filter the whole
+				# queue, it's better just to leave it there and ignore
+				# it when we visit the node a second time.
+			else:
+				h = heuristic(neighbor, goal)
+			
+			g[neighbor] = ncost, h
+			heappush(queue, (ncost + h, neighbor, ncost, current))
+
+	raise unreachable( start, goal )
 
 def _reconstruct_path(node, parents):
-	yield node
-	while True:
-		node = parents[ node ]
-		if node == None:
-			break
+	while node is not None:
 		yield node
+		node = parents[ node ]
