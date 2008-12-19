@@ -23,7 +23,7 @@
 
 
 """
-Accessibility algorithms for python-graph.
+Accessibility algorithms.
 
 @sort: accessibility, connected_components, cut_edges, cut_nodes, mutual_accessibility
 """

@@ -24,7 +24,7 @@
 
 
 """
-Random graph generators for python-graph.
+Random graph generators.
 
 @sort: generate
 """

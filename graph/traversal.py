@@ -23,7 +23,7 @@
 
 
 """
-Traversal algorithms for python-graph.
+Traversal algorithms.
 
 @sort: traversal
 """

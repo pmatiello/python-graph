@@ -23,7 +23,7 @@
 
 
 """
-Search algorithms for python-graph.
+Search algorithms.
 
 @sort: breadth_first_search, depth_first_search, _bfs, _dfs
 """

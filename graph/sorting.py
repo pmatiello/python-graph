@@ -23,14 +23,13 @@
 
 
 """
-Sorting algorithms for python-graph.
+Sorting algorithms.
 
 @sort: topological_sorting
 """
 
 
 # Topological sorting
-
 def topological_sorting(graph):
     """
     Topological sorting.

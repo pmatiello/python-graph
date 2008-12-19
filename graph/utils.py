@@ -24,7 +24,7 @@
 
 
 """
-Miscellaneous useful stuff for python-graph.
+Miscellaneous useful stuff.
 """
 
 # Imports
@@ -32,8 +32,11 @@ from heapq import heappush, heappop, heapify
 
 
 # Priority Queue
-
 class priority_queue:
+    """
+    Priority queue.
+    """
+    
     def __init__(self, list=[]):
         self.heap = [HeapItem(i, 0) for i in list]
         heapify(self.heap)

@@ -26,7 +26,7 @@
 
 
 """
-Minimization and maximization algorithms for python-graph.
+Minimization and maximization algorithms.
 
 @sort: heuristic_search, minimal_spanning_tree, shortest_path, _first_unvisited, _lightest_edge,
 _reconstruct_path
