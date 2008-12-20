@@ -33,7 +33,7 @@ _reconstruct_path
 """
 
 from heapq import heappush, heappop
-from graph.exceptions import unreachable
+from exceptions import unreachable
 
 # Minimal spanning tree
 
