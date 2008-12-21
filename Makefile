@@ -6,8 +6,8 @@ install: docs
 egg: docs
 	./setup.py bdist_egg
 
-docs: graph/*.py
-	epydoc -v --no-frames --no-sourcecode --name="python-graph" --url="http://code.google.com/p/python-graph/" --no-private --html --css misc/epydoc.css -o docs graph/*.py
+docs: * */* */*/*
+	epydoc -v --no-frames --no-sourcecode --name="python-graph" --url="http://code.google.com/p/python-graph/" --no-private --html --css misc/epydoc.css -o docs graph/*.py graph/algorithms/*py graph/classes/*.py
 
 edit: graph/*.py
 	gedit graph/__init__.py &
