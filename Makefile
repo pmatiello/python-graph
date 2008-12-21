@@ -19,10 +19,11 @@ pypi: docs
 rpm: docs
 	./setup.py bdist_rpm
 
-clean:
+clean: .
 	rm -rf docs
 	rm -rf dist
 	rm -rf build
 	rm -rf python_graph.egg-info
 	rm graph/*.pyc
+	rm graph/*/*.pyc
 	rm -rf dist/*.egg

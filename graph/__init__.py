@@ -33,6 +33,5 @@ A library for working with graphs in Python.
 @version: 1.4.0
 """
 
-from graph import graph
-from digraph import digraph
-from hypergraph import hypergraph
+from algorithms import *
+from classes import *
