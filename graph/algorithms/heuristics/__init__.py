@@ -1,4 +1,5 @@
 # Copyright (c) 2007-2008 Pedro Matiello <pmatiello@gmail.com>
+#                         Salim Fadhley <sal@stodge.org>
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation
@@ -23,13 +24,8 @@
 
 
 """
-python-graph
-
-A library for working with graphs in Python.
-
-@version: 1.4.0
+Set of heuristics to be used with A*.
 """
 
-# Imports
-from algorithms import *
-from classes import *
+from Chow import chow
+from Euclidean import euclidean

@@ -24,7 +24,7 @@
 
 
 """
-Set of heuristics to be used with A*.
+Edmond Chow's heuristic for A*.
 """
 
 
@@ -32,7 +32,6 @@ Set of heuristics to be used with A*.
 import warnings
 
 
-# Edmond Chow's heuristic
 class chow(object):
     """
     An implementation of the graph searching heuristic proposed by Edmond Chow.
@@ -65,43 +64,3 @@ class chow(object):
         cmp_sequence = zip( self.nodes[start], self.nodes[end] )
         chow_number = max( abs( a-b ) for a,b in cmp_sequence )
         return chow_number
-
-
-# Heuristic for Euclidean graphs
-class euclidean(object):
-    """
-    A heuristic for Euclidean graphs.
-    """
-    
-    def __init__(self, *centers):
-        """
-        Initialize the heuristic object.
-        """
-        self.distances = {}
-        
-    def optimize(self, graph):
-        """
-        Build a dictionary mapping each pair of nodes to a number (the distance between them).
-        """
-        for start in graph.nodes():
-            for end in graph.nodes():
-                for each in graph.get_node_attributes(start):
-                    if (each[0] == 'position'):
-                        start_attr = each[1]
-                        break
-                for each in graph.get_node_attributes(end):
-                    if (each[0] == 'position'):
-                        end_attr = each[1]
-                        break
-                dist = 0
-                for i in xrange(len(start_attr)):
-                    dist = dist + (float(start_attr[i]) - float(end_attr[i]))**2
-                self.distances[(start,end)] = dist
-        
-    def __call__(self, start, end):
-        """
-        Estimate how far start is from end.
-        """
-        assert len(self.distances.keys()) > 0, "You need to optimize this heuristic for your graph before it can be used to estimate."
-                
-        return self.distances[(start,end)]

@@ -25,3 +25,7 @@
 """
 Classes.
 """
+
+from Graph import graph
+from Digraph import digraph
+from Hypergraph import hypergraph
