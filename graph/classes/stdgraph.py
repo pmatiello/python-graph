@@ -1,5 +1,4 @@
 # Copyright (c) 2007-2008 Pedro Matiello <pmatiello@gmail.com>
-#                         Christian Muise <christian.muise@gmail.com>
 #                         Nathan Davis <davisn90210@gmail.com>
 #                         Zsolt Haraszti <zsolt@drawwell.net>
 #
