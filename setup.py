@@ -36,7 +36,7 @@ else:    # Other systems
 setup(
         name = appname,
         version = appversion,
-        packages = ['graph'],
+        packages = ['graph', 'graph.algorithms', 'graph.algorithms.heuristics', 'graph.classes'],
         data_files = [(docsdir,docsfiles),
                        (datadir,datafiles)],
         author = "Pedro Matiello",

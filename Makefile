@@ -1,12 +1,12 @@
 none:
 
-install: docs
-	./setup.py develop -m
+install:
+	./setup.py install
 
 egg: docs
 	./setup.py bdist_egg
 
-docs: * */* */*/*
+docs:
 	epydoc -v --no-frames --no-sourcecode --name="python-graph" --url="http://code.google.com/p/python-graph/" --no-private --html --css misc/epydoc.css -o docs graph/*.py graph/algorithms/*py graph/algorithms/heuristics/*.py graph/classes/*.py
 
 edit: graph/*.py
