@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 # Copyright (c) 2007-2008 Pedro Matiello <pmatiello@gmail.com>
 #
 # Permission is hereby granted, free of charge, to any person
@@ -20,21 +22,28 @@
 # WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
-
-
 """
-Algorithms
-"""
+python-graph
 
-# Imports
-import accessibility
-import cycles
-import exceptions
-import generators
-import heuristics
-import minmax
-import readwrite
-import searching
-import sorting
-import traversal
-import utils
+Unit tests for python-graph
+"""
+import unittest
+import graph
+
+
+class test_find_cycle(unittest.TestCase):
+
+    def setUp(self):
+        pass
+
+    def testGraph(self):
+        G = graph.graph()
+        G.add_nodes([1, 2, 3, 4, 5])
+        G.add_edge(1, 2)
+        G.add_edge(2, 3)
+        G.add_edge(2, 4)
+        G.add_edge(4, 5)
+        G.add_edge(1, 5)
+        G.add_edge(3, 5)
+        # Cycles: 1-2-4-5, 3-2-4-5 and 1-2-3-5
+        assert G.find_cycle() == [5,3,2,1]
