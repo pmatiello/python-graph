@@ -60,6 +60,7 @@ def find_cycle(graph, directed=False):
             path.append(node)
             node = st[node]
         path.append(node)
+        path.reverse()
         return path
     
     st, pre, post = graph.depth_first_search()
@@ -70,9 +71,14 @@ def find_cycle(graph, directed=False):
     
     if (not directed):
         for node in graph:
-            for neighbor in graph.neighbors(node):
+            for neighbor in graph[node]:
                 if not (st[node] == neighbor or st[neighbor] == node):
                     if (neighbor in ancestors[node]):
                         return find_cycle_to_ancestor(node, neighbor)
-                    elif (node in ancestors[neighbor]):
-                        return find_cycle_to_ancestor(neighbor, node)
+    else:
+        for node in graph:
+            for neighbor in graph[node]:
+                if not (st[neighbor] == node):
+                    if (neighbor in ancestors[node]):
+                        return find_cycle_to_ancestor(node, neighbor)
+    return []

@@ -673,3 +673,16 @@ class digraph (object):
         @return: List of cut-nodes.
         """
         return accessibility.cut_nodes(self)
+
+
+    def find_cycle(self):
+        """
+        Find a cycle in the digraph.
+        
+        This function will return a list of nodes which form a cycle in the graph or an empty list if
+        no cycle exists.
+
+        @rtype: list
+        @return: List of nodes. 
+        """
+        return cycles.find_cycle(self, directed=True)

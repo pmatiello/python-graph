@@ -46,4 +46,42 @@ class test_find_cycle(unittest.TestCase):
         G.add_edge(1, 5)
         G.add_edge(3, 5)
         # Cycles: 1-2-4-5, 3-2-4-5 and 1-2-3-5
-        assert G.find_cycle() == [5,3,2,1]
+        assert G.find_cycle() == [2,3,5,4]
+
+    def testNoCycleGraph(self):
+        G = graph.graph()
+        G.add_nodes([1,2,3])
+        G.add_edge(1, 2)
+        G.add_edge(1, 3)
+        assert G.find_cycle() == []
+
+    def testDigraph(self):
+        G = graph.digraph()
+        G.add_nodes([1, 2, 3, 4, 5])
+        G.add_edge(1, 2)
+        G.add_edge(2, 3)
+        G.add_edge(2, 4)
+        G.add_edge(4, 5)
+        G.add_edge(5, 1)
+        # Cycle: 1-2-4-5
+        assert G.find_cycle() == [1,2,4,5]
+    
+    def testNoCycleDigraph(self):
+        G = graph.digraph()
+        G.add_nodes([1, 2, 3, 4, 5])
+        G.add_edge(1, 2)
+        G.add_edge(2, 3)
+        G.add_edge(2, 4)
+        G.add_edge(4, 5)
+        assert G.find_cycle() == []
+
+    def testSmallCycleDigraph(self):
+        G = graph.digraph()
+        G.add_nodes([1, 2, 3, 4, 5])
+        G.add_edge(1, 2)
+        G.add_edge(2, 3)
+        G.add_edge(2, 4)
+        G.add_edge(4, 5)
+        G.add_edge(2, 1)
+        # Cycle: 1-2
+        assert G.find_cycle() == [1,2]
