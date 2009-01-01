@@ -25,15 +25,25 @@ python-graph
 
 Unit tests for python-graph
 """
+
+
+# Imports
 import unittest
 import graph
 
 
-class test_find_cycle(unittest.TestCase):
+class test_depth_first_search(unittest.TestCase):
 
     def setUp(self):
         pass
 
+    def testEmptyGraph(self):
+        G = graph.graph()
+        st, pre, post = G.depth_first_search()
+        assert st == {}
+        assert pre == []
+        assert post == []
+    
     def testGraph(self):
         G = graph.graph()
         G.add_nodes([1, 2, 3, 4, 5])
@@ -43,16 +53,27 @@ class test_find_cycle(unittest.TestCase):
         G.add_edge(4, 5)
         G.add_edge(1, 5)
         G.add_edge(3, 5)
-        # Cycles: 1-2-4-5, 3-2-4-5 and 1-2-3-5
-        assert G.find_cycle() == [2,3,5,4]
-
-    def testNoCycleGraph(self):
+        st, pre, post = G.depth_first_search()
+        assert st == {1: None, 2: 1, 3: 2, 4: 5, 5: 3}
+        assert pre == [1, 2, 3, 5, 4]
+        assert post == [4, 5, 3, 2, 1]
+    
+    def testSanityGraph(self):
         G = graph.graph()
-        G.add_nodes([1,2,3])
-        G.add_edge(1, 2)
-        G.add_edge(1, 3)
-        assert G.find_cycle() == []
+        G.generate(100, 500)
+        st, pre, post = G.depth_first_search()
+        for each in G:
+            if (st[each] != None):
+                assert pre.index(each) > pre.index(st[each])
+                assert post.index(each) < post.index(st[each])
 
+    def testEmptyDigraph(self):
+        G = graph.digraph()
+        st, pre, post = G.depth_first_search()
+        assert st == {}
+        assert pre == []
+        assert post == []
+    
     def testDigraph(self):
         G = graph.digraph()
         G.add_nodes([1, 2, 3, 4, 5])
@@ -60,26 +81,18 @@ class test_find_cycle(unittest.TestCase):
         G.add_edge(2, 3)
         G.add_edge(2, 4)
         G.add_edge(4, 5)
-        G.add_edge(5, 1)
-        # Cycle: 1-2-4-5
-        assert G.find_cycle() == [1,2,4,5]
+        G.add_edge(1, 5)
+        G.add_edge(3, 5)
+        st, pre, post = G.depth_first_search()
+        assert st == {1: None, 2: 1, 3: 2, 4: 2, 5: 3}
+        assert pre == [1, 2, 3, 5, 4]
+        assert post == [5, 3, 4, 2, 1]
     
-    def testNoCycleDigraph(self):
+    def testSanityDigraph(self):
         G = graph.digraph()
-        G.add_nodes([1, 2, 3, 4, 5])
-        G.add_edge(1, 2)
-        G.add_edge(2, 3)
-        G.add_edge(2, 4)
-        G.add_edge(4, 5)
-        assert G.find_cycle() == []
-
-    def testSmallCycleDigraph(self):
-        G = graph.digraph()
-        G.add_nodes([1, 2, 3, 4, 5])
-        G.add_edge(1, 2)
-        G.add_edge(2, 3)
-        G.add_edge(2, 4)
-        G.add_edge(4, 5)
-        G.add_edge(2, 1)
-        # Cycle: 1-2
-        assert G.find_cycle() == [1,2]
+        G.generate(100, 500)
+        st, pre, post = G.depth_first_search()
+        for each in G:
+            if (st[each] != None):
+                assert pre.index(each) > pre.index(st[each])
+                assert post.index(each) < post.index(st[each])

@@ -47,6 +47,20 @@ def depth_first_search(graph, root=None):
         2. Graph's preordering
         3. Graph's postordering
     """
+
+    def dfs(node):
+        """
+        Depht-first search subfunction.
+        """
+        visited[node] = 1
+        pre.append(node)
+        # Explore recursively the connected component
+        for each in graph[node]:
+            if (each not in visited):
+                spanning_tree[each] = node
+                dfs(each)
+        post.append(node)
+
     visited = {}            # List for marking visited and non-visited nodes
     spanning_tree = {}        # Spanning tree
     pre = []                # Graph's preordering
@@ -55,7 +69,7 @@ def depth_first_search(graph, root=None):
     # DFS from one node only
     if (root is not None):
         spanning_tree[root] = None
-        _dfs(graph, visited, spanning_tree, pre, post, root)
+        dfs(root)
         return spanning_tree, pre, post
     
     # Algorithm loop
@@ -64,41 +78,9 @@ def depth_first_search(graph, root=None):
         if (each not in visited):
             spanning_tree[each] = None
             # Explore node's connected component
-            _dfs(graph, visited, spanning_tree, pre, post, each)
+            dfs(each)
 
     return spanning_tree, pre, post
-
-
-def _dfs(graph, visited, spanning_tree, pre, post, node):
-    """
-    Depht-first search subfunction.
-    
-    @type  graph: graph
-    @param graph: Graph.
-
-    @type  visited: dictionary
-    @param visited: List of nodes (visited nodes are marked non-zero).
-
-    @type  spanning_tree: dictionary
-    @param spanning_tree: Spanning tree being built for the graph by DFS.
-
-    @type  pre: list
-    @param pre: Graph's preordering.
-
-    @type  post: list
-    @param post: Graph's postordering.
-
-    @type  node: node
-    @param node: Node to be explored by DFS.
-    """
-    visited[node] = 1
-    pre.append(node)
-    # Explore recursively the connected component
-    for each in graph[node]:
-        if (each not in visited):
-            spanning_tree[each] = node
-            _dfs(graph, visited, spanning_tree, pre, post, each)
-    post.append(node)
 
 
 # Breadth-first search
