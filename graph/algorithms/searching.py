@@ -100,6 +100,20 @@ def breadth_first_search(graph, root=None):
         1. Generated spanning tree
         2. Graph's level-based ordering
     """
+
+    def bfs():
+        """
+        Breadth-first search subfunction.
+        """
+        while (queue != []):
+            node = queue.pop(0)
+    
+            for other in graph[node]:
+                if (other not in spanning_tree):
+                    queue.append(other)
+                    ordering.append(other)
+                    spanning_tree[other] = node
+
     queue = []            # Visiting queue
     spanning_tree = {}    # Spanning tree
     ordering = []
@@ -109,41 +123,15 @@ def breadth_first_search(graph, root=None):
         queue.append(root)
         ordering.append(root)
         spanning_tree[root] = None
-        _bfs(graph, queue, spanning_tree, ordering)
+        bfs()
         return spanning_tree, ordering
 
     # Algorithm
     for each in graph:
         if (each not in spanning_tree):
             queue.append(each)
-            ordering.append(root)
+            ordering.append(each)
             spanning_tree[each] = None
-            _bfs(graph, queue, spanning_tree, ordering)
+            bfs()
 
-    return spanning_tree, ordering[1:]
-
-
-def _bfs(graph, queue, spanning_tree, ordering):
-    """
-    Breadth-first search subfunction.
-    
-    @type  graph: graph
-    @param graph: Graph.
-
-    @type  spanning_tree: dictionary
-    @param spanning_tree: Spanning tree being built for the graph by DFS.
-    
-    @type  ordering: list
-    @param ordering: Graph's level-based ordering.
-
-    @type  queue: list
-    @param queue: Nodes to be visited (ordered).
-    """
-    while (queue != []):
-        node = queue.pop(0)
-
-        for other in graph[node]:
-            if (other not in spanning_tree):
-                queue.append(other)
-                ordering.append(other)
-                spanning_tree[other] = node
+    return spanning_tree, ordering

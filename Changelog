@@ -8,8 +8,12 @@ CHANGELOG
 Release 1.4.0	[??? ??, 2009]
 
 Enhancements:
-	Added A* search algorithm;
+	Added A* search algorithm (as heuristic_search);
+	Added Chow's and Euclidean heuristics for A*;
 	Moved to setuptools.
+
+Fixes:
+	Breadth first search was omitting the first node in level ordering when no root was specified.
 
 
 Release 1.3.1	[Oct 27, 2008]
