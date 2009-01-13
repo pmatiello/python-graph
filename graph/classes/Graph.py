@@ -548,7 +548,28 @@ class graph (object):
             2. Graph's level-based ordering
         """
         return searching.breadth_first_search(self, root)
-
+    
+    def filtered_breadth_first_search( self, root=None, filter=None ):
+        """
+        Breadth-first search with optional filtering implemented as a generator-function. 
+        Use Case: Find all the nodes connected to root which meet a filter-criteria in ascending-cost order.
+    
+        @type  graph: graph
+        @param graph: Graph.
+        
+        @type  root: node
+        @param root: Root node (will explore only root's connected component)
+        
+        @type filter: function
+        @param filter: A function which takes the arguments (cost, node) and must
+        return either True or False. If the function returns False then the node is
+        excluded from the output and any of it's children (except those which are
+        queued because they are connected to another node) are ignored.
+        
+        @rtype:  iterator
+        @return: Each iterator will produce a tuple of (int cost, nodevalue)
+        """
+        return searching.filtered_breadth_first_search(self, root)
 
     def accessibility(self):
         """
