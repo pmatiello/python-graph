@@ -21,6 +21,9 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 import heapq
+import logging
+
+log = logging.getLogger( __name__ )
 
 """
 Search algorithms.
@@ -137,7 +140,7 @@ def breadth_first_search(graph, root=None):
 
 
                 
-def filtered_breadth_first_search(graph, root, filter = lambda *n: True ):
+def filtered_breadth_first_search(graph, root, filter=None ):
     """
     Breadth-first search with optional filtering implemented as a generator-function. 
     Use Case: Find all the nodes connected to root which meet a filter-criteria in ascending-cost order.
@@ -157,11 +160,15 @@ def filtered_breadth_first_search(graph, root, filter = lambda *n: True ):
     @rtype:  iterator
     @return: Each iterator will produce a tuple of (int cost, nodevalue)
     """
+    if filter == None:
+        filter = lambda *n: True
+    
+    assert callable( filter ), "Filter should be callable, got %s" % repr( filter )
     visited = set()
     queue = []
 
     heapq.heappush( queue, ( 0, root ) )
-    
+
     while queue:
         cost, current = heapq.heappop( queue )
         visited.add( current )

@@ -569,7 +569,7 @@ class graph (object):
         @rtype:  iterator
         @return: Each iterator will produce a tuple of (int cost, nodevalue)
         """
-        return searching.filtered_breadth_first_search(self, root)
+        return searching.filtered_breadth_first_search(self, root, filter )
 
     def accessibility(self):
         """

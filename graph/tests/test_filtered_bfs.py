@@ -1,8 +1,13 @@
 import unittest
 import graph
 import pprint
+import logging
 
 from test_data import nations_of_the_world
+
+log = logging.getLogger( __name__ )
+
+logging.basicConfig()
 
 class testBFS( unittest.TestCase ):
     """
@@ -37,6 +42,23 @@ class testBFS( unittest.TestCase ):
         costs, nations = zip( *from_england )
         
         for c in costs:
-            assert c < MAXCOST
+            assert c <= MAXCOST
+            
+    def testBasic3(self):
+        """
+        Test some very basic functionality
+        """        
+        def myfilterfn( cost, node ):
+            if node=="Scotland":
+                return False
+            return True
+            
+        from_england = self.G.filtered_breadth_first_search( "England", myfilterfn )
+        
+        costs, nations = zip( *from_england )
+        assert not "Scotland" in nations 
+        
+        
+
             
         
