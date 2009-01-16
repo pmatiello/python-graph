@@ -58,6 +58,20 @@ class testBFS( unittest.TestCase ):
         costs, nations = zip( *from_england )
         assert not "Scotland" in nations 
         
+    def testBasic4(self):
+        """
+        Test some very basic functionality
+        """        
+        def myfilterfn( cost, node ):
+            if node=="England":
+                return False
+            return True
+            
+        from_england = [ a for a in self.G.filtered_breadth_first_search( "England", myfilterfn ) ]
+        
+        assert len(from_england) == 0, "Should be an empty list, got %s" % repr( from_england )
+        
+        
         
 
             

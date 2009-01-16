@@ -167,7 +167,9 @@ def filtered_breadth_first_search(graph, root, filter=None ):
     visited = set()
     queue = []
 
-    heapq.heappush( queue, ( 0, root ) )
+    if filter( 0, root ):
+        # Even the root of the search must pass the filter test.
+        heapq.heappush( queue, ( 0, root ) )
 
     while queue:
         cost, current = heapq.heappop( queue )
