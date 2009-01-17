@@ -31,6 +31,7 @@ Digraph class
 
 # Imports
 from graph import *
+from graph.algorithms import filters
 
 class digraph (object):
     """
@@ -565,7 +566,7 @@ class digraph (object):
         return accessibility.accessibility(self)
 
 
-    def breadth_first_search(self, root=None):
+    def breadth_first_search(self, root=None, filter=filters.null()):
         """
         Breadth-first search.
 
@@ -577,7 +578,7 @@ class digraph (object):
             1. Generated spanning tree
             2. Graph's level-based ordering
         """
-        return searching.breadth_first_search(self, root)
+        return searching.breadth_first_search(self, root, filter=filter)
 
 
     def mutual_accessibility(self):

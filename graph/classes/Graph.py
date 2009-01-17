@@ -31,6 +31,7 @@ Graph class
 
 # Imports
 from graph.algorithms import *
+from graph.algorithms import filters
 
 
 class graph (object):
@@ -535,7 +536,7 @@ class graph (object):
         return searching.depth_first_search(self, root)
 
 
-    def breadth_first_search(self, root=None):
+    def breadth_first_search(self, root=None, filter=filters.null()):
         """
         Breadth-first search.
 
@@ -547,7 +548,7 @@ class graph (object):
             1. Generated spanning tree
             2. Graph's level-based ordering
         """
-        return searching.breadth_first_search(self, root)
+        return searching.breadth_first_search(self, root, filter=filter)
 
 
     def accessibility(self):
