@@ -54,4 +54,17 @@ class test_find_filter(unittest.TestCase):
         G.add_edge(1, 5)
         G.add_edge(3, 5)
         st, lo = G.breadth_first_search(1, filter=filters.find(5))
-        print st
+        assert st == {1: None, 2: 1, 5: 1}
+    
+    def testDigraph(self):
+        G = graph.digraph()
+        G.add_nodes([1, 2, 3, 4, 5, 6])
+        G.add_edge(1, 2)
+        G.add_edge(1, 3)
+        G.add_edge(2, 4)
+        G.add_edge(4, 3)
+        G.add_edge(5, 1)
+        G.add_edge(3, 5)
+        G.add_edge(5, 6)
+        st, lo = G.breadth_first_search(1, filter=filters.find(5))
+        assert st == {1: None, 2: 1, 3: 1, 4: 2, 5: 3}
