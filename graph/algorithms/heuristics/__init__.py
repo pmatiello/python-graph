@@ -33,6 +33,8 @@ This subpackage exposes the following heuristics:
 Which are conveniently exposed as:
     - C{graph.heuristics.chow()}
     - C{graph.heuristics.euclidean()}
+
+These are to be used with heuristic_search() method.
 """
 
 

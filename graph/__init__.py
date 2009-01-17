@@ -35,8 +35,8 @@ Structure classes are exposed in the top-level:
     - The L{hypergraph} class is exposed as C{graph.hypergraph()}
 
 Helper classes are also exposed earlier for convenience:
-    - Search filters are exposed in C{graph.filters}
-    - Heuristics are exposed in C{graph.heuristics}
+    - L{Search filters<graph.filters>} are exposed in C{graph.filters}
+    - L{Heuristics<graph.heuristics>} are exposed in C{graph.heuristics}
 """
 
 
