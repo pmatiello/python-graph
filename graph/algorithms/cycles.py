@@ -42,43 +42,51 @@ def find_cycle(graph, directed=False):
     @rtype: list
     @return: List of nodes. 
     """
-    
-    def find_ancestors(anclist, node):
-        """
-        Build the of ancestors of the given node.
-        """
-        if (node is not None):
-             anclist.append(node)
-             find_ancestors(anclist, st[node])
-    
+
     def find_cycle_to_ancestor(node, ancestor):
         """
         Find a cycle containing both node and ancestor.
         """
         path = []
+        orignode = node
         while (node != ancestor):
+            if (node is None):
+                return find_cycle_to_ancestor(ancestor, orignode)
             path.append(node)
-            node = st[node]
+            node = spanning_tree[node]
         path.append(node)
         path.reverse()
         return path
     
-    st, pre, post = graph.depth_first_search()
-    ancestors = {}
+    def dfs(node):
+        """
+        Depht-first search subfunction.
+        """
+        visited[node] = 1
+        # Explore recursively the connected component
+        for each in graph[node]:
+            if (cycle):
+                return
+            if (each not in visited):
+                spanning_tree[each] = node
+                dfs(each)
+            else:
+                if (directed or spanning_tree[node] is not each):
+                    cycle.extend(find_cycle_to_ancestor(node, each))
+
+    visited = {}              # List for marking visited and non-visited nodes
+    spanning_tree = {}        # Spanning tree
+    cycle = []
+
+    # Algorithm outer-loop
     for each in graph:
-        ancestors[each] = []
-        find_ancestors(ancestors[each], each)
-    
-    if (not directed):
-        for node in graph:
-            for neighbor in graph[node]:
-                if not (st[node] == neighbor or st[neighbor] == node):
-                    if (neighbor in ancestors[node]):
-                        return find_cycle_to_ancestor(node, neighbor)
-    else:
-        for node in graph:
-            for neighbor in graph[node]:
-                if not (st[neighbor] == node):
-                    if (neighbor in ancestors[node]):
-                        return find_cycle_to_ancestor(node, neighbor)
+        # Select a non-visited node
+        if (each not in visited):
+            spanning_tree[each] = None
+            root = each
+            # Explore node's connected component
+            dfs(each)
+            if (cycle):
+                return cycle
+
     return []
