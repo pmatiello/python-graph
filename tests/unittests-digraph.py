@@ -20,11 +20,13 @@
 # WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
-"""
-python-graph
 
-Unit tests for python-graph
+
 """
+Unittests for graph.classes.Digraph
+"""
+
+
 import unittest
 import graph
 import copy
