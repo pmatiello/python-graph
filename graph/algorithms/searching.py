@@ -25,7 +25,7 @@
 """
 Search algorithms.
 
-@sort: breadth_first_search, depth_first_search, _bfs, _dfs
+@sort: breadth_first_search, depth_first_search
 """
 
 

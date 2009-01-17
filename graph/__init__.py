@@ -28,8 +28,17 @@ python-graph
 A library for working with graphs in Python.
 
 @version: 1.4.0
+
+Structure classes are exposed in the top-level:
+    - The L{graph} class is exposed as C{graph.graph()}
+    - The L{digraph} class is exposed as C{graph.digraph()}
+    - The L{hypergraph} class is exposed as C{graph.hypergraph()}
+
+Helper classes are also exposed earlier for convenience:
+    - Search filters are exposed in C{graph.filters}
+    - Heuristics are exposed in C{graph.heuristics}
 """
 
-# Imports
+
 from algorithms import *
 from classes import *

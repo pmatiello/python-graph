@@ -6,7 +6,7 @@ install:
 egg: docs
 	./setup.py bdist_egg
 
-docs:
+docs: .
 	epydoc -v --no-frames --no-sourcecode --name="python-graph" --url="http://code.google.com/p/python-graph/" --no-private --html --css misc/epydoc.css -o docs graph/*.py graph/algorithms/*py graph/algorithms/heuristics/*.py graph/classes/*.py
 
 edit: graph/*.py
@@ -24,7 +24,7 @@ clean: .
 	rm -rf dist
 	rm -rf build
 	rm -rf python_graph.egg-info
-	rm graph/*.pyc
-	rm graph/*/*.pyc
-	rm graph/*/*/*.pyc
-	rm -rf dist/*.egg
+	rm -f graph/*.pyc
+	rm -f graph/*/*.pyc
+	rm -f graph/*/*/*.pyc
+	rm -f tests/*.pyc

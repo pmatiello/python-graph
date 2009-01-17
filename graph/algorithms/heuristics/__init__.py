@@ -24,8 +24,17 @@
 
 
 """
-Set of heuristics to be used with A*.
+Set of search heuristics.
+
+This subpackage exposes the following heuristics:
+    - L{chow}
+    - L{euclidean}
+
+Which are conveniently exposed as:
+    - C{graph.heuristics.chow()}
+    - C{graph.heuristics.euclidean()}
 """
+
 
 from Chow import chow
 from Euclidean import euclidean
