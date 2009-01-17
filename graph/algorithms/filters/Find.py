@@ -1,5 +1,4 @@
 # Copyright (c) 2007-2008 Pedro Matiello <pmatiello@gmail.com>
-#                         Salim Fadhley <sal@stodge.org>
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation
@@ -24,43 +23,38 @@
 
 
 """
-Edmond Chow's heuristic for A*.
+Search filter for finding a specific node.
 """
 
 
-# Imports
-import warnings
-
-
-class chow(object):
+class find(object):
     """
-    An implementation of the graph searching heuristic proposed by Edmond Chow.
-
-    For details, check: http://www.edmondchow.com/pubs/levdiff-aaai.pdf 
+    Search filter for finding a specific node.
     """
     
-    def __init__(self, *centers):
+    def __init__(self, target):
         """
-        Initialize a Chow heuristic object.
+        Initialize the filter.
         """
-        self.centers = centers
-        self.nodes = {}
-        
-    def optimize(self, graph):
+        self.graph = None
+        self.spanning_tree = None
+        self.target = target
+        self.done = False
+    
+    def configure(self, graph, spanning_tree):
         """
-        Build a dictionary mapping any node to a chow sequence for that node.
-        """        
-        for center in self.centers:
-            shortest_routes = graph.shortest_path(center)[1]
-            for node, weight in shortest_routes.items():
-                self.nodes.setdefault(node, []).append(weight)
-        
-    def __call__(self, start, end):
+        Configure the filter.
         """
-        Estimate how far start is from end.
+        self.graph = graph
+        self.spanning_tree = spanning_tree
+         
+    def __call__(self, node):
         """
-        assert len(self.nodes.keys()) > 0, "You need to optimize this heuristic for your graph before it can be used to estimate."
-                
-        cmp_sequence = zip(self.nodes[start], self.nodes[end])
-        chow_number = max(abs(a-b) for a,b in cmp_sequence)
-        return chow_number
+        Include given node in the search?
+        """
+        if (not self.done):
+            if (node == self.target):
+                self.done = True
+            return True
+        else:
+            return False

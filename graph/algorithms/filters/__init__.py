@@ -23,19 +23,9 @@
 
 
 """
-Algorithms
+Set of searching filters.
 """
 
 # Imports
-import accessibility
-import cycles
-import exceptions
-import filters
-import generators
-import heuristics
-import minmax
-import readwrite
-import searching
-import sorting
-import traversal
-import utils
+from Find import find
+from Null import null

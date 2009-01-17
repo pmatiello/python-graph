@@ -20,22 +20,38 @@
 # WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
-
-
 """
-Algorithms
+python-graph
+
+Unit tests for python-graph
 """
+
 
 # Imports
-import accessibility
-import cycles
-import exceptions
-import filters
-import generators
-import heuristics
-import minmax
-import readwrite
-import searching
-import sorting
-import traversal
-import utils
+import unittest
+import graph
+from graph.algorithms import filters
+
+
+class test_find_filter(unittest.TestCase):
+
+    def setUp(self):
+        pass
+
+    def testEmptyGraph(self):
+        G = graph.graph()
+        st, lo = G.breadth_first_search()
+        assert st == {}
+        assert lo == []
+    
+    def testGraph(self):
+        G = graph.graph()
+        G.add_nodes([1, 2, 3, 4, 5])
+        G.add_edge(1, 2)
+        G.add_edge(2, 3)
+        G.add_edge(2, 4)
+        G.add_edge(4, 5)
+        G.add_edge(1, 5)
+        G.add_edge(3, 5)
+        st, lo = G.breadth_first_search(1, filter=filters.find(5))
+        print st

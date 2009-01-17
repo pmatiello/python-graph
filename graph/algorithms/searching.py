@@ -29,6 +29,10 @@ Search algorithms.
 """
 
 
+# Imports
+import filters
+
+
 # Depth-first search
 
 def depth_first_search(graph, root=None):
@@ -85,7 +89,7 @@ def depth_first_search(graph, root=None):
 
 # Breadth-first search
 
-def breadth_first_search(graph, root=None):
+def breadth_first_search(graph, root=None, filter=filters.null()):
     """
     Breadth-first search.
 
@@ -107,31 +111,34 @@ def breadth_first_search(graph, root=None):
         """
         while (queue != []):
             node = queue.pop(0)
-    
+            
             for other in graph[node]:
-                if (other not in spanning_tree):
+                if (other not in spanning_tree and filter(other)):
                     queue.append(other)
                     ordering.append(other)
                     spanning_tree[other] = node
-
+    
     queue = []            # Visiting queue
     spanning_tree = {}    # Spanning tree
     ordering = []
-
+    filter.configure(graph, spanning_tree)
+    
     # BFS from one node only
     if (root is not None):
-        queue.append(root)
-        ordering.append(root)
-        spanning_tree[root] = None
-        bfs()
+        if (filter(root)):
+            queue.append(root)
+            ordering.append(root)
+            spanning_tree[root] = None
+            bfs()
         return spanning_tree, ordering
 
     # Algorithm
     for each in graph:
         if (each not in spanning_tree):
-            queue.append(each)
-            ordering.append(each)
-            spanning_tree[each] = None
-            bfs()
+            if (filter(each)):
+                queue.append(each)
+                ordering.append(each)
+                spanning_tree[each] = None
+                bfs()
 
     return spanning_tree, ordering
