@@ -540,7 +540,7 @@ class digraph (object):
             yield each
 
 
-    def depth_first_search(self, root=None):
+    def depth_first_search(self, root=None, filter=filters.null()):
         """
         Depht-first search.
         
@@ -553,7 +553,7 @@ class digraph (object):
             2. Graph's preordering
             3. Graph's postordering
         """
-        return searching.depth_first_search(self, root)
+        return searching.depth_first_search(self, root, filter)
 
 
     def accessibility(self):

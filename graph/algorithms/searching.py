@@ -35,7 +35,7 @@ import filters
 
 # Depth-first search
 
-def depth_first_search(graph, root=None):
+def depth_first_search(graph, root=None, filter=filters.null()):
     """
     Depth-first search.
 
@@ -60,26 +60,28 @@ def depth_first_search(graph, root=None):
         pre.append(node)
         # Explore recursively the connected component
         for each in graph[node]:
-            if (each not in visited):
+            if (each not in visited and filter(each)):
                 spanning_tree[each] = node
                 dfs(each)
         post.append(node)
 
     visited = {}            # List for marking visited and non-visited nodes
-    spanning_tree = {}        # Spanning tree
+    spanning_tree = {}      # Spanning tree
     pre = []                # Graph's preordering
-    post = []                # Graph's postordering
+    post = []               # Graph's postordering
+    filter.configure(graph, spanning_tree)
 
     # DFS from one node only
     if (root is not None):
-        spanning_tree[root] = None
-        dfs(root)
+        if (filter(root)):
+            spanning_tree[root] = None
+            dfs(root)
         return spanning_tree, pre, post
     
     # Algorithm loop
     for each in graph:
         # Select a non-visited node
-        if (each not in visited):
+        if (each not in visited and filter(each)):
             spanning_tree[each] = None
             # Explore node's connected component
             dfs(each)

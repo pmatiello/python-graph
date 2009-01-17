@@ -520,7 +520,7 @@ class graph (object):
             yield each
 
 
-    def depth_first_search(self, root=None):
+    def depth_first_search(self, root=None, filter=filters.null()):
         """
         Depht-first search.
         
@@ -533,7 +533,7 @@ class graph (object):
             2. Graph's preordering
             3. Graph's postordering
         """
-        return searching.depth_first_search(self, root)
+        return searching.depth_first_search(self, root, filter=filter)
 
 
     def breadth_first_search(self, root=None, filter=filters.null()):
