@@ -1,5 +1,6 @@
+import sys
+sys.path.append('..')
 import unittest
-
 import graph
 
 from test_data import nations_of_the_world
