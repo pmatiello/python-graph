@@ -48,7 +48,7 @@ class find(object):
         self.graph = graph
         self.spanning_tree = spanning_tree
          
-    def __call__(self, node):
+    def __call__(self, node, parent):
         """
         Include given node in the search?
         """

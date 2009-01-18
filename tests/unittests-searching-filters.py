@@ -40,7 +40,7 @@ class test_find_filter(unittest.TestCase):
 
     def testEmptyGraphBFS(self):
         G = graph.graph()
-        st, lo = G.breadth_first_search()
+        st, lo = G.breadth_first_search(filter=filters.find(5))
         assert st == {}
         assert lo == []
     
@@ -102,5 +102,89 @@ class test_find_filter(unittest.TestCase):
         G.add_edge(3, 5)
         G.add_edge(5, 6)
         st, pre, post = G.depth_first_search(1, filter=filters.find(5))
-        print st
         assert st == {1: None, 2: 1, 3: 4, 4: 2, 5: 3}
+
+
+class test_radius_filter(unittest.TestCase):
+
+    def setUp(self):
+        pass
+
+    def testEmptyGraphBFS(self):
+        G = graph.graph()
+        st, lo = G.breadth_first_search(filter=filters.radius(2))
+        assert st == {}
+        assert lo == []
+    
+    def testGraphBFS(self):
+        G = graph.graph()
+        G.add_nodes([1, 2, 3, 4, 5, 6, 7, 8, 9])
+        G.add_edge(1, 2)
+        G.add_edge(1, 3)
+        G.add_edge(2, 4)
+        G.add_edge(3, 5)
+        G.add_edge(4, 6)
+        G.add_edge(5, 7)
+        G.add_edge(1, 8, wt=3)
+        G.add_edge(8, 9)
+        G.add_edge(3, 9)
+        st, lo = G.breadth_first_search(1, filter=filters.radius(2))
+        assert st == {1: None, 2: 1, 3: 1, 4: 2, 5: 3, 9: 3}
+    
+    def testDigraphBFS(self):
+        G = graph.digraph()
+        G.add_nodes([1, 2, 3, 4, 5, 6, 7, 8, 9])
+        G.add_edge(1, 2)
+        G.add_edge(1, 3)
+        G.add_edge(2, 4)
+        G.add_edge(3, 5)
+        G.add_edge(4, 6)
+        G.add_edge(5, 7)
+        G.add_edge(1, 8, wt=3)
+        G.add_edge(7, 8, wt=3)
+        G.add_edge(8, 9)
+        G.add_edge(3, 9)
+        st, lo = G.breadth_first_search(1, filter=filters.radius(2))
+        assert st == {1: None, 2: 1, 3: 1, 4: 2, 5: 3, 9: 3}
+        st, lo = G.breadth_first_search(7, filter=filters.radius(2))
+        assert st == {7: None}
+
+    def testEmptyGraphDFS(self):
+        G = graph.graph()
+        st, pre, post = G.depth_first_search(filter=filters.radius(2))
+        assert st == {}
+        assert pre == []
+        assert post == []
+    
+    def testGraphDFS(self):
+        G = graph.graph()
+        G.add_nodes([1, 2, 3, 4, 5, 6, 7, 8, 9])
+        G.add_edge(1, 2)
+        G.add_edge(1, 3)
+        G.add_edge(2, 4)
+        G.add_edge(3, 5)
+        G.add_edge(4, 6)
+        G.add_edge(5, 7)
+        G.add_edge(1, 8, wt=3)
+        G.add_edge(8, 9)
+        G.add_edge(3, 9)
+        st, pre, post = G.depth_first_search(1, filter=filters.radius(2))
+        assert st == {1: None, 2: 1, 3: 1, 4: 2, 5: 3, 9: 3}
+    
+    def testDigraphDFS(self):
+        G = graph.digraph()
+        G.add_nodes([1, 2, 3, 4, 5, 6, 7, 8, 9])
+        G.add_edge(1, 2)
+        G.add_edge(1, 3)
+        G.add_edge(2, 4)
+        G.add_edge(3, 5)
+        G.add_edge(4, 6)
+        G.add_edge(5, 7)
+        G.add_edge(1, 8, wt=3)
+        G.add_edge(7, 8, wt=3)
+        G.add_edge(8, 9)
+        G.add_edge(3, 9)
+        st, pre, post = G.depth_first_search(1, filter=filters.radius(2))
+        assert st == {1: None, 2: 1, 3: 1, 4: 2, 5: 3, 9: 3}
+        st, pre, post = G.depth_first_search(7, filter=filters.radius(2))
+        assert st == {7: None}

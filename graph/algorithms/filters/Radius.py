@@ -23,21 +23,23 @@
 
 
 """
-Null searching filter.
+Search filter for finding a specific node.
 """
 
 
-class null(object):
+class radius(object):
     """
-    Null search filter.
+    Search filter for finding a specific node.
     """
     
-    def __init__(self):
+    def __init__(self, radius):
         """
         Initialize the filter.
         """
         self.graph = None
         self.spanning_tree = None
+        self.radius = radius
+        self.done = False
     
     def configure(self, graph, spanning_tree):
         """
@@ -50,4 +52,24 @@ class null(object):
         """
         Include given node in the search?
         """
-        return True
+        def cost_to_root(node):
+            if (node is not None):
+                return cost_to_parent(node, st[node]) + cost_to_root(st[node])
+            else:
+                return 0
+        
+        def cost_to_parent(node, parent):
+            if (parent is not None):
+                return gr.get_edge_weight(parent, node)
+            else:
+                return 0
+        
+        gr = self.graph
+        st = self.spanning_tree
+        
+        cost =  cost_to_parent(node, parent) + cost_to_root(parent)
+        
+        if (cost <= self.radius):
+            return True
+        else:
+            return False

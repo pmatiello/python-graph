@@ -60,7 +60,7 @@ def depth_first_search(graph, root=None, filter=filters.null()):
         pre.append(node)
         # Explore recursively the connected component
         for each in graph[node]:
-            if (each not in visited and filter(each)):
+            if (each not in visited and filter(each, node)):
                 spanning_tree[each] = node
                 dfs(each)
         post.append(node)
@@ -73,7 +73,7 @@ def depth_first_search(graph, root=None, filter=filters.null()):
 
     # DFS from one node only
     if (root is not None):
-        if (filter(root)):
+        if (filter(root, None)):
             spanning_tree[root] = None
             dfs(root)
         return spanning_tree, pre, post
@@ -81,7 +81,7 @@ def depth_first_search(graph, root=None, filter=filters.null()):
     # Algorithm loop
     for each in graph:
         # Select a non-visited node
-        if (each not in visited and filter(each)):
+        if (each not in visited and filter(each, None)):
             spanning_tree[each] = None
             # Explore node's connected component
             dfs(each)
@@ -115,7 +115,7 @@ def breadth_first_search(graph, root=None, filter=filters.null()):
             node = queue.pop(0)
             
             for other in graph[node]:
-                if (other not in spanning_tree and filter(other)):
+                if (other not in spanning_tree and filter(other, node)):
                     queue.append(other)
                     ordering.append(other)
                     spanning_tree[other] = node
@@ -127,7 +127,7 @@ def breadth_first_search(graph, root=None, filter=filters.null()):
     
     # BFS from one node only
     if (root is not None):
-        if (filter(root)):
+        if (filter(root, None)):
             queue.append(root)
             ordering.append(root)
             spanning_tree[root] = None
@@ -137,7 +137,7 @@ def breadth_first_search(graph, root=None, filter=filters.null()):
     # Algorithm
     for each in graph:
         if (each not in spanning_tree):
-            if (filter(each)):
+            if (filter(each, None)):
                 queue.append(each)
                 ordering.append(each)
                 spanning_tree[each] = None
