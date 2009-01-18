@@ -11,7 +11,8 @@ Enhancements:
 	Added A* search algorithm (as heuristic_search);
 	Added Chow's and Euclidean heuristics for A*;
 	Added filtered depth-first and breadth-first search;
-	Added find filter (stops the search after reaching a target node); 
+	Added 'find' search filter (stops the search after reaching a target node);
+	Added 'radius' search filter (radial limit for searching); 
 	Moved to setuptools.
 
 Fixes:
