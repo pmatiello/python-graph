@@ -28,10 +28,12 @@ Set of searching filters.
 This subpackage exposes the following filters:
     - L{find}
     - L{null}
+    - L{radius}
 
 Which are conveniently exposed as:
     - C{graph.filters.find()}
     - C{graph.filters.null()}
+    - C{graph.filters.radius()}
 
 """
 

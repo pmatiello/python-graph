@@ -23,13 +23,15 @@
 
 
 """
-Search filter for finding a specific node.
+Radial search filter.
 """
 
 
 class radius(object):
     """
-    Search filter for finding a specific node.
+    Radial search filter.
+    
+    This will keep searching contained inside a specified limit.
     """
     
     def __init__(self, radius):
@@ -52,6 +54,7 @@ class radius(object):
         """
         Include given node in the search?
         """
+        
         def cost_to_root(node):
             if (node is not None):
                 return cost_to_parent(node, st[node]) + cost_to_root(st[node])
