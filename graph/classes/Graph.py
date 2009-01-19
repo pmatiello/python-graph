@@ -611,6 +611,9 @@ class graph (object):
         """
         A* search algorithm.
         
+        A set of heuristics is available under C{graph.heuristics}. User-created heuristics are
+        allowed too.
+        
         @type start: node
         @param start: Start node
         

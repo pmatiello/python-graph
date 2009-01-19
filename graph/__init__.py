@@ -30,13 +30,13 @@ A library for working with graphs in Python.
 @version: 1.4.0
 
 Structure classes are exposed in the top-level:
-    - The L{graph} class is exposed as C{graph.graph()}
-    - The L{digraph} class is exposed as C{graph.digraph()}
-    - The L{hypergraph} class is exposed as C{graph.hypergraph()}
+    - The L{graph} class is exposed as C{graph.graph()}.
+    - The L{digraph} class is exposed as C{graph.digraph()}.
+    - The L{hypergraph} class is exposed as C{graph.hypergraph()}.
 
 Helper classes are also exposed earlier for convenience:
-    - L{Search filters<graph.filters>} are exposed in C{graph.filters}
-    - L{Heuristics<graph.heuristics>} are exposed in C{graph.heuristics}
+    - L{Search filters<graph.filters>} are exposed in C{graph.filters}.
+    - L{Heuristics<graph.heuristics>} for the A* algorithm are exposed in C{graph.heuristics}.
 """
 
 

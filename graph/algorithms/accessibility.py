@@ -117,7 +117,7 @@ def _dfs(graph, visited, count, node):
     @type  count: number
     @param count: Counter of connected components.
 
-    @type  node: number
+    @type  node: node
     @param node: Node to be explored by DFS.
     """
     visited[node] = count
