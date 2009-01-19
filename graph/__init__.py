@@ -37,6 +37,26 @@ Structure classes are exposed in the top-level:
 Helper classes are also exposed earlier for convenience:
     - L{Search filters<graph.filters>} are exposed in C{graph.filters}.
     - L{Heuristics<graph.heuristics>} for the A* algorithm are exposed in C{graph.heuristics}.
+
+Now, a quick example:
+
+>>> # Import the module and instantiate a graph object
+>>> import graph
+>>> gr = graph.graph()
+>>> # Add nodes
+>>> gr.add_nodes(['X','Y','Z'])
+>>> gr.add_nodes(['A','B','C'])
+>>> # Add edges
+>>> gr.add_edge('X','Y')
+>>> gr.add_edge('X','Z')
+>>> gr.add_edge('A','B')
+>>> gr.add_edge('A','C')
+>>> gr.add_edge('Y','B')
+>>> # Depth first search rooted on node X
+>>> st, pre, post = gr.depth_first_search(root='X')
+>>> # Print the spanning tree
+>>> print st
+{'A': 'B', 'C': 'A', 'B': 'Y', 'Y': 'X', 'X': None, 'Z': 'X'}
 """
 
 
