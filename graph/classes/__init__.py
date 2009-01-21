@@ -23,7 +23,7 @@
 
 
 """
-Structure classes.
+Data structure classes.
 
 This subpackage exposes the following classes:
     - L{graph}

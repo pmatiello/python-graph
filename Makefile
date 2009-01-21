@@ -6,7 +6,8 @@ install:
 egg: docs
 	./setup.py bdist_egg
 
-docs: .
+docs: cleanpyc
+	rm -rf docs
 	epydoc -v --no-frames --no-sourcecode --name="python-graph" \
 		--url="http://code.google.com/p/python-graph/" \
 		--no-private --html --css misc/epydoc.css -o docs graph/*.py \
@@ -23,12 +24,16 @@ pypi: docs
 rpm: docs
 	./setup.py bdist_rpm
 
-clean: .
-	rm -rf docs
-	rm -rf dist
-	rm -rf build
-	rm -rf python_graph.egg-info
+cleanpyc:
 	rm -f graph/*.pyc
 	rm -f graph/*/*.pyc
 	rm -f graph/*/*/*.pyc
 	rm -f tests/*.pyc
+
+clean: cleanpyc
+	rm -rf docs
+	rm -rf dist
+	rm -rf build
+	rm -rf python_graph.egg-info
+
+.PHONY: clean cleanpyc docs

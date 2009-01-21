@@ -29,7 +29,7 @@ A library for working with graphs in Python.
 
 @version: 1.4.0
 
-Structure classes are exposed at the top-level:
+Data structure classes are exposed at the top-level:
     - The L{graph} class is exposed as C{graph.graph()}.
     - The L{digraph} class is exposed as C{graph.digraph()}.
     - The L{hypergraph} class is exposed as C{graph.hypergraph()}.
@@ -38,7 +38,7 @@ Helper classes are exposed one level beneath:
     - L{Search filters<graph.filters>} are exposed in C{graph.filters}.
     - L{Heuristics<graph.heuristics>} for the A* algorithm are exposed in C{graph.heuristics}.
 
-A quick usage example follows:
+A quick introductory example:
 
 >>> # Import the module and instantiate a graph object
 >>> import graph
