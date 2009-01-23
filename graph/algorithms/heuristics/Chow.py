@@ -36,7 +36,7 @@ class chow(object):
     """
     An implementation of the graph searching heuristic proposed by Edmond Chow.
 
-    For details, check: http://www.edmondchow.com/pubs/levdiff-aaai.pdf 
+    For details, check: U{http://www.edmondchow.com/pubs/levdiff-aaai.pdf}. 
     """
     
     def __init__(self, *centers):
@@ -48,7 +48,10 @@ class chow(object):
         
     def optimize(self, graph):
         """
-        Build a dictionary mapping any node to a chow sequence for that node.
+        Build a dictionary mapping each pair of nodes to a number (the distance between them).
+        
+        @type  graph: graph
+        @param graph: Graph. 
         """        
         for center in self.centers:
             shortest_routes = graph.shortest_path(center)[1]
@@ -58,6 +61,12 @@ class chow(object):
     def __call__(self, start, end):
         """
         Estimate how far start is from end.
+        
+        @type  start: node
+        @param start: Start node.
+        
+        @type  end: node
+        @param end: End node.
         """
         assert len( self.nodes.keys() ) > 0, "You need to optimize this heuristic for your graph before it can be used to estimate."
                 

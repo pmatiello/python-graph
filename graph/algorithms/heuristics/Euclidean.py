@@ -36,7 +36,7 @@ class euclidean(object):
     A heuristic for Euclidean graphs.
     """
     
-    def __init__(self, *centers):
+    def __init__(self):
         """
         Initialize the heuristic object.
         """
@@ -45,6 +45,9 @@ class euclidean(object):
     def optimize(self, graph):
         """
         Build a dictionary mapping each pair of nodes to a number (the distance between them).
+        
+        @type  graph: graph
+        @param graph: Graph. 
         """
         for start in graph.nodes():
             for end in graph.nodes():
@@ -64,6 +67,12 @@ class euclidean(object):
     def __call__(self, start, end):
         """
         Estimate how far start is from end.
+        
+        @type  start: node
+        @param start: Start node.
+        
+        @type  end: node
+        @param end: End node.
         """
         assert len(self.distances.keys()) > 0, "You need to optimize this heuristic for your graph before it can be used to estimate."
                 
