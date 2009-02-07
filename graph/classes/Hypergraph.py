@@ -29,7 +29,7 @@ Hypergraph class
 
 
 # Imports
-from graph import *
+from Graph import *
 
 
 class hypergraph (object):
