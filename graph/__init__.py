@@ -27,7 +27,7 @@ python-graph
 
 A library for working with graphs in Python.
 
-@version: 1.4.0
+@version: 1.4.1
 
 Data structure classes are exposed at the top-level:
     - The L{graph} class is exposed as C{graph.graph()}.
