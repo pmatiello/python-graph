@@ -52,7 +52,9 @@ def find_cycle(graph, directed=False):
         while (node != ancestor):
             if (node is None):
                 if (try_other_path):
-                    return find_cycle_to_ancestor(ancestor, orignode, try_other_path=False)
+                    path = find_cycle_to_ancestor(ancestor, orignode, try_other_path=False)
+                    path.reverse()
+                    return path
                 else:
                     return []
             path.append(node)
