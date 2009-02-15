@@ -43,7 +43,7 @@ def find_cycle(graph, directed=False):
     @return: List of nodes. 
     """
 
-    def find_cycle_to_ancestor(node, ancestor):
+    def find_cycle_to_ancestor(node, ancestor, try_other_path=True):
         """
         Find a cycle containing both node and ancestor.
         """
@@ -51,7 +51,10 @@ def find_cycle(graph, directed=False):
         orignode = node
         while (node != ancestor):
             if (node is None):
-                return find_cycle_to_ancestor(ancestor, orignode)
+                if (try_other_path):
+                    return find_cycle_to_ancestor(ancestor, orignode, try_other_path=False)
+                else:
+                    return []
             path.append(node)
             node = spanning_tree[node]
         path.append(node)
