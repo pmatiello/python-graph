@@ -36,6 +36,8 @@ class chow(object):
     """
     An implementation of the graph searching heuristic proposed by Edmond Chow.
 
+    Remember to call the C{optimize()} method before the heuristic search.
+    
     For details, check: U{http://www.edmondchow.com/pubs/levdiff-aaai.pdf}. 
     """
     

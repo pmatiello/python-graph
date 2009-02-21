@@ -33,7 +33,26 @@ import warnings
 
 class euclidean(object):
     """
-    A heuristic for Euclidean graphs.
+    A* heuristic for Euclidean graphs.
+    
+    This heuristic has three requirements:
+        1. All nodes should have the attribute 'position';
+        2. The weight of all edges should be the euclidean distance between the nodes it links;
+        3. The C{optimize()} method should be called before the heuristic search.
+    
+    A small example for clarification:
+    
+    >>> g = graph.graph()
+    >>> g.add_nodes(['A','B','C'])
+    >>> g.add_node_attribute('A', ('position',(0,0)))
+    >>> g.add_node_attribute('B', ('position',(1,1)))
+    >>> g.add_node_attribute('C', ('position',(0,2)))
+    >>> g.add_edge('A','B', wt=2)
+    >>> g.add_edge('B','C', wt=2)
+    >>> g.add_edge('A','C', wt=4)
+    >>> h = graph.heuristics.euclidean()
+    >>> h.optimize(g)
+    >>> g.heuristic_search('A', 'C', h)
     """
     
     def __init__(self):
