@@ -31,6 +31,7 @@ Functions for reading and writing graphs.
 
 # Imports
 from xml.dom.minidom import Document, parseString
+import pydot
 
 
 # Values
@@ -175,61 +176,94 @@ def read_xml_hypergraph(hypergraph, string):
             hypergraph.link(each_node.getAttribute('id'), each_edge.getAttribute('to'))
 
 
-# DOT Language
-
-def _dot_node_str(graph, node, wt):
-    line = '\t"%s" [ ' % str(node)
-    attrlist = graph.get_node_attributes(node)
-    for each in attrlist:
-        attr = '%s="%s" ' % (each[0], each[1])
-        line = line + attr
-    line = line + ']\n'
-    return line
+################
+# DOT Language #
+################
 
 
-def _dot_edge_str(graph, u, v, wt):
-    line = '\t"%s" -- "%s" [ ' % (str(u), str(v))
-    attrlist = graph.get_edge_attributes(u, v) + [('label',graph.get_edge_label(u, v))]
-    for each in attrlist:
-        attr = '%s="%s" ' % (each[0], each[1])
-        line = line + attr
-    line = line + ']\n'
-    return line
-
-
-def _dot_arrow_str(graph, u, v, wt):
-    line = '\t"%s" -> "%s" [ ' % (str(u), str(v))
-    attrlist = graph.get_edge_attributes(u, v) + [('label',graph.get_edge_label(u, v))]
-    for each in attrlist:
-        attr = '%s="%s" ' % (each[0], each[1])
-        line = line + attr
-    line = line + ']\n'
-    return line
-
-
-def write_dot_graph(graph, wt):
+def read_dot_graph(graph, string):
     """
-    Return a string specifying the given graph in DOT Language.
+    Read a graph from a string in dot format. Nodes and edges specified in the input will be added to the current graph.
     
     @type  graph: graph
-    @param graph: Graph.
+    @param graph: Graph
 
-    @type  wt: boolean
-    @param wt: Whether edges should be labelled with its weight.
-
-    @rtype:  string
-    @return: String specifying the graph in DOT Language.
+    @type  string: string
+    @param string: Input string in dot format specifying a graph.
     """
-    doc = 'graph graphname \n{\n'
-    for node in graph:
-        doc = doc + _dot_node_str(graph, node, wt)
-        for edge in graph[node]:
-            if (node >= edge):
-                doc = doc + _dot_edge_str(graph, node, edge, wt)
-    doc = doc + '}'
-    return doc
+    dotG = pydot.graph_from_dot_data(string)
+    
+    # Read nodes...
+    # Note: If the nodes aren't explicitly listed, they need to be
+    for each_node in dotG.get_nodes():
+        graph.add_node(each_node.get_name())
+        for each_attr_key, each_attr_val in each_node.get_attributes():
+            graph.add_node_attribute(each_node.get_name(), each_attr_key, each_attr_val)
+    
+    # Read edges...
+    for each_edge in dotG.get_edges():
+        # Check if the nodes have been added
+        if not dotG.get_node(each_edge.get_source()):
+            graph.add_node(each_edge.get_source())
+        if not dotG.get_node(each_edge.get_destination()):
+            graph.add_node(each_edge.get_destination())
+        
+        # See if there's a weight
+        if 'wt' in each_edge.get_attributes().keys():
+            _wt = each_edge.get_attributes()['wt']
+        else:
+            _wt = 1
+        
+        # See if there is a label
+        if 'label' in each_edge.get_attributes().keys():
+            _label = each_edge.get_attributes()['label']
+        else:
+            _label = ''
+        
+        graph.add_edge(each_edge.get_source(), each_edge.get_destination(), wt=_wt, label=_label)
+        
+        for each_attr_key, each_attr_val in each_edge.get_attributes().items():
+            if not each_attr_key in ['wt', 'label']:
+                graph.add_edge_attribute(each_edge.get_source(), each_edge.get_destination(), \
+                                            (each_attr_key, each_attr_val) )
 
 
+def read_dot_hypergraph(hypergraph, string):
+    """
+    Read a hypergraph from a string in dot format. Nodes and edges specified in the input will be added to the current hypergraph.
+    
+    @type  hypergraph: hypergraph
+    @param hypergraph: Hypergraph
+
+    @type  string: string
+    @param string: Input string in dot format specifying a graph.
+    """
+    dotG = pydot.graph_from_dot_data(string)
+    
+    # Read the hypernode nodes...
+    # Note 1: We need to assume that all of the nodes are listed since we need to know if they
+    #           are a hyperedge or a normal node
+    # Note 2: We should read in all of the nodes before putting in the links
+    for each_node in dotG.get_nodes():
+        if 'node' == each_node.get('hyper_node_type'):
+            hypergraph.add_node(each_node.get_name())
+        elif 'hyperedge' == each_node.get('hyper_node_type'):
+            hypergraph.add_hyperedge(each_node.get_name())
+        else:
+            print "Error: improper hyper_node_type - " + str(each_node.get('hyper_node_type'))
+    
+    # Now read in the links to connect the hyperedges
+    for each_link in dotG.get_edges():
+        if hypergraph.has_node(each_link.get_source()):
+            link_hypernode = each_link.get_source()
+            link_hyperedge = each_link.get_destination()
+        elif hypergraph.has_node(each_link.get_destination()):
+            link_hypernode = each_link.get_destination()
+            link_hyperedge = each_link.get_source()
+        
+        hypergraph.link(link_hypernode, link_hyperedge)
+    
+    
 def write_dot_digraph(graph, wt):
     """
     Return a string specifying the given digraph in DOT Language.
@@ -243,60 +277,109 @@ def write_dot_digraph(graph, wt):
     @rtype:  string
     @return: String specifying the graph in DOT Language.
     """
-    doc = 'digraph graphname \n{\n'
-    for node in graph:
-        doc = doc + _dot_node_str(graph, node, wt)
-        for edge in graph[node]:
-            doc = doc + _dot_arrow_str(graph, node, edge, wt)
-    doc = doc + '}'
-    return doc
+    return write_dot_graph(graph, wt, directed=True)
 
 
-def write_dot_hypergraph(hypergraph, coloured=False):
+def write_dot_graph(graph, wt, directed=False):
+    """
+    Return a string specifying the given graph in DOT Language.
+    
+    @type  graph: graph
+    @param graph: Graph.
+
+    @type  wt: boolean
+    @param wt: Whether edges should be labelled with its weight.
+    
+    @type  directed: boolean
+    @param directed: Whether the graph should be directed or not.
+
+    @rtype:  string
+    @return: String specifying the graph in DOT Language.
+    """
+    dotG = pydot.Dot()
+    
+    dotG.set_name('graphname')
+    
+    if directed:
+        dotG.set_type('digraph')
+    else:
+        dotG.set_type('graph')
+    
+    for node in graph.nodes():
+        
+        newNode = pydot.Node(str(node))
+        
+        attr_list = [str(attr[0]) for attr in graph.get_node_attributes(node)]
+        
+        newNode.create_attribute_methods(attr_list)
+        
+        for attr in graph.get_node_attributes(node):
+            newNode.set(str(attr[0]), str(attr[1]))
+        
+        dotG.add_node(newNode)
+        
+    for edge_from, edge_to in graph.edges():
+        newEdge = pydot.Edge(str(edge_from), str(edge_to), \
+                             wt=str(graph.get_edge_weight(edge_from, edge_to)), \
+                             label=str(graph.get_edge_label(edge_from, edge_to)))
+        
+        attr_list = [str(attr[0]) for attr in graph.get_edge_attributes(edge_from, edge_to)]
+        
+        newEdge.create_attribute_methods(attr_list)
+        
+        for attr_name, attr_val in graph.get_edge_attributes(edge_from, edge_to):
+            newEdge.set(str(attr_name), str(attr_val))
+        
+        dotG.add_edge(newEdge)
+        
+    return dotG.to_string()
+
+
+
+def write_dot_hypergraph(hypergraph, colored=False):
     """
     Return a string specifying the given hypergraph in DOT Language.
     
     @type  hypergraph: hypergraph
     @param hypergraph: Hypergraph.
     
-    @type  coloured: boolean
-    @param coloured: Whether hyperedges should be coloured.
+    @type  colored: boolean
+    @param colored: Whether hyperedges should be colored.
 
     @rtype:  string
     @return: String specifying the hypergraph in DOT Language.
     """
-    # Start document
-    doc = ""
-    doc = doc + "graph graphname" + "\n{\n"
+    
+    dotG = pydot.Dot()
+    
+    dotG.set_name('hypergraph')
+    
     colortable = {}
     colorcount = 0
-
-
-    # Add hyperedges
-    color = ''
-    for each_hyperedge in hypergraph.hyperedges():
-        colortable[each_hyperedge] = colors[colorcount % len(colors)]
-        colorcount = colorcount + 1
-        if (coloured):
-            color = " color=%s" % colortable[each_hyperedge]
-        vars = {
-            'hyperedge' : str(each_hyperedge),
-            'color' : color
-        }
-        doc = doc + '\t"%(hyperedge)s" [shape=point %(color)s]\n' % vars
     
-    color = "\n"
-    # Add nodes and links
-    for each_node in hypergraph.nodes():
-        doc = doc + "\t\"%s\"\n" % str(each_node)
-        for each_link in hypergraph.links(each_node):
-            if (coloured):
-                color = " [color=%s]\n" % colortable[each_link]
-            linkvars = {
-                'node' : str(each_node),
-                'hyperedge' : str(each_link)
-            }
-            doc = doc + '\t %(node)s -- %(hyperedge)s' % linkvars + color
-
-    doc = doc + "}"
-    return doc
+    # Add all of the nodes first
+    for node in hypergraph.nodes():
+        newNode = pydot.Node(str(node), hyper_node_type='node')
+        
+        dotG.add_node(newNode)
+    
+    for hyperedge in hypergraph.hyperedges():
+        
+        if (colored):
+            colortable[hyperedge] = colors[colorcount % len(colors)]
+            colorcount += 1
+            
+            newNode = pydot.Node(str(hyperedge), hyper_node_type='hyperedge', \
+                                                 color=str(colortable[hyperedge]), \
+                                                 shape='point')
+        else:
+            newNode = pydot.Node(str(hyperedge), hyper_node_type='hyperedge')
+        
+        dotG.add_node(newNode)
+        
+        for link in hypergraph.links(hyperedge):
+            newEdge = pydot.Edge(str(hyperedge), str(link))
+            dotG.add_edge(newEdge)
+    
+    return dotG.to_string()
+    

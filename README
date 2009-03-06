@@ -12,6 +12,7 @@ CONTRIBUTORS
 
 Christian Muise <christian.muise@gmail.com>
 	* Various Hypergraph algorithms.
+	* Dot file reading / writing.
 
 Nathan Davis <davisn90210@gmail.com>
 	* Faster node insertion.

@@ -85,9 +85,12 @@ class hypergraph (object):
         @type  fmt: string
         @param fmt: Input format. Possible formats are:
             1. 'xml' - XML (default)
+            2. 'dot' - Dot
         """
         if (fmt == 'xml'):
             readwrite.read_xml_hypergraph(self, string)
+        elif (fmt == 'dot'):
+            readwrite.read_dot_hypergraph(self, string)
 
 
     def write(self, fmt='xml'):
@@ -99,7 +102,7 @@ class hypergraph (object):
         @param fmt: Output format. Possible formats are:
             1. 'xml' - XML (default)
             2. 'dot' - DOT Language (for GraphViz)
-            3. 'dotclr' - DOT Language, coloured
+            3. 'dotclr' - DOT Language, colored
 
         @rtype:  string
         @return: String specifying the graph.
@@ -109,7 +112,7 @@ class hypergraph (object):
         elif (fmt == 'dot'):
             return readwrite.write_dot_hypergraph(self)
         elif (fmt == 'dotclr'):
-            return readwrite.write_dot_hypergraph(self, coloured=True)
+            return readwrite.write_dot_hypergraph(self, colored=True)
     
 
     def nodes(self):
