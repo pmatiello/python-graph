@@ -2,26 +2,39 @@ python-graph
 A library for working with graphs in Python
 --------------------------------------------------------------------------------
 
-
-AUTHORS
+AUTHORS AND CONTRIBUTORS
 
 Pedro Matiello <pmatiello@gmail.com>
+	* Project maintainer/leader;
+	* Graph, Digraph and Hipergraph classes;
+	* Accessibility algorithms;
+	* Cut-node and cut-edge detection;
+	* Cycle detection;
+	* Depth-first and Breadth-first searching;
+	* Minimal Spanning Tree (Prim's algorithm);
+	* Random graph generation;
+	* Topological sorting;
+	* Traversals;
+	* XML reading/writing.
 
-
-CONTRIBUTORS
+Eugen Zagorodniy <e.zagorodniy@gmail.com>
+	* Mutual Accessibility (Tarjan's Algorithm).
 
 Christian Muise <christian.muise@gmail.com>
-	* Various Hypergraph algorithms.
-	* Dot file reading / writing.
-
+	* Dot file reading/writing;
+	* Hypergraph class.
+	
 Nathan Davis <davisn90210@gmail.com>
 	* Faster node insertion.
+
+Paul Harrison <pfh@logarithmic.net>
+	* Mutual Accessibility (Tarjan's Algorithm).
 
 Rhys Ulerich <rhys.ulerich@gmail.com>
 	* Dijkstra's Shortest path algorithm.
 
 Roy Smith <roy@panix.com>
-	* A* search algorithm.
+	* Heuristic Searching (A* algorithm).
 
 Salim Fadhley <sal@stodge.org>
 	* Porting of Roy Smith's A* implementation to python-graph;

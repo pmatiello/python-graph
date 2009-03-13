@@ -65,14 +65,34 @@ def mutual_accessibility(graph):
     @return: Mutual-accessibility information for each node.
     """
     mutual_access = {}
-    access = graph.accessibility()
+    stack = []
+    low = {}
+        
+    def visit(node):
+        if node in low: return
 
-    for i in graph:
-        mutual_access[i] = []
-        for j in graph:
-            if (i in access[j] and j in access[i]):
-                mutual_access[i].append(j)
+        num = len(low)
+        low[node] = num
+        stack_pos = len(stack)
+        stack.append(node)
+	
+        for successor in graph.neighbors(node):
+            visit(successor)
+            low[node] = min(low[node], low[successor])
+        
+        if num == low[node]:
+            component = stack[stack_pos:]
+            del stack[stack_pos:]
+            component.sort()
+            for each in component:
+                mutual_access[each] = component
 
+	    for item in component:
+	        low[item] = len(graph)
+    
+    for node in graph:
+        visit(node)
+    
     return mutual_access
 
 
