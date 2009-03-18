@@ -319,6 +319,9 @@ def write_dot_graph(graph, wt, directed=False):
         dotG.add_node(newNode)
         
     for edge_from, edge_to in graph.edges():
+        if directed and dotG.get_edge(str(edge_to), str(edge_from)):
+            continue
+
         newEdge = pydot.Edge(str(edge_from), str(edge_to), \
                              wt=str(graph.get_edge_weight(edge_from, edge_to)), \
                              label=str(graph.get_edge_label(edge_from, edge_to)))
