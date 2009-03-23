@@ -197,8 +197,8 @@ def read_dot_graph(graph, string):
     # Note: If the nodes aren't explicitly listed, they need to be
     for each_node in dotG.get_nodes():
         graph.add_node(each_node.get_name())
-        for each_attr_key, each_attr_val in each_node.get_attributes():
-            graph.add_node_attribute(each_node.get_name(), each_attr_key, each_attr_val)
+        for each_attr_key, each_attr_val in each_node.get_attributes().items():
+            graph.add_node_attribute(each_node.get_name(), (each_attr_key, each_attr_val))
     
     # Read edges...
     for each_edge in dotG.get_edges():
@@ -306,32 +306,29 @@ def write_dot_graph(graph, wt, directed=False):
         dotG.set_type('graph')
     
     for node in graph.nodes():
-        
-        newNode = pydot.Node(str(node))
-        
-        attr_list = [str(attr[0]) for attr in graph.get_node_attributes(node)]
-        
-        newNode.create_attribute_methods(attr_list)
-        
+        attr_list = {}
         for attr in graph.get_node_attributes(node):
-            newNode.set(str(attr[0]), str(attr[1]))
+            attr_list[str(attr[0])] = str(attr[1])
+        
+        newNode = pydot.Node(str(node), **attr_list)
         
         dotG.add_node(newNode)
         
     for edge_from, edge_to in graph.edges():
         if (not directed) and dotG.get_edge(str(edge_to), str(edge_from)):
             continue
-
-        newEdge = pydot.Edge(str(edge_from), str(edge_to), \
-                             wt=str(graph.get_edge_weight(edge_from, edge_to)), \
-                             label=str(graph.get_edge_label(edge_from, edge_to)))
         
-        attr_list = [str(attr[0]) for attr in graph.get_edge_attributes(edge_from, edge_to)]
+        attr_list = {}
+        for attr in graph.get_edge_attributes(edge_from, edge_to):
+            attr_list[str(attr[0])] = str(attr[1])
         
-        newEdge.create_attribute_methods(attr_list)
+        if str(graph.get_edge_label(edge_from, edge_to)):
+            attr_list['label'] = str(graph.get_edge_label(edge_from, edge_to))
         
-        for attr_name, attr_val in graph.get_edge_attributes(edge_from, edge_to):
-            newEdge.set(str(attr_name), str(attr_val))
+        if wt:
+            attr_list['wt'] = str(graph.get_edge_weight(edge_from, edge_to))
+        
+        newEdge = pydot.Edge(str(edge_from), str(edge_to), **attr_list)
         
         dotG.add_edge(newEdge)
         
