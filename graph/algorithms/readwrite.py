@@ -314,8 +314,14 @@ def write_dot_graph(graph, wt, directed=False):
         
         dotG.add_node(newNode)
         
+    # Pydot doesn't work properly with the get_edge, so we use
+    #  our own set to keep track of what's been added or not.
+    seen_edges = set([])
     for edge_from, edge_to in graph.edges():
-        if (not directed) and dotG.get_edge(str(edge_to), str(edge_from)):
+        if (str(edge_from) + "-" + str(edge_to)) in seen_edges:
+            continue
+
+        if (not directed) and (str(edge_to) + "-" + str(edge_from)) in seen_edges:
             continue
         
         attr_list = {}
@@ -331,6 +337,8 @@ def write_dot_graph(graph, wt, directed=False):
         newEdge = pydot.Edge(str(edge_from), str(edge_to), **attr_list)
         
         dotG.add_edge(newEdge)
+        
+        seen_edges.add(str(edge_from) + "-" + str(edge_to))
         
     return dotG.to_string()
 
