@@ -1,0 +1,17 @@
+Provided with 2 new algorithms:
+- critical path algorithm implemented with the dynamic programming principle
+- an algorithm that detects and returns all the transitive edges within the graph
+Both algorithms are only meaningful for directed acyclic [weighted] graphs. 
+
+ADDED:
+- examples/ex_critical.py
+- graph/algorithms/critical.py
+- branch_info
+
+INFO:
+- feel free to mail me for more info: tomaz.kovacic@gmail.com
+
+NEW:
+- transitivive_edges function
+- critical_path function
+

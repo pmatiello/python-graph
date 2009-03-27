@@ -41,3 +41,5 @@ import searching
 import sorting
 import traversal
 import utils
+import critical
+

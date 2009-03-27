@@ -45,7 +45,8 @@ class digraph (object):
     get_node_attributes, has_edge, has_node, incidents, inverse, neighbors, nodes, order,
     set_edge_label, set_edge_weight, traversal, generate, read, write, accessibility,
     breadth_first_search, cut_edges, cut_nodes, depth_first_search, heuristic_search,
-    minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
+    minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting,
+    critical_path, transitive_edges
     """
 
 
@@ -690,3 +691,45 @@ class digraph (object):
         @return: List of nodes. 
         """
         return cycles.find_cycle(self, directed=True)
+    
+    def critical_path(self):
+        """
+        The function comuptes and returns the critical path in an
+        acyclic directed weighted graph.
+        
+        TODO: find a way to recognize cycles and return an empty array
+        before the recursion.
+        
+        @attention: this function is only meaningful for directed weighted acyclic graphs
+        @attention: this function will enter into a indefinite recursion
+        if the given graph contains a cycle
+        
+        @type graph: graph.digraph 
+        @param graph: directed acyclic weighted graph
+        
+        @rtype: array
+        @return: array containing all the nodes 
+        
+        @author: Tomaz Kovacic - tomaz.kovacic@gmail.com 
+        """
+        return critical.critical_path(self)
+    
+    def transitive_edges(self):
+        """
+        This function checks a directed acyclic graph for transitive edges
+        and returns all of them in a single array.
+        
+        Example of transitivity within graphs: A -> B, B -> C, A ->  C
+        in this case the transitive edge is: A -> C
+        
+        @attention: this function is only meaningful for directed acyclic graphs
+        
+        @type graph: graph.digraph
+        @param graph: directed graph to work with
+        
+        @rtype: array
+        @return: An array containing tuples with tranzitive edges
+        
+        @author: Tomaz Kovacic - tomaz.kovacic@gmail.com 
+        """
+        return critical.transitive_edges(self)
