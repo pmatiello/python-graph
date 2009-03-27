@@ -75,6 +75,15 @@ class test_find_cycle(unittest.TestCase):
         G.add_edge(4, 5)
         G.add_edge(3, 5)
         assert G.find_cycle() == []
+    
+    def testNoCycleDigraph2(self):
+        G = graph.digraph()
+        G.add_nodes([1,2,3])
+        G.add_edge(1,2)
+        G.add_edge(1,3)
+        G.add_edge(2,3)
+        print G.find_cycle()
+    
 
     def testMisleadingDigraph(self):
         G = graph.digraph()
