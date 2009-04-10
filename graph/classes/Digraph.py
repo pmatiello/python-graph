@@ -113,9 +113,12 @@ class digraph (object):
         @type  fmt: string
         @param fmt: Input format. Possible formats are:
             1. 'xml' - XML (default)
+            2. 'dot' - DOT Language
         """
         if (fmt == 'xml'):
             readwrite.read_xml(self, string)
+        elif (fmt == 'dot'):
+            readwrite.read_dot_graph(self, string)
 
 
     def write(self, fmt='xml'):

@@ -42,7 +42,7 @@ colors = ['aquamarine4', 'blue4', 'brown4', 'cornflowerblue', 'cyan4',
             'maroon', 'palevioletred3', 'steelblue', 'violetred3']
 
 
-# XML
+# XML --------------------------------------------
 
 def write_xml(graph):
     """
@@ -176,10 +176,7 @@ def read_xml_hypergraph(hypergraph, string):
             hypergraph.link(each_node.getAttribute('id'), each_edge.getAttribute('to'))
 
 
-################
-# DOT Language #
-################
-
+# DOT Language -----------------------------------
 
 def read_dot_graph(graph, string):
     """
