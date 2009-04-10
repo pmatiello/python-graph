@@ -31,7 +31,7 @@ import unittest
 import graph
 import time
 
-class test_find_cycle(unittest.TestCase):
+class test_readwrite(unittest.TestCase):
 
     def _check_nodes(self, gr, dot):
         dot = dot.split("\n")
