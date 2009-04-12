@@ -9,7 +9,9 @@ Release 1.5.0	[Apr 25, 2009]
 
 Enhancements:
 	* Assymptotically faster Mutual Accessibility (now using Tarjan's algorithm);
-	* DOT-Language importing.
+	* DOT-Language importing;
+	* Transitive edge detection;
+	* Critical path algorithm.
 
 Fixes:
 	* Cycle detection algorithm was reporting wrong results on some digraphs;

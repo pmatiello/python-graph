@@ -45,7 +45,7 @@ class digraph (object):
     get_node_attributes, has_edge, has_node, incidents, inverse, neighbors, nodes, order,
     set_edge_label, set_edge_weight, traversal, generate, read, write, accessibility,
     breadth_first_search, cut_edges, cut_nodes, depth_first_search, heuristic_search,
-    minimal_spanning_tree, mutual_accessibility, shortest_path, topological_sorting
+    mutual_accessibility, shortest_path, topological_sorting
     """
 
 
@@ -678,3 +678,30 @@ class digraph (object):
         @return: List of nodes. 
         """
         return cycles.find_cycle(self, directed=True)
+
+    def transitive_edges(self):
+        """
+        Return a list of transitive edges.
+        
+        Example of transitivity within graphs: A -> B, B -> C, A ->  C
+        in this case the transitive edge is: A -> C
+        
+        @attention: this function is only meaningful for directed acyclic graphs
+
+        @rtype: List
+        @return: List containing tuples with transitive edges (or an empty array if the digraph
+            contains a cycle) 
+        """
+        return critical.transitive_edges(self)
+
+    def critical_path(self):
+        """
+        Computes and returns the critical path in an acyclic directed weighted graph.
+        
+        @attention: this function is only meaningful for directed weighted acyclic graphs
+
+        @rtype: List
+        @return: List containing all the nodes in the path (or an empty array if the graph
+            contains a cycle)
+        """
+        return critical.critical_path(self)

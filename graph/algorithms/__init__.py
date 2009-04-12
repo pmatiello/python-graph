@@ -31,6 +31,7 @@ In most cases, you won't need to access it directly.
 
 # Imports
 import accessibility
+import critical
 import cycles
 import exceptions
 import generators
