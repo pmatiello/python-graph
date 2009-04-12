@@ -40,12 +40,13 @@ class digraph (object):
     Digraphs are built of nodes and directed edges.
 
     @sort: __init__, __getitem__, __iter__, __len__, __str__, add_edge, add_edge_attribute,
-    add_graph, add_node, add_node_attribute, add_nodes, add_spanning_tree, complete, degree,
-    del_edge, del_node, edges, get_edge_attributes, get_edge_label, get_edge_weight,
-    get_node_attributes, has_edge, has_node, incidents, inverse, neighbors, nodes, order,
-    set_edge_label, set_edge_weight, traversal, generate, read, write, accessibility,
-    breadth_first_search, cut_edges, cut_nodes, depth_first_search, heuristic_search,
-    mutual_accessibility, shortest_path, topological_sorting
+    add_graph, add_node, add_node_attribute, add_nodes, add_spanning_tree, complete, 
+    critical_path, degree, del_edge, del_node, edges, get_edge_attributes, get_edge_label,
+    get_edge_weight, get_node_attributes, has_edge, has_node, incidents, inverse,
+    neighbors, nodes, order, set_edge_label, set_edge_weight, transitive_edges, traversal,
+    generate, read, write, accessibility, breadth_first_search, cut_edges, cut_nodes,
+    depth_first_search, heuristic_search, mutual_accessibility, shortest_path,
+    topological_sorting
     """
 
 
@@ -608,8 +609,8 @@ class digraph (object):
 
     def shortest_path(self, source):
         """
-        Return the shortest path distance between source node and all other nodes using Dijkstra's
-        algorithm.
+        Return the shortest path distance between source node and all other nodes using
+        Dijkstra's algorithm.
         
         @attention: All weights must be nonnegative.
 
@@ -671,8 +672,8 @@ class digraph (object):
         """
         Find a cycle in the digraph.
         
-        This function will return a list of nodes which form a cycle in the graph or an empty list if
-        no cycle exists.
+        This function will return a list of nodes which form a cycle in the graph or an empty
+        list if no cycle exists.
 
         @rtype: list
         @return: List of nodes. 
@@ -696,7 +697,7 @@ class digraph (object):
 
     def critical_path(self):
         """
-        Computes and returns the critical path in an acyclic directed weighted graph.
+        Compute and return the critical path in an acyclic directed weighted graph.
         
         @attention: this function is only meaningful for directed weighted acyclic graphs
 

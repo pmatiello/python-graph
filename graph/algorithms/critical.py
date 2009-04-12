@@ -93,7 +93,7 @@ def transitive_edges(graph):
 
 def critical_path(graph):
     """
-    Computes and returns the critical path in an acyclic directed weighted graph.
+    Compute and return the critical path in an acyclic directed weighted graph.
     
     @attention: this function is only meaningful for directed weighted acyclic graphs
     
