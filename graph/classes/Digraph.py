@@ -131,7 +131,7 @@ class digraph (object):
         @param fmt: Output format. Possible formats are:
             1. 'xml' - XML (default)
             2. 'dot' - DOT Language (for GraphViz)
-            3. 'dotwt' - DOT Language with weight information
+            3. 'dotwt' - DOT Language with edge weight information
 
         @rtype:  string
         @return: String specifying the graph.
@@ -706,3 +706,4 @@ class digraph (object):
             contains a cycle)
         """
         return critical.critical_path(self)
+
