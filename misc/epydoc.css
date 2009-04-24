@@ -18,11 +18,10 @@
  */
 body                        { background: #ffffff; color: #000000; }
 p                           { margin-top: 0.5em; margin-bottom: 0.5em; }
-a:link                      { color: #0000ff; }
-a:visited                   { color: #204080; }
+a:link                      { color: #3f3eb0; }
+a:visited                   { color: #3e75b0; }
 dt                          { font-weight: bold; }
-h1                          { font-size: +140%; font-style: italic;
-                              font-weight: bold; }
+h1                          { font-size: +140%; font-weight: bold; }
 h2                          { font-size: +125%; font-style: italic;
                               font-weight: bold; }
 h3                          { font-size: +110%; 
@@ -48,14 +47,14 @@ h3.epydoc                   { font-size: +115%; font-weight: bold;
                               margin-top: 0.2em; }
 td h3.epydoc                { font-size: +115%; font-weight: bold;
                               margin-bottom: 0; }
-table.navbar                { background: #a0c0ff; color: #000000;
-                              border: 2px groove #c0d0d0; }
+table.navbar                { background: #d5dce3; color: #000000;
+                              border: 0px groove #c0d0d0; }
 table.navbar table          { color: #000000; }
-th.navbar-select            { background: #70b0ff;
-                              color: #000000; } 
+th.navbar-select            { background: #3e75b0;
+                              color: #d5dce3; } 
 table.navbar a              { text-decoration: none; }  
-table.navbar a:link         { color: #0000ff; }
-table.navbar a:visited      { color: #204080; }
+table.navbar a:link         { color: #3e75b0; }
+table.navbar a:visited      { color: #3e75b0; }
 span.breadcrumbs            { font-size: 85%; font-weight: bold; }
 span.options                { font-size: 70%; }
 span.codelink               { font-size: 85%; }
@@ -69,7 +68,7 @@ td.footer                   { font-size: 85%; }
  *   - Summary tables that contain user-defined groups mark those
  *     groups using 'group header' rows.
  */
-td.table-header             { background: #70b0ff; color: #000000;
+td.table-header             { background: #d5dce3; color: #000000;
                               border: 1px solid #608090; }
 td.table-header table       { color: #000000; }
 td.table-header table a:link      { color: #0000ff; }
@@ -89,13 +88,13 @@ th.group-header             { background: #c0e0f8; color: #000000;
  *     defined above, under 'Table Headers'
  */
 table.summary               { border-collapse: collapse;
-                              background: #e8f0f8; color: #000000;
+                              background: #ffffff; color: #000000;
                               border: 1px solid #608090;
                               margin-bottom: 0.5em; }
 td.summary                  { border: 1px solid #608090; }
 code.summary-type           { font-size: 85%; }
-table.summary a:link        { color: #0000ff; }
-table.summary a:visited     { color: #204080; }
+table.summary a:link        { color: #3f3eb0; }
+table.summary a:visited     { color: #3e75b0; }
 
 
 /* Details Tables (functions, variables, etc)
@@ -105,12 +104,12 @@ table.summary a:visited     { color: #204080; }
  *     is defined above, under 'Table Headers').
  */
 table.details               { border-collapse: collapse;
-                              background: #e8f0f8; color: #000000;
-                              border: 1px solid #608090;
+                              background: #fafafa; color: #000000;
+                              border: 1px solid #cccccc;
                               margin: .2em 0 0 0; }
 table.details table         { color: #000000; }
-table.details a:link        { color: #0000ff; }
-table.details a:visited     { color: #204080; }
+table.details a:link        { color: #3f3eb0; }
+table.details a:visited     { color: #3e75b0; }
 
 /* Fields */
 dl.fields                   { margin-left: 2em; margin-top: 1em;
@@ -129,11 +128,11 @@ div.fields p                { margin-bottom: 0.5em; }
  *     extracted from fields (namely, the bug index & todo index).
  */
 table.link-index            { border-collapse: collapse;
-                              background: #e8f0f8; color: #000000;
-                              border: 1px solid #608090; }
+                              background: #fafafa; color: #000000;
+                              border: 1px solid #cccccc; }
 td.link-index               { border-width: 0px; }
-table.link-index a:link     { color: #0000ff; }
-table.link-index a:visited  { color: #204080; }
+table.link-index a:link     { color: #3f3eb0; }
+table.link-index a:visited  { color: #3e75b0; }
 span.index-where            { font-size: 70%; }
 table.metadata-index        { border-collapse: collapse;
                               background: #e8f0f8; color: #000000;
@@ -241,8 +240,8 @@ h2.toc                      { font-size: 100%; font-weight: bold;
  *     etc.)
  */
 pre.py-doctest              { padding: .5em; margin: 1em;
-                              background: #e8f0f8; color: #000000;
-                              border: 1px solid #708890; }
+                              background: #fafafa; color: #000000;
+                              border: 1px solid #cccccc; }
 table pre.py-doctest        { background: #dce4ec;
                               color: #000000; }
 pre.py-src                  { border: 2px solid #000000; 
