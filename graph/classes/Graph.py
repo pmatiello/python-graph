@@ -274,7 +274,8 @@ class graph (object):
         @param node: Node identifier.
         """
         for each in list(self.neighbors(node)):
-            self.del_edge(each, node)
+            if (each != node):
+                self.del_edge(each, node)
         del(self.node_neighbors[node])
         del(self.node_attr[node])
 
@@ -290,11 +291,12 @@ class graph (object):
         @param v: Other node.
         """
         self.node_neighbors[u].remove(v)
-        self.node_neighbors[v].remove(u)
         del(self.edge_properties[(u,v)])
-        del(self.edge_properties[(v,u)])
         del(self.edge_attr[(u,v)])
-        del(self.edge_attr[(v,u)])
+        if (u != v):
+            self.node_neighbors[v].remove(u)
+            del(self.edge_properties[(v,u)])
+            del(self.edge_attr[(v,u)])            
 
 
     def get_edge_weight(self, u, v):

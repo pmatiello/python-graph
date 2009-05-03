@@ -16,6 +16,8 @@ Enhancements:
 Fixes:
 	* Cycle detection algorithm was reporting wrong results on some digraphs;
 	* Removed Minimal Spanning Tree from Digraphs as Prim's algorithm does not work on them (Issue 28).
+	* Deletion of A--A edge raised an exception;
+	* Deletion of an node with an A--A edge raised an exception.
 
 Important API Changes:
 	* Removed minimal_spanning_tree() method from the digraph class.

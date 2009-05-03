@@ -23,7 +23,7 @@ Eugen Zagorodniy <e.zagorodniy@gmail.com>
 Christian Muise <christian.muise@gmail.com>
 	* Dot file reading/writing;
 	* Hypergraph class.
-	
+
 Nathan Davis <davisn90210@gmail.com>
 	* Faster node insertion.
 

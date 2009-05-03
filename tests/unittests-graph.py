@@ -130,8 +130,15 @@ class testGraph(unittest.TestCase):
         gr.add_spanning_tree(st)
         self.assertTrue(gr.nodes() == [])
         self.assertTrue(gr.edges() == [])
-        
-
-# Run tests
-if __name__ == '__main__':
-    unittest.main()
+    
+    def testEdgeToItselfRemoval(self):
+        gr = graph.graph()
+        gr.add_node(0)
+        gr.add_edge(0, 0)
+        gr.del_edge(0, 0)
+    
+    def testNodeWithEdgeToItselfRemoval(self):
+        gr = graph.graph()
+        gr.add_node(0)
+        gr.add_edge(0, 0)
+        gr.del_node(0)
