@@ -3,7 +3,7 @@ none:
 install:
 	./setup.py install
 
-egg: docs
+egg: clean
 	./setup.py bdist_egg
 
 docs: cleanpyc
@@ -13,16 +13,6 @@ docs: cleanpyc
 		--no-private --html --css misc/epydoc.css -o docs graph/*.py \
 		graph/algorithms/*py graph/algorithms/heuristics/*.py \
 		graph/algorithms/filters/* graph/classes/*.py
-
-edit: graph/*.py
-	gedit graph/__init__.py &
-	gedit graph/*.py &
-	
-pypi: docs
-	./setup.py bdist_egg upload
-	
-rpm: docs
-	./setup.py bdist_rpm
 
 cleanpyc:
 	rm -f graph/*.pyc
