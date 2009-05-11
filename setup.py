@@ -21,6 +21,8 @@ if (os.name == 'posix'):    # Files to be installed/packaged on Unix-like system
     docsdir = datadir + '/docs'
     docsfiles = []
     try:
+        # Uncomment the line bellow if you want bdist_rpm to include the docs
+        # os.system('make docs')
         dirlisting = os.listdir('docs/')
     except:
         print "Documentation isn't present and will not be installed/packaged."
