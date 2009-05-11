@@ -14,6 +14,9 @@ docs: cleanpyc
 		graph/algorithms/*py graph/algorithms/heuristics/*.py \
 		graph/algorithms/filters/* graph/classes/*.py
 
+test:
+	./setup.py test
+
 cleanpyc:
 	rm -f graph/*.pyc
 	rm -f graph/*/*.pyc
