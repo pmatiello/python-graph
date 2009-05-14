@@ -42,11 +42,11 @@ class graph (object):
 
     @sort:  __init__, __getitem__, __iter__, __len__, __str__, add_edge, add_edge_attribute,
     add_graph, add_node, add_node_attribute, add_nodes, add_spanning_tree, complete, del_edge,
-    del_node, edges, find_cycle, get_edge_attributes, get_edge_label, get_edge_weight,
+    del_node, edges, get_edge_attributes, get_edge_label, get_edge_weight,
     get_node_attributes, has_edge, has_node, inverse, neighbors, nodes, order, set_edge_label,
     set_edge_weight, traversal, generate, read, write, accessibility, breadth_first_search,
-    connected_components, cut_edges, cut_nodes, depth_first_search, heuristic_search,
-    minimal_spanning_tree, shortest_path
+    connected_components, cut_edges, cut_nodes, depth_first_search, find_cycle,
+    heuristic_search, minimal_spanning_tree, shortest_path
     """
 
 
