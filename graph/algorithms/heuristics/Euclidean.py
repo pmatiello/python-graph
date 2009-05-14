@@ -70,11 +70,11 @@ class euclidean(object):
         """
         for start in graph.nodes():
             for end in graph.nodes():
-                for each in graph.get_node_attributes(start):
+                for each in graph.node_attributes(start):
                     if (each[0] == 'position'):
                         start_attr = each[1]
                         break
-                for each in graph.get_node_attributes(end):
+                for each in graph.node_attributes(end):
                     if (each[0] == 'position'):
                         end_attr = each[1]
                         break

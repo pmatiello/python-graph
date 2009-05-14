@@ -65,7 +65,7 @@ def write_xml(graph):
         node = grxml.createElement('node')
         node.setAttribute('id',str(each_node))
         grxmlr.appendChild(node)
-        for each_attr in graph.get_node_attributes(each_node):
+        for each_attr in graph.node_attributes(each_node):
             attr = grxml.createElement('attribute')
             attr.setAttribute('attr', each_attr[0])
             attr.setAttribute('value', each_attr[1])
@@ -76,10 +76,10 @@ def write_xml(graph):
         edge = grxml.createElement('edge')
         edge.setAttribute('from',str(edge_from))
         edge.setAttribute('to',str(edge_to))
-        edge.setAttribute('wt',str(graph.get_edge_weight(edge_from, edge_to)))
-        edge.setAttribute('label',str(graph.get_edge_label(edge_from, edge_to)))
+        edge.setAttribute('wt',str(graph.edge_weight(edge_from, edge_to)))
+        edge.setAttribute('label',str(graph.edge_label(edge_from, edge_to)))
         grxmlr.appendChild(edge)
-        for attr_name, attr_value in graph.get_edge_attributes(edge_from, edge_to):
+        for attr_name, attr_value in graph.edge_attributes(edge_from, edge_to):
             attr = grxml.createElement('attribute')
             attr.setAttribute('attr', attr_name)
             attr.setAttribute('value', attr_value)
@@ -106,7 +106,7 @@ def write_xml_hypergraph(hypergraph):
 
     # Each node...
     nodes = hypergraph.nodes()
-    hyperedges = hypergraph.get_hyperedges()
+    hyperedges = hypergraph.hyperedges()
     for each_node in (nodes + hyperedges):
         if (each_node in nodes):
             node = grxml.createElement('node')
@@ -116,7 +116,7 @@ def write_xml_hypergraph(hypergraph):
         grxmlr.appendChild(node)
 
         # and its outgoing edge
-        for each_edge in hypergraph.get_links(each_node):
+        for each_edge in hypergraph.links(each_node):
             edge = grxml.createElement('link')
             edge.setAttribute('to',str(each_edge))
             node.appendChild(edge)
@@ -149,7 +149,7 @@ def read_xml(graph, string):
             wt=float(each_edge.getAttribute('wt')), label=each_edge.getAttribute('label'))
         for each_attr in each_edge.getElementsByTagName("attribute"):
             attr_tuple = (each_attr.getAttribute('attr'), each_attr.getAttribute('value'))
-            if (attr_tuple not in graph.get_edge_attributes(each_edge.getAttribute('from'), \
+            if (attr_tuple not in graph.edge_attributes(each_edge.getAttribute('from'), \
                 each_edge.getAttribute('to'))):
                 graph.add_edge_attribute(each_edge.getAttribute('from'), \
                     each_edge.getAttribute('to'), attr_tuple)
@@ -304,7 +304,7 @@ def write_dot_graph(graph, wt, directed=False):
     
     for node in graph.nodes():
         attr_list = {}
-        for attr in graph.get_node_attributes(node):
+        for attr in graph.node_attributes(node):
             attr_list[str(attr[0])] = str(attr[1])
         
         newNode = pydot.Node(str(node), **attr_list)
@@ -322,20 +322,20 @@ def write_dot_graph(graph, wt, directed=False):
             continue
         
         attr_list = {}
-        for attr in graph.get_edge_attributes(edge_from, edge_to):
+        for attr in graph.edge_attributes(edge_from, edge_to):
             attr_list[str(attr[0])] = str(attr[1])
         
-        if str(graph.get_edge_label(edge_from, edge_to)):
-            attr_list['label'] = str(graph.get_edge_label(edge_from, edge_to))
+        if str(graph.edge_label(edge_from, edge_to)):
+            attr_list['label'] = str(graph.edge_label(edge_from, edge_to))
             
             if wt:
-                attr_list['label'] += ', ' + str(graph.get_edge_weight(edge_from, edge_to))
+                attr_list['label'] += ', ' + str(graph.edge_weight(edge_from, edge_to))
         
         elif wt:
-            attr_list['label'] = str(graph.get_edge_weight(edge_from, edge_to))
+            attr_list['label'] = str(graph.edge_weight(edge_from, edge_to))
         
         if wt:
-            attr_list['weight'] = str(graph.get_edge_weight(edge_from, edge_to))
+            attr_list['weight'] = str(graph.edge_weight(edge_from, edge_to))
         
         newEdge = pydot.Edge(str(edge_from), str(edge_to), **attr_list)
         

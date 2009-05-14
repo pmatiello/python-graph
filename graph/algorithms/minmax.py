@@ -117,7 +117,7 @@ def _lightest_edge(graph, visited):
     for each in visited:
         for other in graph[each]:
             if (other not in visited):
-                w = graph.get_edge_weight(each, other)
+                w = graph.edge_weight(each, other)
                 if (w < weight or weight < 0):
                     lightest_edge = (each, other)
                     weight = w
@@ -165,7 +165,7 @@ def shortest_path(graph, source):
         if (dist.has_key(u)):
             for v in graph[u]:
                 if v in q:
-                    alt = dist[u] + graph.get_edge_weight(u, v)
+                    alt = dist[u] + graph.edge_weight(u, v)
                     if (not dist.has_key(v)) or (alt < dist[v]):
                         dist[v] = alt
                         previous[v] = u
@@ -224,7 +224,7 @@ def heuristic_search(graph, start, goal, heuristic):
             if neighbor in explored:
                 continue
             
-            ncost = dist + graph.get_edge_weight(current, neighbor)
+            ncost = dist + graph.edge_weight(current, neighbor)
 
             if neighbor in g:
                 qcost, h = g[neighbor]

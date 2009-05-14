@@ -81,7 +81,7 @@ class radius(object):
         
         def cost_to_parent(node, parent):
             if (parent is not None):
-                return gr.get_edge_weight(parent, node)
+                return gr.edge_weight(parent, node)
             else:
                 return 0
         

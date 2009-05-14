@@ -41,8 +41,8 @@ class digraph (object):
 
     @sort: __init__, __getitem__, __iter__, __len__, __str__, add_edge, add_edge_attribute,
     add_graph, add_node, add_node_attribute, add_nodes, add_spanning_tree, complete, 
-    degree, del_edge, del_node, edges, get_edge_attributes, get_edge_label,
-    get_edge_weight, get_node_attributes, has_edge, has_node, incidents, inverse,
+    degree, del_edge, del_node, edges, edge_attributes, edge_label,
+    edge_weight, node_attributes, has_edge, has_node, incidents, inverse,
     neighbors, nodes, order, set_edge_label, set_edge_weight, traversal,
     generate, read, write, accessibility, breadth_first_search, critical_path, cut_edges,
     cut_nodes, depth_first_search, find_cycle, heuristic_search, mutual_accessibility,
@@ -312,7 +312,7 @@ class digraph (object):
         del(self.edge_attr[(u,v)])
 
 
-    def get_edge_weight(self, u, v):
+    def edge_weight(self, u, v):
         """
         Get the weight of an edge.
 
@@ -344,7 +344,7 @@ class digraph (object):
         self.edge_properties[(u, v)][1] = wt
 
 
-    def get_edge_label(self, u, v):
+    def edge_label(self, u, v):
         """
         Get the label of an edge.
 
@@ -389,7 +389,7 @@ class digraph (object):
         self.node_attr[node] = self.node_attr[node] + [attr]
 
 
-    def get_node_attributes(self, node):
+    def node_attributes(self, node):
         """
         Return the attributes of the given node.
 
@@ -418,7 +418,7 @@ class digraph (object):
         self.edge_attr[(u,v)] = self.edge_attr[(u,v)] + [attr]
 
 
-    def get_edge_attributes(self, u, v):
+    def edge_attributes(self, u, v):
         """
         Return the attributes of the given edge.
 

@@ -126,7 +126,7 @@ def critical_path(graph):
         #we must check all the predecessors
         for pre in graph.incidents(node):
             max_pre = node_tuples[pre][1]
-            predecessors.append( (pre, graph.get_edge_weight( pre, node ) + max_pre )   )
+            predecessors.append( (pre, graph.edge_weight( pre, node ) + max_pre )   )
         
         max = 0; max_tuple = (None, 0)
         for i in predecessors:#look for the most costly predecessor

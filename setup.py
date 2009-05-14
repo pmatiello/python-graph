@@ -12,7 +12,7 @@ except ImportError, ie:
 
 # Startup
 appname = "python-graph"
-appversion = "1.5.0"
+appversion = "1.6.0"
 
 # Extra files
 if (os.name == 'posix'):    # Files to be installed/packaged on Unix-like systems
