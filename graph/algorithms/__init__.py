@@ -30,15 +30,15 @@ In most cases, you won't need to access it directly.
 """
 
 # Imports
-import accessibility
-import critical
-import cycles
-import exceptions
-import generators
-import heuristics
-import minmax
-import readwrite
-import searching
-import sorting
-import traversal
-import utils
+import graph.algorithms.accessibility
+import graph.algorithms.critical
+import graph.algorithms.cycles
+import graph.algorithms.exceptions
+import graph.algorithms.generators
+import graph.algorithms.heuristics
+import graph.algorithms.minmax
+import graph.algorithms.readwrite
+import graph.algorithms.searching
+import graph.algorithms.sorting
+import graph.algorithms.traversal
+import graph.algorithms.utils

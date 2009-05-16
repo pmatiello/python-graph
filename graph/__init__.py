@@ -60,5 +60,5 @@ A quick introductory example:
 """
 
 
-from algorithms import *
-from classes import *
+from graph.algorithms import *
+from graph.classes import *

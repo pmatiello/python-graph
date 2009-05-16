@@ -37,6 +37,6 @@ Which are conveniently exposed as:
 """
 
 
-from Graph import graph
-from Digraph import digraph
-from Hypergraph import hypergraph
+from graph.classes.Graph import graph
+from graph.classes.Digraph import digraph
+from graph.classes.Hypergraph import hypergraph
