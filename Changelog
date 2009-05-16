@@ -11,7 +11,9 @@ Important API Changes:
 	get_edge_weight was renamed to edge_weight;
 	get_edge_label was renamed to edge_label;
 	get_edge_attributes was renamed to edge_attributes;
-	get_node_attributes was renamed to node_attributes.
+	get_node_attributes was renamed to node_attributes;
+	degree was renamed to node_degree;
+	order was renamed to node_order.
 
 Release 1.5.0	[May 03, 2009]
 
