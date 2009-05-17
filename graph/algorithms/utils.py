@@ -62,7 +62,7 @@ class priority_queue:
 
     def pop(self):
         """
-        Return the item with the lowest priority, and remove it    from the queue.
+        Return the item with the lowest priority, and remove it from the queue.
         """
         return heappop(self.heap).item
 

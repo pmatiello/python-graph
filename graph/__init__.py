@@ -59,9 +59,5 @@ A quick introductory example:
 {'A': 'B', 'C': 'A', 'B': 'Y', 'Y': 'X', 'X': None, 'Z': 'X'}
 """
 
-
-from algorithms import *
-from classes import *
-
-
-
+from graph.algorithms import *
+from graph.classes import *

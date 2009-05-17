@@ -43,7 +43,7 @@ class graph (object):
     @sort:  __init__, __getitem__, __iter__, __len__, __str__, add_edge, add_edge_attribute,
     add_graph, add_node, add_node_attribute, add_nodes, add_spanning_tree, complete, del_edge,
     del_node, edges, edge_attributes, edge_label, edge_weight, node_attributes,
-    has_edge, has_node, inverse, neighbors, nodes, order, set_edge_label,
+    has_edge, has_node, inverse, neighbors, node_order, nodes, set_edge_label,
     set_edge_weight, traversal, generate, read, write, accessibility, breadth_first_search,
     connected_components, cut_edges, cut_nodes, depth_first_search, find_cycle,
     heuristic_search, minimal_spanning_tree, shortest_path
@@ -440,7 +440,7 @@ class graph (object):
         return self.edge_properties.has_key((u,v)) and self.edge_properties.has_key((v,u))
     
     
-    def order(self, node):
+    def node_order(self, node):
         """
         Return the order of the given node.
         

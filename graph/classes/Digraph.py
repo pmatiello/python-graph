@@ -41,9 +41,9 @@ class digraph (object):
 
     @sort: __init__, __getitem__, __iter__, __len__, __str__, add_edge, add_edge_attribute,
     add_graph, add_node, add_node_attribute, add_nodes, add_spanning_tree, complete, 
-    degree, del_edge, del_node, edges, edge_attributes, edge_label,
+    del_edge, del_node, edges, edge_attributes, edge_label,
     edge_weight, node_attributes, has_edge, has_node, incidents, inverse,
-    neighbors, nodes, order, set_edge_label, set_edge_weight, traversal,
+    neighbors, node_degree, node_order, nodes set_edge_label, set_edge_weight, traversal,
     generate, read, write, accessibility, breadth_first_search, critical_path, cut_edges,
     cut_nodes, depth_first_search, find_cycle, heuristic_search, mutual_accessibility,
     shortest_path, topological_sorting, transitive_edges 
@@ -450,7 +450,7 @@ class digraph (object):
         return self.edge_properties.has_key((u,v))
 
     
-    def order(self, node):
+    def node_order(self, node):
         """
         Return the order of the given node.
         
@@ -460,7 +460,7 @@ class digraph (object):
         return len(self.neighbors(node))
 
 
-    def degree(self, node):
+    def node_degree(self, node):
         """
         Return the degree of the given node.
         
