@@ -9,6 +9,7 @@ try:
 except ImportError, ie:
     import ez_setup
     ez_setup.use_setuptools()
+    from setuptools import setup, find_packages
 
 # Startup
 appname = "python-graph"
