@@ -1,45 +1,20 @@
 import numpy
 
-class NumGraph( object ):
+from graph.classes.base import base as base_graph
+
+class NumGraph( base_graph ):
     
     DISCONNECTED_VALUE = numpy.Inf
     
     def init( self, order=0 ):
+        # The main matrix, stores an adjacency table
         self._matrix = numpy.array( [ [ self.DISCONNECTED_VALUE ]*order ]*order )
+        self._lookup = numpy.array( [ None ] * order )
+        
         
     def order(self):
         return len( self._matrix )
         
-    def __str__(self):
-        """
-        Return a string representing the graph when requested by str() (or print).
-
-        @rtype:  string
-        @return: String representing the graph.
-        """
-        return "<graph object " + str(self.nodes()) + " " + str(self.edges()) + ">"
-
-
-    def __len__(self):
-        """
-        Return the order of the graph when requested by len().
-
-        @rtype:  number
-        @return: Size of the graph.
-        """
-        return self.order()
-
-
-    def __iter__(self):
-        """
-        Return a iterator passing through all nodes in the graph.
-        
-        @rtype:  iterator
-        @return: Iterator passing through all nodes in the graph.
-        """
-        return self.nodes()
-
-
     def __getitem__(self, node):
         """
         Return a iterator passing through all neighbors of the given node.
@@ -69,7 +44,8 @@ class NumGraph( object ):
         @rtype:  list
         @return: List of nodes directly accessible from given node.
         """
-        return numpy.isnan( self._matrix[ node ] )
+        index = self._lookup.index( node )
+        return numpy.array( a for a in self._matrix[ index ] if not a == self.DISCONNECTED_VALUE )
     
     
     def edges(self):
@@ -98,9 +74,28 @@ class NumGraph( object ):
         @rtype:  boolean
         @return: Truth-value for node existence.
         """
+        if node in self._lookup:
+            return True
+        return False
 
 
-    
-    
+    def add_node(self, node, attrs=[]):
+        """
+        Add given node to the graph.
+        
+        @attention: While nodes can be of any type, it's strongly recommended to use only numbers
+        and single-line strings as node identifiers if you intend to use write().
+
+        @type  node: node
+        @param node: Node identifier.
+        
+        @type  attrs: list
+        @param attrs: List of node attributes specified as (attribute, value) tuples.
+        """
+        if node not in self._lookup:
+            self._lookup.append(node)
+            self._add_row_col( self._matrix )
+            
+
         
     
