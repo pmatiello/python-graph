@@ -28,17 +28,3 @@ Algorithms
 This subpackage contains a set of modules, each one of them containing some algorithms.
 In most cases, you won't need to access it directly.
 """
-
-# Imports
-import pygraph.algorithms.accessibility
-import pygraph.algorithms.critical
-import pygraph.algorithms.cycles
-import pygraph.algorithms.exceptions
-import pygraph.algorithms.generators
-import pygraph.algorithms.heuristics
-import pygraph.algorithms.minmax
-import pygraph.algorithms.readwrite
-import pygraph.algorithms.searching
-import pygraph.algorithms.sorting
-import pygraph.algorithms.traversal
-import pygraph.algorithms.utils

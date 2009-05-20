@@ -28,5 +28,6 @@ clean: cleanpyc
 	rm -rf dist
 	rm -rf build
 	rm -rf python_graph.egg-info
+	rm -f examples/*.png
 
 .PHONY: clean cleanpyc docs

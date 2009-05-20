@@ -59,6 +59,19 @@ A quick introductory example:
 {'A': 'B', 'C': 'A', 'B': 'Y', 'Y': 'X', 'X': None, 'Z': 'X'}
 """
 
-
-from pygraph.algorithms import *
-from pygraph.classes import *
+# Imports
+import pygraph.algorithms.accessibility
+import pygraph.algorithms.critical
+import pygraph.algorithms.cycles
+import pygraph.algorithms.generators
+import pygraph.algorithms.heuristics as heuristics
+import pygraph.algorithms.minmax
+import pygraph.algorithms.readwrite
+import pygraph.algorithms.searching
+import pygraph.algorithms.sorting
+import pygraph.algorithms.traversal
+import pygraph.algorithms.utils
+from pygraph.classes.Graph import graph
+from pygraph.classes.Digraph import digraph
+from pygraph.classes.Hypergraph import hypergraph
+import pygraph.classes.Exceptions as exceptions

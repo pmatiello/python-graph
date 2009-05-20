@@ -35,8 +35,3 @@ Which are conveniently exposed as:
     - C{graph.digraph()}
     - C{graph.hypergraph()}
 """
-
-
-from pygraph.classes.Graph import graph
-from pygraph.classes.Digraph import digraph
-from pygraph.classes.Hypergraph import hypergraph

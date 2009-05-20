@@ -50,7 +50,7 @@ class test_chow(unittest.TestCase):
     def test_chow(self):
         heuristic = pygraph.heuristics.chow( "Wales", "North Korea", "Russia" )
         heuristic.optimize(self.G)
-        result = pygraph.minmax.heuristic_search( self.G, "England", "India", heuristic )
+        result = pygraph.algorithms.minmax.heuristic_search( self.G, "England", "India", heuristic )
         
     def test_chow_unreachable(self):
         heuristic = pygraph.heuristics.chow( "Wales", "North Korea", "Russia" )
@@ -60,7 +60,7 @@ class test_chow(unittest.TestCase):
         self.G.del_edge("England", "Sealand")
         
         try:
-            result = pygraph.minmax.heuristic_search( self.G, "England", "Sealand" , heuristic )
+            result = pygraph.algorithms.minmax.heuristic_search( self.G, "England", "Sealand" , heuristic )
         except pygraph.exceptions.unreachable, _:
             return
         
@@ -83,5 +83,5 @@ class test_euclidean(unittest.TestCase):
     def test_euclidean(self):
         heuristic = pygraph.heuristics.euclidean()
         heuristic.optimize(self.G)
-        result = pygraph.minmax.heuristic_search(self.G, 'A', 'C', heuristic )
+        result = pygraph.algorithms.minmax.heuristic_search(self.G, 'A', 'C', heuristic )
         assert result == ['A', 'D', 'C']
