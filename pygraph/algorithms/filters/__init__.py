@@ -38,6 +38,6 @@ Which are conveniently exposed as:
 """
 
 
-from Find import find
-from Null import null
-from Radius import radius
+from pygraph.algorithms.filters.Find import find
+from pygraph.algorithms.filters.Null import null
+from pygraph.algorithms.filters.Radius import radius

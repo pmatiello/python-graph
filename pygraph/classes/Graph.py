@@ -147,6 +147,9 @@ class graph (object):
         """
         Add nodes and random edges to the graph.
         
+        @deprecated: This method will be removed in further versions. Use
+        L{pygraph.algorithms.generators.generate} instead.
+
         @type  num_nodes: number
         @param num_nodes: Number of nodes.
         
@@ -527,7 +530,10 @@ class graph (object):
 
     def depth_first_search(self, root=None, filter=filters.null()):
         """
-        Depht-first search.
+        Depth-first search.
+        
+        @deprecated: This method will be removed in further versions. Use
+        L{pygraph.algorithms.pygraph.algorithms.searching.depth_first_search} instead.
         
         @type  root: node
         @param root: Optional root node (will explore only root's connected component)
@@ -545,6 +551,9 @@ class graph (object):
         """
         Breadth-first search.
 
+        @deprecated: This method will be removed in further versions. Use
+        L{pygraph.algorithms.searching.breadth_first_search} instead.
+
         @type  root: node
         @param root: Optional root node (will explore only root's connected component)
 
@@ -560,6 +569,9 @@ class graph (object):
         """
         Accessibility matrix (transitive closure).
 
+        @deprecated: This method will be removed in further versions. Use
+        L{pygraph.algorithms.accessibility.accessibility} instead.
+        
         @rtype:  dictionary
         @return: Accessibility information for each node.
         """
@@ -569,6 +581,9 @@ class graph (object):
     def connected_components(self):
         """
         Connected components.
+
+        @deprecated: This method will be removed in further versions. Use
+        L{pygraph.algorithms.accessibility.connected_components} instead.
 
         @attention: Indentification of connected components is meaningful only for non-directed
         graphs.
@@ -582,6 +597,9 @@ class graph (object):
     def minimal_spanning_tree(self, root=None):
         """
         Minimal spanning tree.
+
+        @deprecated: This method will be removed in further versions. Use
+        L{pygraph.algorithms.minmax.minimal_spanning_tree} instead.
 
         @type  root: node
         @param root: Optional root node (will explore only root's connected component)
@@ -599,6 +617,9 @@ class graph (object):
         Return the shortest path distance between source node and all other nodes using Dijkstra's
         algorithm.
         
+        @deprecated: This method will be removed in further versions. Use
+        L{pygraph.algorithms.minmax.shortest_path} instead.
+
         @attention: All weights must be nonnegative.
 
         @type  source: node
@@ -619,6 +640,9 @@ class graph (object):
         A set of heuristics is available under C{graph.heuristics}. User-created heuristics are
         allowed too.
         
+        @deprecated: This method will be removed in further versions. Use
+        L{pygraph.algorithms.minmax.heuristic_search} instead.
+        
         @type start: node
         @param start: Start node
         
@@ -638,6 +662,9 @@ class graph (object):
         """
         Return the cut-edges of the given graph.
         
+        @deprecated: This method will be removed in further versions. Use
+        L{pygraph.algorithms.accessibility.cut_edges} instead.
+        
         @rtype:  list
         @return: List of cut-edges.
         """
@@ -647,6 +674,9 @@ class graph (object):
     def cut_nodes(self):
         """
         Return the cut-nodes of the given graph.
+        
+        @deprecated: This method will be removed in further versions. Use
+        L{pygraph.algorithms.accessibility.cut_nodes} instead.
         
         @rtype:  list
         @return: List of cut-nodes.
@@ -660,6 +690,9 @@ class graph (object):
         This function will return a list of nodes which form a cycle in the graph or an empty list if
         no cycle exists.
 
+        @deprecated: This method will be removed in further versions. Use
+        L{pygraph.algorithms.cycles.find_cycle} instead.
+        
         @rtype: list
         @return: List of nodes. 
         """

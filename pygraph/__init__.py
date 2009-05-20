@@ -61,18 +61,9 @@ A quick introductory example:
 """
 
 # Imports
-import pygraph.algorithms.accessibility
-import pygraph.algorithms.critical
-import pygraph.algorithms.cycles
-import pygraph.algorithms.generators
+import pygraph.algorithms as algorithms
 import pygraph.algorithms.filters as filters
 import pygraph.algorithms.heuristics as heuristics
-import pygraph.algorithms.minmax
-import pygraph.algorithms.readwrite
-import pygraph.algorithms.searching
-import pygraph.algorithms.sorting
-import pygraph.algorithms.traversal
-import pygraph.algorithms.utils
 from pygraph.classes.Graph import graph
 from pygraph.classes.Digraph import digraph
 from pygraph.classes.Hypergraph import hypergraph

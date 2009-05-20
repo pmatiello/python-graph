@@ -30,7 +30,6 @@ Unittests for graph.algorithms.heuristics
 import unittest
 import pygraph
 
-
 from test_data import nations_of_the_world
 
 

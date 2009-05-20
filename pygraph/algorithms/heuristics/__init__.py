@@ -38,5 +38,5 @@ These are to be used with heuristic_search() method.
 """
 
 
-from Chow import chow
-from Euclidean import euclidean
+from pygraph.algorithms.heuristics.Chow import chow
+from pygraph.algorithms.heuristics.Euclidean import euclidean
