@@ -61,7 +61,7 @@ class test_chow(unittest.TestCase):
         
         try:
             result = pygraph.algorithms.minmax.heuristic_search( self.G, "England", "Sealand" , heuristic )
-        except pygraph.exceptions.unreachable, _:
+        except pygraph.exceptions.NodeUnreachable, _:
             return
         
         assert False, "This test should raise an unreachable error."

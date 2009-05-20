@@ -33,7 +33,7 @@ _reconstruct_path
 """
 
 from heapq import heappush, heappop
-from pygraph.classes.Exceptions import unreachable
+from pygraph.classes.Exceptions import NodeUnreachable
 
 # Minimal spanning tree
 
@@ -240,7 +240,7 @@ def heuristic_search(graph, start, goal, heuristic):
             g[neighbor] = ncost, h
             heappush(queue, (ncost + h, neighbor, ncost, current))
 
-    raise unreachable( start, goal )
+    raise NodeUnreachable( start, goal )
 
 def _reconstruct_path(node, parents):
     while node is not None:
