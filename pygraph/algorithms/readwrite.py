@@ -63,7 +63,7 @@ def write_xml(graph):
     # Each node...
     for each_node in graph.nodes():
         node = grxml.createElement('node')
-        node.setAttribute('id',str(each_node))
+        node.setAttribute('id', str(each_node))
         grxmlr.appendChild(node)
         for each_attr in graph.node_attributes(each_node):
             attr = grxml.createElement('attribute')
@@ -74,10 +74,10 @@ def write_xml(graph):
     # Each edge...
     for edge_from, edge_to in graph.edges():
         edge = grxml.createElement('edge')
-        edge.setAttribute('from',str(edge_from))
-        edge.setAttribute('to',str(edge_to))
-        edge.setAttribute('wt',str(graph.edge_weight(edge_from, edge_to)))
-        edge.setAttribute('label',str(graph.edge_label(edge_from, edge_to)))
+        edge.setAttribute('from', str(edge_from))
+        edge.setAttribute('to', str(edge_to))
+        edge.setAttribute('wt', str(graph.edge_weight(edge_from, edge_to)))
+        edge.setAttribute('label', str(graph.edge_label(edge_from, edge_to)))
         grxmlr.appendChild(edge)
         for attr_name, attr_value in graph.edge_attributes(edge_from, edge_to):
             attr = grxml.createElement('attribute')
@@ -112,13 +112,13 @@ def write_xml_hypergraph(hypergraph):
             node = grxml.createElement('node')
         else:
             node = grxml.createElement('hyperedge')
-        node.setAttribute('id',str(each_node))
+        node.setAttribute('id', str(each_node))
         grxmlr.appendChild(node)
 
         # and its outgoing edge
         for each_edge in hypergraph.links(each_node):
             edge = grxml.createElement('link')
-            edge.setAttribute('to',str(each_edge))
+            edge.setAttribute('to', str(each_edge))
             node.appendChild(edge)
 
     return grxml.toprettyxml()
@@ -146,7 +146,7 @@ def read_xml(graph, string):
     # Read edges...
     for each_edge in dom.getElementsByTagName("edge"):
         graph.add_edge(each_edge.getAttribute('from'), each_edge.getAttribute('to'), \
-            wt=float(each_edge.getAttribute('wt')), label=each_edge.getAttribute('label'))
+            wt = float(each_edge.getAttribute('wt')), label = each_edge.getAttribute('label'))
         for each_attr in each_edge.getElementsByTagName("attribute"):
             attr_tuple = (each_attr.getAttribute('attr'), each_attr.getAttribute('value'))
             if (attr_tuple not in graph.edge_attributes(each_edge.getAttribute('from'), \
@@ -217,12 +217,12 @@ def read_dot_graph(graph, string):
         else:
             _label = ''
         
-        graph.add_edge(each_edge.get_source(), each_edge.get_destination(), wt=_wt, label=_label)
+        graph.add_edge(each_edge.get_source(), each_edge.get_destination(), wt = _wt, label = _label)
         
         for each_attr_key, each_attr_val in each_edge.get_attributes().items():
             if not each_attr_key in ['weight', 'label']:
                 graph.add_edge_attribute(each_edge.get_source(), each_edge.get_destination(), \
-                                            (each_attr_key, each_attr_val) )
+                                            (each_attr_key, each_attr_val))
 
 
 def read_dot_hypergraph(hypergraph, string):
@@ -274,10 +274,10 @@ def write_dot_digraph(graph, wt):
     @rtype:  string
     @return: String specifying the graph in DOT Language.
     """
-    return write_dot_graph(graph, wt, directed=True)
+    return write_dot_graph(graph, wt, directed = True)
 
 
-def write_dot_graph(graph, wt, directed=False):
+def write_dot_graph(graph, wt, directed = False):
     """
     Return a string specifying the given graph in DOT Language.
     
@@ -295,7 +295,10 @@ def write_dot_graph(graph, wt, directed=False):
     """
     dotG = pydot.Dot()
     
-    dotG.set_name('graphname')
+    if not 'name' in dir(graph):
+        dotG.set_name('graphname')
+    else:
+        dotG.set_name(graph.name)
     
     if directed:
         dotG.set_type('digraph')
@@ -327,10 +330,7 @@ def write_dot_graph(graph, wt, directed=False):
         
         if str(graph.edge_label(edge_from, edge_to)):
             attr_list['label'] = str(graph.edge_label(edge_from, edge_to))
-            
-            if wt:
-                attr_list['label'] += ', ' + str(graph.edge_weight(edge_from, edge_to))
-        
+
         elif wt:
             attr_list['label'] = str(graph.edge_weight(edge_from, edge_to))
         
@@ -347,7 +347,7 @@ def write_dot_graph(graph, wt, directed=False):
 
 
 
-def write_dot_hypergraph(hypergraph, colored=False):
+def write_dot_hypergraph(hypergraph, colored = False):
     """
     Return a string specifying the given hypergraph in DOT Language.
     
@@ -363,14 +363,17 @@ def write_dot_hypergraph(hypergraph, colored=False):
     
     dotG = pydot.Dot()
     
-    dotG.set_name('hypergraph')
+    if not 'name' in dir(hypergraph):
+        dotG.set_name('hypergraph')
+    else:
+        dotG.set_name(hypergraph.name)
     
     colortable = {}
     colorcount = 0
     
     # Add all of the nodes first
     for node in hypergraph.nodes():
-        newNode = pydot.Node(str(node), hyper_node_type='node')
+        newNode = pydot.Node(str(node), hyper_node_type = 'node')
         
         dotG.add_node(newNode)
     
@@ -380,11 +383,11 @@ def write_dot_hypergraph(hypergraph, colored=False):
             colortable[hyperedge] = colors[colorcount % len(colors)]
             colorcount += 1
             
-            newNode = pydot.Node(str(hyperedge), hyper_node_type='hyperedge', \
-                                                 color=str(colortable[hyperedge]), \
-                                                 shape='point')
+            newNode = pydot.Node(str(hyperedge), hyper_node_type = 'hyperedge', \
+                                                 color = str(colortable[hyperedge]), \
+                                                 shape = 'point')
         else:
-            newNode = pydot.Node(str(hyperedge), hyper_node_type='hyperedge')
+            newNode = pydot.Node(str(hyperedge), hyper_node_type = 'hyperedge')
         
         dotG.add_node(newNode)
         
