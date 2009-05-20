@@ -60,5 +60,5 @@ A quick introductory example:
 """
 
 
-from graph.algorithms import *
-from graph.classes import *
+from pygraph.algorithms import *
+from pygraph.classes import *

@@ -29,8 +29,8 @@ Unit tests for python-graph
 
 # Imports
 import unittest
-import graph
-from graph.algorithms import filters
+import pygraph
+from pygraph.algorithms import filters
 
 
 class test_find_filter(unittest.TestCase):
@@ -39,13 +39,13 @@ class test_find_filter(unittest.TestCase):
         pass
 
     def testEmptyGraphBFS(self):
-        G = graph.graph()
+        G = pygraph.graph()
         st, lo = G.breadth_first_search(filter=filters.find(5))
         assert st == {}
         assert lo == []
     
     def testGraphBFS(self):
-        G = graph.graph()
+        G = pygraph.graph()
         G.add_nodes([1, 2, 3, 4, 5])
         G.add_edge(1, 2)
         G.add_edge(2, 3)
@@ -57,7 +57,7 @@ class test_find_filter(unittest.TestCase):
         assert st == {1: None, 2: 1, 5: 1}
     
     def testDigraphBFS(self):
-        G = graph.digraph()
+        G = pygraph.digraph()
         G.add_nodes([1, 2, 3, 4, 5, 6])
         G.add_edge(1, 2)
         G.add_edge(1, 3)
@@ -70,14 +70,14 @@ class test_find_filter(unittest.TestCase):
         assert st == {1: None, 2: 1, 3: 1, 4: 2, 5: 3}
 
     def testEmptyGraphDFS(self):
-        G = graph.graph()
+        G = pygraph.graph()
         st, pre, post = G.depth_first_search()
         assert st == {}
         assert pre == []
         assert post == []
     
     def testGraphDFS(self):
-        G = graph.graph()
+        G = pygraph.graph()
         G.add_nodes([1, 2, 3, 4, 5])
         G.add_edge(1, 2)
         G.add_edge(2, 3)
@@ -92,7 +92,7 @@ class test_find_filter(unittest.TestCase):
 
     
     def testDigraphDFS(self):
-        G = graph.digraph()
+        G = pygraph.digraph()
         G.add_nodes([1, 2, 3, 4, 5, 6])
         G.add_edge(1, 2)
         G.add_edge(1, 3)
@@ -111,13 +111,13 @@ class test_radius_filter(unittest.TestCase):
         pass
 
     def testEmptyGraphBFS(self):
-        G = graph.graph()
+        G = pygraph.graph()
         st, lo = G.breadth_first_search(filter=filters.radius(2))
         assert st == {}
         assert lo == []
     
     def testGraphBFS(self):
-        G = graph.graph()
+        G = pygraph.graph()
         G.add_nodes([1, 2, 3, 4, 5, 6, 7, 8, 9])
         G.add_edge(1, 2)
         G.add_edge(1, 3)
@@ -132,7 +132,7 @@ class test_radius_filter(unittest.TestCase):
         assert st == {1: None, 2: 1, 3: 1, 4: 2, 5: 3, 9: 3}
     
     def testDigraphBFS(self):
-        G = graph.digraph()
+        G = pygraph.digraph()
         G.add_nodes([1, 2, 3, 4, 5, 6, 7, 8, 9])
         G.add_edge(1, 2)
         G.add_edge(1, 3)
@@ -150,14 +150,14 @@ class test_radius_filter(unittest.TestCase):
         assert st == {7: None}
 
     def testEmptyGraphDFS(self):
-        G = graph.graph()
+        G = pygraph.graph()
         st, pre, post = G.depth_first_search(filter=filters.radius(2))
         assert st == {}
         assert pre == []
         assert post == []
     
     def testGraphDFS(self):
-        G = graph.graph()
+        G = pygraph.graph()
         G.add_nodes([1, 2, 3, 4, 5, 6, 7, 8, 9])
         G.add_edge(1, 2)
         G.add_edge(1, 3)
@@ -172,7 +172,7 @@ class test_radius_filter(unittest.TestCase):
         assert st == {1: None, 2: 1, 3: 1, 4: 2, 5: 3, 9: 3}
     
     def testDigraphDFS(self):
-        G = graph.digraph()
+        G = pygraph.digraph()
         G.add_nodes([1, 2, 3, 4, 5, 6, 7, 8, 9])
         G.add_edge(1, 2)
         G.add_edge(1, 3)

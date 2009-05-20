@@ -28,13 +28,13 @@ Unittests for graph.algorithms.sorting
 
 
 import unittest
-import graph
+import pygraph
 
 
 class test_topological_sorting(unittest.TestCase):
 
     def testTree(self):
-        gr = graph.digraph()
+        gr = pygraph.digraph()
         gr.add_nodes([0,1,2,3,4,5,6,7,8])
         gr.add_edge(0,1)
         gr.add_edge(0,2)
@@ -62,7 +62,7 @@ class test_topological_sorting(unittest.TestCase):
                     return True
             return (ts == [])
             
-        gr = graph.digraph()
+        gr = pygraph.digraph()
         gr.add_nodes([0,1,2,3,4,5,6,7,8])
         gr.add_edge(0,1)
         gr.add_edge(0,2)

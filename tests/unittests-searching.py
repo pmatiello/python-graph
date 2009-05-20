@@ -29,7 +29,7 @@ Unittests for graph.algorithms.searching
 
 # Imports
 import unittest
-import graph
+import pygraph
 
 
 class test_depth_first_search(unittest.TestCase):
@@ -38,14 +38,14 @@ class test_depth_first_search(unittest.TestCase):
         pass
 
     def testEmptyGraph(self):
-        G = graph.graph()
+        G = pygraph.graph()
         st, pre, post = G.depth_first_search()
         assert st == {}
         assert pre == []
         assert post == []
     
     def testGraph(self):
-        G = graph.graph()
+        G = pygraph.graph()
         G.add_nodes([1, 2, 3, 4, 5])
         G.add_edge(1, 2)
         G.add_edge(2, 3)
@@ -59,7 +59,7 @@ class test_depth_first_search(unittest.TestCase):
         assert post == [4, 5, 3, 2, 1]
     
     def testSanityGraph(self):
-        G = graph.graph()
+        G = pygraph.graph()
         G.generate(100, 500)
         st, pre, post = G.depth_first_search()
         for each in G:
@@ -68,14 +68,14 @@ class test_depth_first_search(unittest.TestCase):
                 assert post.index(each) < post.index(st[each])
 
     def testEmptyDigraph(self):
-        G = graph.digraph()
+        G = pygraph.digraph()
         st, pre, post = G.depth_first_search()
         assert st == {}
         assert pre == []
         assert post == []
     
     def testDigraph(self):
-        G = graph.digraph()
+        G = pygraph.digraph()
         G.add_nodes([1, 2, 3, 4, 5])
         G.add_edge(1, 2)
         G.add_edge(2, 3)
@@ -89,7 +89,7 @@ class test_depth_first_search(unittest.TestCase):
         assert post == [5, 3, 4, 2, 1]
     
     def testSanityDigraph(self):
-        G = graph.digraph()
+        G = pygraph.digraph()
         G.generate(100, 500)
         st, pre, post = G.depth_first_search()
         for each in G:
@@ -104,13 +104,13 @@ class test_breadth_first_search(unittest.TestCase):
         pass
 
     def testEmptyGraph(self):
-        G = graph.graph()
+        G = pygraph.graph()
         st, lo = G.breadth_first_search()
         assert st == {}
         assert lo == []
     
     def testGraph(self):
-        G = graph.graph()
+        G = pygraph.graph()
         G.add_nodes([1, 2, 3, 4, 5])
         G.add_edge(1, 2)
         G.add_edge(2, 3)
@@ -123,7 +123,7 @@ class test_breadth_first_search(unittest.TestCase):
         assert lo == [1, 2, 5, 3, 4]
     
     def testSanityGraph(self):
-        G = graph.graph()
+        G = pygraph.graph()
         G.generate(100, 500)
         st, lo = G.breadth_first_search()
         for each in G:
@@ -131,13 +131,13 @@ class test_breadth_first_search(unittest.TestCase):
                 assert lo.index(each) > lo.index(st[each])
 
     def testEmptyDigraph(self):
-        G = graph.digraph()
+        G = pygraph.digraph()
         st, lo = G.breadth_first_search()
         assert st == {}
         assert lo == []
     
     def testDigraph(self):
-        G = graph.digraph()
+        G = pygraph.digraph()
         G.add_nodes([1, 2, 3, 4, 5])
         G.add_edge(1, 2)
         G.add_edge(2, 3)
@@ -150,7 +150,7 @@ class test_breadth_first_search(unittest.TestCase):
         assert lo == [1, 2, 5, 3, 4]
     
     def testSanityDigraph(self):
-        G = graph.digraph()
+        G = pygraph.digraph()
         G.generate(100, 500)
         st, lo = G.breadth_first_search()
         for each in G:

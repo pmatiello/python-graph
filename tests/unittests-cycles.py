@@ -28,7 +28,7 @@ Unittests for graph.algorithms.cycles
 
 
 import unittest
-import graph
+import pygraph
 
 
 class test_find_cycle(unittest.TestCase):
@@ -37,7 +37,7 @@ class test_find_cycle(unittest.TestCase):
         pass
 
     def testGraph(self):
-        G = graph.graph()
+        G = pygraph.graph()
         G.add_nodes([1, 2, 3, 4, 5])
         G.add_edge(1, 2)
         G.add_edge(2, 3)
@@ -49,14 +49,14 @@ class test_find_cycle(unittest.TestCase):
         assert G.find_cycle() == [2,3,5,4]
 
     def testNoCycleGraph(self):
-        G = graph.graph()
+        G = pygraph.graph()
         G.add_nodes([1,2,3])
         G.add_edge(1, 2)
         G.add_edge(1, 3)
         assert G.find_cycle() == []
 
     def testDigraph(self):
-        G = graph.digraph()
+        G = pygraph.digraph()
         G.add_nodes([1, 2, 3, 4, 5])
         G.add_edge(1, 2)
         G.add_edge(2, 3)
@@ -67,7 +67,7 @@ class test_find_cycle(unittest.TestCase):
         assert G.find_cycle() == [1,2,4,5]
     
     def testNoCycleDigraph(self):
-        G = graph.digraph()
+        G = pygraph.digraph()
         G.add_nodes([1, 2, 3, 4, 5])
         G.add_edge(1, 2)
         G.add_edge(2, 3)
@@ -77,7 +77,7 @@ class test_find_cycle(unittest.TestCase):
         assert G.find_cycle() == []
     
     def testNoCycleDigraph2(self):
-        G = graph.digraph()
+        G = pygraph.digraph()
         G.add_nodes([1,2,3])
         G.add_edge(1,2)
         G.add_edge(1,3)
@@ -86,7 +86,7 @@ class test_find_cycle(unittest.TestCase):
     
 
     def testMisleadingDigraph(self):
-        G = graph.digraph()
+        G = pygraph.digraph()
         G.add_nodes([1, 2, 3, 4, 5])
         G.add_edge(1, 2)
         G.add_edge(2, 3)
@@ -97,7 +97,7 @@ class test_find_cycle(unittest.TestCase):
         assert G.find_cycle() == [1, 2, 3]
     
     def testSmallCycleDigraph(self):
-        G = graph.digraph()
+        G = pygraph.digraph()
         G.add_nodes([1, 2, 3, 4, 5])
         G.add_edge(1, 2)
         G.add_edge(2, 3)

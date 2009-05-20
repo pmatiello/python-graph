@@ -28,7 +28,7 @@ Unittests for graph.algorithms.readwrite
 
 
 import unittest
-import graph
+import pygraph
 import time
 
 class test_readwrite(unittest.TestCase):
@@ -52,7 +52,7 @@ class test_readwrite(unittest.TestCase):
                 assert str(node) + " -> " + str(edge) + ";" in dot
     
     def testWriteGraphDot(self):
-        gr = graph.graph()
+        gr = pygraph.graph()
         gr.add_nodes([1, 2, 3, 4, 5])
         gr.add_edge(1, 2)
         gr.add_edge(2, 3)
@@ -65,7 +65,7 @@ class test_readwrite(unittest.TestCase):
         self._check_edges(gr, dot)
     
     def testWriteDigraphDot(self):
-        gr = graph.digraph()
+        gr = pygraph.digraph()
         gr.add_nodes([1, 2, 3, 4, 5])
         gr.add_edge(1, 2)
         gr.add_edge(2, 3)
@@ -81,7 +81,7 @@ class test_readwrite(unittest.TestCase):
     def testReadGraphDot(self):
         dot = ['graph graphname {', '1;', '2;', '3;', '4;', '5;', '1 -- 2;', '3 -- 2;', '4 -- 5;', '1 -- 5;', '4 -- 2;', '5 -- 3;', '}', '']
         dot = "\n".join(dot)
-        gr = graph.graph()
+        gr = pygraph.graph()
         gr.read(dot, 'dot')
         self._check_nodes(gr, dot)
         self._check_edges(gr, dot)
@@ -89,7 +89,7 @@ class test_readwrite(unittest.TestCase):
     def testReadDigraphDot(self):
         dot = ['digraph graphname {', '1;', '2;', '3;', '4;', '5;', '1 -> 2;', '4 -> 5;', '1 -> 5;', '2 -> 3;', '2 -> 4;', '3 -> 5;', '}', '']
         dot = "\n".join(dot)
-        gr = graph.digraph()
+        gr = pygraph.digraph()
         gr.read(dot, 'dot')
         self._check_nodes(gr, dot)
         self._check_arrows(gr, dot)

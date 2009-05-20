@@ -23,22 +23,20 @@
 
 
 """
-Algorithms
+Data structure classes.
 
-This subpackage contains a set of modules, each one of them containing some algorithms.
-In most cases, you won't need to access it directly.
+This subpackage exposes the following classes:
+    - L{graph}
+    - L{digraph}
+    - L{hypergraph}
+
+Which are conveniently exposed as:
+    - C{graph.graph()}
+    - C{graph.digraph()}
+    - C{graph.hypergraph()}
 """
 
-# Imports
-import graph.algorithms.accessibility
-import graph.algorithms.critical
-import graph.algorithms.cycles
-import graph.algorithms.exceptions
-import graph.algorithms.generators
-import graph.algorithms.heuristics
-import graph.algorithms.minmax
-import graph.algorithms.readwrite
-import graph.algorithms.searching
-import graph.algorithms.sorting
-import graph.algorithms.traversal
-import graph.algorithms.utils
+
+from pygraph.classes.Graph import graph
+from pygraph.classes.Digraph import digraph
+from pygraph.classes.Hypergraph import hypergraph

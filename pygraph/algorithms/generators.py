@@ -31,7 +31,7 @@ Random graph generators.
 
 
 # Imports
-import graph as classes
+import pygraph as classes
 from random import randint
 
 

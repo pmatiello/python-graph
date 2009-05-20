@@ -28,7 +28,7 @@ Unittests for graph.algorithms.accessibility
 
 
 import unittest
-import graph
+import pygraph
 import time
 
 class test_find_cycle(unittest.TestCase):
@@ -37,7 +37,7 @@ class test_find_cycle(unittest.TestCase):
         pass
 
     def testDigraph(self):
-        gr = graph.digraph()
+        gr = pygraph.digraph()
         gr.add_nodes(xrange(25))
         edges = [(13, 22), (18, 0), (17, 8), (15, 13), (13, 19), (21, 2),
                  (3, 11), (11, 23), (4, 22), (4, 2), (3, 22), (23, 7), (12, 2),
