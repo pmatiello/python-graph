@@ -31,8 +31,8 @@ This subpackage exposes the following heuristics:
     - L{euclidean}
 
 Which are conveniently exposed as:
-    - C{graph.heuristics.chow()}
-    - C{graph.heuristics.euclidean()}
+    - C{pygraph.heuristics.chow()}
+    - C{pygraph.heuristics.euclidean()}
 
 These are to be used with heuristic_search() method.
 """

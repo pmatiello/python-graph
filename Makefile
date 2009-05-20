@@ -10,17 +10,17 @@ docs: cleanpyc
 	rm -rf docs
 	epydoc -v --no-frames --no-sourcecode --name="python-graph" \
 		--url="http://code.google.com/p/python-graph/" \
-		--no-private --html --css misc/epydoc.css -o docs graph/*.py \
-		graph/algorithms/*py graph/algorithms/heuristics/*.py \
-		graph/algorithms/filters/* graph/classes/*.py
+		--no-private --html --css misc/epydoc.css -o docs pygraph/*.py \
+		pygraph/algorithms/*py pygraph/algorithms/heuristics/*.py \
+		pygraph/algorithms/filters/* pygraph/classes/*.py
 
 test:
 	./setup.py test
 
 cleanpyc:
-	rm -f graph/*.pyc
-	rm -f graph/*/*.pyc
-	rm -f graph/*/*/*.pyc
+	rm -f pygraph/*.pyc
+	rm -f pygraph/*/*.pyc
+	rm -f pygraph/*/*/*.pyc
 	rm -f tests/*.pyc
 
 clean: cleanpyc

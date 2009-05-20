@@ -31,9 +31,9 @@ This subpackage exposes the following filters:
     - L{radius}
 
 Which are conveniently exposed as:
-    - C{graph.filters.find()}
-    - C{graph.filters.null()}
-    - C{graph.filters.radius()}
+    - C{pygraph.filters.find()}
+    - C{pygraph.filters.null()}
+    - C{pygraph.filters.radius()}
 
 """
 
