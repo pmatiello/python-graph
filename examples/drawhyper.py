@@ -7,11 +7,11 @@ import sys
 sys.path.append('..')
 sys.path.append('/usr/lib/graphviz/python/')
 sys.path.append('/usr/lib64/graphviz/python/')
-import graph
+import pygraph
 import gv
 
 # Graph creation
-hgr = graph.hypergraph()
+hgr = pygraph.hypergraph()
 
 # Add nodes and edges
 hgr.add_nodes([1,2,3,4,5,6,7,8,9])

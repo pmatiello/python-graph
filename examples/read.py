@@ -5,9 +5,9 @@
 
 import sys
 sys.path.append('..')
-import graph
+import pygraph
 
-gr = graph.graph()
+gr = pygraph.graph()
 
 inputfile = file('graph.xml','r')
 string = inputfile.read()

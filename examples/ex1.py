@@ -5,13 +5,13 @@
 
 import sys
 sys.path.append('..')
-import graph
+import pygraph
 sys.path.append('/usr/lib/graphviz/python/')
 sys.path.append('/usr/lib64/graphviz/python/')
 import gv
 
 # Graph creation
-gr = graph.graph()
+gr = pygraph.graph()
 
 # Add nodes and edges
 gr.add_nodes(["Portugal","Spain","France","Germany","Belgium","Netherlands","Italy"])
@@ -54,7 +54,7 @@ gv.render(gvv,'png','europe.png')
 
 # Then, draw the breadth first search spanning tree rooted in Switzerland
 st, order = gr.breadth_first_search(root="Switzerland")
-gst = graph.digraph()
+gst = pygraph.digraph()
 gst.add_spanning_tree(st)
 
 dot = gst.write(fmt='dot')

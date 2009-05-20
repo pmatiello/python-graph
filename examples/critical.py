@@ -6,12 +6,12 @@ import sys
 sys.path.append('..')
 sys.path.append('/usr/lib/graphviz/python/')
 sys.path.append('/usr/lib64/graphviz/python/')
-import graph
+import pygraph
 import gv
 
 #demo of the critical path algorithm and the transitivity detection algorithm
 
-G = graph.digraph()
+G = pygraph.digraph()
 
 G.add_node('A')
 G.add_node('B')

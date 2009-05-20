@@ -41,7 +41,7 @@ __license__ = "MIT"
 # Imports
 import sys
 sys.path.append('..')
-import graph
+import pygraph
 sys.path.append('/usr/lib/graphviz/python/')
 sys.path.append('/usr/lib64/graphviz/python/')
 
@@ -58,7 +58,7 @@ def load_automaton(filename):
     @rtype:  graph
     @return: Automaton's graph.
     """
-    gr = graph.digraph()
+    gr = pygraph.digraph()
     infile = file(filename,'r')
     line = infile.readline()
     final = []
@@ -84,7 +84,7 @@ def load_automaton(filename):
             # Transitions
             if (gr.has_edge(data[1], data[2])):
                 gr.set_edge_label(data[1], data[2], \
-                    gr.get_edge_label(data[1], data[2]) + ', ' + data[0])
+                    gr.edge_label(data[1], data[2]) + ', ' + data[0])
             else:
                 gr.add_edge(data[1], data[2], label=data[0])
         line = infile.readline()

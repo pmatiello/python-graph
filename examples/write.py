@@ -7,11 +7,11 @@ import sys
 sys.path.append('..')
 sys.path.append('/usr/lib/graphviz/python/')
 sys.path.append('/usr/lib64/graphviz/python/')
-import graph
+import pygraph
 import gv
 
 # Graph creation
-gr = graph.graph()
+gr = pygraph.graph()
 
 # Add nodes and edges
 gr.add_nodes(["Portugal","Spain","France","Germany","Belgium","Netherlands","Italy"])
