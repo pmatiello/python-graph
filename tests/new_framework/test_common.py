@@ -24,7 +24,6 @@ class test_common:
         """
         Validate the expected number of nodes & edges.
         """
-        
         assert len( self.G.nodes() ) == self.graph_order
         assert len( self.G.edges() ) == self.edge_count, "Found %i edges, expected %i" % ( len( self.G.edges() ), self.edge_count )
     
