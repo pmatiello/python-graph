@@ -166,12 +166,12 @@ class graph (object):
 
     def nodes(self):
         """
-        Return node list.
+        Return node list. Ensure that each node is listed only once.
 
         @rtype:  list
         @return: Node list.
         """
-        return self.node_neighbors.keys()
+        return [ a for a in self.node_neighbors.keys() ]
 
 
     def neighbors(self, node):
@@ -194,7 +194,7 @@ class graph (object):
         @rtype:  list
         @return: List of all edges in the graph.
         """
-        return self.edge_properties.keys()
+        return [ k for k in self.edge_properties.keys() if k[0] >= k[1] ]
 
 
     def has_node(self, node):
