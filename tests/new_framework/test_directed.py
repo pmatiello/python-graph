@@ -1,4 +1,4 @@
-class test_directed( object ):
+class test_directed:
     """
     Tests which apply only to directed graphs
     """
