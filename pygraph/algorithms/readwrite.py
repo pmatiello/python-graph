@@ -31,7 +31,10 @@ Functions for reading and writing graphs.
 
 # Imports
 from xml.dom.minidom import Document, parseString
-import pydot
+try:
+    import pydot
+except:
+    pass
 
 
 # Values

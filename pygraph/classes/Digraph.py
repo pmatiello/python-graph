@@ -55,11 +55,11 @@ class digraph (object):
         """
         Initialize a digraph.
         """
-        self.node_neighbors = {}    # Pairing: Node -> Neighbors
+        self.node_neighbors = {}     # Pairing: Node -> Neighbors
         self.edge_properties = {}    # Pairing: Edge -> (Label, Weight)
-        self.node_incidence = {}    # Pairing: Node -> Incident nodes
-        self.node_attr = {}            # Pairing: Node -> Attributes
-        self.edge_attr = {}            # Pairing: Edge -> Attributes
+        self.node_incidence = {}     # Pairing: Node -> Incident nodes
+        self.node_attr = {}          # Pairing: Node -> Attributes
+        self.edge_attr = {}          # Pairing: Edge -> Attributes
 
 
     def __str__(self):

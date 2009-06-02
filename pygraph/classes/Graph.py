@@ -55,10 +55,10 @@ class graph (object):
         """
         Initialize a graph.
         """
-        self.node_neighbors = {}        # Pairing: Node -> Neighbors
-        self.edge_properties = {}        # Pairing: Edge -> (Label, Weight)
-        self.node_attr = {}                # Pairing: Node -> Attributes
-        self.edge_attr = {}                # Pairing: Edge -> Attributes
+        self.node_neighbors = {}     # Pairing: Node -> Neighbors
+        self.edge_properties = {}    # Pairing: Edge -> (Label, Weight)
+        self.node_attr = {}          # Pairing: Node -> Attributes
+        self.edge_attr = {}          # Pairing: Edge -> Attributes
 
 
     def __str__(self):
