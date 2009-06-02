@@ -158,8 +158,8 @@ class graph (object):
         @param num_edges: Number of edges.
 
         @type  weight_range: tuple
-        @param weight_range: tuple of two integers as lower and upper limits on randomly generated
-        weights (uniform distribution).
+        @param weight_range: tuple of two integers as lower and upper limits on randomly
+        generated weights (uniform distribution).
         """
         generators.generate(self, num_nodes, num_edges, weight_range)
 
@@ -214,8 +214,8 @@ class graph (object):
         """
         Add given node to the graph.
         
-        @attention: While nodes can be of any type, it's strongly recommended to use only numbers
-        and single-line strings as node identifiers if you intend to use write().
+        @attention: While nodes can be of any type, it's strongly recommended to use only
+        numbers and single-line strings as node identifiers if you intend to use write().
 
         @type  node: node
         @param node: Node identifier.
@@ -232,8 +232,8 @@ class graph (object):
         """
         Add given nodes to the graph.
         
-        @attention: While nodes can be of any type, it's strongly recommended to use only numbers
-        and single-line strings as node identifiers if you intend to use write().
+        @attention: While nodes can be of any type, it's strongly recommended to use only
+        numbers and single-line strings as node identifiers if you intend to use write().
 
         @type  nodelist: list
         @param nodelist: List of nodes to be added to the graph.
@@ -615,8 +615,8 @@ class graph (object):
 
     def shortest_path(self, source):
         """
-        Return the shortest path distance between source node and all other nodes using Dijkstra's
-        algorithm.
+        Return the shortest path distance between source node and all other nodes using
+        Dijkstra's algorithm.
         
         @deprecated: This method will be removed in further versions. Use
         L{pygraph.algorithms.minmax.shortest_path} instead.
@@ -688,8 +688,8 @@ class graph (object):
         """
         Find a cycle in the graph.
         
-        This function will return a list of nodes which form a cycle in the graph or an empty list if
-        no cycle exists.
+        This function will return a list of nodes which form a cycle in the graph or an empty
+        list if no cycle exists.
 
         @deprecated: This method will be removed in further versions. Use
         L{pygraph.algorithms.cycles.find_cycle} instead.

@@ -159,8 +159,8 @@ class digraph (object):
         @param num_edges: Number of edges.
 
         @type  weight_range: tuple
-        @param weight_range: tuple of two integers as lower and upper limits on randomly generated
-        weights (uniform distribution).
+        @param weight_range: tuple of two integers as lower and upper limits on randomly
+        generated weights (uniform distribution).
         """
         generators.generate(self, num_nodes, num_edges, weight_range)
 
@@ -229,8 +229,8 @@ class digraph (object):
         """
         Add given node to the graph.
         
-        @attention: While nodes can be of any type, it's strongly recommended to use only numbers
-        and single-line strings as node identifiers if you intend to use write().
+        @attention: While nodes can be of any type, it's strongly recommended to use only
+        numbers and single-line strings as node identifiers if you intend to use write().
 
         @type  node: node
         @param node: Node identifier.
@@ -248,8 +248,8 @@ class digraph (object):
         """
         Add given nodes to the graph.
         
-        @attention: While nodes can be of any type, it's strongly recommended to use only numbers
-        and single-line strings as node identifiers if you intend to use write().
+        @attention: While nodes can be of any type, it's strongly recommended to use only
+        numbers and single-line strings as node identifiers if you intend to use write().
 
         @type  nodelist: list
         @param nodelist: List of nodes to be added to the graph.
