@@ -31,10 +31,6 @@ Functions for reading and writing graphs.
 
 # Imports
 from xml.dom.minidom import Document, parseString
-try:
-    import pydot
-except:
-    pass
 
 
 # Values
@@ -191,6 +187,14 @@ def read_dot_graph(graph, string):
     @type  string: string
     @param string: Input string in dot format specifying a graph.
     """
+    
+    # Lazy import
+    try:
+        import pydot
+    except:
+        print "Error: You must first install the pydot package: http://code.google.com/p/pydot/"
+        return
+    
     dotG = pydot.graph_from_dot_data(string)
     
     # Read nodes...
@@ -238,6 +242,13 @@ def read_dot_hypergraph(hypergraph, string):
     @type  string: string
     @param string: Input string in dot format specifying a graph.
     """
+    # Lazy import
+    try:
+        import pydot
+    except:
+        print "Error: You must first install the pydot package: http://code.google.com/p/pydot/"
+        return
+    
     dotG = pydot.graph_from_dot_data(string)
     
     # Read the hypernode nodes...
@@ -296,6 +307,13 @@ def write_dot_graph(graph, wt, directed = False):
     @rtype:  string
     @return: String specifying the graph in DOT Language.
     """
+    # Lazy import
+    try:
+        import pydot
+    except:
+        print "Error: You must first install the pydot package: http://code.google.com/p/pydot/"
+        return
+
     dotG = pydot.Dot()
     
     if not 'name' in dir(graph):
@@ -363,6 +381,12 @@ def write_dot_hypergraph(hypergraph, colored = False):
     @rtype:  string
     @return: String specifying the hypergraph in DOT Language.
     """
+    # Lazy import
+    try:
+        import pydot
+    except:
+        print "Error: You must first install the pydot package: http://code.google.com/p/pydot/"
+        return
     
     dotG = pydot.Dot()
     
