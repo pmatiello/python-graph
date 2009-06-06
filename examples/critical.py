@@ -8,6 +8,7 @@ sys.path.append('/usr/lib/graphviz/python/')
 sys.path.append('/usr/lib64/graphviz/python/')
 import pygraph
 import gv
+from pygraph.algorithms.critical import transitive_edges, critical_path
 
 #demo of the critical path algorithm and the transitivity detection algorithm
 
@@ -33,5 +34,5 @@ G.add_edge('E','F',1)
 #add this edge to add a cycle
 #G.add_edge('E','A',1)
 
-print G.transitive_edges()
-print G.critical_path()
+print transitive_edges(G)
+print critical_path(G)

@@ -30,6 +30,7 @@ Unittests for graph.algorithms.searching
 # Imports
 import unittest
 import pygraph
+from pygraph.algorithms.searching import depth_first_search, breadth_first_search
 
 
 class test_depth_first_search(unittest.TestCase):
@@ -39,7 +40,7 @@ class test_depth_first_search(unittest.TestCase):
 
     def testEmptyGraph(self):
         G = pygraph.graph()
-        st, pre, post = G.depth_first_search()
+        st, pre, post = depth_first_search(G)
         assert st == {}
         assert pre == []
         assert post == []
@@ -53,7 +54,7 @@ class test_depth_first_search(unittest.TestCase):
         G.add_edge(4, 5)
         G.add_edge(1, 5)
         G.add_edge(3, 5)
-        st, pre, post = G.depth_first_search()
+        st, pre, post = depth_first_search(G)
         assert st == {1: None, 2: 1, 3: 2, 4: 5, 5: 3}
         assert pre == [1, 2, 3, 5, 4]
         assert post == [4, 5, 3, 2, 1]
@@ -61,7 +62,7 @@ class test_depth_first_search(unittest.TestCase):
     def testSanityGraph(self):
         G = pygraph.graph()
         G.generate(100, 500)
-        st, pre, post = G.depth_first_search()
+        st, pre, post = depth_first_search(G)
         for each in G:
             if (st[each] != None):
                 assert pre.index(each) > pre.index(st[each])
@@ -69,7 +70,7 @@ class test_depth_first_search(unittest.TestCase):
 
     def testEmptyDigraph(self):
         G = pygraph.digraph()
-        st, pre, post = G.depth_first_search()
+        st, pre, post = depth_first_search(G)
         assert st == {}
         assert pre == []
         assert post == []
@@ -83,7 +84,7 @@ class test_depth_first_search(unittest.TestCase):
         G.add_edge(4, 5)
         G.add_edge(1, 5)
         G.add_edge(3, 5)
-        st, pre, post = G.depth_first_search()
+        st, pre, post = depth_first_search(G)
         assert st == {1: None, 2: 1, 3: 2, 4: 2, 5: 3}
         assert pre == [1, 2, 3, 5, 4]
         assert post == [5, 3, 4, 2, 1]
@@ -91,7 +92,7 @@ class test_depth_first_search(unittest.TestCase):
     def testSanityDigraph(self):
         G = pygraph.digraph()
         G.generate(100, 500)
-        st, pre, post = G.depth_first_search()
+        st, pre, post = depth_first_search(G)
         for each in G:
             if (st[each] != None):
                 assert pre.index(each) > pre.index(st[each])
@@ -105,7 +106,7 @@ class test_breadth_first_search(unittest.TestCase):
 
     def testEmptyGraph(self):
         G = pygraph.graph()
-        st, lo = G.breadth_first_search()
+        st, lo = breadth_first_search(G)
         assert st == {}
         assert lo == []
     
@@ -118,21 +119,21 @@ class test_breadth_first_search(unittest.TestCase):
         G.add_edge(4, 5)
         G.add_edge(1, 5)
         G.add_edge(3, 5)
-        st, lo = G.breadth_first_search(1)
+        st, lo = breadth_first_search(G, 1)
         assert st == {1: None, 2: 1, 3: 2, 4: 2, 5: 1}
         assert lo == [1, 2, 5, 3, 4]
     
     def testSanityGraph(self):
         G = pygraph.graph()
         G.generate(100, 500)
-        st, lo = G.breadth_first_search()
+        st, lo = breadth_first_search(G)
         for each in G:
             if (st[each] != None):
                 assert lo.index(each) > lo.index(st[each])
 
     def testEmptyDigraph(self):
         G = pygraph.digraph()
-        st, lo = G.breadth_first_search()
+        st, lo = breadth_first_search(G)
         assert st == {}
         assert lo == []
     
@@ -145,14 +146,14 @@ class test_breadth_first_search(unittest.TestCase):
         G.add_edge(4, 5)
         G.add_edge(1, 5)
         G.add_edge(3, 5)
-        st, lo = G.breadth_first_search()
+        st, lo = breadth_first_search(G)
         assert st == {1: None, 2: 1, 3: 2, 4: 2, 5: 1}
         assert lo == [1, 2, 5, 3, 4]
     
     def testSanityDigraph(self):
         G = pygraph.digraph()
         G.generate(100, 500)
-        st, lo = G.breadth_first_search()
+        st, lo = breadth_first_search(G)
         for each in G:
             if (st[each] != None):
                 assert lo.index(each) > lo.index(st[each])

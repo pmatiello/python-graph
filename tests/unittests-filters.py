@@ -30,17 +30,15 @@ Unit tests for python-graph
 # Imports
 import unittest
 import pygraph
+from pygraph.algorithms.searching import depth_first_search, breadth_first_search
 from pygraph.algorithms import filters
 
 
 class test_find_filter(unittest.TestCase):
 
-    def setUp(self):
-        pass
-
     def testEmptyGraphBFS(self):
         G = pygraph.graph()
-        st, lo = G.breadth_first_search(filter=filters.find(5))
+        st, lo = breadth_first_search(G, filter=filters.find(5))
         assert st == {}
         assert lo == []
     
@@ -53,7 +51,7 @@ class test_find_filter(unittest.TestCase):
         G.add_edge(4, 5)
         G.add_edge(1, 5)
         G.add_edge(3, 5)
-        st, lo = G.breadth_first_search(1, filter=filters.find(5))
+        st, lo = breadth_first_search(G, 1, filter=filters.find(5))
         assert st == {1: None, 2: 1, 5: 1}
     
     def testDigraphBFS(self):
@@ -66,12 +64,12 @@ class test_find_filter(unittest.TestCase):
         G.add_edge(5, 1)
         G.add_edge(3, 5)
         G.add_edge(5, 6)
-        st, lo = G.breadth_first_search(1, filter=filters.find(5))
+        st, lo = breadth_first_search(G, 1, filter=filters.find(5))
         assert st == {1: None, 2: 1, 3: 1, 4: 2, 5: 3}
 
     def testEmptyGraphDFS(self):
         G = pygraph.graph()
-        st, pre, post = G.depth_first_search()
+        st, pre, post = depth_first_search(G)
         assert st == {}
         assert pre == []
         assert post == []
@@ -85,9 +83,9 @@ class test_find_filter(unittest.TestCase):
         G.add_edge(4, 5)
         G.add_edge(1, 5)
         G.add_edge(3, 5)
-        st, pre, post = G.depth_first_search(1, filter=filters.find(5))
+        st, pre, post = depth_first_search(G, 1, filter=filters.find(5))
         assert st == {1: None, 2: 1, 3: 2, 5: 3}
-        st, pre, post = G.depth_first_search(1, filter=filters.find(2))
+        st, pre, post = depth_first_search(G, 1, filter=filters.find(2))
         assert st == {1: None, 2: 1}
 
     
@@ -101,7 +99,7 @@ class test_find_filter(unittest.TestCase):
         G.add_edge(5, 1)
         G.add_edge(3, 5)
         G.add_edge(5, 6)
-        st, pre, post = G.depth_first_search(1, filter=filters.find(5))
+        st, pre, post = depth_first_search(G, 1, filter=filters.find(5))
         assert st == {1: None, 2: 1, 3: 4, 4: 2, 5: 3}
 
 
@@ -112,7 +110,7 @@ class test_radius_filter(unittest.TestCase):
 
     def testEmptyGraphBFS(self):
         G = pygraph.graph()
-        st, lo = G.breadth_first_search(filter=filters.radius(2))
+        st, lo = breadth_first_search(G, filter=filters.radius(2))
         assert st == {}
         assert lo == []
     
@@ -128,7 +126,7 @@ class test_radius_filter(unittest.TestCase):
         G.add_edge(1, 8, wt=3)
         G.add_edge(8, 9)
         G.add_edge(3, 9)
-        st, lo = G.breadth_first_search(1, filter=filters.radius(2))
+        st, lo = breadth_first_search(G, 1, filter=filters.radius(2))
         assert st == {1: None, 2: 1, 3: 1, 4: 2, 5: 3, 9: 3}
     
     def testDigraphBFS(self):
@@ -144,14 +142,14 @@ class test_radius_filter(unittest.TestCase):
         G.add_edge(7, 8, wt=3)
         G.add_edge(8, 9)
         G.add_edge(3, 9)
-        st, lo = G.breadth_first_search(1, filter=filters.radius(2))
+        st, lo = breadth_first_search(G, 1, filter=filters.radius(2))
         assert st == {1: None, 2: 1, 3: 1, 4: 2, 5: 3, 9: 3}
-        st, lo = G.breadth_first_search(7, filter=filters.radius(2))
+        st, lo = breadth_first_search(G, 7, filter=filters.radius(2))
         assert st == {7: None}
 
     def testEmptyGraphDFS(self):
         G = pygraph.graph()
-        st, pre, post = G.depth_first_search(filter=filters.radius(2))
+        st, pre, post = depth_first_search(G, filter=filters.radius(2))
         assert st == {}
         assert pre == []
         assert post == []
@@ -168,7 +166,7 @@ class test_radius_filter(unittest.TestCase):
         G.add_edge(1, 8, wt=3)
         G.add_edge(8, 9)
         G.add_edge(3, 9)
-        st, pre, post = G.depth_first_search(1, filter=filters.radius(2))
+        st, pre, post = depth_first_search(G, 1, filter=filters.radius(2))
         assert st == {1: None, 2: 1, 3: 1, 4: 2, 5: 3, 9: 3}
     
     def testDigraphDFS(self):
@@ -184,7 +182,7 @@ class test_radius_filter(unittest.TestCase):
         G.add_edge(7, 8, wt=3)
         G.add_edge(8, 9)
         G.add_edge(3, 9)
-        st, pre, post = G.depth_first_search(1, filter=filters.radius(2))
+        st, pre, post = depth_first_search(G, 1, filter=filters.radius(2))
         assert st == {1: None, 2: 1, 3: 1, 4: 2, 5: 3, 9: 3}
-        st, pre, post = G.depth_first_search(7, filter=filters.radius(2))
+        st, pre, post = depth_first_search(G, 7, filter=filters.radius(2))
         assert st == {7: None}

@@ -9,6 +9,7 @@ import pygraph
 sys.path.append('/usr/lib/graphviz/python/')
 sys.path.append('/usr/lib64/graphviz/python/')
 import gv
+from pygraph.algorithms.searching import breadth_first_search
 
 # Graph creation
 gr = pygraph.graph()
@@ -53,7 +54,7 @@ gv.layout(gvv,'dot')
 gv.render(gvv,'png','europe.png')
 
 # Then, draw the breadth first search spanning tree rooted in Switzerland
-st, order = gr.breadth_first_search(root="Switzerland")
+st, order = breadth_first_search(gr, root="Switzerland")
 gst = pygraph.digraph()
 gst.add_spanning_tree(st)
 

@@ -29,6 +29,7 @@ Unittests for graph.algorithms.sorting
 
 import unittest
 import pygraph
+from pygraph.algorithms.sorting import topological_sorting
 
 
 class test_topological_sorting(unittest.TestCase):
@@ -44,7 +45,7 @@ class test_topological_sorting(unittest.TestCase):
         gr.add_edge(2,6)
         gr.add_edge(3,7)
         gr.add_edge(8,0)
-        ts = gr.topological_sorting()
+        ts = topological_sorting(gr)
         assert ts.index(8) < ts.index(0)
         assert ts.index(1) > ts.index(0)
         assert ts.index(2) > ts.index(0)
@@ -77,7 +78,7 @@ class test_topological_sorting(unittest.TestCase):
         gr.add_edge(4,3)
         gr.add_edge(2,7)
         gr.add_edge(6,0)
-        ts = gr.topological_sorting()
+        ts = topological_sorting(gr)
         while (ts):
             x = ts.pop()
             assert has_parent(x, ts)

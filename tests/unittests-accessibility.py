@@ -30,6 +30,8 @@ Unittests for graph.algorithms.accessibility
 import unittest
 import pygraph
 import time
+from pygraph.algorithms.searching import depth_first_search
+from pygraph.algorithms.accessibility import mutual_accessibility
 
 class test_find_cycle(unittest.TestCase):
 
@@ -51,11 +53,11 @@ class test_find_cycle(unittest.TestCase):
         for each in edges:
             gr.add_edge(each[0], each[1])
         
-        ma = gr.mutual_accessibility()
+        ma = mutual_accessibility(gr)
         for n in gr:
             for m in gr:
                 if (m in ma[n]):
-                    assert m in gr.depth_first_search(n)[0]
-                    assert n in gr.depth_first_search(m)[0]
+                    assert m in depth_first_search(gr, n)[0]
+                    assert n in depth_first_search(gr, m)[0]
                 else:
-                    assert m not in gr.depth_first_search(n)[0] or n not in gr.depth_first_search(m)[0]
+                    assert m not in depth_first_search(gr, n)[0] or n not in depth_first_search(gr, m)[0]

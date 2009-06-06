@@ -30,6 +30,7 @@ Edmond Chow's heuristic for A*.
 
 # Imports
 import warnings
+from pygraph.algorithms.minmax import shortest_path 
 
 
 class chow(object):
@@ -56,7 +57,7 @@ class chow(object):
         @param graph: Graph. 
         """        
         for center in self.centers:
-            shortest_routes = graph.shortest_path(center)[1]
+            shortest_routes = shortest_path(graph, center)[1]
             for node, weight in shortest_routes.items():
                 self.nodes.setdefault(node, []).append(weight)
         

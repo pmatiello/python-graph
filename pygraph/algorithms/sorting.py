@@ -29,6 +29,9 @@ Sorting algorithms.
 """
 
 
+# Imports
+from pygraph.algorithms.searching import depth_first_search
+
 # Topological sorting
 def topological_sorting(graph):
     """
@@ -43,6 +46,6 @@ def topological_sorting(graph):
     @return: Topological sorting for the graph.
     """
     # The topological sorting of a DAG is equivalent to its reverse postordering.
-    tmp, tmp, post = graph.depth_first_search()
+    tmp, tmp, post = depth_first_search(graph)
     post.reverse()
     return post

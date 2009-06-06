@@ -30,6 +30,9 @@ Critical path algorithms and transitivity detection algorithm.
 """
 
 
+# Imports
+from pygraph.algorithms.cycles import find_cycle
+from pygraph.algorithms.sorting import topological_sorting
 
 def _intersection(A,B):
     """
@@ -67,13 +70,13 @@ def transitive_edges(graph):
         contains a cycle) 
     """
     #if the graph contains a cycle we return an empty array
-    if not len(graph.find_cycle()) == 0:
+    if not len(find_cycle(graph)) == 0:
         return []
     
     tranz_edges = [] # create an empty array that will contain all the tuples
     
     #run trough all the nodes in the graph
-    for start in graph.topological_sorting():
+    for start in topological_sorting(graph):
         #find all the successors on the path for the current node
         successors = [] 
         for a in graph.traversal(start):
@@ -105,7 +108,7 @@ def critical_path(graph):
         contains a cycle)
     """
     #if the graph contains a cycle we return an empty array
-    if not len(graph.find_cycle()) == 0:
+    if not len(find_cycle(graph)) == 0:
         return []
     
     #this empty dictionary will contain a tuple for every single node
@@ -114,7 +117,7 @@ def critical_path(graph):
     #(predecessor, cost)
     node_tuples = {}
         
-    topological_nodes = graph.topological_sorting()
+    topological_nodes = topological_sorting(graph)
     
     #all the tuples must be set to a default value for every node in the graph
     for node in topological_nodes: 
