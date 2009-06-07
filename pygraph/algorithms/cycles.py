@@ -29,7 +29,11 @@ Cycle detection algorithms.
 """
 
 
-def find_cycle(graph, directed=False):
+# Imports
+import pygraph
+
+
+def find_cycle(graph):
     """
     Find a cycle in the given graph.
     
@@ -42,6 +46,10 @@ def find_cycle(graph, directed=False):
     @rtype: list
     @return: List of nodes. 
     """
+    
+    directed = False
+    if (type(graph) == pygraph.digraph):
+        directed = True
 
     def find_cycle_to_ancestor(node, ancestor):
         """

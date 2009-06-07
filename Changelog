@@ -8,7 +8,8 @@ CHANGELOG
 Release 1.6.1	[??? ??, 2009]
 
 Important API Changes:
-	Removed methods calling algorithms from graph and digraph classes. 
+	Removed methods calling algorithms from graph and digraph classes;
+	pygraph.algorithms.cycles.find_cycle does not take argument directed anymore. 
 	
 Release 1.6.0	[Jun 06, 2009]
 
