@@ -7,11 +7,9 @@ import sys
 sys.path.append('..')
 import pygraph
 
-gr = pygraph.graph()
-
 inputfile = file('graph.xml','r')
 string = inputfile.read()
 inputfile.close()
 
-gr.read(string)
-print gr.write()
+gr = pygraph.readwrite.markup.read(string)
+print pygraph.readwrite.markup.write(gr)

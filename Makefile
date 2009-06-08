@@ -12,7 +12,7 @@ docs: cleanpyc
 		--url="http://code.google.com/p/python-graph/" \
 		--no-private --html --css misc/epydoc.css -o docs pygraph/*.py \
 		pygraph/algorithms/*py pygraph/algorithms/heuristics/*.py \
-		pygraph/algorithms/filters/* pygraph/classes/*.py
+		pygraph/algorithms/filters/* pygraph/readwrite/* pygraph/classes/*.py
 
 test:
 	./setup.py test

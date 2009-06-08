@@ -45,7 +45,7 @@ class digraph (object):
     del_edge, del_node, edges, edge_attributes, edge_label,
     edge_weight, node_attributes, has_edge, has_node, incidents, inverse,
     neighbors, node_degree, node_order, nodes set_edge_label, set_edge_weight, traversal,
-    generate, read, write
+    generate
     """
 
 
@@ -100,47 +100,6 @@ class digraph (object):
         """
         for each in self.node_neighbors[node]:
             yield each
-
-
-    def read(self, string, fmt='xml'):
-        """
-        Read a graph from a string. Nodes and edges specified in the input will be added to the
-        current graph.
-        
-        @type  string: string
-        @param string: Input string specifying a graph.
-
-        @type  fmt: string
-        @param fmt: Input format. Possible formats are:
-            1. 'xml' - XML (default)
-            2. 'dot' - DOT Language
-        """
-        if (fmt == 'xml'):
-            readwrite.read_xml(self, string)
-        elif (fmt == 'dot'):
-            readwrite.read_dot_graph(self, string)
-
-
-    def write(self, fmt='xml'):
-        """
-        Write the graph to a string. Depending of the output format, this string can be used by
-        read() to rebuild the graph.
-        
-        @type  fmt: string
-        @param fmt: Output format. Possible formats are:
-            1. 'xml' - XML (default)
-            2. 'dot' - DOT Language (for GraphViz)
-            3. 'dotwt' - DOT Language with edge weight information
-
-        @rtype:  string
-        @return: String specifying the graph.
-        """
-        if (fmt == 'xml'):
-            return readwrite.write_xml(self)
-        elif (fmt == 'dot'):
-            return readwrite.write_dot_digraph(self, False)
-        elif (fmt == 'dotwt'):
-            return readwrite.write_dot_digraph(self, True)
 
 
     def generate(self, num_nodes, num_edges, weight_range=(1, 1)):

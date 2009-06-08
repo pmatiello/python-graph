@@ -33,7 +33,7 @@ gr.add_edge("England","Scotland")
 gr.add_edge("Scotland","Wales")
 
 # Print to DOT Language
-dot = gr.write(fmt='dot')
+dot = pygraph.readwrite.dot.write(gr)
 print dot
 
 # Print graph as PNG image

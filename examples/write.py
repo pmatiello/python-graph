@@ -11,7 +11,7 @@ import pygraph
 import gv
 
 # Graph creation
-gr = pygraph.graph()
+gr = pygraph.digraph()
 
 # Add nodes and edges
 gr.add_nodes(["Portugal","Spain","France","Germany","Belgium","Netherlands","Italy"])
@@ -33,4 +33,4 @@ gr.add_edge("England","Scotland")
 gr.add_edge("Scotland","Wales")
 
 # Print to DOT Language
-print gr.write(fmt='xml')
+print pygraph.readwrite.markup.write(gr)
