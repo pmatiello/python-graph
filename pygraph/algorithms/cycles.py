@@ -31,6 +31,7 @@ Cycle detection algorithms.
 
 # Imports
 import pygraph
+from pygraph.classes.Exceptions import GraphError
 
 
 def find_cycle(graph):
@@ -47,9 +48,12 @@ def find_cycle(graph):
     @return: List of nodes. 
     """
     
-    directed = False
-    if (type(graph) == pygraph.digraph):
+    if (type(graph) == pygraph.graph):
+        directed = False
+    elif (type(graph) == pygraph.digraph):
         directed = True
+    else:
+        raise GraphError
 
     def find_cycle_to_ancestor(node, ancestor):
         """
