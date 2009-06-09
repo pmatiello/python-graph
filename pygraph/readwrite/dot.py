@@ -31,7 +31,7 @@ Functions for reading and writing graphs.
 
 # Imports
 import pygraph
-from pygraph.classes.Exceptions import GraphError
+from pygraph.classes.Exceptions import InvalidGraphType
 
 
 # Values
@@ -68,7 +68,7 @@ def read(string):
     elif (dotG.get_type() == "digraph"):
         graph = pygraph.digraph()
     else:
-        raise GraphError
+        raise InvalidGraphType
     
     # Read nodes...
     # Note: If the nodes aren't explicitly listed, they need to be
@@ -184,7 +184,7 @@ def write(graph, weighted=False):
         dotG.set_type('digraph')
         directed = True
     else:
-        raise GraphError
+        raise InvalidGraphType
     
     for node in graph.nodes():
         attr_list = {}

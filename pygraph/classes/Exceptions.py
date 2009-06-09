@@ -32,13 +32,20 @@ class GraphError(RuntimeError):
     """
     A base-class for the various kinds of errors that occur in the the python-graph class.
     """
+    pass
 
 class NodeUnreachable(GraphError):
     """
     Goal could not be reached from start.
     """
-    def __init__( self, start, goal ):
+    def __init__(self, start, goal):
         msg = "Node %s could not be reached from node %s" % ( repr(goal), repr(start) )
-        GraphError.__init__(self, msg)
+        InvalidGraphType.__init__(self, msg)
         self.start = start
         self.goal = goal
+
+class InvalidGraphType(GraphError):
+    """
+    Invalid graph type.
+    """
+    pass

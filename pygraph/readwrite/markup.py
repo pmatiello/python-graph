@@ -32,7 +32,7 @@ Functions for reading and writing graphs.
 # Imports
 from xml.dom.minidom import Document, parseString
 import pygraph
-from pygraph.classes.Exceptions import GraphError
+from pygraph.classes.Exceptions import InvalidGraphType
 
 
 def write(graph):
@@ -53,7 +53,7 @@ def write(graph):
     elif (type(graph) == pygraph.digraph):
         grxmlr = grxml.createElement('digraph')
     else:
-        raise GraphError
+        raise InvalidGraphType
     grxml.appendChild(grxmlr)
 
     # Each node...
@@ -137,7 +137,7 @@ def read(string):
     elif dom.getElementsByTagName("digraph"):
         graph = pygraph.digraph()
     else:
-        raise GraphError
+        raise InvalidGraphType
     
     # Read nodes...
     for each_node in dom.getElementsByTagName("node"):

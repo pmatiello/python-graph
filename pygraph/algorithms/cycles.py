@@ -31,7 +31,7 @@ Cycle detection algorithms.
 
 # Imports
 import pygraph
-from pygraph.classes.Exceptions import GraphError
+from pygraph.classes.Exceptions import InvalidGraphType
 
 
 def find_cycle(graph):
@@ -53,7 +53,7 @@ def find_cycle(graph):
     elif (type(graph) == pygraph.digraph):
         directed = True
     else:
-        raise GraphError
+        raise InvalidGraphType
 
     def find_cycle_to_ancestor(node, ancestor):
         """
