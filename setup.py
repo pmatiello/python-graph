@@ -39,7 +39,7 @@ else:    # Other systems
 setup(
         name = appname,
         version = appversion,
-        packages = ['pygraph', 'pygraph.algorithms', 'pygraph.algorithms.filters', 'pygraph.algorithms.heuristics', 'pygraph.classes'],
+        packages = ['pygraph', 'pygraph.algorithms', 'pygraph.algorithms.filters', 'pygraph.algorithms.heuristics', 'pygraph.classes', 'pygraph.readwrite'],
         data_files = [(docsdir,docsfiles),
                        (datadir,datafiles)],
         install_requires = ['pydot'],
