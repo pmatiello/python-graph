@@ -60,7 +60,7 @@ def transitive_edges(graph):
     Example of transitivity within graphs: A -> B, B -> C, A ->  C
     in this case the transitive edge is: A -> C
     
-    @attention: this function is only meaningful for directed acyclic graphs
+    @attention: This function is only meaningful for directed acyclic graphs.
     
     @type graph: digraph
     @param graph: Digraph
@@ -98,7 +98,7 @@ def critical_path(graph):
     """
     Compute and return the critical path in an acyclic directed weighted graph.
     
-    @attention: this function is only meaningful for directed weighted acyclic graphs
+    @attention: This function is only meaningful for directed weighted acyclic graphs
     
     @type graph: digraph 
     @param graph: Digraph

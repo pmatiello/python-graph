@@ -41,7 +41,7 @@ def minimal_spanning_tree(graph, root=None):
     """
     Minimal spanning tree.
 
-    @attention: Minimal spanning tree meaningful only for weighted graphs.
+    @attention: Minimal spanning tree is meaningful only for weighted graphs.
 
     @type  graph: graph
     @param graph: Graph.
@@ -129,11 +129,12 @@ def _lightest_edge(graph, visited):
 
 def shortest_path(graph, source):
     """
-    Return the shortest path distance between source and all other nodes using Dijkstra's algorithm.
+    Return the shortest path distance between source and all other nodes using Dijkstra's
+    algorithm.
     
     @attention: All weights must be nonnegative.
 
-    @type  graph: graph
+    @type  graph: graph, digraph
     @param graph: Graph.
 
     @type  source: node
@@ -180,7 +181,7 @@ def heuristic_search(graph, start, goal, heuristic):
     A set of heuristics is available under C{graph.heuristics}. User-created heuristics are
     allowed too.
     
-    @type graph: graph
+    @type graph: graph, digraph
     @param graph: Graph
     
     @type start: node
@@ -245,4 +246,4 @@ def heuristic_search(graph, start, goal, heuristic):
 def _reconstruct_path(node, parents):
     while node is not None:
         yield node
-        node = parents[ node ]
+        node = parents[node]

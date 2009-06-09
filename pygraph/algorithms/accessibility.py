@@ -35,7 +35,7 @@ def accessibility(graph):
     """
     Accessibility matrix (transitive closure).
 
-    @type  graph: graph
+    @type  graph: graph, digraph
     @param graph: Graph.
 
     @rtype:  dictionary
@@ -58,7 +58,7 @@ def mutual_accessibility(graph):
     """
     Mutual-accessibility matrix (strongly connected components).
 
-    @type  graph: graph
+    @type  graph: graph, digraph
     @param graph: Graph.
 
     @rtype:  dictionary
@@ -102,9 +102,10 @@ def connected_components(graph):
     """
     Connected components.
 
-    @attention: Indentification of connected components is meaningful only for non-directed graphs.
+    @attention: Indentification of connected components is meaningful only for non-directed
+    graphs.
 
-    @type  graph: graph
+    @type  graph: digraph
     @param graph: Graph.
 
     @rtype:  dictionary
@@ -113,7 +114,8 @@ def connected_components(graph):
     visited = {}
     count = 1
 
-    # For 'each' node not found to belong to a connected component, find its connected component.
+    # For 'each' node not found to belong to a connected component, find its connected
+    # component.
     for each in graph:
         if (each not in visited):
             _dfs(graph, visited, count, each)
@@ -128,7 +130,7 @@ def _dfs(graph, visited, count, node):
     """
     Depht-first search subfunction adapted for accessibility algorithms.
     
-    @type  graph: graph
+    @type  graph: graph, digraph
     @param graph: Graph.
 
     @type  visited: dictionary
@@ -153,6 +155,9 @@ def cut_edges(graph):
     """
     Return the cut-edges of the given graph.
     
+    @type  graph: graph, digraph
+    @param graph: Graph.
+    
     @rtype:  list
     @return: List of cut-edges.
     """
@@ -173,6 +178,9 @@ def cut_nodes(graph):
     """
     Return the cut-nodes of the given graph.
     
+    @type  graph: graph, digraph
+    @param graph: Graph.
+        
     @rtype:  list
     @return: List of cut-nodes.
     """
@@ -213,7 +221,7 @@ def _cut_dfs(graph, spanning_tree, pre, low, reply, node):
     """
     Depth first search adapted for identification of cut-edges and cut-nodes.
     
-    @type  graph: graph
+    @type  graph: graph, digraph
     @param graph: Graph
     
     @type  spanning_tree: dictionary

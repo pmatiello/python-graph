@@ -39,7 +39,7 @@ def topological_sorting(graph):
 
     @attention: Topological sorting is meaningful only for directed acyclic graphs.
 
-    @type  graph: graph
+    @type  graph: digraph
     @param graph: Graph.
 
     @rtype:  list

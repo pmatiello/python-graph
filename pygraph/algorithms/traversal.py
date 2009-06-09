@@ -35,6 +35,9 @@ def traversal(graph, node, order):
     """
     Graph traversal iterator.
 
+    @type  graph: graph, digraph
+    @param graph: Graph.
+    
     @type  node: node
     @param node: Node.
     
@@ -62,7 +65,7 @@ def _dfs(graph, visited, node, pre, post):
     """
     Depht-first search subfunction for traversals.
     
-    @type  graph: graph
+    @type  graph: graph, digraph
     @param graph: Graph.
 
     @type  visited: dictionary

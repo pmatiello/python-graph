@@ -41,7 +41,7 @@ def find_cycle(graph):
     This function will return a list of nodes which form a cycle in the graph or an empty list if
     no cycle exists.
     
-    @type graph: graph
+    @type graph: graph, digraph
     @param graph: Graph.
     
     @rtype: list

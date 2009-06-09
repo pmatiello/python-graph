@@ -41,7 +41,7 @@ def generate(graph, num_nodes, num_edges, weight_range=(1, 1)):
     """
     Add nodes and random edges to the graph.
     
-    @type  graph: graph
+    @type  graph: graph, digraph
     @param graph: Graph.
     
     @type  num_nodes: number

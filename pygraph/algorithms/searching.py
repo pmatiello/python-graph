@@ -39,7 +39,7 @@ def depth_first_search(graph, root=None, filter=filters.null()):
     """
     Depth-first search.
 
-    @type  graph: graph
+    @type  graph: graph, digraph
     @param graph: Graph.
     
     @type  root: node
@@ -95,7 +95,7 @@ def breadth_first_search(graph, root=None, filter=filters.null()):
     """
     Breadth-first search.
 
-    @type  graph: graph
+    @type  graph: graph, digraph
     @param graph: Graph.
 
     @type  root: node
