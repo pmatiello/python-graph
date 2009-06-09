@@ -23,7 +23,7 @@
 
 
 """
-Functions for reading and writing graphs.
+Functions for reading and writing graphs in a XML markup.
 
 @sort: read, write, read_hypergraph, write_hypergraph
 """

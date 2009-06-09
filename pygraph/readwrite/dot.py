@@ -23,7 +23,7 @@
 
 
 """
-Functions for reading and writing graphs.
+Functions for reading and writing graphs in Dot language.
 
 @sort: read, write, read_hypergraph, write_hypergraph
 """
@@ -44,11 +44,11 @@ colors = ['aquamarine4', 'blue4', 'brown4', 'cornflowerblue', 'cyan4',
 
 def read(string):
     """
-    Read a graph from a string in dot format and return it. Nodes and edges specified in the
+    Read a graph from a string in Dot language and return it. Nodes and edges specified in the
     input will be added to the current graph.
     
     @type  string: string
-    @param string: Input string in dot format specifying a graph.
+    @param string: Input string in Dot format specifying a graph.
     
     @rtype: graph
     @return: Graph
@@ -152,16 +152,16 @@ def read_hypergraph(hypergraph, string):
     
 def write(graph, weighted=False):
     """
-    Return a string specifying the given graph in DOT Language.
+    Return a string specifying the given graph in Dot language.
     
     @type  graph: graph
     @param graph: Graph.
 
     @type  weighted: boolean
-    @param weighted: Whether edges should be labelled with its weight.
+    @param weighted: Whether edges should be labelled with their weight.
     
     @rtype:  string
-    @return: String specifying the graph in DOT Language.
+    @return: String specifying the graph in Dot Language.
     """
     # Lazy import
     try:

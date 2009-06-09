@@ -23,7 +23,7 @@
 
 
 """
-python-graph
+B{python-graph}
 
 A library for working with graphs in Python.
 
