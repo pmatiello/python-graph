@@ -29,7 +29,9 @@ Hypergraph class
 
 
 # Imports
-from Graph import *
+from pygraph.classes.Graph import graph
+from pygraph.algorithms import *
+from pygraph import readwrite
 
 
 class hypergraph (object):
@@ -88,9 +90,9 @@ class hypergraph (object):
             2. 'dot' - Dot
         """
         if (fmt == 'xml'):
-            readwrite.read_xml_hypergraph(self, string)
+            readwrite.markup.read_hypergraph(self, string)
         elif (fmt == 'dot'):
-            readwrite.read_dot_hypergraph(self, string)
+            readwrite.dot.read_hypergraph(self, string)
 
 
     def write(self, fmt='xml'):
@@ -108,11 +110,11 @@ class hypergraph (object):
         @return: String specifying the graph.
         """
         if (fmt == 'xml'):
-            return readwrite.write_xml_hypergraph(self)
+            return readwrite.markup.write_hypergraph(self)
         elif (fmt == 'dot'):
-            return readwrite.write_dot_hypergraph(self)
+            return readwrite.dot.write_hypergraph(self)
         elif (fmt == 'dotclr'):
-            return readwrite.write_dot_hypergraph(self, colored=True)
+            return readwrite.dot.write_hypergraph(self, colored=True)
     
 
     def nodes(self):
