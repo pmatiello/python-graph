@@ -4,24 +4,31 @@ import logging
 
 from pygraph.classes.Graph import graph
 from pygraph.classes.Digraph import digraph
+from pygraph.classes.Hypergraph import hypergraph
 
 from test_directed import test_directed
 from test_undirected import test_undirected
 from test_common import test_common
+from test_equivalence import test_equivalence
 
 log = logging.getLogger( __name__ )
 
+
+# Which sizes of objects should we consider. 
 GRAPH_NODES = { "trivial":1,
                 "really_small":2,
                 "tiny":10,
-                "big":100,
-                "huge":250 
+                #"big":100,
+                #"huge":250 
                 }
 
 GRAPH_EDGES = GRAPH_NODES
 
-GRAPH_TYPES = { "graph":( graph, ( test_undirected, test_common )),
-                "digraph": (digraph, ( test_directed, test_common )), }
+# Define which families of tests are appropriate for each graph type.
+GRAPH_TYPES = { "graph":( graph, ( test_equivalence, test_undirected, test_common )),
+                "digraph": (digraph, ( test_equivalence, test_directed, test_common )),
+                #"hypergraph": (hypergraph, ( test_equivalence, test_undirected, test_common )) 
+                }
 
 if __name__ == "__main__":
     logging.basicConfig()
