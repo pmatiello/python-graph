@@ -142,3 +142,28 @@ class testGraph(unittest.TestCase):
         gr.add_node(0)
         gr.add_edge(0, 0)
         gr.del_node(0)
+        
+    def testTrivalEquality0(self):
+        gr1 = pygraph.graph()
+        gr2 = pygraph.graph()
+        assert gr1 == gr2, "All zero node graphs should be equivalent to each other."
+    
+    def testTrivalEquality1(self):
+        gr1 = pygraph.graph()
+        gr1.add_node(0)
+        gr2 = pygraph.graph()
+        gr2.add_node(0)
+        assert gr1 == gr2, "All one node graphs should be equivalent to each other."
+    
+    def testTrivalEquality2(self):
+        gr1 = pygraph.graph()
+        gr1.add_node(0)
+        gr1.add_node(1)
+        gr1.add_edge(0,1)
+        gr2 = pygraph.graph()
+        gr2.add_node(0)
+        gr2.add_node(1)
+        gr2.add_edge(0,1)
+        assert gr1 == gr2, "Two identically constructed graphs should be equivalent to each other."
+    
+    
