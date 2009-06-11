@@ -70,7 +70,7 @@ for size_name, order in GRAPH_NODES.iteritems():
                 del new_test_class
         
 if __name__ == "__main__":
-    
+    logging.getLogger("").setLevel( logging.INFO )
     tr = unittest.TextTestRunner( verbosity=2 )
     result = tr.run( suite )
     print repr(result)
