@@ -10,6 +10,7 @@ sys.path.append('/usr/lib/graphviz/python/')
 sys.path.append('/usr/lib64/graphviz/python/')
 import gv
 from pygraph.algorithms.searching import breadth_first_search
+from pygraph.readwrite.dot import write
 
 # Graph creation
 gr = pygraph.graph()
@@ -48,7 +49,7 @@ gr.add_edge("Czech Republic","Germany")
 gr.add_edge("Slovakia","Hungary")
 
 # Draw as PNG
-dot = gr.write(fmt='dot')
+dot = write(gr)
 gvv = gv.readstring(dot)
 gv.layout(gvv,'dot')
 gv.render(gvv,'png','europe.png')
@@ -58,7 +59,7 @@ st, order = breadth_first_search(gr, root="Switzerland")
 gst = pygraph.digraph()
 gst.add_spanning_tree(st)
 
-dot = gst.write(fmt='dot')
+dot = write(gr)
 gvv = gv.readstring(dot)
 
 gv.layout(gvv,'dot')

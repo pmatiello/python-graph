@@ -4,10 +4,7 @@
 
 import sys
 sys.path.append('..')
-sys.path.append('/usr/lib/graphviz/python/')
-sys.path.append('/usr/lib64/graphviz/python/')
 import pygraph
-import gv
 from pygraph.algorithms.critical import transitive_edges, critical_path
 
 #demo of the critical path algorithm and the transitivity detection algorithm
