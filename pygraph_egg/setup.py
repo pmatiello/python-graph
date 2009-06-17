@@ -39,10 +39,9 @@ else:    # Other systems
 setup(
         name = appname,
         version = appversion,
-        packages = ['pygraph', 'pygraph.algorithms', 'pygraph.algorithms.filters', 'pygraph.algorithms.heuristics', 'pygraph.classes', 'pygraph.readwrite'],
+        packages = find_packages("pygraph"),
         data_files = [(docsdir,docsfiles),
                        (datadir,datafiles)],
-        install_requires = ['pydot'],
         author = "Pedro Matiello",
         author_email = "pmatiello@gmail.com",
         description = "A library for working with graphs in Python",
@@ -53,3 +52,5 @@ setup(
         long_description = "python-graph is a library for working with graphs in Python. This software provides a suitable data structure for representing graphs and a whole set of important algorithms.",
         test_suite = "tests",
 )
+
+
