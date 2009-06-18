@@ -1,2 +1,0 @@
-Initialized merge tracking via "svnmerge" with revisions "1-440" from 
-https://python-graph.googlecode.com/svn/trunk

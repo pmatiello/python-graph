@@ -39,7 +39,8 @@ else:    # Other systems
 setup(
         name = appname,
         version = appversion,
-        packages = find_packages("pygraph"),
+        packages = find_packages('src'),
+        package_dir = {'':'src'},
         data_files = [(docsdir,docsfiles),
                        (datadir,datafiles)],
         author = "Pedro Matiello",
