@@ -31,7 +31,7 @@ Hypergraph class
 # Imports
 from pygraph.classes.Graph import graph
 from pygraph.algorithms import *
-from pygraph import readwrite
+#from pygraph import readwrite
 
 
 class hypergraph (object):
@@ -95,26 +95,26 @@ class hypergraph (object):
             readwrite.dot.read_hypergraph(self, string)
 
 
-    def write(self, fmt='xml'):
-        """
-        Write the hypergraph to a string. Depending of the output format, this string can be used by
-        read() to rebuild the graph.
-        
-        @type  fmt: string
-        @param fmt: Output format. Possible formats are:
-            1. 'xml' - XML (default)
-            2. 'dot' - DOT Language (for GraphViz)
-            3. 'dotclr' - DOT Language, colored
-
-        @rtype:  string
-        @return: String specifying the graph.
-        """
-        if (fmt == 'xml'):
-            return readwrite.markup.write_hypergraph(self)
-        elif (fmt == 'dot'):
-            return readwrite.dot.write_hypergraph(self)
-        elif (fmt == 'dotclr'):
-            return readwrite.dot.write_hypergraph(self, colored=True)
+#    def write(self, fmt='xml'):
+#        """
+#        Write the hypergraph to a string. Depending of the output format, this string can be used by
+#        read() to rebuild the graph.
+#        
+#        @type  fmt: string
+#        @param fmt: Output format. Possible formats are:
+#            1. 'xml' - XML (default)
+#            2. 'dot' - DOT Language (for GraphViz)
+#            3. 'dotclr' - DOT Language, colored
+#
+#        @rtype:  string
+#        @return: String specifying the graph.
+#        """
+#        if (fmt == 'xml'):
+#            return readwrite.markup.write_hypergraph(self)
+#        elif (fmt == 'dot'):
+#            return readwrite.dot.write_hypergraph(self)
+#        elif (fmt == 'dotclr'):
+#            return readwrite.dot.write_hypergraph(self, colored=True)
     
 
     def nodes(self):
