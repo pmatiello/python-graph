@@ -28,6 +28,3 @@ Algorithms
 This subpackage contains a set of modules, each one of them containing some algorithms.
 In most cases, you won't need to access it directly.
 """
-
-import pygraph.readwrite.dot
-import pygraph.readwrite.markup

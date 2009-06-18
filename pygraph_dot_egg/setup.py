@@ -16,7 +16,7 @@ appname = "python-graph"
 appversion = "1.6.1"
 
 setup(
-        name = "%s_dot" % appname,
+        name = "%s-dot" % appname,
         version = appversion,
         namespace_packages = ["pygraph"],
         packages = ['pygraph'],
