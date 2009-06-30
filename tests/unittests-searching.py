@@ -51,7 +51,7 @@ class test_depth_first_search(unittest.TestCase):
                 assert pre.index(each) > pre.index(st[each])
                 assert post.index(each) < post.index(st[each])
         for node in st:
-            print gr.has_edge(st[node], node)
+            assert gr.has_edge(st[node], node) or st[node] == None
 
     def test_dfs_in_empty_digraph(self):
         gr = pygraph.digraph()
@@ -68,7 +68,7 @@ class test_depth_first_search(unittest.TestCase):
                 assert pre.index(each) > pre.index(st[each])
                 assert post.index(each) < post.index(st[each])
         for node in st:
-            print gr.has_edge(st[node], node)
+            assert gr.has_edge(st[node], node) or st[node] == None
 
 
 class test_breadth_first_search(unittest.TestCase):
@@ -87,7 +87,7 @@ class test_breadth_first_search(unittest.TestCase):
             if (st[each] != None):
                 assert lo.index(each) > lo.index(st[each])
         for node in st:
-            print gr.has_edge(st[node], node)
+            assert gr.has_edge(st[node], node) or st[node] == None
 
     def test_bfs_in_empty_digraph(self):
         gr = pygraph.digraph()
@@ -102,4 +102,4 @@ class test_breadth_first_search(unittest.TestCase):
             if (st[each] != None):
                 assert lo.index(each) > lo.index(st[each])
         for node in st:
-            print gr.has_edge(st[node], node)
+            assert gr.has_edge(st[node], node) or st[node] == None
