@@ -37,21 +37,28 @@ from time import time
 
 # Configuration
 random_seed = int(time())
-num_nodes = 30
-num_edges = 100
+num_nodes = { 'small': 25,
+              'medium': 100,
+              'big': 200
+             } 
+num_edges = { 'small': 100,
+              'medium': 500,
+              'big': 2000
+             }
+defaultsize='small'
 
 # Init
 print
-print "-------------------------"
+print "--------------------------------------------------"
 print "python-graph unit-testing"
 print "Random seed: %s" % random_seed
-print "-------------------------"
+print "--------------------------------------------------"
 print
 
-def new_graph():
+def new_graph(size=defaultsize):
     seed(random_seed)
-    return generate(num_nodes, num_edges)
+    return generate(num_nodes[size], num_edges[size])
 
-def new_digraph():
+def new_digraph(size=defaultsize):
     seed(random_seed)
-    return generate(num_nodes, num_edges, directed=True)
+    return generate(num_nodes[size], num_edges[size], directed=True)
