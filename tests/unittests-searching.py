@@ -31,129 +31,75 @@ Unittests for graph.algorithms.searching
 import unittest
 import pygraph
 from pygraph.algorithms.searching import depth_first_search, breadth_first_search
+import testlib
 
 
 class test_depth_first_search(unittest.TestCase):
 
-    def setUp(self):
-        pass
-
-    def testEmptyGraph(self):
-        G = pygraph.graph()
-        st, pre, post = depth_first_search(G)
+    def test_dfs_in_empty_graph(self):
+        gr = pygraph.graph()
+        st, pre, post = depth_first_search(gr)
         assert st == {}
         assert pre == []
         assert post == []
     
-    def testGraph(self):
-        G = pygraph.graph()
-        G.add_nodes([1, 2, 3, 4, 5])
-        G.add_edge(1, 2)
-        G.add_edge(2, 3)
-        G.add_edge(2, 4)
-        G.add_edge(4, 5)
-        G.add_edge(1, 5)
-        G.add_edge(3, 5)
-        st, pre, post = depth_first_search(G)
-        assert st == {1: None, 2: 1, 3: 2, 4: 5, 5: 3}
-        assert pre == [1, 2, 3, 5, 4]
-        assert post == [4, 5, 3, 2, 1]
-    
-    def testSanityGraph(self):
-        G = pygraph.graph()
-        G.generate(100, 500)
-        st, pre, post = depth_first_search(G)
-        for each in G:
+    def test_dfs_in_graph(self):
+        gr = testlib.new_graph()
+        st, pre, post = depth_first_search(gr)
+        for each in gr:
             if (st[each] != None):
                 assert pre.index(each) > pre.index(st[each])
                 assert post.index(each) < post.index(st[each])
+        for node in st:
+            print gr.has_edge(st[node], node)
 
-    def testEmptyDigraph(self):
-        G = pygraph.digraph()
-        st, pre, post = depth_first_search(G)
+    def test_dfs_in_empty_digraph(self):
+        gr = pygraph.digraph()
+        st, pre, post = depth_first_search(gr)
         assert st == {}
         assert pre == []
         assert post == []
     
-    def testDigraph(self):
-        G = pygraph.digraph()
-        G.add_nodes([1, 2, 3, 4, 5])
-        G.add_edge(1, 2)
-        G.add_edge(2, 3)
-        G.add_edge(2, 4)
-        G.add_edge(4, 5)
-        G.add_edge(1, 5)
-        G.add_edge(3, 5)
-        st, pre, post = depth_first_search(G)
-        assert st == {1: None, 2: 1, 3: 2, 4: 2, 5: 3}
-        assert pre == [1, 2, 3, 5, 4]
-        assert post == [5, 3, 4, 2, 1]
-    
-    def testSanityDigraph(self):
-        G = pygraph.digraph()
-        G.generate(100, 500)
-        st, pre, post = depth_first_search(G)
-        for each in G:
+    def test_dfs_in_digraph(self):
+        gr = testlib.new_digraph()
+        st, pre, post = depth_first_search(gr)
+        for each in gr:
             if (st[each] != None):
                 assert pre.index(each) > pre.index(st[each])
                 assert post.index(each) < post.index(st[each])
+        for node in st:
+            print gr.has_edge(st[node], node)
 
 
 class test_breadth_first_search(unittest.TestCase):
 
-    def setUp(self):
-        pass
-
-    def testEmptyGraph(self):
-        G = pygraph.graph()
-        st, lo = breadth_first_search(G)
+    def test_bfs_in_empty_graph(self):
+        gr = pygraph.graph()
+        st, lo = breadth_first_search(gr)
         assert st == {}
         assert lo == []
     
-    def testGraph(self):
-        G = pygraph.graph()
-        G.add_nodes([1, 2, 3, 4, 5])
-        G.add_edge(1, 2)
-        G.add_edge(2, 3)
-        G.add_edge(2, 4)
-        G.add_edge(4, 5)
-        G.add_edge(1, 5)
-        G.add_edge(3, 5)
-        st, lo = breadth_first_search(G, 1)
-        assert st == {1: None, 2: 1, 3: 2, 4: 2, 5: 1}
-        assert lo == [1, 2, 5, 3, 4]
-    
-    def testSanityGraph(self):
-        G = pygraph.graph()
-        G.generate(100, 500)
-        st, lo = breadth_first_search(G)
-        for each in G:
+    def test_bfs_in_graph(self):
+        gr = pygraph.graph()
+        gr = testlib.new_digraph()
+        st, lo = breadth_first_search(gr)
+        for each in gr:
             if (st[each] != None):
                 assert lo.index(each) > lo.index(st[each])
+        for node in st:
+            print gr.has_edge(st[node], node)
 
-    def testEmptyDigraph(self):
-        G = pygraph.digraph()
-        st, lo = breadth_first_search(G)
+    def test_bfs_in_empty_digraph(self):
+        gr = pygraph.digraph()
+        st, lo = breadth_first_search(gr)
         assert st == {}
         assert lo == []
     
-    def testDigraph(self):
-        G = pygraph.digraph()
-        G.add_nodes([1, 2, 3, 4, 5])
-        G.add_edge(1, 2)
-        G.add_edge(2, 3)
-        G.add_edge(2, 4)
-        G.add_edge(4, 5)
-        G.add_edge(1, 5)
-        G.add_edge(3, 5)
-        st, lo = breadth_first_search(G)
-        assert st == {1: None, 2: 1, 3: 2, 4: 2, 5: 1}
-        assert lo == [1, 2, 5, 3, 4]
-    
-    def testSanityDigraph(self):
-        G = pygraph.digraph()
-        G.generate(100, 500)
-        st, lo = breadth_first_search(G)
-        for each in G:
+    def test_bfs_in_digraph(self):
+        gr = testlib.new_digraph()
+        st, lo = breadth_first_search(gr)
+        for each in gr:
             if (st[each] != None):
                 assert lo.index(each) > lo.index(st[each])
+        for node in st:
+            print gr.has_edge(st[node], node)
