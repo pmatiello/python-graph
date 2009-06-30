@@ -37,15 +37,18 @@ from time import time
 
 # Configuration
 random_seed = int(time())
-num_nodes = { 'small': 25,
-              'medium': 100,
-              'big': 200
+num_nodes = { 'tiny': 10,
+              'small': 25,
+              'medium': 50,
+              'big': 100
              } 
-num_edges = { 'small': 100,
-              'medium': 500,
-              'big': 2000
+num_edges = { 'tiny': 18,
+              'small': 120,
+              'medium': 490,
+              'big': 1980
              }
-defaultsize='small'
+sizes = ['tiny', 'small', 'medium', 'big']
+use_size = 'small'
 
 # Init
 print
@@ -55,10 +58,10 @@ print "Random seed: %s" % random_seed
 print "--------------------------------------------------"
 print
 
-def new_graph(size=defaultsize):
+def new_graph():
     seed(random_seed)
-    return generate(num_nodes[size], num_edges[size])
+    return generate(num_nodes[use_size], num_edges[use_size])
 
-def new_digraph(size=defaultsize):
+def new_digraph():
     seed(random_seed)
-    return generate(num_nodes[size], num_edges[size], directed=True)
+    return generate(num_nodes[use_size], num_edges[use_size], directed=True)
