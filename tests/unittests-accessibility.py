@@ -29,29 +29,17 @@ Unittests for graph.algorithms.accessibility
 
 import unittest
 import pygraph
-import time
 from pygraph.algorithms.searching import depth_first_search
 from pygraph.algorithms.accessibility import mutual_accessibility
+import testlib
 
 class test_find_cycle(unittest.TestCase):
 
     def setUp(self):
         pass
 
-    def testDigraph(self):
-        gr = pygraph.digraph()
-        gr.add_nodes(xrange(25))
-        edges = [(13, 22), (18, 0), (17, 8), (15, 13), (13, 19), (21, 2),
-                 (3, 11), (11, 23), (4, 22), (4, 2), (3, 22), (23, 7), (12, 2),
-                 (6, 7), (7, 15), (0, 15), (20, 21), (22, 16), (19, 14),
-                 (22, 14), (7, 19), (0, 11), (9, 11), (12, 17), (15, 4),
-                 (6, 15), (24, 10), (4, 10), (11, 4), (8, 2), (1, 23), (9, 22),
-                 (10, 13), (5, 24), (4, 16), (23, 5), (6, 23), (11, 15), (22, 11),
-                 (6, 12), (15, 14), (12, 22), (17, 4), (17, 9), (9, 13), (8, 3),
-                 (21, 15), (24, 7), (1, 12), (4, 1), (11, 22), (0, 13), (18, 7),
-                 (24, 3), (21, 10), (6, 13), (8, 22), (13, 9), (3, 4), (12, 8)]
-        for each in edges:
-            gr.add_edge(each[0], each[1])
+    def test_mutual_accessibility_in_digraph(self):
+        gr = testlib.new_digraph()
         
         ma = mutual_accessibility(gr)
         for n in gr:
