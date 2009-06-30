@@ -31,35 +31,36 @@ import unittest
 import pygraph
 from pygraph.algorithms.generators import generate
 import testlib
-import copy
+from copy import copy
 
-class testGraph(unittest.TestCase):
+class test_graph(unittest.TestCase):
 
-    def setUp(self):
-        pass
-
-    def testRandomGraph(self):
-        gr = generate(100, 500)
-        self.assertEqual(gr.nodes(),range(100))
-        self.assertEqual(len(gr.edges()), 500*2)
-        for each, other in gr.edges():
-            self.assertTrue(each in gr)
-            self.assertTrue(other in gr)
+    # Remove nodes and edges
     
-    def testRandomEmptyGraph(self):
-        gr = generate(0,0)
-        self.assertTrue(gr.nodes() == [])
-        self.assertTrue(gr.edges() == [])
-    
-    def testNodeRemoval(self):
+    def test_remove_node(self):
         gr = testlib.new_graph()
         gr.del_node(0)
         self.assertTrue(0 not in gr)
         for each, other in gr.edges():
             self.assertTrue(each in gr)
             self.assertTrue(other in gr)
+    
+    def test_remove_edge_from_node_to_same_node(self):
+        gr = pygraph.graph()
+        gr.add_node(0)
+        gr.add_edge(0, 0)
+        gr.del_edge(0, 0)
+    
+    def test_remove_node_with_edge_to_itself(self):
+        gr = pygraph.graph()
+        gr.add_node(0)
+        gr.add_edge(0, 0)
+        gr.del_node(0)
 
-    def testGraphInverse(self):
+    
+    # Invert graph
+    
+    def test_invert_graph(self):
         gr = testlib.new_graph()
         inv = gr.inverse()
         for each in gr.edges():
@@ -67,13 +68,16 @@ class testGraph(unittest.TestCase):
         for each in inv.edges():
             self.assertTrue(each not in gr.edges())
     
-    def testEmptyGraphInverse(self):
+    def test_invert_empty_graph(self):
         gr = pygraph.graph()
         inv = gr.inverse()
         self.assertTrue(gr.nodes() == [])
         self.assertTrue(gr.edges() == [])
     
-    def testGraphComplete(self):
+    
+    # Complete graph
+    
+    def test_complete_graph(self):
         gr = pygraph.graph()
         gr.add_nodes(xrange(10))
         gr.complete()
@@ -81,20 +85,23 @@ class testGraph(unittest.TestCase):
             for j in range(10):
                 self.assertTrue((i, j) in gr.edges() or i == j)
     
-    def testEmptyGraphComplete(self):
+    def test_complete_empty_graph(self):
         gr = pygraph.graph()
         gr.complete()
         self.assertTrue(gr.nodes() == [])
         self.assertTrue(gr.edges() == [])
     
-    def testGraphWithOneNodeComplete(self):
+    def test_complete_graph_with_one_node(self):
         gr = pygraph.graph()
         gr.add_node(0)
         gr.complete()
         self.assertTrue(gr.nodes() == [0])
         self.assertTrue(gr.edges() == [])
     
-    def testAddGraph(self):
+    
+    # Add graph
+    
+    def test_add_graph(self):
         gr1 = testlib.new_graph()
         gr2 = testlib.new_graph()
         gr1.add_graph(gr2)
@@ -103,15 +110,18 @@ class testGraph(unittest.TestCase):
         for each in gr2.edges():
             self.assertTrue(each in gr1.edges())
     
-    def testAddEmptyGraph(self):
+    def test_add_empty_graph(self):
         gr1 = testlib.new_graph()
-        gr1c = copy.copy(gr1)
+        gr1c = copy(gr1)
         gr2 = pygraph.graph()
         gr1.add_graph(gr2)
         self.assertTrue(gr1.nodes() == gr1c.nodes())
         self.assertTrue(gr1.edges() == gr1c.edges())
     
-    def testAddSpanningTree(self):
+    
+    # Add spanning tree
+    
+    def test_add_spanning_tree(self):
         gr = pygraph.graph()
         st = {0: None, 1: 0, 2:0, 3: 1, 4: 2, 5: 3}
         gr.add_spanning_tree(st)
@@ -119,44 +129,29 @@ class testGraph(unittest.TestCase):
             self.assertTrue((each, st[each]) in gr.edges() or (each, st[each]) == (0, None))
             self.assertTrue((st[each], each) in gr.edges() or (each, st[each]) == (0, None))
 
-    def testAddEmptySpanningTree(self):
+    def test_add_empty_spanning_tree(self):
         gr = pygraph.graph()
         st = {}
         gr.add_spanning_tree(st)
         self.assertTrue(gr.nodes() == [])
         self.assertTrue(gr.edges() == [])
-    
-    def testEdgeToItselfRemoval(self):
-        gr = pygraph.graph()
-        gr.add_node(0)
-        gr.add_edge(0, 0)
-        gr.del_edge(0, 0)
-    
-    def testNodeWithEdgeToItselfRemoval(self):
-        gr = pygraph.graph()
-        gr.add_node(0)
-        gr.add_edge(0, 0)
-        gr.del_node(0)
+
+
+    # Equality
         
-    def testTrivalEquality0(self):
+    def test_equality_empty(self):
         gr1 = pygraph.graph()
         gr2 = pygraph.graph()
-        assert gr1 == gr2, "All zero node graphs should be equivalent to each other."
+        assert gr1 == gr2
     
-    def testTrivalEquality1(self):
+    def test_equality_trivial(self):
         gr1 = pygraph.graph()
         gr1.add_node(0)
         gr2 = pygraph.graph()
         gr2.add_node(0)
-        assert gr1 == gr2, "All one node graphs should be equivalent to each other."
+        assert gr1 == gr2
     
-    def testTrivalEquality2(self):
-        gr1 = pygraph.graph()
-        gr1.add_node(0)
-        gr1.add_node(1)
-        gr1.add_edge(0,1)
-        gr2 = pygraph.graph()
-        gr2.add_node(0)
-        gr2.add_node(1)
-        gr2.add_edge(0,1)
-        assert gr1 == gr2, "Two identically constructed graphs should be equivalent to each other."
+    def test_equality(self):
+        gr1 = testlib.new_graph()
+        gr2 = copy(gr1)
+        assert gr1 == gr2

@@ -41,7 +41,12 @@ num_nodes = 30
 num_edges = 100
 
 # Init
-print "Using random seed %s" % random_seed
+print
+print "-------------------------"
+print "python-graph unit-testing"
+print "Random seed: %s" % random_seed
+print "-------------------------"
+print
 
 def new_graph():
     seed(random_seed)
