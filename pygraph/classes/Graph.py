@@ -101,23 +101,6 @@ class graph (object):
             yield each
 
     
-    def __eq__(self, other):
-        """
-        Compare two graphs.
-        
-        @type other: graph 
-        @param other: Other graph.
-        
-        @rtype: bool
-        @return: Whether the graphs are equal.
-        """
-        return (type(self) == type(other)
-                and self.node_neighbors == other.node_neighbors
-                and self.node_attr == other.node_attr
-                and self.edge_properties == other.edge_properties
-                and self.edge_attr == other.edge_attr)
-    
-
     def nodes(self):
         """
         Return node list.

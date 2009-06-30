@@ -135,23 +135,3 @@ class test_graph(unittest.TestCase):
         gr.add_spanning_tree(st)
         self.assertTrue(gr.nodes() == [])
         self.assertTrue(gr.edges() == [])
-
-
-    # Equality
-        
-    def test_equality_empty(self):
-        gr1 = pygraph.graph()
-        gr2 = pygraph.graph()
-        assert gr1 == gr2
-    
-    def test_equality_trivial(self):
-        gr1 = pygraph.graph()
-        gr1.add_node(0)
-        gr2 = pygraph.graph()
-        gr2.add_node(0)
-        assert gr1 == gr2
-    
-    def test_equality(self):
-        gr1 = testlib.new_graph()
-        gr2 = copy(gr1)
-        assert gr1 == gr2
