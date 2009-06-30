@@ -7,6 +7,9 @@ CHANGELOG
 
 Release 1.6.1	[??? ??, 2009]
 
+Enhancements:
+	Graphs and digraphs are comparable for equality now.
+
 Important API Changes:
 	Removed methods calling algorithms from graph and digraph classes;
 	pygraph.algorithms.cycles.find_cycle does not take argument directed anymore;
