@@ -29,6 +29,7 @@ Unittests for graph.classes.Digraph
 
 import unittest
 import pygraph
+from pygraph.algorithms.generators import generate
 import copy
 
 class testGraph(unittest.TestCase):
@@ -37,8 +38,7 @@ class testGraph(unittest.TestCase):
         pass
 
     def testRandomGraph(self):
-        gr = pygraph.digraph()
-        gr.generate(100, 500)
+        gr = generate(100, 500, directed=True)
         self.assertEqual(gr.nodes(),range(100))
         self.assertEqual(len(gr.edges()), 500)
         for each, other in gr.edges():
@@ -46,14 +46,12 @@ class testGraph(unittest.TestCase):
             self.assertTrue(other in gr)
     
     def testRandomEmptyGraph(self):
-        gr = pygraph.digraph()
-        gr.generate(0,0)
+        gr = generate(0,0, directed=True)
         self.assertTrue(gr.nodes() == [])
         self.assertTrue(gr.edges() == [])
     
     def testNodeRemoval(self):
-        gr = pygraph.digraph()
-        gr.generate(10, 90)
+        gr = generate(10, 90, directed=True)
         gr.del_node(0)
         self.assertTrue(0 not in gr)
         for each, other in gr.edges():
@@ -61,8 +59,7 @@ class testGraph(unittest.TestCase):
             self.assertTrue(other in gr)
 
     def testGraphInverse(self):
-        gr = pygraph.digraph()
-        gr.generate(50, 300)
+        gr = generate(50, 300, directed=True)
         inv = gr.inverse()
         for each in gr.edges():
             self.assertTrue(each not in inv.edges())
@@ -97,10 +94,8 @@ class testGraph(unittest.TestCase):
         self.assertTrue(gr.edges() == [])
     
     def testAddGraph(self):
-        gr1 = pygraph.digraph()
-        gr1.generate(25, 100)
-        gr2 = pygraph.digraph()
-        gr2.generate(40, 200)
+        gr1 = generate(25, 100, directed=True)
+        gr2 = generate(40, 200)
         gr1.add_graph(gr2)
         for each in gr2.nodes():
             self.assertTrue(each in gr1)
@@ -108,8 +103,7 @@ class testGraph(unittest.TestCase):
             self.assertTrue(each in gr1.edges())
     
     def testAddEmptyGraph(self):
-        gr1 = pygraph.digraph()
-        gr1.generate(25, 100)
+        gr1 = generate(25, 100, directed=True)
         gr1c = copy.copy(gr1)
         gr2 = pygraph.digraph()
         gr1.add_graph(gr2)

@@ -13,7 +13,7 @@ Enhancements:
 Important API Changes:
 	Removed methods calling algorithms from graph and digraph classes;
 	pygraph.algorithms.cycles.find_cycle does not take argument directed anymore;
-	Removed methods read and write from graph and digraph classes;
+	Removed methods read, write and generate from graph and digraph classes;
 	Functions for writing and reading graphs now in pygraph algorithms.
 	
 Release 1.6.0	[Jun 06, 2009]

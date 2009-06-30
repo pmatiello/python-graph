@@ -44,8 +44,7 @@ class digraph (object):
     add_graph, add_node, add_node_attribute, add_nodes, add_spanning_tree, complete, 
     del_edge, del_node, edges, edge_attributes, edge_label,
     edge_weight, node_attributes, has_edge, has_node, incidents, inverse,
-    neighbors, node_degree, node_order, nodes set_edge_label, set_edge_weight, traversal,
-    generate
+    neighbors, node_degree, node_order, nodes set_edge_label, set_edge_weight, traversal
     """
 
 
@@ -118,26 +117,6 @@ class digraph (object):
                 and self.node_attr == other.node_attr
                 and self.edge_properties == other.edge_properties
                 and self.edge_attr == other.edge_attr)
-    
-    
-    def generate(self, num_nodes, num_edges, weight_range=(1, 1)):
-        """
-        Add nodes and random edges to the graph.
-
-        @deprecated: This method will be removed in further versions. Use
-        L{pygraph.algorithms.generators.generate} instead.
-        
-        @type  num_nodes: number
-        @param num_nodes: Number of nodes.
-        
-        @type  num_edges: number
-        @param num_edges: Number of edges.
-
-        @type  weight_range: tuple
-        @param weight_range: tuple of two integers as lower and upper limits on randomly
-        generated weights (uniform distribution).
-        """
-        generators.generate(self, num_nodes, num_edges, weight_range)
 
 
     def nodes(self):

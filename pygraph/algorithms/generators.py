@@ -31,35 +31,39 @@ Random graph generators.
 
 
 # Imports
-import pygraph as classes
+from pygraph.classes.Graph import graph
+from pygraph.classes.Digraph import digraph
 from random import randint
 
 
 # Generator
 
-def generate(graph, num_nodes, num_edges, weight_range=(1, 1)):
+def generate(num_nodes, num_edges, directed=False, weight_range=(1, 1)):
     """
-    Add nodes and random edges to the graph.
-    
-    @type  graph: graph, digraph
-    @param graph: Graph.
+    Create a random graph.
     
     @type  num_nodes: number
     @param num_nodes: Number of nodes.
     
     @type  num_edges: number
     @param num_edges: Number of edges.
+    
+    @type  directed: bool
+    @param directed: Whether the generated graph should be directed or not.  
 
     @type  weight_range: tuple
     @param weight_range: tuple of two integers as lower and upper limits on randomly generated
     weights (uniform distribution).
     """
-    # Discover if graph is directed or not
-    directed = (type(graph) == classes.digraph)
-
-    # Nodes first
+    # Graph creation
+    if directed:
+        random_graph = digraph()
+    else:
+        random_graph = graph()
+    
+    # Nodes
     nodes = xrange(num_nodes)
-    graph.add_nodes(nodes)
+    random_graph.add_nodes(nodes)
     
     # Build a list of all possible edges
     edges = []
@@ -79,4 +83,6 @@ def generate(graph, num_nodes, num_edges, weight_range=(1, 1)):
         max_wt = max(weight_range)
     for i in xrange(num_edges):
         each = edges[i]
-        graph.add_edge(each[0], each[1], wt = randint(min_wt, max_wt))
+        random_graph.add_edge(each[0], each[1], wt = randint(min_wt, max_wt))
+
+    return random_graph
