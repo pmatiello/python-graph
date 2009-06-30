@@ -15,7 +15,7 @@ docs: cleanpyc
 		pygraph/algorithms/filters/* pygraph/readwrite/* pygraph/classes/*.py
 
 test:
-	./setup.py test
+	cd tests && python testrunner.py
 
 cleanpyc:
 	rm -f pygraph/*.pyc
