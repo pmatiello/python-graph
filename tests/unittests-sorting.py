@@ -30,55 +30,46 @@ Unittests for graph.algorithms.sorting
 import unittest
 import pygraph
 from pygraph.algorithms.sorting import topological_sorting
+from pygraph.algorithms.searching import depth_first_search
+from pygraph.readwrite.dot import write
+import testlib
 
 
 class test_topological_sorting(unittest.TestCase):
 
-    def testTree(self):
-        gr = pygraph.digraph()
-        gr.add_nodes([0,1,2,3,4,5,6,7,8])
-        gr.add_edge(0,1)
-        gr.add_edge(0,2)
-        gr.add_edge(1,3)
-        gr.add_edge(1,4)
-        gr.add_edge(2,5)
-        gr.add_edge(2,6)
-        gr.add_edge(3,7)
-        gr.add_edge(8,0)
-        ts = topological_sorting(gr)
-        assert ts.index(8) < ts.index(0)
-        assert ts.index(1) > ts.index(0)
-        assert ts.index(2) > ts.index(0)
-        assert ts.index(3) > ts.index(1)
-        assert ts.index(4) > ts.index(1)
-        assert ts.index(5) > ts.index(2)
-        assert ts.index(6) > ts.index(2)
-        assert ts.index(7) > ts.index(3)
-    
-    def testDigraph(self):
+    def test_topological_sorting_on_tree(self):
+        gr = testlib.new_graph()
+        st, pre, post = depth_first_search(gr)
+        tree = pygraph.digraph()
         
-        def has_parent(node, list):
+        for each in st:
+            if st[each]:
+                tree.add_node(each)
+                tree.add_node(st[each])
+                tree.add_edge(st[each], each)
+        
+        ts = topological_sorting(tree)
+        for each in ts:
+            if (st[each]):
+                assert ts.index(each) > ts.index(st[each])
+    
+    def test_topological_sorting_on_digraph(self):
+        
+        def is_ordered(node, list):
+            # Has parent on list
             for each in list:
                 if gr.has_edge(each, node):
                     return True
-            return (ts == [])
+            # Has no possible ancestors on list
+            st, pre, post = depth_first_search(gr, node)
+            for each in list:
+                if (each in st):
+                    return False
+            return True
             
-        gr = pygraph.digraph()
-        gr.add_nodes([0,1,2,3,4,5,6,7,8])
-        gr.add_edge(0,1)
-        gr.add_edge(0,2)
-        gr.add_edge(1,3)
-        gr.add_edge(1,4)
-        gr.add_edge(2,5)
-        gr.add_edge(2,6)
-        gr.add_edge(3,7)
-        gr.add_edge(8,0)
-        gr.add_edge(7,5)
-        gr.add_edge(3,0)
-        gr.add_edge(4,3)
-        gr.add_edge(2,7)
-        gr.add_edge(6,0)
+        gr = testlib.new_digraph()
         ts = topological_sorting(gr)
+        
         while (ts):
             x = ts.pop()
-            assert has_parent(x, ts)
+            assert is_ordered(x, ts)
