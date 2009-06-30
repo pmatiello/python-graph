@@ -30,6 +30,7 @@ Unittests for graph.classes.Digraph
 import unittest
 import pygraph
 from pygraph.algorithms.generators import generate
+import testlib
 import copy
 
 class testGraph(unittest.TestCase):
@@ -51,7 +52,7 @@ class testGraph(unittest.TestCase):
         self.assertTrue(gr.edges() == [])
     
     def testNodeRemoval(self):
-        gr = generate(10, 90, directed=True)
+        gr = testlib.new_digraph()
         gr.del_node(0)
         self.assertTrue(0 not in gr)
         for each, other in gr.edges():
@@ -59,7 +60,7 @@ class testGraph(unittest.TestCase):
             self.assertTrue(other in gr)
 
     def testGraphInverse(self):
-        gr = generate(50, 300, directed=True)
+        gr = testlib.new_digraph()
         inv = gr.inverse()
         for each in gr.edges():
             self.assertTrue(each not in inv.edges())
@@ -93,9 +94,9 @@ class testGraph(unittest.TestCase):
         self.assertTrue(gr.nodes() == [0])
         self.assertTrue(gr.edges() == [])
     
-    def testAddGraph(self):
-        gr1 = generate(25, 100, directed=True)
-        gr2 = generate(40, 200)
+    def testAddDigraph(self):
+        gr1 = testlib.new_digraph()
+        gr2 = testlib.new_digraph()
         gr1.add_graph(gr2)
         for each in gr2.nodes():
             self.assertTrue(each in gr1)
@@ -103,7 +104,7 @@ class testGraph(unittest.TestCase):
             self.assertTrue(each in gr1.edges())
     
     def testAddEmptyGraph(self):
-        gr1 = generate(25, 100, directed=True)
+        gr1 = testlib.new_digraph()
         gr1c = copy.copy(gr1)
         gr2 = pygraph.digraph()
         gr1.add_graph(gr2)
@@ -123,8 +124,3 @@ class testGraph(unittest.TestCase):
         gr.add_spanning_tree(st)
         self.assertTrue(gr.nodes() == [])
         self.assertTrue(gr.edges() == [])
-        
-
-# Run tests
-if __name__ == '__main__':
-    unittest.main()

@@ -30,6 +30,7 @@ Unittests for graph.classes.Graph
 import unittest
 import pygraph
 from pygraph.algorithms.generators import generate
+import testlib
 import copy
 
 class testGraph(unittest.TestCase):
@@ -51,7 +52,7 @@ class testGraph(unittest.TestCase):
         self.assertTrue(gr.edges() == [])
     
     def testNodeRemoval(self):
-        gr = generate(10, 30)
+        gr = testlib.new_graph()
         gr.del_node(0)
         self.assertTrue(0 not in gr)
         for each, other in gr.edges():
@@ -59,8 +60,7 @@ class testGraph(unittest.TestCase):
             self.assertTrue(other in gr)
 
     def testGraphInverse(self):
-        gr = pygraph.graph()
-        gr = generate(50, 300)
+        gr = testlib.new_graph()
         inv = gr.inverse()
         for each in gr.edges():
             self.assertTrue(each not in inv.edges())
@@ -95,8 +95,8 @@ class testGraph(unittest.TestCase):
         self.assertTrue(gr.edges() == [])
     
     def testAddGraph(self):
-        gr1 = generate(25, 100)
-        gr2 = generate(40, 200)
+        gr1 = testlib.new_graph()
+        gr2 = testlib.new_graph()
         gr1.add_graph(gr2)
         for each in gr2.nodes():
             self.assertTrue(each in gr1)
@@ -104,7 +104,7 @@ class testGraph(unittest.TestCase):
             self.assertTrue(each in gr1.edges())
     
     def testAddEmptyGraph(self):
-        gr1 = generate(25, 100)
+        gr1 = testlib.new_graph()
         gr1c = copy.copy(gr1)
         gr2 = pygraph.graph()
         gr1.add_graph(gr2)
@@ -160,5 +160,3 @@ class testGraph(unittest.TestCase):
         gr2.add_node(1)
         gr2.add_edge(0,1)
         assert gr1 == gr2, "Two identically constructed graphs should be equivalent to each other."
-    
-    
