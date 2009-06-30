@@ -30,60 +30,58 @@ Unittests for graph.algorithms.cycles
 import unittest
 import pygraph
 from pygraph.algorithms.cycles import find_cycle
+from pygraph.algorithms.searching import depth_first_search
+import testlib
 
+
+def verify_cycle(graph, cycle):
+    for i in xrange(len(cycle)):
+        assert graph.has_edge(cycle[i],cycle[(i+1)%len(cycle)])
 
 class test_find_cycle(unittest.TestCase):
 
-    def testGraph(self):
-        G = pygraph.graph()
-        G.add_nodes([1, 2, 3, 4, 5])
-        G.add_edge(1, 2)
-        G.add_edge(2, 3)
-        G.add_edge(2, 4)
-        G.add_edge(4, 5)
-        G.add_edge(1, 5)
-        G.add_edge(3, 5)
-        # Cycles: 1-2-4-5, 3-2-4-5 and 1-2-3-5
-        assert find_cycle(G) == [2,3,5,4]
-
-    def testNoCycleGraph(self):
-        G = pygraph.graph()
-        G.add_nodes([1,2,3])
-        G.add_edge(1, 2)
-        G.add_edge(1, 3)
-        assert find_cycle(G) == []
-
-    def testDigraph(self):
-        G = pygraph.digraph()
-        G.add_nodes([1, 2, 3, 4, 5])
-        G.add_edge(1, 2)
-        G.add_edge(2, 3)
-        G.add_edge(2, 4)
-        G.add_edge(4, 5)
-        G.add_edge(5, 1)
-        # Cycle: 1-2-4-5
-        assert find_cycle(G) == [1,2,4,5]
+    # Graph
     
-    def testNoCycleDigraph(self):
-        G = pygraph.digraph()
-        G.add_nodes([1, 2, 3, 4, 5])
-        G.add_edge(1, 2)
-        G.add_edge(2, 3)
-        G.add_edge(2, 4)
-        G.add_edge(4, 5)
-        G.add_edge(3, 5)
-        assert find_cycle(G) == []
-    
-    def testNoCycleDigraph2(self):
-        G = pygraph.digraph()
-        G.add_nodes([1,2,3])
-        G.add_edge(1,2)
-        G.add_edge(1,3)
-        G.add_edge(2,3)
-        assert find_cycle(G) == []
-    
+    def test_find_cycle_on_graph(self):
+        gr = testlib.new_graph()
+        cycle = find_cycle(gr)
+        verify_cycle(gr, cycle)
 
-    def testMisleadingDigraph(self):
+    def test_find_cycle_on_graph_withot_cycles(self):
+        gr = testlib.new_graph()
+        st, pre, post = depth_first_search(gr)
+        gr = pygraph.graph()
+        gr.add_spanning_tree(st)
+        assert find_cycle(gr) == []
+
+    # Digraph
+    
+    def test_find_cycle_on_digraph(self):
+        gr = testlib.new_digraph()
+        cycle = find_cycle(gr)
+        verify_cycle(gr, cycle)
+    
+    def test_find_cycle_on_digraph_without_cycles(self):
+        gr = testlib.new_digraph()
+        st, pre, post = depth_first_search(gr)
+        gr = pygraph.digraph()
+        gr.add_spanning_tree(st)
+        assert find_cycle(gr) == []
+    
+    def test_find_small_cycle_on_digraph(self):
+        gr = pygraph.digraph()
+        gr.add_nodes([1, 2, 3, 4, 5])
+        gr.add_edge(1, 2)
+        gr.add_edge(2, 3)
+        gr.add_edge(2, 4)
+        gr.add_edge(4, 5)
+        gr.add_edge(2, 1)
+        # Cycle: 1-2
+        assert find_cycle(gr) == [1,2]
+
+    # Regression
+    
+    def test_regression1(self):
         G = pygraph.digraph()
         G.add_nodes([1, 2, 3, 4, 5])
         G.add_edge(1, 2)
@@ -93,14 +91,3 @@ class test_find_cycle(unittest.TestCase):
         G.add_edge(3, 5)
         G.add_edge(3, 1)
         assert find_cycle(G) == [1, 2, 3]
-    
-    def testSmallCycleDigraph(self):
-        G = pygraph.digraph()
-        G.add_nodes([1, 2, 3, 4, 5])
-        G.add_edge(1, 2)
-        G.add_edge(2, 3)
-        G.add_edge(2, 4)
-        G.add_edge(4, 5)
-        G.add_edge(2, 1)
-        # Cycle: 1-2
-        assert find_cycle(G) == [1,2]

@@ -50,7 +50,7 @@ defaultsize='small'
 # Init
 print
 print "--------------------------------------------------"
-print "python-graph unit-testing"
+print "python-graph unit-tests"
 print "Random seed: %s" % random_seed
 print "--------------------------------------------------"
 print
