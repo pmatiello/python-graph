@@ -32,157 +32,103 @@ import unittest
 import pygraph
 from pygraph.algorithms.searching import depth_first_search, breadth_first_search
 from pygraph.algorithms import filters
+import testlib
 
 
 class test_find_filter(unittest.TestCase):
 
-    def testEmptyGraphBFS(self):
-        G = pygraph.graph()
-        st, lo = breadth_first_search(G, filter=filters.find(5))
+    def test_bfs_in_empty_graph(self):
+        gr = pygraph.graph()
+        st, lo = breadth_first_search(gr, filter=filters.find(5))
         assert st == {}
         assert lo == []
     
-    def testGraphBFS(self):
-        G = pygraph.graph()
-        G.add_nodes([1, 2, 3, 4, 5])
-        G.add_edge(1, 2)
-        G.add_edge(2, 3)
-        G.add_edge(2, 4)
-        G.add_edge(4, 5)
-        G.add_edge(1, 5)
-        G.add_edge(3, 5)
-        st, lo = breadth_first_search(G, 1, filter=filters.find(5))
-        assert st == {1: None, 2: 1, 5: 1}
+    def test_bfs_in_graph(self):
+        gr = testlib.new_graph()
+        gr.add_node('find-me')
+        gr.add_edge(0, 'find-me')
+        st, lo = breadth_first_search(gr, root=0, filter=filters.find('find-me'))
+        assert st['find-me'] == 0
+        for each in st:
+            assert st[each] == None or st[each] == 0 or st[st[each]] == 0
     
-    def testDigraphBFS(self):
-        G = pygraph.digraph()
-        G.add_nodes([1, 2, 3, 4, 5, 6])
-        G.add_edge(1, 2)
-        G.add_edge(1, 3)
-        G.add_edge(2, 4)
-        G.add_edge(4, 3)
-        G.add_edge(5, 1)
-        G.add_edge(3, 5)
-        G.add_edge(5, 6)
-        st, lo = breadth_first_search(G, 1, filter=filters.find(5))
-        assert st == {1: None, 2: 1, 3: 1, 4: 2, 5: 3}
-
-    def testEmptyGraphDFS(self):
-        G = pygraph.graph()
-        st, pre, post = depth_first_search(G)
+    def test_bfs_in_digraph(self):
+        gr = testlib.new_digraph()
+        gr.add_node('find-me')
+        gr.add_edge(0, 'find-me')
+        st, lo = breadth_first_search(gr, root=0, filter=filters.find('find-me'))
+        assert st['find-me'] == 0
+        print st
+        for each in st:
+            assert st[each] == None or st[each] == 0 or st[st[each]] == 0
+    
+    def test_dfs_in_empty_graph(self):
+        gr = pygraph.graph()
+        st, pre, post = depth_first_search(gr)
         assert st == {}
         assert pre == []
         assert post == []
     
-    def testGraphDFS(self):
-        G = pygraph.graph()
-        G.add_nodes([1, 2, 3, 4, 5])
-        G.add_edge(1, 2)
-        G.add_edge(2, 3)
-        G.add_edge(2, 4)
-        G.add_edge(4, 5)
-        G.add_edge(1, 5)
-        G.add_edge(3, 5)
-        st, pre, post = depth_first_search(G, 1, filter=filters.find(5))
-        assert st == {1: None, 2: 1, 3: 2, 5: 3}
-        st, pre, post = depth_first_search(G, 1, filter=filters.find(2))
-        assert st == {1: None, 2: 1}
-
+    def test_dfs_in_graph(self):
+        gr = testlib.new_graph()
+        gr.add_node('find-me')
+        gr.add_node('dont-find-me')
+        gr.add_edge(0, 'find-me')
+        gr.add_edge('find-me','dont-find-me')
+        st, pre, post = depth_first_search(gr, root=0, filter=filters.find('find-me'))
+        assert st['find-me'] == 0
+        assert 'dont-find-me' not in st
     
-    def testDigraphDFS(self):
-        G = pygraph.digraph()
-        G.add_nodes([1, 2, 3, 4, 5, 6])
-        G.add_edge(1, 2)
-        G.add_edge(1, 3)
-        G.add_edge(2, 4)
-        G.add_edge(4, 3)
-        G.add_edge(5, 1)
-        G.add_edge(3, 5)
-        G.add_edge(5, 6)
-        st, pre, post = depth_first_search(G, 1, filter=filters.find(5))
-        assert st == {1: None, 2: 1, 3: 4, 4: 2, 5: 3}
+    def test_dfs_in_digraph(self):
+        gr = testlib.new_digraph()
+        gr.add_node('find-me')
+        gr.add_node('dont-find-me')
+        gr.add_edge(0, 'find-me')
+        gr.add_edge('find-me','dont-find-me')
+        st, pre, post = depth_first_search(gr, root=0, filter=filters.find('find-me'))
+        assert st['find-me'] == 0
+        assert 'dont-find-me' not in st
 
 
 class test_radius_filter(unittest.TestCase):
 
-    def setUp(self):
-        pass
-
-    def testEmptyGraphBFS(self):
-        G = pygraph.graph()
-        st, lo = breadth_first_search(G, filter=filters.radius(2))
+    def testbfs_in_empty_graph(self):
+        gr = pygraph.graph()
+        st, lo = breadth_first_search(gr, filter=filters.radius(2))
         assert st == {}
         assert lo == []
     
-    def testGraphBFS(self):
-        G = pygraph.graph()
-        G.add_nodes([1, 2, 3, 4, 5, 6, 7, 8, 9])
-        G.add_edge(1, 2)
-        G.add_edge(1, 3)
-        G.add_edge(2, 4)
-        G.add_edge(3, 5)
-        G.add_edge(4, 6)
-        G.add_edge(5, 7)
-        G.add_edge(1, 8, wt=3)
-        G.add_edge(8, 9)
-        G.add_edge(3, 9)
-        st, lo = breadth_first_search(G, 1, filter=filters.radius(2))
-        assert st == {1: None, 2: 1, 3: 1, 4: 2, 5: 3, 9: 3}
+    def test_bfs_in_graph(self):
+        gr = testlib.new_graph()
+        st, lo = breadth_first_search(gr, root=0, filter=filters.radius(3))
+        for each in st:
+            assert (st[each] == None or st[each] == 0
+                    or st[st[each]] == 0 or st[st[st[each]]] == 0)
     
-    def testDigraphBFS(self):
-        G = pygraph.digraph()
-        G.add_nodes([1, 2, 3, 4, 5, 6, 7, 8, 9])
-        G.add_edge(1, 2)
-        G.add_edge(1, 3)
-        G.add_edge(2, 4)
-        G.add_edge(3, 5)
-        G.add_edge(4, 6)
-        G.add_edge(5, 7)
-        G.add_edge(1, 8, wt=3)
-        G.add_edge(7, 8, wt=3)
-        G.add_edge(8, 9)
-        G.add_edge(3, 9)
-        st, lo = breadth_first_search(G, 1, filter=filters.radius(2))
-        assert st == {1: None, 2: 1, 3: 1, 4: 2, 5: 3, 9: 3}
-        st, lo = breadth_first_search(G, 7, filter=filters.radius(2))
-        assert st == {7: None}
+    def test_bfs_in_digraph(self):
+        gr = testlib.new_digraph()
+        st, lo = breadth_first_search(gr, root=0, filter=filters.radius(3))
+        for each in st:
+            assert (st[each] == None or st[each] == 0
+                    or st[st[each]] == 0 or st[st[st[each]]] == 0)
 
-    def testEmptyGraphDFS(self):
-        G = pygraph.graph()
-        st, pre, post = depth_first_search(G, filter=filters.radius(2))
+    def test_dfs_in_empty_graph(self):
+        gr = pygraph.graph()
+        st, pre, post = depth_first_search(gr, filter=filters.radius(2))
         assert st == {}
         assert pre == []
         assert post == []
     
-    def testGraphDFS(self):
-        G = pygraph.graph()
-        G.add_nodes([1, 2, 3, 4, 5, 6, 7, 8, 9])
-        G.add_edge(1, 2)
-        G.add_edge(1, 3)
-        G.add_edge(2, 4)
-        G.add_edge(3, 5)
-        G.add_edge(4, 6)
-        G.add_edge(5, 7)
-        G.add_edge(1, 8, wt=3)
-        G.add_edge(8, 9)
-        G.add_edge(3, 9)
-        st, pre, post = depth_first_search(G, 1, filter=filters.radius(2))
-        assert st == {1: None, 2: 1, 3: 1, 4: 2, 5: 3, 9: 3}
+    def test_dfs_in_graph(self):
+        gr = testlib.new_graph()
+        st, pre, post = depth_first_search(gr, root=0, filter=filters.radius(3))
+        for each in st:
+            assert (st[each] == None or st[each] == 0
+                    or st[st[each]] == 0 or st[st[st[each]]] == 0)
     
-    def testDigraphDFS(self):
-        G = pygraph.digraph()
-        G.add_nodes([1, 2, 3, 4, 5, 6, 7, 8, 9])
-        G.add_edge(1, 2)
-        G.add_edge(1, 3)
-        G.add_edge(2, 4)
-        G.add_edge(3, 5)
-        G.add_edge(4, 6)
-        G.add_edge(5, 7)
-        G.add_edge(1, 8, wt=3)
-        G.add_edge(7, 8, wt=3)
-        G.add_edge(8, 9)
-        G.add_edge(3, 9)
-        st, pre, post = depth_first_search(G, 1, filter=filters.radius(2))
-        assert st == {1: None, 2: 1, 3: 1, 4: 2, 5: 3, 9: 3}
-        st, pre, post = depth_first_search(G, 7, filter=filters.radius(2))
-        assert st == {7: None}
+    def test_dfs_in_digraph(self):
+        gr = testlib.new_graph()
+        st, pre, post = depth_first_search(gr, root=0, filter=filters.radius(3))
+        for each in st:
+            assert (st[each] == None or st[each] == 0
+                    or st[st[each]] == 0 or st[st[st[each]]] == 0)
