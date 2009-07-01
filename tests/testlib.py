@@ -31,6 +31,7 @@ Helper functions for unit-tests.
 from pygraph.algorithms.generators import generate
 from random import seed
 from time import time
+from sys import argv
 
 # Configuration
 random_seed = int(time())
@@ -48,12 +49,13 @@ sizes = ['tiny', 'small', 'medium', 'big']
 use_size = 'small'
 
 # Init
-print
-print "--------------------------------------------------"
-print "python-graph unit-tests"
-print "Random seed: %s" % random_seed
-print "--------------------------------------------------"
-print
+try:
+    if (argv[0] != 'testrunner.py'):
+        print
+        print "Random seed: %s" % random_seed
+except:
+    pass
+
 
 def new_graph():
     seed(random_seed)

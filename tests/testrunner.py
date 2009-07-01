@@ -54,4 +54,15 @@ def run_tests():
         del suite
        
 if __name__ == "__main__":
+    try:
+        rseed = sys.argv[1]
+        testlib.random_seed = int(rseed)
+    except:
+        pass
+    print
+    print "--------------------------------------------------"
+    print "python-graph unit-tests"
+    print "Random seed: %s" % testlib.random_seed
+    print "--------------------------------------------------"
+    print
     run_tests()
