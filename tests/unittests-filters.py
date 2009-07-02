@@ -58,7 +58,6 @@ class test_find_filter(unittest.TestCase):
         gr.add_edge(0, 'find-me')
         st, lo = breadth_first_search(gr, root=0, filter=filters.find('find-me'))
         assert st['find-me'] == 0
-        print st
         for each in st:
             assert st[each] == None or st[each] == 0 or st[st[each]] == 0
     
