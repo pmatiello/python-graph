@@ -75,6 +75,21 @@ class test_digraph(unittest.TestCase):
         self.assertTrue(gr.edges() == [])
     
     
+    # Reverse graph
+    def test_reverse_digraph(self):
+        gr = testlib.new_digraph()
+        rev = gr.reverse()
+        for (u, v) in gr.edges():
+            self.assertTrue((v, u) in rev.edges())
+        for (u, v) in rev.edges():
+            self.assertTrue((v, u) in gr.edges())
+    
+    def test_invert_empty_digraph(self):
+        gr = pygraph.digraph()
+        rev = gr.reverse()
+        self.assertTrue(rev.nodes() == [])
+        self.assertTrue(rev.edges() == [])
+    
     # Complete graph
     
     def test_complete_digraph(self):

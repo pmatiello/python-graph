@@ -161,7 +161,7 @@ class digraph (object):
         return self.node_neighbors.has_key(node)
 
 
-    def add_node(self, node, attrs=[]):
+    def add_node(self, node, attrs = []):
         """
         Add given node to the graph.
         
@@ -194,7 +194,7 @@ class digraph (object):
             self.add_node(each)
 
 
-    def add_edge(self, u, v, wt=1, label='', attrs=[]):
+    def add_edge(self, u, v, wt = 1, label = '', attrs = []):
         """
         Add an directed edge (u,v) to the graph connecting nodes u to v.
 
@@ -248,8 +248,8 @@ class digraph (object):
         """
         self.node_neighbors[u].remove(v)
         self.node_incidence[v].remove(u)
-        del(self.edge_properties[(u,v)])
-        del(self.edge_attr[(u,v)])
+        del(self.edge_properties[(u, v)])
+        del(self.edge_attr[(u, v)])
 
 
     def edge_weight(self, u, v):
@@ -355,7 +355,7 @@ class digraph (object):
         @type  attr: tuple
         @param attr: Node attribute specified as a tuple in the form (attribute, value).
         """
-        self.edge_attr[(u,v)] = self.edge_attr[(u,v)] + [attr]
+        self.edge_attr[(u, v)] = self.edge_attr[(u, v)] + [attr]
 
 
     def edge_attributes(self, u, v):
@@ -371,7 +371,7 @@ class digraph (object):
         @rtype:  list
         @return: List of attributes specified tuples in the form (attribute, value).
         """
-        return self.edge_attr[(u,v)]
+        return self.edge_attr[(u, v)]
 
 
     def has_edge(self, u, v):
@@ -387,7 +387,7 @@ class digraph (object):
         @rtype:  boolean
         @return: Truth-value for edge existence.
         """
-        return self.edge_properties.has_key((u,v))
+        return self.edge_properties.has_key((u, v))
 
     
     def node_order(self, node):
@@ -436,6 +436,28 @@ class digraph (object):
             inv.del_edge(each[0], each[1])
         return inv
 
+    def reverse(self):
+        """
+        Generate the reverse of a directed graph.
+        
+        @rtype: graph
+        @return: The directed graph that should be reversed.
+        """
+        N = digraph()
+    
+        #- Add the nodes
+        for n in self.nodes():
+            N.add_node(n, self.node_attributes(n))
+    
+        #- Add the reversed edges
+        for (u, v) in self.edges():
+            N.add_edge(v, u,
+            self.edge_weight(u, v),
+            self.edge_label(u, v),
+            self.edge_attributes(u, v))
+    
+        return N
+
 
     def add_graph(self, graph):
         """
@@ -465,7 +487,7 @@ class digraph (object):
                 self.add_edge(st[each], each)
 
 
-    def traversal(self, node, order='pre'):
+    def traversal(self, node, order = 'pre'):
         """
         Graph traversal iterator.
 
