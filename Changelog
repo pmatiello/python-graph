@@ -8,43 +8,43 @@ CHANGELOG
 Release 1.6.1	[??? ??, 2009]
 
 Enhancements:
-	* Added reverse method to the digraph class.
+	Added reverse method to the digraph class.
 
 Important API Changes:
-	* Removed methods calling algorithms from graph and digraph classes;
-	* pygraph.algorithms.cycles.find_cycle does not take argument directed anymore;
-	* Removed methods read, write and generate from graph and digraph classes;
-	* Functions for writing and reading graphs now in pygraph algorithms.
+	Removed methods calling algorithms from graph and digraph classes;
+	pygraph.algorithms.cycles.find_cycle does not take argument directed anymore;
+	Removed methods read, write and generate from graph and digraph classes;
+	Functions for writing and reading graphs now in pygraph algorithms.
 	
 Release 1.6.0	[Jun 06, 2009]
 
 Important API Changes:
-	* Module name was renamed to pygraph;
-	* python_graph_exception was renamed to GraphError;
-	* Exception unreachable was renamed to NodeUnreachable;
-	* get_edge_weight was renamed to edge_weight;
-	* get_edge_label was renamed to edge_label;
-	* get_edge_attributes was renamed to edge_attributes;
-	* get_node_attributes was renamed to node_attributes;
-	* degree was renamed to node_degree;
-	* order was renamed to node_order.
+	Module name was renamed to pygraph;
+	python_graph_exception was renamed to GraphError;
+	Exception unreachable was renamed to NodeUnreachable;
+	get_edge_weight was renamed to edge_weight;
+	get_edge_label was renamed to edge_label;
+	get_edge_attributes was renamed to edge_attributes;
+	get_node_attributes was renamed to node_attributes;
+	degree was renamed to node_degree;
+	order was renamed to node_order.
 
 Release 1.5.0	[May 03, 2009]
 
 Enhancements:
-	* Assymptotically faster Mutual Accessibility (now using Tarjan's algorithm);
-	* DOT-Language importing;
-	* Transitive edge detection;
-	* Critical path algorithm.
+	Assymptotically faster Mutual Accessibility (now using Tarjan's algorithm);
+	DOT-Language importing;
+	Transitive edge detection;
+	Critical path algorithm.
 
 Fixes:
-	* Cycle detection algorithm was reporting wrong results on some digraphs;
-	* Removed Minimal Spanning Tree from Digraphs as Prim's algorithm does not work on them (Issue 28).
-	* Deletion of A--A edge raised an exception;
-	* Deletion of an node with an A--A edge raised an exception.
+	Cycle detection algorithm was reporting wrong results on some digraphs;
+	Removed Minimal Spanning Tree from Digraphs as Prim's algorithm does not work on them (Issue 28).
+	Deletion of A--A edge raised an exception;
+	Deletion of an node with an A--A edge raised an exception.
 
 Important API Changes:
-	* Removed minimal_spanning_tree() method from the digraph class.
+	Removed minimal_spanning_tree() method from the digraph class.
 
 
 Release 1.4.2	[Feb 22, 2009]
@@ -62,7 +62,7 @@ Fixes:
 Release 1.4.0	[Feb 07, 2009]
 
 Enhancements:
-	Added A* search algorithm (as heuristic_search);
+	Added Asearch algorithm (as heuristic_search);
 	Added Chow's and Euclidean heuristics for A*;
 	Added filtered depth-first and breadth-first search;
 	Added 'find' search filter (stops the search after reaching a target node);
@@ -152,57 +152,57 @@ Important API Changes:
 
 Release 1.0.0	[Aug 01, 2008]
 
-Adds some operations;
-Random graph generation;
-Cut-vertex/cut-edge identification.
+	Adds some operations;
+	Random graph generation;
+	Cut-vertex/cut-edge identification.
 
 
 Release 0.85	[Jul 27, 2008]
 
-Adds DOT-Language output (Issue 1);
-Install script included (Issue 3).
+	Adds DOT-Language output (Issue 1);
+	Install script included (Issue 3).
 
 
 Release 0.75	[Jul 06, 2008]
 
-Added XML import/export;
-Docs are bundled now.
+	Added XML import/export;
+	Docs are bundled now.
 
 
 Release 0.65	[Jun 25, 2008]
 
-DFS, BFS and MST can be generated for given roots;
-Added Dijkstra's shortest path algorithm (Issue 2).
+	DFS, BFS and MST can be generated for given roots;
+	Added Dijkstra's shortest path algorithm (Issue 2).
 
 
 Release 0.50	[May 13, 2008]
 
-Some API changes;
-Nodes can now be arbitrary names/objects.
+	Some API changes;
+	Nodes can now be arbitrary names/objects.
 
 
 Release 0.45	[May 12, 2008]
 
-Adds Prim's minimal spanning tree.
+	Adds Prim's minimal spanning tree.
 
 
 Release 0.40	[Mar 09, 2008]
 
-Adds topological sorting;
-Support for weighted graphs.
+	Adds topological sorting;
+	Support for weighted graphs.
 
 
 Release 0.30	[Aug 30, 2007]
 
-Adds algorithms for accessibility and mutual accessibility.
+	Adds algorithms for accessibility and mutual accessibility.
 
 Release 0.20	[Jul 16, 2007]
 
-Adds breadth-first search;
-API documentation.
+	Adds breadth-first search;
+	API documentation.
 
 
 Release 0.10	[Jul 10, 2007]
 
-First release;
-Feat. basic operations and depth-first searching.
+	First release;
+	Feat. basic operations and depth-first searching.
