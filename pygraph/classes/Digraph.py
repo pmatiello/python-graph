@@ -44,7 +44,7 @@ class digraph (object):
     add_graph, add_node, add_node_attribute, add_nodes, add_spanning_tree, complete, 
     del_edge, del_node, edges, edge_attributes, edge_label,
     edge_weight, node_attributes, has_edge, has_node, incidents, inverse,
-    neighbors, node_degree, node_order, nodes set_edge_label, set_edge_weight, traversal
+    neighbors, node_degree, node_order, nodes, reverse, set_edge_label, set_edge_weight, traversal
     """
 
 
@@ -440,7 +440,7 @@ class digraph (object):
         """
         Generate the reverse of a directed graph.
         
-        @rtype: graph
+        @rtype: digraph
         @return: The directed graph that should be reversed.
         """
         N = digraph()

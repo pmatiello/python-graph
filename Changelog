@@ -7,24 +7,27 @@ CHANGELOG
 
 Release 1.6.1	[??? ??, 2009]
 
+Enhancements:
+	* Added reverse method to the digraph class.
+
 Important API Changes:
-	Removed methods calling algorithms from graph and digraph classes;
-	pygraph.algorithms.cycles.find_cycle does not take argument directed anymore;
-	Removed methods read, write and generate from graph and digraph classes;
-	Functions for writing and reading graphs now in pygraph algorithms.
+	* Removed methods calling algorithms from graph and digraph classes;
+	* pygraph.algorithms.cycles.find_cycle does not take argument directed anymore;
+	* Removed methods read, write and generate from graph and digraph classes;
+	* Functions for writing and reading graphs now in pygraph algorithms.
 	
 Release 1.6.0	[Jun 06, 2009]
 
 Important API Changes:
-	Module name was renamed to pygraph;
-	python_graph_exception was renamed to GraphError;
-	Exception unreachable was renamed to NodeUnreachable;
-	get_edge_weight was renamed to edge_weight;
-	get_edge_label was renamed to edge_label;
-	get_edge_attributes was renamed to edge_attributes;
-	get_node_attributes was renamed to node_attributes;
-	degree was renamed to node_degree;
-	order was renamed to node_order.
+	* Module name was renamed to pygraph;
+	* python_graph_exception was renamed to GraphError;
+	* Exception unreachable was renamed to NodeUnreachable;
+	* get_edge_weight was renamed to edge_weight;
+	* get_edge_label was renamed to edge_label;
+	* get_edge_attributes was renamed to edge_attributes;
+	* get_node_attributes was renamed to node_attributes;
+	* degree was renamed to node_degree;
+	* order was renamed to node_order.
 
 Release 1.5.0	[May 03, 2009]
 
