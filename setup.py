@@ -13,7 +13,7 @@ except ImportError, ie:
 
 # Startup
 appname = "python-graph"
-appversion = "1.6.1"
+appversion = "1.6.2"
 
 # Extra files
 if (os.name == 'posix'):    # Files to be installed/packaged on Unix-like systems
@@ -23,7 +23,7 @@ if (os.name == 'posix'):    # Files to be installed/packaged on Unix-like system
     docsfiles = []
     try:
         # Uncomment the line bellow if you want bdist_rpm to include the docs
-        # os.system('make docs')
+        os.system('make docs')
         dirlisting = os.listdir('docs/')
     except:
         print "Documentation isn't present and will not be installed/packaged."
