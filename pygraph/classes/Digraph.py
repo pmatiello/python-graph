@@ -34,6 +34,8 @@ Digraph class
 # Imports
 from pygraph.algorithms import *
 from pygraph.algorithms import filters
+from pygraph.algorithms import traversal
+
 
 class digraph (object):
     """

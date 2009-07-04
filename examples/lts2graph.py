@@ -102,7 +102,7 @@ def load_automaton(filename):
 try:
     filename = sys.argv[1]
     gr, final = load_automaton(sys.argv[1])
-    dot = gr.write(fmt='dot')
+    dot = pygraph.readwrite.dot.write(gr)
 except IndexError:
     print "Syntax: %s filename" % sys.argv[0]
     sys.exit(1)
