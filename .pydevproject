@@ -5,7 +5,7 @@
 <pydev_property name="org.python.pydev.PYTHON_PROJECT_VERSION">python 2.5</pydev_property>
 <pydev_property name="org.python.pydev.PYTHON_PROJECT_INTERPRETER">Default</pydev_property>
 <pydev_pathproperty name="org.python.pydev.PROJECT_SOURCE_PATH">
-<path>/python-graph/pygraph_dot_egg</path>
-<path>/python-graph/pygraph_egg</path>
+<path>/python-graph/pygraph_dot_egg/src</path>
+<path>/python-graph/pygraph_egg/src</path>
 </pydev_pathproperty>
 </pydev_project>
