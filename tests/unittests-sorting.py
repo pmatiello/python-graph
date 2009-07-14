@@ -44,8 +44,10 @@ class test_topological_sorting(unittest.TestCase):
         
         for each in st:
             if st[each]:
-                tree.add_node(each)
-                tree.add_node(st[each])
+                if (each not in tree.nodes()):
+                    tree.add_node(each)
+                if (st[each] not in tree.nodes()):
+                    tree.add_node(st[each])
                 tree.add_edge(st[each], each)
         
         ts = topological_sorting(tree)

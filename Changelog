@@ -5,6 +5,12 @@ A library for working with graphs in Python
 CHANGELOG
 
 
+Release 1.6.2	[??? ??, 2009]
+
+Important API Changes:
+	Adding an already added node to a graph or digraph now raises an exception (AdditionError).
+
+
 Release 1.6.1	[Jul 04, 2009]
 
 Enhancements:
@@ -16,6 +22,7 @@ Important API Changes:
 	Removed methods read, write and generate from graph and digraph classes;
 	Functions for writing and reading graphs now in pygraph algorithms.
 	
+
 Release 1.6.0	[Jun 06, 2009]
 
 Important API Changes:
@@ -28,6 +35,7 @@ Important API Changes:
 	get_node_attributes was renamed to node_attributes;
 	degree was renamed to node_degree;
 	order was renamed to node_order.
+
 
 Release 1.5.0	[May 03, 2009]
 

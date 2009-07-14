@@ -30,12 +30,23 @@ Unittests for graph.classes.Graph
 import unittest
 import pygraph
 from pygraph.algorithms.generators import generate
+from pygraph.classes.Exceptions import AdditionError
 import testlib
 from copy import copy
 
 class test_graph(unittest.TestCase):
 
-    # Remove nodes and edges
+    # Add/Remove nodes and edges
+    
+    def test_raise_exception_on_duplicate_node_addition(self):
+        gr = pygraph.graph()
+        gr.add_node('a_node')
+        try:
+            gr.add_node('a_node')
+        except AdditionError:
+            pass
+        else:
+            fail()
     
     def test_remove_node(self):
         gr = testlib.new_graph()

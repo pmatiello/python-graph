@@ -34,6 +34,12 @@ class GraphError(RuntimeError):
     """
     pass
 
+class AdditionError(GraphError):
+    """
+    This error is raised when trying to add a node already added to the graph or digraph.
+    """
+    pass
+
 class NodeUnreachable(GraphError):
     """
     Goal could not be reached from start.

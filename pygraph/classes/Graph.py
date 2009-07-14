@@ -34,6 +34,7 @@ Graph class
 from pygraph.algorithms import *
 from pygraph.algorithms import filters
 from pygraph.algorithms import traversal
+from pygraph.classes.Exceptions import *
 
 
 class graph (object):
@@ -164,6 +165,8 @@ class graph (object):
         if (not node in self.node_neighbors):
             self.node_neighbors[node] = []
             self.node_attr[node] = attrs
+        else:
+            raise AdditionError
 
 
     def add_nodes(self, nodelist):
@@ -429,8 +432,9 @@ class graph (object):
         @type  graph: graph
         @param graph: Graph
         """
-        self.add_nodes(graph.nodes())
         for each_node in graph.nodes():
+            if each_node not in self.nodes():
+                self.add_node(each_node)
             for each_edge in graph.neighbors(each_node):
                 self.add_edge(each_node, each_edge)
 
