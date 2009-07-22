@@ -39,7 +39,7 @@ else:    # Other systems
 setup(
         name = appname,
         version = appversion,
-        packages = ['pygraph', 'pygraph.algorithms', 'pygraph.algorithms.filters', 'pygraph.algorithms.heuristics', 'pygraph.classes', 'pygraph.readwrite'],
+        packages = ['pygraph', ] + [ os.path.join( "pygraph", p ) for p in find_packages("pygraph") ],
         data_files = [(docsdir,docsfiles),
                        (datadir,datafiles)],
         author = "Pedro Matiello",
