@@ -12,7 +12,7 @@ except ImportError, ie:
     from setuptools import setup, find_packages
 
 # Startup
-appname = "python-graph"
+appname = "python-graph-core"
 appversion = open("../version.txt").read()
 
 # Extra files

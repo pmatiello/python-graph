@@ -19,6 +19,7 @@ setup(
         name = appname,
         version = appversion,
         namespace_packages = ['pygraph' ],
+        packages = ['pygraph' ],
         install_requires = ['pydot', 'python-graph-core==%s' % appversion ],
         author = "Pedro Matiello",
         author_email = "pmatiello@gmail.com",
