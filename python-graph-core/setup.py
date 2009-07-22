@@ -13,7 +13,7 @@ except ImportError, ie:
 
 # Startup
 appname = "python-graph"
-appversion = "1.6.2"
+appversion = open("../version.txt").read()
 
 # Extra files
 if (os.name == 'posix'):    # Files to be installed/packaged on Unix-like systems
@@ -42,7 +42,6 @@ setup(
         packages = ['pygraph', 'pygraph.algorithms', 'pygraph.algorithms.filters', 'pygraph.algorithms.heuristics', 'pygraph.classes', 'pygraph.readwrite'],
         data_files = [(docsdir,docsfiles),
                        (datadir,datafiles)],
-        install_requires = ['pydot'],
         author = "Pedro Matiello",
         author_email = "pmatiello@gmail.com",
         description = "A library for working with graphs in Python",
