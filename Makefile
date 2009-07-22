@@ -1,11 +1,15 @@
 # python-graph
 # Makefile
 
+
 # Module directories
+
 CORE_DIR="python-graph-core/"
 DOT_DIR="python-graph-dot/"
 
+
 # General
+
 nothing:
 
 install: install-core
@@ -49,5 +53,7 @@ clean: cleanpyc
 	rm -rf */*.egg-info
 	rm -f */examples/*.png
 
+
 # Phony rules
+
 .PHONY: clean cleanpyc docs-core
