@@ -18,7 +18,7 @@ appversion = "1.6.2"
 # Extra files
 if (os.name == 'posix'):    # Files to be installed/packaged on Unix-like systems
     datadir = 'share/doc/'+appname+'-'+appversion
-    datafiles = ['README', 'COPYING', 'Changelog']
+    datafiles = ['../README', '../COPYING', '../Changelog']
     docsdir = datadir + '/docs'
     docsfiles = []
     try:
