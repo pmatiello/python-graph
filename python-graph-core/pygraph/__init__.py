@@ -64,7 +64,6 @@ A quick introductory example:
 import pygraph.algorithms as algorithms
 import pygraph.algorithms.filters as filters
 import pygraph.algorithms.heuristics as heuristics
-import pygraph.readwrite as readwrite
 from pygraph.classes.Graph import graph
 from pygraph.classes.Digraph import digraph
 from pygraph.classes.Hypergraph import hypergraph
