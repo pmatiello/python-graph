@@ -6,5 +6,7 @@
 <pydev_property name="org.python.pydev.PYTHON_PROJECT_INTERPRETER">Default</pydev_property>
 <pydev_pathproperty name="org.python.pydev.PROJECT_SOURCE_PATH">
 <path>/python-graph/python-graph-core</path>
+<path>/python-graph/python-graph-dot</path>
+<path>/python-graph/python-graph-tests</path>
 </pydev_pathproperty>
 </pydev_project>
