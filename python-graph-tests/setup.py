@@ -12,13 +12,13 @@ except ImportError, ie:
     from setuptools import setup, find_packages
 
 # Startup
-appname = "python-graph-dot"
+appname = "python-graph-tests"
 appversion = open("../version.txt").read()
 
 setup(
         name = appname,
         version = appversion,
-        install_requires = ['pydot', 'python-graph-dot==%s' % appversion ],
+        install_requires = ['pydot', 'python-graph-dot==%s' % appversion, 'python-graph-core==%s' % appversion ],
         author = "Pedro Matiello",
         author_email = "pmatiello@gmail.com",
         description = "DOT support for python-graph",

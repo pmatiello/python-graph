@@ -29,7 +29,7 @@ Unittests for graph.algorithms.readwrite
 
 import unittest
 import pygraph
-from pygraph.readwrite import *
+from pygraph.algorithms.readwrite import *
 import testlib
 
 def graph_equality(gr1, gr2):
