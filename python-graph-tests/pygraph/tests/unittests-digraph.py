@@ -160,3 +160,6 @@ class test_digraph(unittest.TestCase):
         gr.add_spanning_tree(st)
         self.assertTrue(gr.nodes() == [])
         self.assertTrue(gr.edges() == [])
+
+if __name__ == "__main__":
+    unittest.main()

@@ -131,3 +131,6 @@ class test_radius_filter(unittest.TestCase):
         for each in st:
             assert (st[each] == None or st[each] == 0
                     or st[st[each]] == 0 or st[st[st[each]]] == 0)
+            
+if __name__ == "__main__":
+    unittest.main()

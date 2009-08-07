@@ -12,7 +12,7 @@ except ImportError, ie:
     from setuptools import setup, find_packages
 
 # Startup
-appname = "python-graph-tests"
+appname = "python-graph-core"
 appversion = open("../version.txt").read()
 
 # Extra files
@@ -42,6 +42,8 @@ setup(
         data_files = [(docsdir,docsfiles),
                        (datadir,datafiles)],
         author = "Pedro Matiello",
+        namespace_packages = ['pygraph'],
+        packages = ["pygraph"],
         author_email = "pmatiello@gmail.com",
         description = "A library for working with graphs in Python",
         license = "MIT",

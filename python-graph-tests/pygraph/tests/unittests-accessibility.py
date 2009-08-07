@@ -49,3 +49,6 @@ class test_find_cycle(unittest.TestCase):
                     assert n in depth_first_search(gr, m)[0]
                 else:
                     assert m not in depth_first_search(gr, n)[0] or n not in depth_first_search(gr, m)[0]
+                    
+if __name__ == "__main__":
+    unittest.main()

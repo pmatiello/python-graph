@@ -18,8 +18,8 @@ appversion = open("../version.txt").read()
 setup(
         name = appname,
         version = appversion,
-        namespace_packages = ['pygraph' ],
-        packages = ['pygraph', ],
+        namespace_packages = find_packages("."),
+        packages = find_packages("."),
         install_requires = [ 'python-graph-core==%s' % appversion, 'pydot' ],
         author = "Pedro Matiello",
         author_email = "pmatiello@gmail.com",

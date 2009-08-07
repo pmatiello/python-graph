@@ -84,3 +84,6 @@ class test_euclidean(unittest.TestCase):
         heuristic.optimize(self.G)
         result = pygraph.algorithms.minmax.heuristic_search(self.G, 'A', 'C', heuristic )
         assert result == ['A', 'D', 'C']
+        
+if __name__ == "__main__":
+    unittest.main()

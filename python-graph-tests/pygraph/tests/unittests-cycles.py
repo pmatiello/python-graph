@@ -91,3 +91,6 @@ class test_find_cycle(unittest.TestCase):
         G.add_edge(3, 5)
         G.add_edge(3, 1)
         assert find_cycle(G) == [1, 2, 3]
+        
+if __name__ == "__main__":
+    unittest.main()

@@ -18,9 +18,9 @@ appversion = open("../version.txt").read()
 setup(
         name = appname,
         version = appversion,
-        namespace_packages = ['pygraph' ],
-        packages = ['pygraph', ],
-        install_requires = ['pydot', 'python-graph-dot==%s' % appversion, 'python-graph-core==%s' % appversion ],
+        namespace_packages = find_packages("."),
+        packages = find_packages("."),
+        install_requires = ['pydot', 'python-graph-dot==%s' % appversion,  ],
         author = "Pedro Matiello",
         author_email = "pmatiello@gmail.com",
         description = "DOT support for python-graph",
