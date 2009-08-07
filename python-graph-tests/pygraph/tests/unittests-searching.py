@@ -30,6 +30,7 @@ Unittests for graph.algorithms.searching
 # Imports
 import unittest
 import pygraph
+import pygraph.classes
 from pygraph.algorithms.searching import depth_first_search, breadth_first_search
 import testlib
 
@@ -37,7 +38,7 @@ import testlib
 class test_depth_first_search(unittest.TestCase):
 
     def test_dfs_in_empty_graph(self):
-        gr = pygraph.graph()
+        gr = pygraph.classes.Graph.graph()
         st, pre, post = depth_first_search(gr)
         assert st == {}
         assert pre == []
@@ -54,7 +55,7 @@ class test_depth_first_search(unittest.TestCase):
             assert gr.has_edge(st[node], node) or st[node] == None
 
     def test_dfs_in_empty_digraph(self):
-        gr = pygraph.digraph()
+        gr = pygraph.classes.Digraph.digraph()
         st, pre, post = depth_first_search(gr)
         assert st == {}
         assert pre == []
@@ -74,13 +75,13 @@ class test_depth_first_search(unittest.TestCase):
 class test_breadth_first_search(unittest.TestCase):
 
     def test_bfs_in_empty_graph(self):
-        gr = pygraph.graph()
+        gr = pygraph.classes.Graph.graph()
         st, lo = breadth_first_search(gr)
         assert st == {}
         assert lo == []
     
     def test_bfs_in_graph(self):
-        gr = pygraph.graph()
+        gr = pygraph.classes.Graph.graph()
         gr = testlib.new_digraph()
         st, lo = breadth_first_search(gr)
         for each in gr:
@@ -90,7 +91,7 @@ class test_breadth_first_search(unittest.TestCase):
             assert gr.has_edge(st[node], node) or st[node] == None
 
     def test_bfs_in_empty_digraph(self):
-        gr = pygraph.digraph()
+        gr = pygraph.classes.Digraph.digraph()
         st, lo = breadth_first_search(gr)
         assert st == {}
         assert lo == []
@@ -103,3 +104,6 @@ class test_breadth_first_search(unittest.TestCase):
                 assert lo.index(each) > lo.index(st[each])
         for node in st:
             assert gr.has_edge(st[node], node) or st[node] == None
+            
+if __name__ == "__main__":
+    unittest.main()

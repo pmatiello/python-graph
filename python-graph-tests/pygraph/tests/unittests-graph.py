@@ -31,6 +31,7 @@ import unittest
 import pygraph
 from pygraph.algorithms.generators import generate
 from pygraph.classes.Exceptions import AdditionError
+from pygraph.classes.Graph import graph
 import testlib
 from copy import copy
 
@@ -39,7 +40,7 @@ class test_graph(unittest.TestCase):
     # Add/Remove nodes and edges
     
     def test_raise_exception_on_duplicate_node_addition(self):
-        gr = pygraph.graph()
+        gr = graph()
         gr.add_node('a_node')
         try:
             gr.add_node('a_node')
@@ -57,13 +58,13 @@ class test_graph(unittest.TestCase):
             self.assertTrue(other in gr)
     
     def test_remove_edge_from_node_to_same_node(self):
-        gr = pygraph.graph()
+        gr = graph()
         gr.add_node(0)
         gr.add_edge(0, 0)
         gr.del_edge(0, 0)
     
     def test_remove_node_with_edge_to_itself(self):
-        gr = pygraph.graph()
+        gr = graph()
         gr.add_node(0)
         gr.add_edge(0, 0)
         gr.del_node(0)
@@ -80,7 +81,7 @@ class test_graph(unittest.TestCase):
             self.assertTrue(each not in gr.edges())
     
     def test_invert_empty_graph(self):
-        gr = pygraph.graph()
+        gr = graph()
         inv = gr.inverse()
         self.assertTrue(gr.nodes() == [])
         self.assertTrue(gr.edges() == [])
@@ -89,7 +90,7 @@ class test_graph(unittest.TestCase):
     # Complete graph
     
     def test_complete_graph(self):
-        gr = pygraph.graph()
+        gr = graph()
         gr.add_nodes(xrange(10))
         gr.complete()
         for i in xrange(10):
@@ -97,13 +98,13 @@ class test_graph(unittest.TestCase):
                 self.assertTrue((i, j) in gr.edges() or i == j)
     
     def test_complete_empty_graph(self):
-        gr = pygraph.graph()
+        gr = graph()
         gr.complete()
         self.assertTrue(gr.nodes() == [])
         self.assertTrue(gr.edges() == [])
     
     def test_complete_graph_with_one_node(self):
-        gr = pygraph.graph()
+        gr = graph()
         gr.add_node(0)
         gr.complete()
         self.assertTrue(gr.nodes() == [0])
@@ -124,7 +125,7 @@ class test_graph(unittest.TestCase):
     def test_add_empty_graph(self):
         gr1 = testlib.new_graph()
         gr1c = copy(gr1)
-        gr2 = pygraph.graph()
+        gr2 = graph()
         gr1.add_graph(gr2)
         self.assertTrue(gr1.nodes() == gr1c.nodes())
         self.assertTrue(gr1.edges() == gr1c.edges())
@@ -133,7 +134,7 @@ class test_graph(unittest.TestCase):
     # Add spanning tree
     
     def test_add_spanning_tree(self):
-        gr = pygraph.graph()
+        gr = graph()
         st = {0: None, 1: 0, 2:0, 3: 1, 4: 2, 5: 3}
         gr.add_spanning_tree(st)
         for each in st:
@@ -141,7 +142,7 @@ class test_graph(unittest.TestCase):
             self.assertTrue((st[each], each) in gr.edges() or (each, st[each]) == (0, None))
 
     def test_add_empty_spanning_tree(self):
-        gr = pygraph.graph()
+        gr = graph()
         st = {}
         gr.add_spanning_tree(st)
         self.assertTrue(gr.nodes() == [])

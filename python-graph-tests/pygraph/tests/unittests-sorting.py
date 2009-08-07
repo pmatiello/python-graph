@@ -28,13 +28,9 @@ Unittests for graph.algorithms.sorting
 
 
 import unittest
-import pygraph
+import pygraph.classes
 from pygraph.algorithms.sorting import topological_sorting
 from pygraph.algorithms.searching import depth_first_search
-
-import pdb
-pdb.set_trace()
-
 from pygraph.readwrite.dot import write
 import testlib
 
@@ -44,7 +40,8 @@ class test_topological_sorting(unittest.TestCase):
     def test_topological_sorting_on_tree(self):
         gr = testlib.new_graph()
         st, pre, post = depth_first_search(gr)
-        tree = pygraph.digraph()
+        tree = pygraph.classes.Digraph.digraph()
+
         
         for each in st:
             if st[each]:
@@ -79,3 +76,6 @@ class test_topological_sorting(unittest.TestCase):
         while (ts):
             x = ts.pop()
             assert is_ordered(x, ts)
+            
+if __name__ == "__main__":
+    unittest.main()

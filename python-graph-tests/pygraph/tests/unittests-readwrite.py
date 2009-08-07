@@ -29,7 +29,7 @@ Unittests for graph.algorithms.readwrite
 
 import unittest
 import pygraph
-from pygraph.readwrite import *
+from pygraph.readwrite import dot, markup
 import testlib
 
 def graph_equality(gr1, gr2):
@@ -77,6 +77,6 @@ class test_readwrite_markup(unittest.TestCase):
         dotstr = markup.write(gr1)
         gr2 = markup.read(dotstr)  
         graph_equality(gr1, gr2)
-        
+         
 if __name__ == "__main__":
     unittest.main()
