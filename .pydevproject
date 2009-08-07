@@ -9,4 +9,8 @@
 <path>/python-graph/python-graph-dot</path>
 <path>/python-graph/python-graph-tests/pygraph</path>
 </pydev_pathproperty>
+<pydev_pathproperty name="org.python.pydev.PROJECT_EXTERNAL_SOURCE_PATH">
+<path>/usr/local/lib/python2.6/dist-packages/pydot-1.0.2-py2.6.egg</path>
+<path>/usr/local/lib/python2.6/dist-packages/pyparsing-1.5.2-py2.6.egg</path>
+</pydev_pathproperty>
 </pydev_project>

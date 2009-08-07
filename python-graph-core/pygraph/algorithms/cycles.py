@@ -32,9 +32,10 @@ Cycle detection algorithms.
 # Imports
 import pygraph
 from pygraph.classes.Exceptions import InvalidGraphType
+from pygraph.classes.Digraph import digraph
+from pygraph.classes.Graph import graph
 
-
-def find_cycle(graph):
+def find_cycle(G):
     """
     Find a cycle in the given graph.
     
@@ -48,9 +49,9 @@ def find_cycle(graph):
     @return: List of nodes. 
     """
     
-    if (type(graph) == pygraph.graph):
+    if (type(G) == graph):
         directed = False
-    elif (type(graph) == pygraph.digraph):
+    elif (type(G) == digraph):
         directed = True
     else:
         raise InvalidGraphType
@@ -76,7 +77,7 @@ def find_cycle(graph):
         """
         visited[node] = 1
         # Explore recursively the connected component
-        for each in graph[node]:
+        for each in G[node]:
             if (cycle):
                 return
             if (each not in visited):
@@ -91,7 +92,7 @@ def find_cycle(graph):
     cycle = []
 
     # Algorithm outer-loop
-    for each in graph:
+    for each in G:
         # Select a non-visited node
         if (each not in visited):
             spanning_tree[each] = None

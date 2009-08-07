@@ -31,8 +31,10 @@ Functions for reading and writing graphs in Dot language.
 
 # Imports
 import pygraph
+import pydot
 from pygraph.classes.Exceptions import InvalidGraphType
-
+from pygraph.classes.Digraph import digraph
+from pygraph.classes.Graph import graph
 
 # Values
 colors = ['aquamarine4', 'blue4', 'brown4', 'cornflowerblue', 'cyan4',
@@ -54,36 +56,29 @@ def read(string):
     @return: Graph
     """
     
-    # Lazy import
-    try:
-        import pydot
-    except:
-        print "Error: You must first install the pydot package: http://code.google.com/p/pydot/"
-        return
-    
     dotG = pydot.graph_from_dot_data(string)
     
     if (dotG.get_type() == "graph"):
-        graph = pygraph.graph()
+        G = graph()
     elif (dotG.get_type() == "digraph"):
-        graph = pygraph.digraph()
+        G = digraph()
     else:
         raise InvalidGraphType
     
     # Read nodes...
     # Note: If the nodes aren't explicitly listed, they need to be
     for each_node in dotG.get_nodes():
-        graph.add_node(each_node.get_name())
+        G.add_node(each_node.get_name())
         for each_attr_key, each_attr_val in each_node.get_attributes().items():
-            graph.add_node_attribute(each_node.get_name(), (each_attr_key, each_attr_val))
+            G.add_node_attribute(each_node.get_name(), (each_attr_key, each_attr_val))
     
     # Read edges...
     for each_edge in dotG.get_edges():
         # Check if the nodes have been added
         if not dotG.get_node(each_edge.get_source()):
-            graph.add_node(each_edge.get_source())
+            G.add_node(each_edge.get_source())
         if not dotG.get_node(each_edge.get_destination()):
-            graph.add_node(each_edge.get_destination())
+            G.add_node(each_edge.get_destination())
         
         # See if there's a weight
         if 'weight' in each_edge.get_attributes().keys():
@@ -97,14 +92,14 @@ def read(string):
         else:
             _label = ''
         
-        graph.add_edge(each_edge.get_source(), each_edge.get_destination(), wt = _wt, label = _label)
+        G.add_edge(each_edge.get_source(), each_edge.get_destination(), wt = _wt, label = _label)
         
         for each_attr_key, each_attr_val in each_edge.get_attributes().items():
             if not each_attr_key in ['weight', 'label']:
-                graph.add_edge_attribute(each_edge.get_source(), each_edge.get_destination(), \
+                G.add_edge_attribute(each_edge.get_source(), each_edge.get_destination(), \
                                             (each_attr_key, each_attr_val))
     
-    return graph
+    return G
 
 
 def read_hypergraph(hypergraph, string):
@@ -118,11 +113,6 @@ def read_hypergraph(hypergraph, string):
     @param string: Input string in dot format specifying a graph.
     """
     # Lazy import
-    try:
-        import pydot
-    except:
-        print "Error: You must first install the pydot package: http://code.google.com/p/pydot/"
-        return
     
     dotG = pydot.graph_from_dot_data(string)
     
@@ -150,7 +140,7 @@ def read_hypergraph(hypergraph, string):
         hypergraph.link(link_hypernode, link_hyperedge)
     
     
-def write(graph, weighted=False):
+def write(G, weighted=False):
     """
     Return a string specifying the given graph in Dot language.
     
@@ -163,32 +153,25 @@ def write(graph, weighted=False):
     @rtype:  string
     @return: String specifying the graph in Dot Language.
     """
-    # Lazy import
-    try:
-        import pydot
-    except:
-        print "Error: You must first install the pydot package: http://code.google.com/p/pydot/"
-        return
-
     dotG = pydot.Dot()
     
-    if not 'name' in dir(graph):
+    if not 'name' in dir(G):
         dotG.set_name('graphname')
     else:
         dotG.set_name(graph.name)
     
-    if (type(graph) == pygraph.graph):
+    if (type(G) == graph):
         dotG.set_type('graph')
         directed = False
-    elif (type(graph) == pygraph.digraph):
+    elif (type(G) == digraph):
         dotG.set_type('digraph')
         directed = True
     else:
-        raise InvalidGraphType
+        raise InvalidGraphType("Expected graph or digraph, got %s" %  repr(G) )
     
-    for node in graph.nodes():
+    for node in G.nodes():
         attr_list = {}
-        for attr in graph.node_attributes(node):
+        for attr in G.node_attributes(node):
             attr_list[str(attr[0])] = str(attr[1])
         
         newNode = pydot.Node(str(node), **attr_list)
@@ -198,7 +181,7 @@ def write(graph, weighted=False):
     # Pydot doesn't work properly with the get_edge, so we use
     #  our own set to keep track of what's been added or not.
     seen_edges = set([])
-    for edge_from, edge_to in graph.edges():
+    for edge_from, edge_to in G.edges():
         if (str(edge_from) + "-" + str(edge_to)) in seen_edges:
             continue
 
@@ -206,17 +189,17 @@ def write(graph, weighted=False):
             continue
         
         attr_list = {}
-        for attr in graph.edge_attributes(edge_from, edge_to):
+        for attr in G.edge_attributes(edge_from, edge_to):
             attr_list[str(attr[0])] = str(attr[1])
         
-        if str(graph.edge_label(edge_from, edge_to)):
-            attr_list['label'] = str(graph.edge_label(edge_from, edge_to))
+        if str(G.edge_label(edge_from, edge_to)):
+            attr_list['label'] = str(G.edge_label(edge_from, edge_to))
 
         elif weighted:
-            attr_list['label'] = str(graph.edge_weight(edge_from, edge_to))
+            attr_list['label'] = str(G.edge_weight(edge_from, edge_to))
         
         if weighted:
-            attr_list['weight'] = str(graph.edge_weight(edge_from, edge_to))
+            attr_list['weight'] = str(G.edge_weight(edge_from, edge_to))
         
         newEdge = pydot.Edge(str(edge_from), str(edge_to), **attr_list)
         
