@@ -36,7 +36,3 @@ Which are conveniently exposed as:
 
 These are to be used with heuristic_search() method.
 """
-
-
-from pygraph.algorithms.heuristics.Chow import chow
-from pygraph.algorithms.heuristics.Euclidean import euclidean

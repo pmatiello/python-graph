@@ -30,12 +30,12 @@ Search algorithms.
 
 
 # Imports
-import filters
+from filters.null import null
 
 
 # Depth-first search
 
-def depth_first_search(graph, root=None, filter=filters.null()):
+def depth_first_search(graph, root=None, filter=null()):
     """
     Depth-first search.
 
@@ -91,7 +91,7 @@ def depth_first_search(graph, root=None, filter=filters.null()):
 
 # Breadth-first search
 
-def breadth_first_search(graph, root=None, filter=filters.null()):
+def breadth_first_search(graph, root=None, filter=null()):
     """
     Breadth-first search.
 

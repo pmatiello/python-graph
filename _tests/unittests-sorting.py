@@ -40,7 +40,7 @@ class test_topological_sorting(unittest.TestCase):
     def test_topological_sorting_on_tree(self):
         gr = testlib.new_graph()
         st, pre, post = depth_first_search(gr)
-        tree = pygraph.classes.Digraph.digraph()
+        tree = pygraph.classes.digraph.digraph()
 
         
         for each in st:

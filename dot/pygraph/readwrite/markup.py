@@ -30,10 +30,10 @@ Functions for reading and writing graphs in a XML markup.
 
 
 # Imports
-from pygraph.classes.Digraph import digraph
-from pygraph.classes.Graph import graph
+from pygraph.classes.digraph import digraph
+from pygraph.classes.graph import graph
 from xml.dom.minidom import Document, parseString
-from pygraph.classes.Exceptions import InvalidGraphType
+from pygraph.classes.exceptions import InvalidGraphType
 
 
 def write(G):

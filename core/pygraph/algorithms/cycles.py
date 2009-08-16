@@ -31,9 +31,9 @@ Cycle detection algorithms.
 
 # Imports
 import pygraph
-from pygraph.classes.Exceptions import InvalidGraphType
-from pygraph.classes.Digraph import digraph as digraph_class
-from pygraph.classes.Graph import graph as graph_class
+from pygraph.classes.exceptions import InvalidGraphType
+from pygraph.classes.digraph import digraph as digraph_class
+from pygraph.classes.graph import graph as graph_class
 
 def find_cycle(graph):
     """

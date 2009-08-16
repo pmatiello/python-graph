@@ -31,8 +31,8 @@ Random graph generators.
 
 
 # Imports
-from pygraph.classes.Graph import graph
-from pygraph.classes.Digraph import digraph
+from pygraph.classes.graph import graph
+from pygraph.classes.digraph import digraph
 from random import randint
 
 

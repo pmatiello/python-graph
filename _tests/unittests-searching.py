@@ -38,7 +38,7 @@ import testlib
 class test_depth_first_search(unittest.TestCase):
 
     def test_dfs_in_empty_graph(self):
-        gr = pygraph.classes.Graph.graph()
+        gr = pygraph.classes.graph.graph()
         st, pre, post = depth_first_search(gr)
         assert st == {}
         assert pre == []
@@ -55,7 +55,7 @@ class test_depth_first_search(unittest.TestCase):
             assert gr.has_edge(st[node], node) or st[node] == None
 
     def test_dfs_in_empty_digraph(self):
-        gr = pygraph.classes.Digraph.digraph()
+        gr = pygraph.classes.digraph.digraph()
         st, pre, post = depth_first_search(gr)
         assert st == {}
         assert pre == []
@@ -75,13 +75,13 @@ class test_depth_first_search(unittest.TestCase):
 class test_breadth_first_search(unittest.TestCase):
 
     def test_bfs_in_empty_graph(self):
-        gr = pygraph.classes.Graph.graph()
+        gr = pygraph.classes.graph.graph()
         st, lo = breadth_first_search(gr)
         assert st == {}
         assert lo == []
     
     def test_bfs_in_graph(self):
-        gr = pygraph.classes.Graph.graph()
+        gr = pygraph.classes.graph.graph()
         gr = testlib.new_digraph()
         st, lo = breadth_first_search(gr)
         for each in gr:
@@ -91,7 +91,7 @@ class test_breadth_first_search(unittest.TestCase):
             assert gr.has_edge(st[node], node) or st[node] == None
 
     def test_bfs_in_empty_digraph(self):
-        gr = pygraph.classes.Digraph.digraph()
+        gr = pygraph.classes.digraph.digraph()
         st, lo = breadth_first_search(gr)
         assert st == {}
         assert lo == []

@@ -29,11 +29,11 @@ Unittests for graph.algorithms.heuristics
 
 import unittest
 import pygraph
-from pygraph.classes.Graph import graph
-from pygraph.classes.Digraph import digraph
-from pygraph.algorithms.heuristics.Euclidean import euclidean
-from pygraph.algorithms.heuristics.Chow import chow
-from pygraph.classes import Exceptions as exceptions
+from pygraph.classes.graph import graph
+from pygraph.classes.digraph import digraph
+from pygraph.algorithms.heuristics.euclidean import euclidean
+from pygraph.algorithms.heuristics.chow import chow
+from pygraph.classes import exceptions
 
 from test_data import nations_of_the_world
 
@@ -74,7 +74,7 @@ class test_chow(unittest.TestCase):
 class test_euclidean(unittest.TestCase):
 
     def setUp(self):
-        self.G = pygraph.classes.Graph.graph()
+        self.G = pygraph.classes.graph.graph()
         self.G.add_node('A', [('position',[0,0])])
         self.G.add_node('B', [('position',[2,0])])
         self.G.add_node('C', [('position',[2,3])])

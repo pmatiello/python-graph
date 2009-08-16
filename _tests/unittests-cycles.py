@@ -31,8 +31,8 @@ import unittest
 import pygraph
 from pygraph.algorithms.cycles import find_cycle
 from pygraph.algorithms.searching import depth_first_search
-from pygraph.classes.Digraph import digraph
-from pygraph.classes.Graph import graph
+from pygraph.classes.digraph import digraph
+from pygraph.classes.graph import graph
 import testlib
 
 

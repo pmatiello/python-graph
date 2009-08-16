@@ -32,9 +32,9 @@ Functions for reading and writing graphs in Dot language.
 # Imports
 import pygraph
 import pydot
-from pygraph.classes.Exceptions import InvalidGraphType
-from pygraph.classes.Digraph import digraph
-from pygraph.classes.Graph import graph
+from pygraph.classes.exceptions import InvalidGraphType
+from pygraph.classes.digraph import digraph
+from pygraph.classes.graph import graph
 
 # Values
 colors = ['aquamarine4', 'blue4', 'brown4', 'cornflowerblue', 'cyan4',

@@ -33,7 +33,7 @@ _reconstruct_path
 """
 
 from heapq import heappush, heappop
-from pygraph.classes.Exceptions import NodeUnreachable
+from pygraph.classes.exceptions import NodeUnreachable
 
 # Minimal spanning tree
 

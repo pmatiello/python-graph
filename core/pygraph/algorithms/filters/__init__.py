@@ -36,8 +36,3 @@ Which are conveniently exposed as:
     - C{pygraph.filters.radius()}
 
 """
-
-
-from pygraph.algorithms.filters.Find import find
-from pygraph.algorithms.filters.Null import null
-from pygraph.algorithms.filters.Radius import radius

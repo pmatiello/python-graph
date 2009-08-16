@@ -34,7 +34,7 @@ Graph class
 from pygraph.algorithms import *
 from pygraph.algorithms import filters
 from pygraph.algorithms import traversal
-from pygraph.classes.Exceptions import *
+from pygraph.classes.exceptions import *
 
 
 class graph (object):

@@ -29,7 +29,7 @@ Hypergraph class
 
 
 # Imports
-from pygraph.classes.Graph import graph
+from pygraph.classes.graph import graph
 from pygraph.algorithms import *
 
 class hypergraph (object):

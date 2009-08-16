@@ -30,8 +30,8 @@ Unittests for graph.classes.Digraph
 import unittest
 import pygraph
 from pygraph.algorithms.generators import generate
-from pygraph.classes.Exceptions import AdditionError
-from pygraph.classes.Digraph import digraph
+from pygraph.classes.exceptions import AdditionError
+from pygraph.classes.digraph import digraph
 import testlib
 from copy import copy
 

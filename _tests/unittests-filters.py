@@ -31,9 +31,10 @@ Unit tests for python-graph
 import unittest
 import pygraph
 from pygraph.algorithms.searching import depth_first_search, breadth_first_search
-from pygraph.classes.Graph import graph
+from pygraph.classes.graph import graph
 
-from pygraph.algorithms import filters
+from pygraph.algorithms.filters.radius import radius
+from pygraph.algorithms.filters.find import find
 import testlib
 
 
@@ -41,7 +42,7 @@ class test_find_filter(unittest.TestCase):
 
     def test_bfs_in_empty_graph(self):
         gr = graph()
-        st, lo = breadth_first_search(gr, filter=filters.find(5))
+        st, lo = breadth_first_search(gr, filter=find(5))
         assert st == {}
         assert lo == []
     
@@ -49,7 +50,7 @@ class test_find_filter(unittest.TestCase):
         gr = testlib.new_graph()
         gr.add_node('find-me')
         gr.add_edge(0, 'find-me')
-        st, lo = breadth_first_search(gr, root=0, filter=filters.find('find-me'))
+        st, lo = breadth_first_search(gr, root=0, filter=find('find-me'))
         assert st['find-me'] == 0
         for each in st:
             assert st[each] == None or st[each] == 0 or st[st[each]] == 0
@@ -58,7 +59,7 @@ class test_find_filter(unittest.TestCase):
         gr = testlib.new_digraph()
         gr.add_node('find-me')
         gr.add_edge(0, 'find-me')
-        st, lo = breadth_first_search(gr, root=0, filter=filters.find('find-me'))
+        st, lo = breadth_first_search(gr, root=0, filter=find('find-me'))
         assert st['find-me'] == 0
         for each in st:
             assert st[each] == None or st[each] == 0 or st[st[each]] == 0
@@ -76,7 +77,7 @@ class test_find_filter(unittest.TestCase):
         gr.add_node('dont-find-me')
         gr.add_edge(0, 'find-me')
         gr.add_edge('find-me','dont-find-me')
-        st, pre, post = depth_first_search(gr, root=0, filter=filters.find('find-me'))
+        st, pre, post = depth_first_search(gr, root=0, filter=find('find-me'))
         assert st['find-me'] == 0
         assert 'dont-find-me' not in st
     
@@ -86,7 +87,7 @@ class test_find_filter(unittest.TestCase):
         gr.add_node('dont-find-me')
         gr.add_edge(0, 'find-me')
         gr.add_edge('find-me','dont-find-me')
-        st, pre, post = depth_first_search(gr, root=0, filter=filters.find('find-me'))
+        st, pre, post = depth_first_search(gr, root=0, filter=find('find-me'))
         assert st['find-me'] == 0
         assert 'dont-find-me' not in st
 
@@ -95,41 +96,41 @@ class test_radius_filter(unittest.TestCase):
 
     def testbfs_in_empty_graph(self):
         gr = graph()
-        st, lo = breadth_first_search(gr, filter=filters.radius(2))
+        st, lo = breadth_first_search(gr, filter=radius(2))
         assert st == {}
         assert lo == []
     
     def test_bfs_in_graph(self):
         gr = testlib.new_graph()
-        st, lo = breadth_first_search(gr, root=0, filter=filters.radius(3))
+        st, lo = breadth_first_search(gr, root=0, filter=radius(3))
         for each in st:
             assert (st[each] == None or st[each] == 0
                     or st[st[each]] == 0 or st[st[st[each]]] == 0)
     
     def test_bfs_in_digraph(self):
         gr = testlib.new_digraph()
-        st, lo = breadth_first_search(gr, root=0, filter=filters.radius(3))
+        st, lo = breadth_first_search(gr, root=0, filter=radius(3))
         for each in st:
             assert (st[each] == None or st[each] == 0
                     or st[st[each]] == 0 or st[st[st[each]]] == 0)
 
     def test_dfs_in_empty_graph(self):
         gr = graph()
-        st, pre, post = depth_first_search(gr, filter=filters.radius(2))
+        st, pre, post = depth_first_search(gr, filter=radius(2))
         assert st == {}
         assert pre == []
         assert post == []
     
     def test_dfs_in_graph(self):
         gr = testlib.new_graph()
-        st, pre, post = depth_first_search(gr, root=0, filter=filters.radius(3))
+        st, pre, post = depth_first_search(gr, root=0, filter=radius(3))
         for each in st:
             assert (st[each] == None or st[each] == 0
                     or st[st[each]] == 0 or st[st[st[each]]] == 0)
     
     def test_dfs_in_digraph(self):
         gr = testlib.new_graph()
-        st, pre, post = depth_first_search(gr, root=0, filter=filters.radius(3))
+        st, pre, post = depth_first_search(gr, root=0, filter=radius(3))
         for each in st:
             assert (st[each] == None or st[each] == 0
                     or st[st[each]] == 0 or st[st[st[each]]] == 0)
