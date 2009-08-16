@@ -144,8 +144,8 @@ def write(G, weighted=False):
     """
     Return a string specifying the given graph in Dot language.
     
-    @type  graph: graph
-    @param graph: Graph.
+    @type  G: graph
+    @param G: Graph.
 
     @type  weighted: boolean
     @param weighted: Whether edges should be labelled with their weight.

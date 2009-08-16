@@ -49,7 +49,7 @@ cleanpyc:
 	find . -name *.pyc -exec rm {} \;
 
 clean: cleanpyc
-	rm -rf */docs
+	rm -rf docs
 	rm -rf */dist
 	rm -rf */build
 	rm -rf */*.egg-info

@@ -40,8 +40,8 @@ def write(G):
     """
     Return a string specifying the given graph as a XML document.
     
-    @type  graph: graph
-    @param graph: Graph.
+    @type  G: graph
+    @param G: Graph.
 
     @rtype:  string
     @return: String specifying the graph as a XML document.
