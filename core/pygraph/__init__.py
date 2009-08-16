@@ -59,12 +59,5 @@ A quick introductory example:
 >>> print st
 {'A': 'B', 'C': 'A', 'B': 'Y', 'Y': 'X', 'X': None, 'Z': 'X'}
 """
+
 __import__('pkg_resources').declare_namespace(__name__)
-# Imports
-#import pygraph.algorithms as algorithms
-#import pygraph.algorithms.filters as filters
-#import pygraph.algorithms.heuristics as heuristics
-#from pygraph.classes.Graph import graph
-#from pygraph.classes.Digraph import digraph
-#from pygraph.classes.Hypergraph import hypergraph
-#import pygraph.classes.Exceptions as exceptions

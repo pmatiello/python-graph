@@ -1,5 +1,4 @@
 # Copyright (c) 2008-2009 Pedro Matiello <pmatiello@gmail.com>
-#                         Salim Fadhley <sal@stodge.org>
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation
@@ -24,17 +23,9 @@
 
 
 """
-Set of search heuristics.
+Readwrite algorithms.
 
-This subpackage exposes the following heuristics:
-    - L{chow}
-    - L{euclidean}
-
-Which are conveniently exposed as:
-    - C{pygraph.heuristics.chow()}
-    - C{pygraph.heuristics.euclidean()}
-
-These are to be used with heuristic_search() method.
+Algorithms for reading and writing graphs.
 """
 
 __import__('pkg_resources').declare_namespace(__name__)

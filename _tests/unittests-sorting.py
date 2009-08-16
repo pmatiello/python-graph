@@ -31,7 +31,6 @@ import unittest
 import pygraph.classes
 from pygraph.algorithms.sorting import topological_sorting
 from pygraph.algorithms.searching import depth_first_search
-from pygraph.readwrite.dot import write
 import testlib
 
 
