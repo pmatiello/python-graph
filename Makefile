@@ -45,6 +45,7 @@ docs: cleanpyc
 		${TEMP}/pygraph/algorithms/filters/* \
 		${TEMP}/pygraph/readwrite/* \
 		${TEMP}/pygraph/classes/*.py
+		rm -rf ${TEMP}
 
 
 # Tests
