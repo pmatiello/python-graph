@@ -7,6 +7,8 @@
 CORE_DIR="core/"
 DOT_DIR="dot/"
 TESTS_DIR="_tests/"
+DOCS_DIR="docs/"
+TEMP="temp/"
 PYTHONPATH="`pwd`/core:`pwd`/dot"
 
 
@@ -31,12 +33,18 @@ egg-core: clean
 
 # Docs
 docs: cleanpyc
-	rm -rf docs
+	rm -rf ${DOCS_DIR} ${TEMP}
+	mkdir -p ${TEMP}
+	cp -R ${CORE_DIR}/pygraph ${TEMP}
+	cp -R ${DOT_DIR}/pygraph/readwrite ${TEMP}/pygraph/
 	epydoc -v --no-frames --no-sourcecode --name="python-graph" \
 		--url="http://code.google.com/p/python-graph/" \
-		--no-private --html --css misc/epydoc.css -o docs */pygraph/*.py \
-		*/pygraph/algorithms/*py */pygraph/algorithms/heuristics/*.py \
-		*/pygraph/algorithms/filters/* */pygraph/readwrite/* */pygraph/classes/*.py
+		--no-private --html --css misc/epydoc.css -o docs ${TEMP}/pygraph/*.py \
+		${TEMP}/pygraph/algorithms/*py \
+		${TEMP}/pygraph/algorithms/heuristics/*.py \
+		${TEMP}/pygraph/algorithms/filters/* \
+		${TEMP}/pygraph/readwrite/* \
+		${TEMP}/pygraph/classes/*.py
 
 
 # Tests
@@ -49,7 +57,7 @@ cleanpyc:
 	find . -name *.pyc -exec rm {} \;
 
 clean: cleanpyc
-	rm -rf docs
+	rm -rf ${DOCS_DIR}
 	rm -rf */dist
 	rm -rf */build
 	rm -rf */*.egg-info
