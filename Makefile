@@ -31,12 +31,12 @@ egg-core: clean
 
 # Docs
 docs: cleanpyc
-	cd ${CORE_DIR} && rm -rf docs
-	cd ${CORE_DIR} && epydoc -v --no-frames --no-sourcecode --name="python-graph" \
+	rm -rf docs
+	epydoc -v --no-frames --no-sourcecode --name="python-graph" \
 		--url="http://code.google.com/p/python-graph/" \
-		--no-private --html --css misc/epydoc.css -o docs pygraph/*.py \
-		pygraph/algorithms/*py pygraph/algorithms/heuristics/*.py \
-		pygraph/algorithms/filters/* pygraph/readwrite/* pygraph/classes/*.py
+		--no-private --html --css misc/epydoc.css -o docs */pygraph/*.py \
+		*/pygraph/algorithms/*py */pygraph/algorithms/heuristics/*.py \
+		*/pygraph/algorithms/filters/* */pygraph/readwrite/* */pygraph/classes/*.py
 
 
 # Tests
