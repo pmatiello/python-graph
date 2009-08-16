@@ -4,8 +4,10 @@
 
 # Module directories
 
-CORE_DIR="python-graph-core/"
-DOT_DIR="python-graph-dot/"
+CORE_DIR="core/"
+DOT_DIR="dot/"
+TESTS_DIR="_tests/"
+PYTHONPATH="`pwd`/core:`pwd`/dot"
 
 
 # General
@@ -26,7 +28,9 @@ install-core:
 egg-core: clean
 	cd ${CORE_DIR} && ./setup.py bdist_egg
 
-docs-core: cleanpyc
+
+# Docs
+docs: cleanpyc
 	cd ${CORE_DIR} && rm -rf docs
 	cd ${CORE_DIR} && epydoc -v --no-frames --no-sourcecode --name="python-graph" \
 		--url="http://code.google.com/p/python-graph/" \
@@ -34,17 +38,15 @@ docs-core: cleanpyc
 		pygraph/algorithms/*py pygraph/algorithms/heuristics/*.py \
 		pygraph/algorithms/filters/* pygraph/readwrite/* pygraph/classes/*.py
 
-test-core:
-	cd ${CORE_DIR} && cd tests && python testrunner.py
 
+# Tests
+tests:
+	export PYTHONPATH=${PYTHONPATH} && cd ${TESTS_DIR} && python testrunner.py
 
 # Cleaning
 
 cleanpyc:
-	rm -f */pygraph/*.pyc
-	rm -f */pygraph/*/*.pyc
-	rm -f */pygraph/*/*/*.pyc
-	rm -f */tests/*.pyc
+	find . -name *.pyc -exec rm {} \;
 
 clean: cleanpyc
 	rm -rf */docs
