@@ -31,6 +31,8 @@ Unit tests for python-graph
 import unittest
 import pygraph
 from pygraph.algorithms.searching import depth_first_search, breadth_first_search
+from pygraph.classes.Graph import graph
+
 from pygraph.algorithms import filters
 import testlib
 
@@ -38,7 +40,7 @@ import testlib
 class test_find_filter(unittest.TestCase):
 
     def test_bfs_in_empty_graph(self):
-        gr = pygraph.graph()
+        gr = graph()
         st, lo = breadth_first_search(gr, filter=filters.find(5))
         assert st == {}
         assert lo == []
@@ -62,7 +64,7 @@ class test_find_filter(unittest.TestCase):
             assert st[each] == None or st[each] == 0 or st[st[each]] == 0
     
     def test_dfs_in_empty_graph(self):
-        gr = pygraph.graph()
+        gr = graph()
         st, pre, post = depth_first_search(gr)
         assert st == {}
         assert pre == []
@@ -92,7 +94,7 @@ class test_find_filter(unittest.TestCase):
 class test_radius_filter(unittest.TestCase):
 
     def testbfs_in_empty_graph(self):
-        gr = pygraph.graph()
+        gr = graph()
         st, lo = breadth_first_search(gr, filter=filters.radius(2))
         assert st == {}
         assert lo == []
@@ -112,7 +114,7 @@ class test_radius_filter(unittest.TestCase):
                     or st[st[each]] == 0 or st[st[st[each]]] == 0)
 
     def test_dfs_in_empty_graph(self):
-        gr = pygraph.graph()
+        gr = graph()
         st, pre, post = depth_first_search(gr, filter=filters.radius(2))
         assert st == {}
         assert pre == []
@@ -131,3 +133,6 @@ class test_radius_filter(unittest.TestCase):
         for each in st:
             assert (st[each] == None or st[each] == 0
                     or st[st[each]] == 0 or st[st[st[each]]] == 0)
+            
+if __name__ == "__main__":
+    unittest.main()

@@ -23,7 +23,7 @@
 
 
 """
-Unittests for graph.classes.Graph
+Unittests for graph.classes.Digraph
 """
 
 
@@ -31,15 +31,16 @@ import unittest
 import pygraph
 from pygraph.algorithms.generators import generate
 from pygraph.classes.Exceptions import AdditionError
+from pygraph.classes.Digraph import digraph
 import testlib
 from copy import copy
 
-class test_graph(unittest.TestCase):
+class test_digraph(unittest.TestCase):
 
     # Add/Remove nodes and edges
     
     def test_raise_exception_on_duplicate_node_addition(self):
-        gr = pygraph.graph()
+        gr = digraph()
         gr.add_node('a_node')
         try:
             gr.add_node('a_node')
@@ -49,7 +50,7 @@ class test_graph(unittest.TestCase):
             fail()
     
     def test_remove_node(self):
-        gr = testlib.new_graph()
+        gr = testlib.new_digraph()
         gr.del_node(0)
         self.assertTrue(0 not in gr)
         for each, other in gr.edges():
@@ -57,13 +58,13 @@ class test_graph(unittest.TestCase):
             self.assertTrue(other in gr)
     
     def test_remove_edge_from_node_to_same_node(self):
-        gr = pygraph.graph()
+        gr = digraph()
         gr.add_node(0)
         gr.add_edge(0, 0)
         gr.del_edge(0, 0)
     
     def test_remove_node_with_edge_to_itself(self):
-        gr = pygraph.graph()
+        gr = digraph()
         gr.add_node(0)
         gr.add_edge(0, 0)
         gr.del_node(0)
@@ -71,39 +72,54 @@ class test_graph(unittest.TestCase):
     
     # Invert graph
     
-    def test_invert_graph(self):
-        gr = testlib.new_graph()
+    def test_invert_digraph(self):
+        gr = testlib.new_digraph()
         inv = gr.inverse()
         for each in gr.edges():
             self.assertTrue(each not in inv.edges())
         for each in inv.edges():
             self.assertTrue(each not in gr.edges())
     
-    def test_invert_empty_graph(self):
-        gr = pygraph.graph()
+    def test_invert_empty_digraph(self):
+        gr = digraph()
         inv = gr.inverse()
         self.assertTrue(gr.nodes() == [])
         self.assertTrue(gr.edges() == [])
     
     
+    # Reverse graph
+    def test_reverse_digraph(self):
+        gr = testlib.new_digraph()
+        rev = gr.reverse()
+        for (u, v) in gr.edges():
+            self.assertTrue((v, u) in rev.edges())
+        for (u, v) in rev.edges():
+            self.assertTrue((v, u) in gr.edges())
+    
+    def test_invert_empty_digraph(self):
+        gr = digraph()
+        rev = gr.reverse()
+        self.assertTrue(rev.nodes() == [])
+        self.assertTrue(rev.edges() == [])
+    
     # Complete graph
     
-    def test_complete_graph(self):
-        gr = pygraph.graph()
+    def test_complete_digraph(self):
+        gr = digraph()
         gr.add_nodes(xrange(10))
         gr.complete()
         for i in xrange(10):
             for j in range(10):
                 self.assertTrue((i, j) in gr.edges() or i == j)
     
-    def test_complete_empty_graph(self):
-        gr = pygraph.graph()
+    def test_complete_empty_digraph(self):
+        gr = digraph()
         gr.complete()
         self.assertTrue(gr.nodes() == [])
         self.assertTrue(gr.edges() == [])
     
-    def test_complete_graph_with_one_node(self):
-        gr = pygraph.graph()
+    def test_complete_digraph_with_one_node(self):
+        gr = digraph()
         gr.add_node(0)
         gr.complete()
         self.assertTrue(gr.nodes() == [0])
@@ -112,19 +128,19 @@ class test_graph(unittest.TestCase):
     
     # Add graph
     
-    def test_add_graph(self):
-        gr1 = testlib.new_graph()
-        gr2 = testlib.new_graph()
+    def test_add_digraph(self):
+        gr1 = testlib.new_digraph()
+        gr2 = testlib.new_digraph()
         gr1.add_graph(gr2)
         for each in gr2.nodes():
             self.assertTrue(each in gr1)
         for each in gr2.edges():
             self.assertTrue(each in gr1.edges())
     
-    def test_add_empty_graph(self):
-        gr1 = testlib.new_graph()
+    def test_add_empty_digraph(self):
+        gr1 = testlib.new_digraph()
         gr1c = copy(gr1)
-        gr2 = pygraph.graph()
+        gr2 = digraph()
         gr1.add_graph(gr2)
         self.assertTrue(gr1.nodes() == gr1c.nodes())
         self.assertTrue(gr1.edges() == gr1c.edges())
@@ -133,16 +149,18 @@ class test_graph(unittest.TestCase):
     # Add spanning tree
     
     def test_add_spanning_tree(self):
-        gr = pygraph.graph()
+        gr = digraph()
         st = {0: None, 1: 0, 2:0, 3: 1, 4: 2, 5: 3}
         gr.add_spanning_tree(st)
         for each in st:
-            self.assertTrue((each, st[each]) in gr.edges() or (each, st[each]) == (0, None))
             self.assertTrue((st[each], each) in gr.edges() or (each, st[each]) == (0, None))
 
     def test_add_empty_spanning_tree(self):
-        gr = pygraph.graph()
+        gr = digraph()
         st = {}
         gr.add_spanning_tree(st)
         self.assertTrue(gr.nodes() == [])
         self.assertTrue(gr.edges() == [])
+
+if __name__ == "__main__":
+    unittest.main()

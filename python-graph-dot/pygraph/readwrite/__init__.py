@@ -1,4 +1,4 @@
-# Copyright (c) Pedro Matiello <pmatiello@gmail.com>
+# Copyright (c) 2008-2009 Pedro Matiello <pmatiello@gmail.com>
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation
@@ -23,29 +23,11 @@
 
 
 """
-Unittests for graph.algorithms.accessibility
+Algorithms
+
+This subpackage contains a set of modules, each one of them containing some algorithms.
+In most cases, you won't need to access it directly.
 """
-
-
-import unittest
-import pygraph
-from pygraph.algorithms.searching import depth_first_search
-from pygraph.algorithms.accessibility import mutual_accessibility
-import testlib
-
-class test_find_cycle(unittest.TestCase):
-
-    def setUp(self):
-        pass
-
-    def test_mutual_accessibility_in_digraph(self):
-        gr = testlib.new_digraph()
-        
-        ma = mutual_accessibility(gr)
-        for n in gr:
-            for m in gr:
-                if (m in ma[n]):
-                    assert m in depth_first_search(gr, n)[0]
-                    assert n in depth_first_search(gr, m)[0]
-                else:
-                    assert m not in depth_first_search(gr, n)[0] or n not in depth_first_search(gr, m)[0]
+#
+#import pygraph.readwrite.dot
+#import pygraph.readwrite.markup

@@ -12,43 +12,22 @@ except ImportError, ie:
     from setuptools import setup, find_packages
 
 # Startup
-appname = "python-graph-core"
+appname = "python-graph-tests"
 appversion = open("../version.txt").read()
-
-# Extra files
-if (os.name == 'posix'):    # Files to be installed/packaged on Unix-like systems
-    datadir = 'share/doc/'+appname+'-'+appversion
-    datafiles = ['../README', '../COPYING', '../Changelog']
-    docsdir = datadir + '/docs'
-    docsfiles = []
-    try:
-        # Uncomment the line bellow if you want bdist_rpm to include the docs
-        os.system('make docs')
-        dirlisting = os.listdir('docs/')
-    except:
-        print "Documentation isn't present and will not be installed/packaged."
-        dirlisting = []
-    for each in dirlisting:
-        docsfiles.append('docs/'+each)
-else:    # Other systems
-    datadir = ''
-    datafiles = []
-    docsdir = ''
-    docsfiles = []
 
 setup(
         name = appname,
         version = appversion,
-        data_files = [(docsdir,docsfiles),
-                       (datadir,datafiles)],
-        author = "Pedro Matiello",
         namespace_packages = ["pygraph"],
         packages = ["pygraph"] + [ os.path.join("pygraph", a) for a in find_packages("pygraph") ],
+        install_requires = ['pydot', 'python-graph-dot==%s' % appversion,  ],
+        author = "Pedro Matiello",
         author_email = "pmatiello@gmail.com",
-        description = "A library for working with graphs in Python",
+        description = "DOT support for python-graph",
         license = "MIT",
         keywords = "python graphs hypergraphs networks library algorithms",
         url = "http://code.google.com/p/python-graph/",
         classifiers = ["License :: OSI Approved :: MIT License","Topic :: Software Development :: Libraries :: Python Modules"],
         long_description = "python-graph is a library for working with graphs in Python. This software provides a suitable data structure for representing graphs and a whole set of important algorithms.",
+        test_suite = "pygraph.tests",
 )

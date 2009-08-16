@@ -29,6 +29,11 @@ Unittests for graph.algorithms.heuristics
 
 import unittest
 import pygraph
+from pygraph.classes.Graph import graph
+from pygraph.classes.Digraph import digraph
+from pygraph.algorithms.heuristics.Euclidean import euclidean
+from pygraph.algorithms.heuristics.Chow import chow
+from pygraph.classes import Exceptions as exceptions
 
 from test_data import nations_of_the_world
 
@@ -36,7 +41,7 @@ from test_data import nations_of_the_world
 class test_chow(unittest.TestCase):
 
     def setUp(self):
-        self.G = pygraph.graph()
+        self.G = graph()
         nations_of_the_world(self.G)
 
     def test_basic(self):
@@ -47,12 +52,12 @@ class test_chow(unittest.TestCase):
         assert set(['Wales', 'Scotland', 'France', 'Ireland']) == set( englands_neighbors )
 
     def test_chow(self):
-        heuristic = pygraph.heuristics.chow( "Wales", "North Korea", "Russia" )
+        heuristic = chow( "Wales", "North Korea", "Russia" )
         heuristic.optimize(self.G)
         result = pygraph.algorithms.minmax.heuristic_search( self.G, "England", "India", heuristic )
         
     def test_chow_unreachable(self):
-        heuristic = pygraph.heuristics.chow( "Wales", "North Korea", "Russia" )
+        heuristic = chow( "Wales", "North Korea", "Russia" )
         self.G.add_node("Sealand")
         self.G.add_edge("England", "Sealand")
         heuristic.optimize(self.G)
@@ -60,7 +65,7 @@ class test_chow(unittest.TestCase):
         
         try:
             result = pygraph.algorithms.minmax.heuristic_search( self.G, "England", "Sealand" , heuristic )
-        except pygraph.exceptions.NodeUnreachable, _:
+        except exceptions.NodeUnreachable, _:
             return
         
         assert False, "This test should raise an unreachable error."
@@ -69,7 +74,7 @@ class test_chow(unittest.TestCase):
 class test_euclidean(unittest.TestCase):
 
     def setUp(self):
-        self.G = pygraph.graph()
+        self.G = pygraph.classes.Graph.graph()
         self.G.add_node('A', [('position',[0,0])])
         self.G.add_node('B', [('position',[2,0])])
         self.G.add_node('C', [('position',[2,3])])
@@ -80,7 +85,10 @@ class test_euclidean(unittest.TestCase):
         self.G.add_edge('D', 'C', wt=2)            
 
     def test_euclidean(self):
-        heuristic = pygraph.heuristics.euclidean()
+        heuristic = euclidean()
         heuristic.optimize(self.G)
         result = pygraph.algorithms.minmax.heuristic_search(self.G, 'A', 'C', heuristic )
         assert result == ['A', 'D', 'C']
+        
+if __name__ == "__main__":
+    unittest.main()

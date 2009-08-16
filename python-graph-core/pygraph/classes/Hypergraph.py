@@ -31,8 +31,6 @@ Hypergraph class
 # Imports
 from pygraph.classes.Graph import graph
 from pygraph.algorithms import *
-from pygraph import readwrite
-
 
 class hypergraph (object):
     """
