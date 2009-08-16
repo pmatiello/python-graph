@@ -5,9 +5,9 @@
 <pydev_property name="org.python.pydev.PYTHON_PROJECT_VERSION">python 2.6</pydev_property>
 <pydev_property name="org.python.pydev.PYTHON_PROJECT_INTERPRETER">Default</pydev_property>
 <pydev_pathproperty name="org.python.pydev.PROJECT_SOURCE_PATH">
-<path>/python-graph/python-graph-core</path>
-<path>/python-graph/python-graph-dot</path>
-<path>/python-graph/python-graph-tests/pygraph</path>
+<path>/python-graph/core</path>
+<path>/python-graph/dot</path>
+<path>/python-graph/_tests</path>
 </pydev_pathproperty>
 <pydev_pathproperty name="org.python.pydev.PROJECT_EXTERNAL_SOURCE_PATH">
 <path>/usr/local/lib/python2.6/dist-packages/pydot-1.0.2-py2.6.egg</path>
