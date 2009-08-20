@@ -7,11 +7,11 @@ import sys
 sys.path.append('..')
 sys.path.append('/usr/lib/graphviz/python/')
 sys.path.append('/usr/lib64/graphviz/python/')
-import pygraph
-import gv
+from pygraph.classes.digraph import digraph
+from pygraph.readwrite.markup import write
 
 # Graph creation
-gr = pygraph.digraph()
+gr = digraph()
 
 # Add nodes and edges
 gr.add_nodes(["Portugal","Spain","France","Germany","Belgium","Netherlands","Italy"])
@@ -33,4 +33,4 @@ gr.add_edge("England","Scotland")
 gr.add_edge("Scotland","Wales")
 
 # Print to DOT Language
-print pygraph.readwrite.markup.write(gr)
+print write(gr)

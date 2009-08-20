@@ -5,11 +5,11 @@
 
 import sys
 sys.path.append('..')
-import pygraph
+from pygraph.readwrite.markup import read, write
 
 inputfile = file('graph.xml','r')
 string = inputfile.read()
 inputfile.close()
 
-gr = pygraph.readwrite.markup.read(string)
-print pygraph.readwrite.markup.write(gr)
+gr = read(string)
+print write(gr)

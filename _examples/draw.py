@@ -7,11 +7,12 @@ import sys
 sys.path.append('..')
 sys.path.append('/usr/lib/graphviz/python/')
 sys.path.append('/usr/lib64/graphviz/python/')
-import pygraph
+from pygraph.classes.graph import graph
+from pygraph.readwrite.dot import write
 import gv
 
 # Graph creation
-gr = pygraph.graph()
+gr = graph()
 
 # Add nodes and edges
 gr.add_nodes(["Portugal","Spain","France","Germany","Belgium","Netherlands","Italy"])
@@ -33,7 +34,7 @@ gr.add_edge("England","Scotland")
 gr.add_edge("Scotland","Wales")
 
 # Print to DOT Language
-dot = pygraph.readwrite.dot.write(gr)
+dot = write(gr)
 print dot
 
 # Print graph as PNG image

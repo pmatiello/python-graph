@@ -7,11 +7,12 @@ import sys
 sys.path.append('..')
 sys.path.append('/usr/lib/graphviz/python/')
 sys.path.append('/usr/lib64/graphviz/python/')
-import pygraph
+from pygraph.classes.hypergraph import hypergraph
+from pygraph.readwrite.dot import write_hypergraph
 import gv
 
 # Graph creation
-hgr = pygraph.hypergraph()
+hgr = hypergraph()
 
 # Add nodes and edges
 hgr.add_nodes([1,2,3,4,5,6,7,8,9])
@@ -32,7 +33,7 @@ hgr.link(3,'J')
 hgr.link(4,'J')
 
 # Print graph as PNG image
-dot = hgr.write(fmt='dotclr')
+dot = write_hypergraph(hgr, colored=True)
 gvv = gv.readstring(dot)
 gv.layout(gvv,'neato')
 gv.render(gvv,'png','hypergraph.png')

@@ -12,7 +12,7 @@ Important API Changes:
 	pygraph.classes.Classname.classname classes were renamed to pygraph.classes.classname.classname.
 	pygraph.algorithms.filters.Filtername.filtername filters were renamed to pygraph.algorithms.filters.filtername.filtername.
 	pygraph.algorithms.heuristics.Heuristicname.heuristicname heuristics were renamed to pygraph.algorithms.heuristics.heuristicname.heuristicname.
-	hypergraph's read() and write() methods were removed from the class. 
+	hypergraph's read() and write() methods were removed. 
 
 
 Release 1.6.1	[Jul 04, 2009]

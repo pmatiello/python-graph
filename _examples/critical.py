@@ -5,11 +5,12 @@
 import sys
 sys.path.append('..')
 import pygraph
+from pygraph.classes.digraph import digraph
 from pygraph.algorithms.critical import transitive_edges, critical_path
 
 #demo of the critical path algorithm and the transitivity detection algorithm
 
-G = pygraph.digraph()
+G = digraph()
 
 G.add_node('A')
 G.add_node('B')
