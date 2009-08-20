@@ -74,47 +74,6 @@ class hypergraph (object):
         return len(self.node_links)
 
 
-    def read(self, string, fmt='xml'):
-        """
-        Read a hypergraph from a string. Nodes and hyperedges specified in the input will be added
-        to the current graph.
-        
-        @type  string: string
-        @param string: Input string specifying a graph.
-
-        @type  fmt: string
-        @param fmt: Input format. Possible formats are:
-            1. 'xml' - XML (default)
-            2. 'dot' - Dot
-        """
-        if (fmt == 'xml'):
-            readwrite.markup.read_hypergraph(self, string)
-        elif (fmt == 'dot'):
-            readwrite.dot.read_hypergraph(self, string)
-
-
-    def write(self, fmt='xml'):
-        """
-        Write the hypergraph to a string. Depending of the output format, this string can be used by
-        read() to rebuild the graph.
-        
-        @type  fmt: string
-        @param fmt: Output format. Possible formats are:
-            1. 'xml' - XML (default)
-            2. 'dot' - DOT Language (for GraphViz)
-            3. 'dotclr' - DOT Language, colored
-
-        @rtype:  string
-        @return: String specifying the graph.
-        """
-        if (fmt == 'xml'):
-            return readwrite.markup.write_hypergraph(self)
-        elif (fmt == 'dot'):
-            return readwrite.dot.write_hypergraph(self)
-        elif (fmt == 'dotclr'):
-            return readwrite.dot.write_hypergraph(self, colored=True)
-    
-
     def nodes(self):
         """
         Return node list.
