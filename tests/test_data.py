@@ -71,7 +71,8 @@ def nations_of_the_world( G ):
             if not n in G.nodes():
                 G.add_node(n)
                 
-        G.add_edge( a,b )
+        if (not G.has_edge(a,b)):
+            G.add_edge( a,b )
         
     return G
             

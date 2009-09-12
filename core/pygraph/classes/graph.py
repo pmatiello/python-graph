@@ -209,6 +209,8 @@ class graph (object):
             self.edge_properties[(v, u)] = [label, wt]
             self.edge_attr[(u, v)] = attrs
             self.edge_attr[(v, u)] = attrs
+        else:
+            raise AdditionError
 
 
     def del_node(self, node):
@@ -403,7 +405,7 @@ class graph (object):
         """
         for each in self.nodes():
             for other in self.nodes():
-                if (each != other):
+                if (each != other and not self.has_edge(each, other)):
                     self.add_edge(each, other)
 
 
@@ -436,7 +438,8 @@ class graph (object):
             if each_node not in self.nodes():
                 self.add_node(each_node)
             for each_edge in graph.neighbors(each_node):
-                self.add_edge(each_node, each_edge)
+                if (not self.has_edge(each_node, each_edge)):
+                    self.add_edge(each_node, each_edge)
 
 
     def add_spanning_tree(self, st):

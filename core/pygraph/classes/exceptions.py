@@ -36,7 +36,7 @@ class GraphError(RuntimeError):
 
 class AdditionError(GraphError):
     """
-    This error is raised when trying to add a node already added to the graph or digraph.
+    This error is raised when trying to add a node or edge already added to the graph or digraph.
     """
     pass
 

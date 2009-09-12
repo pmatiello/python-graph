@@ -29,15 +29,17 @@ A library for working with graphs in Python.
 
 @version: 1.6.2
 
-Data structure classes are exposed at the top-level:
-    - The L{graph} class is exposed as C{pygraph.graph()}.
-    - The L{digraph} class is exposed as C{pygraph.digraph()}.
-    - The L{hypergraph} class is exposed as C{pygraph.hypergraph()}.
+Data structure classes are located at L{pygraph.classes}:
+    - The L{graph} class is exposed as C{pygraph.classes.graph.graph()}.
+    - The L{digraph} class is exposed as C{pygraph.classes.graph.digraph()}.
+    - The L{hypergraph} class is exposed as C{pygraph.classes.graph.hypergraph()}.
 
-Helper classes are exposed one level beneath:
-    - L{Exceptions<pygraph.exceptions>} are exposed in C{pygraph.exceptions}.
-    - L{Search filters<pygraph.filters>} are exposed in C{pygraph.filters}.
-    - L{Heuristics<pygraph.heuristics>} for the A* algorithm are exposed in C{pygraph.heuristics}.
+L{Exception<pygraph.classes.exceptions>} classes are located at C{pygraph.classes.exceptions}:
+
+L{Search filters<pygraph.algorithms.filters>} are located at C{pygraph.algorithms.filters}.
+
+L{Heuristics<pygraph.algorithms.heuristics>} for the A* algorithm are exposed in
+C{pygraph.algorithms.heuristics}.
 
 A quick introductory example:
 

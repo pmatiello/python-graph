@@ -150,8 +150,9 @@ def read(string):
 
     # Read edges...
     for each_edge in dom.getElementsByTagName("edge"):
-        G.add_edge(each_edge.getAttribute('from'), each_edge.getAttribute('to'), \
-            wt = float(each_edge.getAttribute('wt')), label = each_edge.getAttribute('label'))
+        if (G.has_edge(each_edge.getAttribute('from'), each_edge.getAttribute('to'))):
+            G.add_edge(each_edge.getAttribute('from'), each_edge.getAttribute('to'), \
+                wt = float(each_edge.getAttribute('wt')), label = each_edge.getAttribute('label'))
         for each_attr in each_edge.getElementsByTagName("attribute"):
             attr_tuple = (each_attr.getAttribute('attr'), each_attr.getAttribute('value'))
             if (attr_tuple not in graph.edge_attributes(each_edge.getAttribute('from'), \

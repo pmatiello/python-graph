@@ -48,6 +48,18 @@ class test_digraph(unittest.TestCase):
             pass
         else:
             fail()
+
+    def test_raise_exception_on_duplicate_edge_addition(self):
+        gr = digraph()
+        gr.add_node('a_node')
+        gr.add_node('other_node')
+        gr.add_edge("a_node","other_node")
+        try:
+            gr.add_edge("a_node","other_node")
+        except AdditionError:
+            pass
+        else:
+            fail()
     
     def test_remove_node(self):
         gr = testlib.new_digraph()

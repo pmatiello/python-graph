@@ -6,7 +6,7 @@
 
 CORE_DIR="core/"
 DOT_DIR="dot/"
-TESTS_DIR="_tests/"
+TESTS_DIR="tests/"
 DOCS_DIR="docs/"
 TEMP="temp/"
 PYTHONPATH="`pwd`/core:`pwd`/dot"
