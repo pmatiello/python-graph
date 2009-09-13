@@ -183,7 +183,7 @@ class digraph (object):
             self.node_incidence[node] = []
             self.node_attr[node] = attrs
         else:
-            raise AdditionError
+            raise AdditionError, "Node %s already in digraph" % node
 
 
     def add_nodes(self, nodelist):
@@ -225,7 +225,7 @@ class digraph (object):
             self.edge_properties[(u, v)] = [label, wt]
             self.edge_attr[(u, v)] = attrs
         else:
-            raise AdditionError
+            raise AdditionError, "Edge (%s, %s) already in digraph" % (u, v)
 
 
     def del_node(self, node):

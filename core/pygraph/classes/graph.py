@@ -166,7 +166,7 @@ class graph (object):
             self.node_neighbors[node] = []
             self.node_attr[node] = attrs
         else:
-            raise AdditionError
+            raise AdditionError, "Node %s already in graph" % node
 
 
     def add_nodes(self, nodelist):
@@ -210,7 +210,7 @@ class graph (object):
             self.edge_attr[(u, v)] = attrs
             self.edge_attr[(v, u)] = attrs
         else:
-            raise AdditionError
+            raise AdditionError, "Edge (%s, %s) already in graph" % (u, v)
 
 
     def del_node(self, node):
