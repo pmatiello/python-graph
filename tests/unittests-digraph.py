@@ -61,6 +61,30 @@ class test_digraph(unittest.TestCase):
         else:
             fail()
     
+    def test_raise_exception_when_edge_added_from_non_existing_node(self):
+        gr = digraph()
+        gr.add_nodes([0,1])
+        try:
+            gr.add_edge(3,0)
+        except KeyError:
+            pass
+        else:
+            fail()
+        assert gr.node_neighbors == {0: [], 1: []}
+        assert gr.node_incidence == {0: [], 1: []}
+    
+    def test_raise_exception_when_edge_added_to_non_existing_node(self):
+        gr = digraph()
+        gr.add_nodes([0,1])
+        try:
+            gr.add_edge(0,3)
+        except KeyError:
+            pass
+        else:
+            fail()
+        assert gr.node_neighbors == {0: [], 1: []}
+        assert gr.node_incidence == {0: [], 1: []}
+    
     def test_remove_node(self):
         gr = testlib.new_digraph()
         gr.del_node(0)

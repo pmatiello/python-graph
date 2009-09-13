@@ -219,7 +219,7 @@ class digraph (object):
         @type  attrs: list
         @param attrs: List of node attributes specified as (attribute, value) tuples.
         """
-        if (v not in self.node_neighbors[u]):
+        if (v not in self.node_neighbors[u] and self.node_neighbors[v] is not None):
             self.node_neighbors[u].append(v)
             self.node_incidence[v].append(u)
             self.edge_properties[(u, v)] = [label, wt]

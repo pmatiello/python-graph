@@ -8,11 +8,12 @@ CHANGELOG
 Release 1.6.2	[??? ??, 2009]
 
 Important API Changes:
-	Adding an already added node to a graph or digraph now raises an exception (AdditionError).
-	Adding an already added edge to a graph or digraph now raises an exception (AdditionError).
-	pygraph.classes.Classname.classname classes were renamed to pygraph.classes.classname.classname.
-	pygraph.algorithms.filters.Filtername.filtername filters were renamed to pygraph.algorithms.filters.filtername.filtername.
-	pygraph.algorithms.heuristics.Heuristicname.heuristicname heuristics were renamed to pygraph.algorithms.heuristics.heuristicname.heuristicname.
+	Adding an arrow to an non existing node on a digraph now fails sanely (Issue 35);
+	Adding an already added node to a graph or digraph now raises an exception (AdditionError);
+	Adding an already added edge to a graph or digraph now raises an exception (AdditionError);
+	pygraph.classes.Classname.classname classes were renamed to pygraph.classes.classname.classname;
+	pygraph.algorithms.filters.Filtername.filtername filters were renamed to pygraph.algorithms.filters.filtername.filtername;
+	pygraph.algorithms.heuristics.Heuristicname.heuristicname heuristics were renamed to pygraph.algorithms.heuristics.heuristicname.heuristicname;
 	hypergraph's read() and write() methods were removed. 
 
 
