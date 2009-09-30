@@ -178,8 +178,8 @@ def heuristic_search(graph, start, goal, heuristic):
     """
     A* search algorithm.
     
-    A set of heuristics is available under C{graph.heuristics}. User-created heuristics are
-    allowed too.
+    A set of heuristics is available under C{graph.algorithms.heuristics}. User-created heuristics
+    are allowed too.
     
     @type graph: graph, digraph
     @param graph: Graph

@@ -44,8 +44,9 @@ C{pygraph.algorithms.heuristics}.
 A quick introductory example:
 
 >>> # Import the module and instantiate a graph object
->>> import graph
->>> gr = graph.graph()
+>>> from pygraph.classes.graph import graph
+>>> from pygraph.algorithms.searching import depth_first_search
+>>> gr = graph()
 >>> # Add nodes
 >>> gr.add_nodes(['X','Y','Z'])
 >>> gr.add_nodes(['A','B','C'])
@@ -56,7 +57,7 @@ A quick introductory example:
 >>> gr.add_edge('A','C')
 >>> gr.add_edge('Y','B')
 >>> # Depth first search rooted on node X
->>> st, pre, post = gr.depth_first_search(root='X')
+>>> st, pre, post = depth_first_search(gr, root='X')
 >>> # Print the spanning tree
 >>> print st
 {'A': 'B', 'C': 'A', 'B': 'Y', 'Y': 'X', 'X': None, 'Z': 'X'}

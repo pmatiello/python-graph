@@ -26,15 +26,7 @@
 """
 Set of search heuristics.
 
-This subpackage exposes the following heuristics:
-    - L{chow}
-    - L{euclidean}
-
-Which are conveniently exposed as:
-    - C{pygraph.heuristics.chow()}
-    - C{pygraph.heuristics.euclidean()}
-
-These are to be used with heuristic_search() method.
+These are to be used with the C{heuristic_search()} function.
 """
 
 __import__('pkg_resources').declare_namespace(__name__)
