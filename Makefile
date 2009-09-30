@@ -17,6 +17,7 @@ PYTHONPATH="`pwd`/core:`pwd`/dot"
 nothing:
 
 eggs: egg-core egg-dot
+	rm -rf dist
 	mkdir dist
 	cp */dist/* dist
 
