@@ -24,14 +24,4 @@
 
 """
 Data structure classes.
-
-This subpackage exposes the following classes:
-    - L{graph}
-    - L{digraph}
-    - L{hypergraph}
-
-Which are conveniently exposed as:
-    - C{graph.graph()}
-    - C{graph.digraph()}
-    - C{graph.hypergraph()}
 """

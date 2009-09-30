@@ -29,10 +29,7 @@ A library for working with graphs in Python.
 
 @version: 1.6.2
 
-Data structure classes are located at L{pygraph.classes}:
-    - The L{graph} class is exposed as C{pygraph.classes.graph.graph()}.
-    - The L{digraph} class is exposed as C{pygraph.classes.graph.digraph()}.
-    - The L{hypergraph} class is exposed as C{pygraph.classes.graph.hypergraph()}.
+L{Data structure<pygraph.classes>} classes are located at C{pygraph.classes}.
 
 L{Exception<pygraph.classes.exceptions>} classes are located at C{pygraph.classes.exceptions}:
 
