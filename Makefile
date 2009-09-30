@@ -16,9 +16,9 @@ PYTHONPATH="`pwd`/core:`pwd`/dot"
 
 nothing:
 
-install: install-core
-
-egg: egg-core
+eggs: egg-core egg-dot
+	mkdir dist
+	cp */dist/* dist
 
 docs: docs-core
 
@@ -30,6 +30,15 @@ install-core:
 
 egg-core: clean
 	cd ${CORE_DIR} && ./setup.py bdist_egg
+
+
+# Dot ----------------------------------------------------------------
+
+install-dot:
+	cd ${DOT_DIR} && ./setup.py install
+
+egg-dot: clean
+	cd ${DOT_DIR} && ./setup.py bdist_egg
 
 
 # Docs ---------------------------------------------------------------
