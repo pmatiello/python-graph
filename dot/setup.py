@@ -6,7 +6,7 @@ import logging
 
 try:
     from setuptools import setup, find_packages
-except ImportError, ie:
+except ImportError as ie:
     import ez_setup
     ez_setup.use_setuptools()
     from setuptools import setup, find_packages
