@@ -30,7 +30,7 @@ Unittests for graph.algorithms.readwrite
 import unittest
 import pygraph
 from pygraph.readwrite import dot, markup
-import testlib
+from . import testlib
 
 def graph_equality(gr1, gr2):
     for each in gr1.nodes():

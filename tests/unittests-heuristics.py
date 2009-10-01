@@ -35,7 +35,7 @@ from pygraph.algorithms.heuristics.euclidean import euclidean
 from pygraph.algorithms.heuristics.chow import chow
 from pygraph.classes import exceptions
 
-from test_data import nations_of_the_world
+from .test_data import nations_of_the_world
 
 
 class test_chow(unittest.TestCase):
@@ -65,7 +65,7 @@ class test_chow(unittest.TestCase):
         
         try:
             result = pygraph.algorithms.minmax.heuristic_search( self.G, "England", "Sealand" , heuristic )
-        except exceptions.NodeUnreachable, _:
+        except exceptions.NodeUnreachable as _:
             return
         
         assert False, "This test should raise an unreachable error."

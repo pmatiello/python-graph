@@ -88,7 +88,7 @@ class graph (object):
         @rtype:  iterator
         @return: Iterator passing through all nodes in the graph.
         """
-        for each in self.node_neighbors.iterkeys():
+        for each in self.node_neighbors.keys():
             yield each
 
 
@@ -110,7 +110,7 @@ class graph (object):
         @rtype:  list
         @return: Node list.
         """
-        return self.node_neighbors.keys()
+        return list(self.node_neighbors.keys())
 
 
     def neighbors(self, node):
@@ -133,7 +133,7 @@ class graph (object):
         @rtype:  list
         @return: List of all edges in the graph.
         """
-        return self.edge_properties.keys()
+        return list(self.edge_properties.keys())
 
 
     def has_node(self, node):
@@ -146,7 +146,7 @@ class graph (object):
         @rtype:  boolean
         @return: Truth-value for node existence.
         """
-        return self.node_neighbors.has_key(node)
+        return node in self.node_neighbors
 
 
     def add_node(self, node, attrs=[]):
@@ -166,7 +166,7 @@ class graph (object):
             self.node_neighbors[node] = []
             self.node_attr[node] = attrs
         else:
-            raise AdditionError, "Node %s already in graph" % node
+            raise AdditionError("Node %s already in graph" % node)
 
 
     def add_nodes(self, nodelist):
@@ -210,7 +210,7 @@ class graph (object):
             self.edge_attr[(u, v)] = attrs
             self.edge_attr[(v, u)] = attrs
         else:
-            raise AdditionError, "Edge (%s, %s) already in graph" % (u, v)
+            raise AdditionError("Edge (%s, %s) already in graph" % (u, v))
 
 
     def del_node(self, node):
@@ -384,7 +384,7 @@ class graph (object):
         @rtype:  boolean
         @return: Truth-value for edge existence.
         """
-        return self.edge_properties.has_key((u,v)) and self.edge_properties.has_key((v,u))
+        return (u,v) in self.edge_properties and (v,u) in self.edge_properties
     
     
     def node_order(self, node):
@@ -449,7 +449,7 @@ class graph (object):
         @type  st: dictionary
         @param st: Spanning tree.
         """
-        self.add_nodes(st.keys())
+        self.add_nodes(list(st.keys()))
         for each in st:
             if (st[each] is not None):
                 self.add_edge(st[each], each)

@@ -62,7 +62,7 @@ def generate(num_nodes, num_edges, directed=False, weight_range=(1, 1)):
         random_graph = graph()
     
     # Nodes
-    nodes = xrange(num_nodes)
+    nodes = range(num_nodes)
     random_graph.add_nodes(nodes)
     
     # Build a list of all possible edges
@@ -74,14 +74,14 @@ def generate(num_nodes, num_edges, directed=False, weight_range=(1, 1)):
                 edges_append((x, y))
     
     # Randomize the list
-    for i in xrange(len(edges)):
+    for i in range(len(edges)):
         r = randint(0, len(edges)-1)
         edges[i], edges[r] = edges[r], edges[i]
     
         # Add edges to the graph
         min_wt = min(weight_range)
         max_wt = max(weight_range)
-    for i in xrange(num_edges):
+    for i in range(num_edges):
         each = edges[i]
         random_graph.add_edge(each[0], each[1], wt = randint(min_wt, max_wt))
 

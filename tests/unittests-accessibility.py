@@ -31,7 +31,7 @@ import unittest
 import pygraph
 from pygraph.algorithms.searching import depth_first_search
 from pygraph.algorithms.accessibility import mutual_accessibility
-import testlib
+from . import testlib
 
 class test_find_cycle(unittest.TestCase):
 
