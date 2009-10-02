@@ -30,7 +30,8 @@ Hypergraph class
 
 # Imports
 from pygraph.classes.graph import graph
-from pygraph.algorithms import *
+#from pygraph.algorithms import *
+from pygraph.algorithms import accessibility
 
 class hypergraph (object):
     """
@@ -293,7 +294,7 @@ class hypergraph (object):
         """
         max_rank = 0
         
-        for each in hyperedges:
+        for each in self.hyperedges():
             if len(each) > max_rank:
                 max_rank = len(each)
                 

@@ -87,8 +87,8 @@ def mutual_accessibility(graph):
             for each in component:
                 mutual_access[each] = component
 
-	    for item in component:
-	        low[item] = len(graph)
+        for item in component:
+            low[item] = len(graph)
     
     for node in graph:
         visit(node)

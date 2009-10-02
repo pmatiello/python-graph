@@ -32,7 +32,7 @@ import unittest
 import pygraph
 import pygraph.classes
 from pygraph.algorithms.searching import depth_first_search, breadth_first_search
-from . import testlib
+import testlib
 
 
 class test_depth_first_search(unittest.TestCase):

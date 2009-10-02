@@ -30,7 +30,7 @@ Search algorithms.
 
 
 # Imports
-from filters.null import null
+from pygraph.algorithms.filters.null import null
 
 
 # Depth-first search

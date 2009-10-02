@@ -126,7 +126,7 @@ def read_hypergraph(hypergraph, string):
         elif 'hyperedge' == each_node.get('hyper_node_type'):
             hypergraph.add_hyperedge(each_node.get_name())
         else:
-            print "Error: improper hyper_node_type - " + str(each_node.get('hyper_node_type'))
+            print ("Error: improper hyper_node_type - %s" % str(each_node.get('hyper_node_type')))
     
     # Now read in the links to connect the hyperedges
     for each_link in dotG.get_edges():
@@ -228,7 +228,7 @@ def write_hypergraph(hypergraph, colored = False):
     try:
         import pydot
     except:
-        print "Error: You must first install the pydot package: http://code.google.com/p/pydot/"
+        print ("Error: You must first install the pydot package: http://code.google.com/p/pydot/")
         return
     
     dotG = pydot.Dot()
