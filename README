@@ -18,13 +18,13 @@ Pedro Matiello <pmatiello@gmail.com>
 	* XML reading/writing;
 	* Refactoring.
 
-Eugen Zagorodniy <e.zagorodniy@gmail.com>
-	* Mutual Accessibility (Tarjan's Algorithm).
-
 Christian Muise <christian.muise@gmail.com>
 	* Dot file reading/writing;
 	* Hypergraph class;
 	* Refactoring.
+
+Eugen Zagorodniy <e.zagorodniy@gmail.com>
+	* Mutual Accessibility (Tarjan's Algorithm).
 
 Johannes Reinhardt <jreinhardt@ist-dein-freund.de>
 	* Refactoring.
