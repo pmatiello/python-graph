@@ -35,7 +35,7 @@ from pygraph.algorithms.heuristics.euclidean import euclidean
 from pygraph.algorithms.heuristics.chow import chow
 from pygraph.classes import exceptions
 
-from .test_data import nations_of_the_world
+from test_data import nations_of_the_world
 
 
 class test_chow(unittest.TestCase):

@@ -31,7 +31,7 @@ import unittest
 import pygraph.classes
 from pygraph.algorithms.sorting import topological_sorting
 from pygraph.algorithms.searching import depth_first_search
-from . import testlib
+import testlib
 
 
 class test_topological_sorting(unittest.TestCase):
