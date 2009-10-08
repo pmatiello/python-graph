@@ -75,7 +75,7 @@ def mutual_accessibility(graph):
         low[node] = num
         stack_pos = len(stack)
         stack.append(node)
-	
+        
         for successor in graph.neighbors(node):
             visit(successor)
             low[node] = min(low[node], low[successor])

@@ -33,7 +33,7 @@ from pygraph.algorithms.cycles import find_cycle
 from pygraph.algorithms.searching import depth_first_search
 from pygraph.classes.digraph import digraph
 from pygraph.classes.graph import graph
-from . import testlib
+import testlib
 
 
 def verify_cycle(graph, cycle):
