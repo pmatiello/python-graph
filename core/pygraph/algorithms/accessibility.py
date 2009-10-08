@@ -69,7 +69,8 @@ def mutual_accessibility(graph):
     low = {}
         
     def visit(node):
-        if node in low: return
+        if node in low:
+            return
 
         num = len(low)
         low[node] = num
@@ -87,8 +88,8 @@ def mutual_accessibility(graph):
             for each in component:
                 mutual_access[each] = component
 
-        for item in component:
-            low[item] = len(graph)
+            for item in component:
+                low[item] = len(graph)
     
     for node in graph:
         visit(node)
