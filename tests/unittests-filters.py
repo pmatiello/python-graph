@@ -35,7 +35,7 @@ from pygraph.classes.graph import graph
 
 from pygraph.algorithms.filters.radius import radius
 from pygraph.algorithms.filters.find import find
-from . import testlib
+import testlib
 
 
 class test_find_filter(unittest.TestCase):

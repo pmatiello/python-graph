@@ -127,7 +127,7 @@ def breadth_first_search(graph, root=None, filter=null()):
     
     # BFS from one node only
     if (root is not None):
-        if (list(filter(root, None))):
+        if filter(root, None):
             queue.append(root)
             ordering.append(root)
             spanning_tree[root] = None

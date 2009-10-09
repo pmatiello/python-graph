@@ -32,7 +32,7 @@ import pygraph
 from pygraph.algorithms.generators import generate
 from pygraph.classes.exceptions import AdditionError
 from pygraph.classes.digraph import digraph
-from . import testlib
+import testlib
 from copy import copy
 
 class test_digraph(unittest.TestCase):
