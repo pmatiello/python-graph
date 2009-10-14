@@ -60,6 +60,17 @@ LICENSE
 This software is provided under the MIT license. See accompanying COPYING file for details.
 
 
+INSTALLING
+
+To install the core module, run:
+
+	make install-core
+
+To install the dot language support, run:
+
+	make install-dot
+
+
 DOCUMENTATION
 
 To generate the API documentation for this package, run:
