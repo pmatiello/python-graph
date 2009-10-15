@@ -30,7 +30,7 @@ Search algorithms.
 
 
 # Imports
-from filters.null import null
+from pygraph.algorithms.filters.null import null
 
 
 # Depth-first search
@@ -54,7 +54,7 @@ def depth_first_search(graph, root=None, filter=null()):
 
     def dfs(node):
         """
-        Depht-first search subfunction.
+        Depth-first search subfunction.
         """
         visited[node] = 1
         pre.append(node)
@@ -73,7 +73,7 @@ def depth_first_search(graph, root=None, filter=null()):
 
     # DFS from one node only
     if (root is not None):
-        if (filter(root, None)):
+        if filter(root, None):
             spanning_tree[root] = None
             dfs(root)
         return spanning_tree, pre, post
@@ -86,7 +86,7 @@ def depth_first_search(graph, root=None, filter=null()):
             # Explore node's connected component
             dfs(each)
 
-    return spanning_tree, pre, post
+    return (spanning_tree, pre, post)
 
 
 # Breadth-first search
@@ -127,7 +127,7 @@ def breadth_first_search(graph, root=None, filter=null()):
     
     # BFS from one node only
     if (root is not None):
-        if (filter(root, None)):
+        if filter(root, None):
             queue.append(root)
             ordering.append(root)
             spanning_tree[root] = None
@@ -137,7 +137,7 @@ def breadth_first_search(graph, root=None, filter=null()):
     # Algorithm
     for each in graph:
         if (each not in spanning_tree):
-            if (filter(each, None)):
+            if filter(each, None):
                 queue.append(each)
                 ordering.append(each)
                 spanning_tree[each] = None

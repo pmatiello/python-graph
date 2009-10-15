@@ -125,9 +125,9 @@ class test_graph(unittest.TestCase):
     
     def test_complete_graph(self):
         gr = graph()
-        gr.add_nodes(xrange(10))
+        gr.add_nodes(range(10))
         gr.complete()
-        for i in xrange(10):
+        for i in range(10):
             for j in range(10):
                 self.assertTrue((i, j) in gr.edges() or i == j)
     

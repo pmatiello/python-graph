@@ -37,7 +37,7 @@ import testlib
 
 
 def verify_cycle(graph, cycle):
-    for i in xrange(len(cycle)):
+    for i in range(len(cycle)):
         assert graph.has_edge(cycle[i],cycle[(i+1)%len(cycle)])
 
 class test_find_cycle(unittest.TestCase):

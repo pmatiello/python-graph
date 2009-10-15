@@ -141,7 +141,7 @@ def critical_path(graph):
     
     #find the critical node
     max = 0; critical_node = None
-    for k,v in node_tuples.items():
+    for k,v in list(node_tuples.items()):
         if v[1] >= max:
             max= v[1]
             critical_node = k

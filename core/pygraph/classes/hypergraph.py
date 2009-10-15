@@ -30,7 +30,8 @@ Hypergraph class
 
 # Imports
 from pygraph.classes.graph import graph
-from pygraph.algorithms import *
+#from pygraph.algorithms import *
+from pygraph.algorithms import accessibility
 
 class hypergraph (object):
     """
@@ -81,7 +82,7 @@ class hypergraph (object):
         @rtype:  list
         @return: Node list.
         """
-        return self.node_links.keys()
+        return list(self.node_links.keys())
 
 
     def hyperedges(self):
@@ -91,7 +92,7 @@ class hypergraph (object):
         @rtype:  list
         @return: List of hyperedges linked to the given node.
         """
-        return self.edge_links.keys()
+        return list(self.edge_links.keys())
 
 
     def links(self, obj):
@@ -123,7 +124,7 @@ class hypergraph (object):
         @rtype:  boolean
         @return: Truth-value for node existence.
         """
-        return self.node_links.has_key(node)
+        return node in self.node_links
 
 
     def add_node(self, node):
@@ -224,7 +225,7 @@ class hypergraph (object):
         access_ = accessibility.accessibility(self.graph)
         access = {}
         
-        for each in access_.keys():
+        for each in list(access_.keys()):
             if (each[1] == 'n'):
                 access[each[0]] = []
                 for other in access_[each]:
@@ -244,7 +245,7 @@ class hypergraph (object):
         components_ = accessibility.connected_components(self.graph)
         components = {}
         
-        for each in components_.keys():
+        for each in list(components_.keys()):
             if (each[1] == 'n'):
                 components[each[0]] = components_[each]
         
@@ -293,7 +294,7 @@ class hypergraph (object):
         """
         max_rank = 0
         
-        for each in hyperedges:
+        for each in self.hyperedges():
             if len(each) > max_rank:
                 max_rank = len(each)
                 

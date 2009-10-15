@@ -48,7 +48,7 @@ def accessibility(graph):
         access = {}
         # Perform DFS to explore all reachable nodes
         _dfs(graph, access, 1, each)
-        accessibility[each] = access.keys()
+        accessibility[each] = list(access.keys())
     return accessibility
 
 
@@ -69,13 +69,14 @@ def mutual_accessibility(graph):
     low = {}
         
     def visit(node):
-        if node in low: return
+        if node in low:
+            return
 
         num = len(low)
         low[node] = num
         stack_pos = len(stack)
         stack.append(node)
-	
+        
         for successor in graph.neighbors(node):
             visit(successor)
             low[node] = min(low[node], low[successor])
@@ -87,8 +88,8 @@ def mutual_accessibility(graph):
             for each in component:
                 mutual_access[each] = component
 
-	    for item in component:
-	        low[item] = len(graph)
+            for item in component:
+                low[item] = len(graph)
     
     for node in graph:
         visit(node)
@@ -168,7 +169,7 @@ def cut_edges(graph):
     pre[None] = 0
 
     for each in graph:
-        if (not pre.has_key(each)):
+        if (each not in pre):
             spanning_tree[each] = None
             _cut_dfs(graph, spanning_tree, pre, low, reply, each)
     return reply
@@ -192,7 +193,7 @@ def cut_nodes(graph):
     
     # Create spanning trees, calculate pre[], low[]
     for each in graph:
-        if (not pre.has_key(each)):
+        if (each not in pre):
             spanning_tree[each] = None
             _cut_dfs(graph, spanning_tree, pre, low, [], each)
 
@@ -214,7 +215,7 @@ def cut_nodes(graph):
             if (children >= 2):
                 reply[each] = 1
 
-    return reply.keys()
+    return list(reply.keys())
 
 
 def _cut_dfs(graph, spanning_tree, pre, low, reply, node):
@@ -245,7 +246,7 @@ def _cut_dfs(graph, spanning_tree, pre, low, reply, node):
     pre[None] = pre[None] + 1
     
     for each in graph[node]:
-        if (not pre.has_key(each)):
+        if (each not in pre):
             spanning_tree[each] = node
             _cut_dfs(graph, spanning_tree, pre, low, reply, each)
             if (low[node] > low[each]):

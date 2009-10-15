@@ -79,7 +79,7 @@ class euclidean(object):
                         end_attr = each[1]
                         break
                 dist = 0
-                for i in xrange(len(start_attr)):
+                for i in range(len(start_attr)):
                     dist = dist + (float(start_attr[i]) - float(end_attr[i]))**2
                 self.distances[(start,end)] = dist
         
@@ -93,6 +93,6 @@ class euclidean(object):
         @type  end: node
         @param end: End node.
         """
-        assert len(self.distances.keys()) > 0, "You need to optimize this heuristic for your graph before it can be used to estimate."
+        assert len(list(self.distances.keys())) > 0, "You need to optimize this heuristic for your graph before it can be used to estimate."
                 
         return self.distances[(start,end)]

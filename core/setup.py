@@ -6,7 +6,7 @@ import logging
 
 try:
     from setuptools import setup, find_packages
-except ImportError, ie:
+except ImportError as ie:
     import ez_setup
     ez_setup.use_setuptools()
     from setuptools import setup, find_packages
@@ -26,7 +26,7 @@ if (os.name == 'posix'):    # Files to be installed/packaged on Unix-like system
         os.system('make docs')
         dirlisting = os.listdir('docs/')
     except:
-        print "Documentation isn't present and will not be installed/packaged."
+        print ("Documentation isn't present and will not be installed/packaged.")
         dirlisting = []
     for each in dirlisting:
         docsfiles.append('docs/'+each)

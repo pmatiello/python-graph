@@ -157,17 +157,17 @@ def shortest_path(graph, source):
         # May be improved using another examine_min data structure.
         u = q[0]
         for node in q[1:]:
-            if ((not dist.has_key(u)) 
-                or (dist.has_key(node) and dist[node] < dist[u])):
+            if ((u not in dist) 
+                or (node in dist and dist[node] < dist[u])):
                 u = node
         q.remove(u)
 
         # Process reachable, remaining nodes from u
-        if (dist.has_key(u)):
+        if (u in dist):
             for v in graph[u]:
                 if v in q:
                     alt = dist[u] + graph.edge_weight(u, v)
-                    if (not dist.has_key(v)) or (alt < dist[v]):
+                    if (v not in dist) or (alt < dist[v]):
                         dist[v] = alt
                         previous[v] = u
 
