@@ -32,6 +32,7 @@ import pygraph
 from pygraph.algorithms.generators import generate
 from pygraph.classes.exceptions import AdditionError
 from pygraph.classes.digraph import digraph
+from pygraph.classes.graph import graph
 import testlib
 from copy import copy
 
@@ -161,7 +162,6 @@ class test_digraph(unittest.TestCase):
         self.assertTrue(gr.nodes() == [0])
         self.assertTrue(gr.edges() == [])
     
-    
     # Add graph
     
     def test_add_digraph(self):
@@ -181,6 +181,23 @@ class test_digraph(unittest.TestCase):
         self.assertTrue(gr1.nodes() == gr1c.nodes())
         self.assertTrue(gr1.edges() == gr1c.edges())
     
+    def test_add_graph_into_diagraph(self):
+        d = digraph()
+        g = graph()
+        
+        A = "A"
+        B = "B"
+        
+        g.add_node( A )
+        g.add_node( B )
+        g.add_edge( A,B )
+        
+        d.add_graph( g )
+        
+        assert d.has_node( A )
+        assert d.has_node( B )
+        assert d.has_edge( A,B )
+        assert d.has_edge( B,A )    
     
     # Add spanning tree
     
