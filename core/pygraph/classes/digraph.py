@@ -496,22 +496,3 @@ class digraph (object):
         for each in st:
             if (st[each] is not None):
                 self.add_edge(st[each], each)
-
-
-    def traversal(self, node, order = 'pre'):
-        """
-        Graph traversal iterator.
-
-        @type  node: node
-        @param node: Node.
-        
-        @type  order: string
-        @param order: traversal ordering. Possible values are:
-            2. 'pre' - Preordering (default)
-            1. 'post' - Postordering
-        
-        @rtype:  iterator
-        @return: Traversal iterator.
-        """
-        for each in traversal.traversal(self, node, order):
-            yield each
