@@ -7,6 +7,12 @@ CHANGELOG
 
 Release 1.6.3	[??? ??, 2009]
 
+Enhancements:
+	Added Python3 support (support for Python 2.5 and lower was dropped).
+
+Fixes:
+	Adding a graph to a digraph now works (Issue 39).
+
 
 Release 1.6.2	[Sep 30, 2009]
 
