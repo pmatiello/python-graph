@@ -56,8 +56,9 @@ docs: cleanpyc
 	rm -rf ${DOCS_DIR} ${TEMP}
 	mkdir -p ${TEMP}
 	cp -R --remove-destination ${CORE_DIR}/pygraph ${TEMP}
-	cp -R --remove-destination ${DOT_DIR}/pygraph/readwrite ${TEMP}/pygraph/
-	cp -R --remove-destination ${HYPER_DIR}/pygraph/classes ${TEMP}/pygraph/
+	cp -Rn --remove-destination ${DOT_DIR}/pygraph/readwrite ${TEMP}/pygraph/
+	cp -Rn --remove-destination ${HYPER_DIR}/pygraph/classes ${TEMP}/pygraph/
+	cp -Rn --remove-destination ${HYPER_DIR}/pygraph/readwrite ${TEMP}/pygraph/
 	epydoc -v --no-frames --no-sourcecode --name="python-graph" \
 		--url="http://code.google.com/p/python-graph/" \
 		--no-private --html --css misc/epydoc.css -o docs ${TEMP}/pygraph/*.py \
@@ -87,7 +88,7 @@ clean: cleanpyc
 	rm -rf */dist
 	rm -rf */build
 	rm -rf */*.egg-info
-	rm -f */examples/*.png
+	rm -rf dist
 
 
 # Phony rules --------------------------------------------------------
