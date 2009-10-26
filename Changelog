@@ -14,7 +14,8 @@ Fixes:
 	Adding a graph to a digraph now works (Issue 39).
 
 Important API Changes:
-	Removed traversal() method from graph and digraph classes.
+	Removed traversal() method from graph and digraph classes;
+	All functions for reading and writing hypergraphs are now in pygraph.readwrite.hypergraph.
 
 
 Release 1.6.2	[Sep 30, 2009]
