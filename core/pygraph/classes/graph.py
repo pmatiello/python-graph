@@ -47,7 +47,7 @@ class graph (object):
     add_graph, add_node, add_node_attribute, add_nodes, add_spanning_tree, complete, del_edge,
     del_node, edges, edge_attributes, edge_label, edge_weight, node_attributes,
     has_edge, has_node, inverse, neighbors, node_order, nodes, set_edge_label,
-    set_edge_weight, traversal
+    set_edge_weight
     """
 
 
