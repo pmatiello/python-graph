@@ -10,14 +10,14 @@ HYPER_DIR="hypergraph/"
 TESTS_DIR="tests/"
 DOCS_DIR="docs/"
 TEMP="temp/"
-PYTHONPATH="`pwd`/core:`pwd`/dot":`pwd`/hypergraph
+PYTHONPATH="`pwd`/core:`pwd`/dot:`pwd`/hypergraph"
 
 
 # General ------------------------------------------------------------
 
 nothing:
 
-eggs: egg-core egg-dot egg-hyper
+eggs: clean egg-core egg-dot egg-hyper
 	rm -rf dist
 	mkdir dist
 	cp */dist/* dist
@@ -41,7 +41,7 @@ egg-dot: clean
 	cd ${DOT_DIR} && ./setup.py bdist_egg
 
 
-# Dot ----------------------------------------------------------------
+# Hypergraph ---------------------------------------------------------
 
 install-hyper:
 	cd ${HYPER_DIR} && ./setup.py install
