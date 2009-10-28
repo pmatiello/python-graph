@@ -30,11 +30,12 @@ Functions for reading and writing graphs in Dot language.
 
 
 # Imports
-import pygraph
-import pydot
-from pygraph.classes.exceptions import InvalidGraphType
 from pygraph.classes.digraph import digraph
+from pygraph.classes.exceptions import InvalidGraphType
 from pygraph.classes.graph import graph
+from pygraph.classes.hypergraph import hypergraph
+import pydot
+import pygraph
 
 # Values
 colors = ['aquamarine4', 'blue4', 'brown4', 'cornflowerblue', 'cyan4',
@@ -169,4 +170,93 @@ def write(G, weighted=False):
         
         seen_edges.add(str(edge_from) + "-" + str(edge_to))
         
+    return dotG.to_string()
+
+
+def read_hypergraph(string):
+    """
+    Read a hypergraph from a string in dot format. Nodes and edges specified in the input will be added to the current hypergraph.
+    
+    @type  string: string
+    @param string: Input string in dot format specifying a graph.
+    
+    @rtype:  hypergraph
+    @return: Hypergraph
+    """
+    hgr = hypergraph()
+    dotG = pydot.graph_from_dot_data(string)
+    
+    # Read the hypernode nodes...
+    # Note 1: We need to assume that all of the nodes are listed since we need to know if they
+    #           are a hyperedge or a normal node
+    # Note 2: We should read in all of the nodes before putting in the links
+    for each_node in dotG.get_nodes():
+        if 'node' == each_node.get('hyper_node_type'):
+            hgr.add_node(each_node.get_name())
+        elif 'hyperedge' == each_node.get('hyper_node_type'):
+            hgr.add_hyperedge(each_node.get_name())
+        else:
+            print ("Error: improper hyper_node_type - %s" % str(each_node.get('hyper_node_type')))
+    
+    # Now read in the links to connect the hyperedges
+    for each_link in dotG.get_edges():
+        if hgr.has_node(each_link.get_source()):
+            link_hypernode = each_link.get_source()
+            link_hyperedge = each_link.get_destination()
+        elif hgr.has_node(each_link.get_destination()):
+            link_hypernode = each_link.get_destination()
+            link_hyperedge = each_link.get_source()
+        
+        hgr.link(link_hypernode, link_hyperedge)
+    
+    return hgr
+
+
+def write_hypergraph(hgr, colored = False):
+    """
+    Return a string specifying the given hypergraph in DOT Language.
+    
+    @type  hgr: hypergraph
+    @param hgr: Hypergraph.
+    
+    @type  colored: boolean
+    @param colored: Whether hyperedges should be colored.
+
+    @rtype:  string
+    @return: String specifying the hypergraph in DOT Language.
+    """ 
+    dotG = pydot.Dot()
+    
+    if not 'name' in dir(hgr):
+        dotG.set_name('hypergraph')
+    else:
+        dotG.set_name(hgr.name)
+    
+    colortable = {}
+    colorcount = 0
+    
+    # Add all of the nodes first
+    for node in hgr.nodes():
+        newNode = pydot.Node(str(node), hyper_node_type = 'node')
+        
+        dotG.add_node(newNode)
+    
+    for hyperedge in hgr.hyperedges():
+        
+        if (colored):
+            colortable[hyperedge] = colors[colorcount % len(colors)]
+            colorcount += 1
+            
+            newNode = pydot.Node(str(hyperedge), hyper_node_type = 'hyperedge', \
+                                                 color = str(colortable[hyperedge]), \
+                                                 shape = 'point')
+        else:
+            newNode = pydot.Node(str(hyperedge), hyper_node_type = 'hyperedge')
+        
+        dotG.add_node(newNode)
+        
+        for link in hgr.links(hyperedge):
+            newEdge = pydot.Edge(str(hyperedge), str(link))
+            dotG.add_edge(newEdge)
+    
     return dotG.to_string()

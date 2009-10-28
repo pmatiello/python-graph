@@ -31,9 +31,10 @@ Functions for reading and writing graphs in a XML markup.
 
 # Imports
 from pygraph.classes.digraph import digraph
-from pygraph.classes.graph import graph
-from xml.dom.minidom import Document, parseString
 from pygraph.classes.exceptions import InvalidGraphType
+from pygraph.classes.graph import graph
+from pygraph.classes.hypergraph import hypergraph
+from xml.dom.minidom import Document, parseString
 
 
 def write(G):
@@ -126,3 +127,64 @@ def read(string):
     
     return G
 
+
+def write_hypergraph(hgr):
+    """
+    Return a string specifying the given hypergraph as a XML document.
+    
+    @type  hgr: hypergraph
+    @param hgr: Hypergraph.
+
+    @rtype:  string
+    @return: String specifying the graph as a XML document.
+    """
+
+    # Document root
+    grxml = Document()
+    grxmlr = grxml.createElement('hypergraph')
+    grxml.appendChild(grxmlr)
+
+    # Each node...
+    nodes = hgr.nodes()
+    hyperedges = hgr.hyperedges()
+    for each_node in (nodes + hyperedges):
+        if (each_node in nodes):
+            node = grxml.createElement('node')
+        else:
+            node = grxml.createElement('hyperedge')
+        node.setAttribute('id', str(each_node))
+        grxmlr.appendChild(node)
+
+        # and its outgoing edge
+        for each_edge in hgr.links(each_node):
+            edge = grxml.createElement('link')
+            edge.setAttribute('to', str(each_edge))
+            node.appendChild(edge)
+
+    return grxml.toprettyxml()
+
+
+def read_hypergraph(string):
+    """
+    Read a graph from a XML document. Nodes and hyperedges specified in the input will be added
+    to the current graph.
+
+    @type  string: string
+    @param string: Input string in XML format specifying a graph.
+        
+    @rtype: hypergraph
+    @return: Hypergraph
+    """
+    
+    hgr = hypergraph()
+    
+    dom = parseString(string)
+    for each_node in dom.getElementsByTagName("node"):
+        hgr.add_nodes(each_node.getAttribute('id'))
+    for each_node in dom.getElementsByTagName("hyperedge"):
+        hgr.add_hyperedges(each_node.getAttribute('id'))
+    dom = parseString(string)
+    for each_node in dom.getElementsByTagName("node"):
+        for each_edge in each_node.getElementsByTagName("link"):
+            hgr.link(each_node.getAttribute('id'), each_edge.getAttribute('to'))
+    return hgr

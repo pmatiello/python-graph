@@ -6,18 +6,17 @@
 
 CORE_DIR="core/"
 DOT_DIR="dot/"
-HYPER_DIR="hypergraph/"
 TESTS_DIR="tests/"
 DOCS_DIR="docs/"
 TEMP="temp/"
-PYTHONPATH="`pwd`/core:`pwd`/dot:`pwd`/hypergraph"
+PYTHONPATH="`pwd`/core:`pwd`/dot"
 
 
 # General ------------------------------------------------------------
 
 nothing:
 
-eggs: clean egg-core egg-dot egg-hyper
+eggs: clean egg-core egg-dot
 	rm -rf dist
 	mkdir dist
 	cp */dist/* dist
@@ -41,15 +40,6 @@ egg-dot: clean
 	cd ${DOT_DIR} && ./setup.py bdist_egg
 
 
-# Hypergraph ---------------------------------------------------------
-
-install-hyper:
-	cd ${HYPER_DIR} && ./setup.py install
-
-egg-hyper: clean
-	cd ${HYPER_DIR} && ./setup.py bdist_egg
-
-
 # Docs ---------------------------------------------------------------
 
 docs: cleanpyc
@@ -57,8 +47,6 @@ docs: cleanpyc
 	mkdir -p ${TEMP}
 	cp -R --remove-destination ${CORE_DIR}/pygraph ${TEMP}
 	cp -Rn --remove-destination ${DOT_DIR}/pygraph/readwrite ${TEMP}/pygraph/
-	cp -Rn --remove-destination ${HYPER_DIR}/pygraph/classes ${TEMP}/pygraph/
-	cp -Rn --remove-destination ${HYPER_DIR}/pygraph/readwrite ${TEMP}/pygraph/
 	epydoc -v --no-frames --no-sourcecode --name="python-graph" \
 		--url="http://code.google.com/p/python-graph/" \
 		--no-private --html --css misc/epydoc.css -o docs ${TEMP}/pygraph/*.py \
