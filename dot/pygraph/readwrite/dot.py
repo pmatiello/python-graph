@@ -25,7 +25,7 @@
 """
 Functions for reading and writing graphs in Dot language.
 
-@sort: read, write
+@sort: read, read_hypergraph, write, write_hypergraph
 """
 
 
