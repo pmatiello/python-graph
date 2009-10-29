@@ -50,7 +50,8 @@ class digraph (object):
     edge_weight, node_attributes, has_edge, has_node, incidents, inverse,
     neighbors, node_degree, node_order, nodes, reverse, set_edge_label, set_edge_weight
     """
-
+    
+    DIRECTED = True
 
     def __init__(self):
         """
