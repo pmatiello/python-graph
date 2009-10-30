@@ -1,0 +1,154 @@
+Index: graph/algorithms/generators.py
+===================================================================
+--- graph/algorithms/generators.py	(Revision 370)
++++ graph/algorithms/generators.py	(Arbeitskopie)
+@@ -32,7 +32,7 @@
+ 
+ # Imports
+ import graph as classes
+-from random import randint
++from random import randint, random
+ 
+ 
+ # Generator
+@@ -62,13 +62,8 @@
+     graph.add_nodes(nodes)
+     
+     # Build a list of all possible edges
+-    edges = []
+-    edges_append = edges.append
+-    for x in nodes:
+-        for y in nodes:
+-            if ((directed and x != y) or (x > y)):
+-                edges_append((x, y))
+-    
++    edges = generate_possible_edges(nodes, directed, False)
++
+     # Randomize the list
+     for i in xrange(len(edges)):
+         r = randint(0, len(edges)-1)
+@@ -80,3 +75,61 @@
+     for i in xrange(num_edges):
+         each = edges[i]
+         graph.add_edge(each[0], each[1], wt = randint(min_wt, max_wt))
++
++
++def generate_independent_edges(graph, num_nodes, prob_edges, allow_loops=False):
++    """
++    Generate an Erdos-Renyi random graph. Possible edges are added with 
++    a fixed probability.
++
++    @type:  graph: graph
++    @param: graph: Graph.
++
++    @type:  num_nodes: number
++    @param: num_nodes: Number of nodes.
++
++    @type:  prob_edges: number
++    @param: prob_edges: Probability for adding a possible edge.
++
++    @type:  allow_loops: bool
++    @param: allow_loops: If set to True, loops can be added. Defaults to False.
++    """
++    # Discover if graph is directed or not
++    directed = (type(graph) == classes.digraph)
++
++    # Nodes first
++    nodes = xrange(num_nodes)
++    graph.add_nodes(nodes)
++    
++    # Build a list of all possible edges
++    edges = generate_possible_edges(nodes, directed, allow_loops)
++
++    # Now do a random experiment for every edge and add it in case of success
++    for each in edges:
++        if random() < prob_edges:
++            graph.add_edge(each[0], each[1])
++ 
++
++def generate_possible_edges(nodes, directed, add_loops=False):
++    """
++    Generates a list of all possible edges for num_nodes vertices.
++
++    @type:  nodes: list
++    @param: nodes: List of nodes.
++
++    @type:  directed: bool
++    @param: directed: Flag that specifies if the edges are directed or undirected.
++
++    @type:  add_loops: bool
++    @param: add_loops: If set to True, all loops are generated, too. Defaults to False.
++
++    @rtype:  list
++    @return: List of all possible edges.
++    """
++    edges = []
++    edges_append = edges.append
++    for x in nodes:
++        for y in nodes:
++            if ((directed and x != y) or (x > y) or (add_loops and x == y)):
++                edges_append((x, y))
++    return edges 
+Index: graph/classes/Graph.py
+===================================================================
+--- graph/classes/Graph.py	(Revision 370)
++++ graph/classes/Graph.py	(Arbeitskopie)
+@@ -157,6 +157,25 @@
+         generators.generate(self, num_nodes, num_edges, weight_range)
+ 
+ 
++    def generate_independent_edges(self, num_nodes, prob_edges, allow_loops=False):
++        """
++        Add nodes and independent random edges to the graph.
++        
++        @type  num_nodes: number
++        @param num_nodes: Number of nodes.
++        
++        @type  num_edges: number
++        @param num_edges: Number of edges.
++
++        @type:  prob_edges: number
++        @param: prob_edges: Probability for adding a possible edge.
++
++        @type:  allow_loops: bool
++        @param: allow_loops: If set to True, loops can be added. Defaults to False.
++        """
++        generators.generate_independent_edges(self, num_nodes, prob_edges, allow_loops)
++
++
+     def nodes(self):
+         """
+         Return node list.
+@@ -659,4 +678,4 @@
+         @return: List of nodes. 
+         """
+         return cycles.find_cycle(self, directed=False)
+-            
+\ No newline at end of file
++            
+Index: tests/unittests-graph.py
+===================================================================
+--- tests/unittests-graph.py	(Revision 370)
++++ tests/unittests-graph.py	(Arbeitskopie)
+@@ -51,6 +51,21 @@
+         self.assertTrue(gr.nodes() == [])
+         self.assertTrue(gr.edges() == [])
+     
++    def testRandomIndependentEdgesGraphEmpty(self):
++        gr = graph.graph()
++        gr.generate_independent_edges(5, 0.0)
++        self.assertTrue(gr.edges() == [])
++
++    def testRandomIndependentEdgesGraphComplete(self):
++        gr = graph.graph()
++        gr.generate_independent_edges(5, 1.0)
++        self.assertTrue(len(gr.edges()) == 5 * 4)
++
++    def testRandomIndependentEdgesGraphCompleteWithLoops(self):
++        gr = graph.graph()
++        gr.generate_independent_edges(5, 1.0, True)
++        self.assertTrue(len(gr.edges()) == 5 * 4 + 5)
++
+     def testNodeRemoval(self):
+         gr = graph.graph()
+         gr.generate(10, 30)

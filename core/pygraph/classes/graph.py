@@ -37,10 +37,10 @@ from pygraph.algorithms import traversal
 from pygraph.classes.exceptions import AdditionError
 from pygraph.classes.labeling import labeling
 from pygraph.classes.common import common
-from pygraph.classes.base import base
+from pygraph.classes.basegraph import basegraph
 
 
-class graph ( base, labeling, common ):
+class graph ( basegraph, common, labeling, ):
     """
     Graph class.
     
@@ -60,10 +60,9 @@ class graph ( base, labeling, common ):
         """
         Initialize a graph.
         """
+        common.__init__(self)
+        labeling.__init__(self)
         self.node_neighbors = {}     # Pairing: Node -> Neighbors
-        self.edge_properties = {}    # Pairing: Edge -> (Label, Weight)
-        self.node_attr = {}          # Pairing: Node -> Attributes
-        self.edge_attr = {}          # Pairing: Edge -> Attributes
 
     def __len__(self):
         """
@@ -219,10 +218,6 @@ class graph ( base, labeling, common ):
             self.node_neighbors[v].remove(u)
             del(self.edge_properties[(v,u)])
             del(self.edge_attr[(v,u)])            
-
-
-    
-
 
     def has_edge(self, u, v):
         """

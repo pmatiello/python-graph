@@ -31,6 +31,25 @@ class common( object ):
         for n in self.nodes():
             yield n
             
+    def __len__(self):
+        """
+        Return the order of the digraph when requested by len().
+
+        @rtype:  number
+        @return: Size of the graph.
+        """
+        return self.order()
+    
+    def __getitem__(self, node):
+        """
+        Return a iterator passing through all neighbors of the given node.
+        
+        @rtype:  iterator
+        @return: Iterator passing through all neighbors of the given node.
+        """
+        for n in self.neighbors( node ):
+            yield n
+            
     def add_nodes(self, nodelist):
         """
         Add given nodes to the graph.

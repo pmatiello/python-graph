@@ -2,6 +2,11 @@ class labeling( object ):
     """
     Generic labeling support for graphs
     """
+    def __init__(self):
+        self.edge_properties = {}    # Pairing: Edge -> (Label, Weight)
+        self.node_attr = {}          # Pairing: Node -> Attributes
+        self.edge_attr = {}          # Pairing: Edge -> Attributes
+    
     def edge_weight(self, u, v):
         """
         Get the weight of an edge.
@@ -32,7 +37,9 @@ class labeling( object ):
         @param wt: Edge weight.
         """
         self.edge_properties[(u, v)][1] = wt
-        self.edge_properties[(v, u)][1] = wt
+        
+        if not self.DIRECTED:
+            self.edge_properties[(v, u)][1] = wt
 
 
     def edge_label(self, u, v):
@@ -65,7 +72,27 @@ class labeling( object ):
         @param label: Edge label.
         """
         self.edge_properties[(u, v)][0] = label
-        self.edge_properties[(v, u)][0] = label
+        
+        if not self.DIRECTED:
+            self.edge_properties[(v, u)][0] = label
+            
+    def add_edge_attribute(self, u, v, attr):
+        """
+        Add attribute to the given edge.
+
+        @type  u: node
+        @param u: One node.
+
+        @type  v: node
+        @param v: Other node.
+
+        @type  attr: tuple
+        @param attr: Node attribute specified as a tuple in the form (attribute, value).
+        """
+        self.edge_attr[(u,v)] = self.edge_attr[(u,v)] + [attr]
+        
+        if not self.DIRECTED:
+            self.edge_attr[(v,u)] = self.edge_attr[(v,u)] + [attr]
     
     
     def add_node_attribute(self, node, attr):
@@ -92,23 +119,6 @@ class labeling( object ):
         @return: List of attributes specified tuples in the form (attribute, value).
         """
         return self.node_attr[node]
-
-
-    def add_edge_attribute(self, u, v, attr):
-        """
-        Add attribute to the given edge.
-
-        @type  u: node
-        @param u: One node.
-
-        @type  v: node
-        @param v: Other node.
-
-        @type  attr: tuple
-        @param attr: Node attribute specified as a tuple in the form (attribute, value).
-        """
-        self.edge_attr[(u,v)] = self.edge_attr[(u,v)] + [attr]
-        self.edge_attr[(v,u)] = self.edge_attr[(v,u)] + [attr]
 
 
     def edge_attributes(self, u, v):
