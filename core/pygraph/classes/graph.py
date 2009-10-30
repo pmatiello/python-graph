@@ -63,26 +63,6 @@ class graph ( basegraph, common, labeling, ):
         common.__init__(self)
         labeling.__init__(self)
         self.node_neighbors = {}     # Pairing: Node -> Neighbors
-
-    def __len__(self):
-        """
-        Return the order of the graph when requested by len().
-
-        @rtype:  number
-        @return: Size of the graph.
-        """
-        return len(self.node_neighbors)
-
-    def __getitem__(self, node):
-        """
-        Return a iterator passing through all neighbors of the given node.
-        
-        @rtype:  iterator
-        @return: Iterator passing through all neighbors of the given node.
-        """
-        for each in self.node_neighbors[node]:
-            yield each
-
     
     def nodes(self):
         """
@@ -106,7 +86,6 @@ class graph ( basegraph, common, labeling, ):
         """
         return self.node_neighbors[node]
     
-    
     def edges(self):
         """
         Return all edges in the graph.
@@ -115,7 +94,6 @@ class graph ( basegraph, common, labeling, ):
         @return: List of all edges in the graph.
         """
         return list(self.edge_properties.keys())
-
 
     def has_node(self, node):
         """
@@ -148,10 +126,6 @@ class graph ( basegraph, common, labeling, ):
             self.node_attr[node] = attrs
         else:
             raise AdditionError("Node %s already in graph" % node)
-
-
-    
-
 
     def add_edge(self, u, v, wt=1, label='', attrs=[]):
         """

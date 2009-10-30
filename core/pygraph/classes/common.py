@@ -10,7 +10,9 @@ class common( object ):
         @rtype:  string
         @return: String representing the graph.
         """
-        return "%s %s" % (str(self.nodes), str(self.edges()) )
+        str_nodes = repr( self.nodes() )
+        str_edges = repr( self.edges() )
+        return "%s %s" % ( str_nodes, str_edges )
 
     def __repr__(self):
         """
@@ -19,7 +21,7 @@ class common( object ):
         @rtype:  string
         @return: String representing the graph.
         """
-        return "<%s.%s %s>" % ( self.__class__.__module__, self.__class__.__name__ )
+        return "<%s.%s %s>" % ( self.__class__.__module__, self.__class__.__name__, str(self) )
     
     def __iter__(self):
         """

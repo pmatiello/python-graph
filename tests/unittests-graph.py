@@ -181,6 +181,23 @@ class test_graph(unittest.TestCase):
         gr.add_spanning_tree(st)
         self.assertTrue(gr.nodes() == [])
         self.assertTrue(gr.edges() == [])
-
+        
+    def test_repr(self):
+        """
+        Validate the repr string
+        """
+        gr = testlib.new_graph()
+        gr_repr = repr(gr)
+        assert isinstance(gr_repr, str )
+        assert gr.__class__.__name__ in gr_repr
+    
+    def test_order_len_equivlance(self):
+        """
+        Verify the behavior of G.order()
+        """
+        gr = testlib.new_graph()
+        assert len(gr) == gr.order()
+        assert gr.order() == len( gr.node_neighbors )
+        
 if __name__ == "__main__":
     unittest.main()
