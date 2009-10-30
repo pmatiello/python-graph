@@ -33,7 +33,7 @@ class common( object ):
             
     def __len__(self):
         """
-        Return the order of the digraph when requested by len().
+        Return the order of self when requested by len().
 
         @rtype:  number
         @return: Size of the graph.
@@ -50,6 +50,15 @@ class common( object ):
         for n in self.neighbors( node ):
             yield n
             
+    def order(self):
+        """
+        Return the order of self, this is defined as the number of nodes in the graph.
+
+        @rtype:  number
+        @return: Size of the graph.
+        """
+        return len(self.nodes())
+            
     def add_nodes(self, nodelist):
         """
         Add given nodes to the graph.
@@ -65,19 +74,19 @@ class common( object ):
         for each in nodelist:
             self.add_node(each)
             
-    def add_graph(self, graph):
+    def add_graph(self, other ):
         """
-        Add other graph to the graph.
+        Add other graph to this graph.
         
         @attention: Attributes and labels are not preserved.
         
         @type  graph: graph
         @param graph: Graph
         """
-        for each_node in graph.nodes():
-            if each_node not in self.nodes():
-                self.add_node(each_node)
-            for each_edge in graph.neighbors(each_node):
+        self.add_nodes( n for n in other.nodes() if not n in self.nodes() )
+        
+        for each_node in other.nodes():
+            for each_edge in other.neighbors(each_node):
                 if (not self.has_edge(each_node, each_edge)):
                     self.add_edge(each_node, each_edge)
 

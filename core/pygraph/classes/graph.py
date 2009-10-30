@@ -73,10 +73,6 @@ class graph ( basegraph, common, labeling, ):
         """
         return len(self.node_neighbors)
 
-
-    
-
-
     def __getitem__(self, node):
         """
         Return a iterator passing through all neighbors of the given node.
