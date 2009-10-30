@@ -2,10 +2,36 @@ class labeling( object ):
     """
     Generic labeling support for graphs
     """
+    WEIGHT_ATTRIBUTE_NAME = "weight"
+    DEFAULT_WEIGHT = 1
+    
+    LABEL_ATTRIBUTE_NAME = "label"
+    DEFAULT_LABEL = ""
+    
     def __init__(self):
-        self.edge_properties = {}    # Pairing: Edge -> (Label, Weight)
+        # Metadata bout edges
+        self.edge_properties = {}    # Mapping: Edge -> Dict mapping, lablel-> str, wt->num
+        self.edge_attr = {}          # Key value pairs: (Edge -> Attributes)
+        
+        # Metadata bout nodes
         self.node_attr = {}          # Pairing: Node -> Attributes
-        self.edge_attr = {}          # Pairing: Edge -> Attributes
+        
+    def del_node_labeling( self, node ):
+        del( self.node_attr[node] )
+        
+    def del_edge_labeling( self, u, v ):
+        k = (u,v)
+        
+        keys = [k]
+        if not self.DIRECTED:
+            keys.append(k[::-1])
+            
+        for key in keys:
+            for mapping in [self.edge_properties, self.edge_attr ]:
+                try:
+                    del ( mapping[key] )
+                except KeyError:
+                    pass
     
     def edge_weight(self, u, v):
         """
@@ -20,7 +46,8 @@ class labeling( object ):
         @rtype:  number
         @return: Edge weight.
         """
-        return self.edge_properties[(u, v)][1]
+        k = (u,v)
+        return self.edge_properties.setdefault(k, {} ).setdefault( self.WEIGHT_ATTRIBUTE_NAME, self.DEFAULT_WEIGHT)
 
 
     def set_edge_weight(self, u, v, wt):
@@ -36,10 +63,10 @@ class labeling( object ):
         @type  wt: number
         @param wt: Edge weight.
         """
-        self.edge_properties[(u, v)][1] = wt
-        
+        k = (u,v)
+        self.edge_properties.setdefault( k, {} )[ self.WEIGHT_ATTRIBUTE_NAME ] = wt
         if not self.DIRECTED:
-            self.edge_properties[(v, u)][1] = wt
+            self.edge_properties.setdefault( k[::-1], {} )[ self.WEIGHT_ATTRIBUTE_NAME ] = wt
 
 
     def edge_label(self, u, v):
@@ -55,8 +82,8 @@ class labeling( object ):
         @rtype:  string
         @return: Edge label
         """
-        return self.edge_properties[(u, v)][0]
-
+        k = (u,v)
+        return self.edge_properties.setdefault(k, {} ).setdefault( self.LABEL_ATTRIBUTE_NAME, self.DEFAULT_LABEL )
 
     def set_edge_label(self, u, v, label):
         """
@@ -71,10 +98,10 @@ class labeling( object ):
         @type  label: string
         @param label: Edge label.
         """
-        self.edge_properties[(u, v)][0] = label
-        
+        k = (u,v)
+        self.edge_properties.setdefault( k, {} )[ self.LABEL_ATTRIBUTE_NAME ] = label
         if not self.DIRECTED:
-            self.edge_properties[(v, u)][0] = label
+            self.edge_properties.setdefault( k[::-1], {} )[ self.LABEL_ATTRIBUTE_NAME ] = label
             
     def add_edge_attribute(self, u, v, attr):
         """
@@ -89,10 +116,26 @@ class labeling( object ):
         @type  attr: tuple
         @param attr: Node attribute specified as a tuple in the form (attribute, value).
         """
-        self.edge_attr[(u,v)] = self.edge_attr[(u,v)] + [attr]
+        self.edge_attr[(u,v)] = self.edge_attributes(u,v) + [attr]
         
         if not self.DIRECTED:
-            self.edge_attr[(v,u)] = self.edge_attr[(v,u)] + [attr]
+            self.edge_attr[(v,u)] = self.edge_attributes(v,u) + [attr]
+    
+    def add_edge_attributes(self, u, v, attrs):
+        """
+        Append a sequence of attributes to the given edge
+        
+        @type  u: node
+        @param u: One node.
+
+        @type  v: node
+        @param v: Other node.
+
+        @type  attrs: tuple
+        @param attrs: Node attributes specified as a sequence of tuples in the form (attribute, value).
+        """
+        for attr in attrs:
+            self.add_edge_attribute(u, v, attr)
     
     
     def add_node_attribute(self, node, attr):
@@ -134,4 +177,7 @@ class labeling( object ):
         @rtype:  list
         @return: List of attributes specified tuples in the form (attribute, value).
         """
-        return self.edge_attr[(u,v)]
+        try:
+            return self.edge_attr[(u,v)]
+        except KeyError as ke:
+            return []

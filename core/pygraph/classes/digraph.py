@@ -140,7 +140,7 @@ class digraph (basegraph, common, labeling):
             raise AdditionError("Node %s already in digraph" % node)
 
 
-    def add_edge(self, u, v, wt = 1, label = '', attrs = []):
+    def add_edge(self, u, v, wt = 1, label="", attrs = []):
         """
         Add an directed edge (u,v) to the graph connecting nodes u to v.
 
@@ -159,11 +159,14 @@ class digraph (basegraph, common, labeling):
         @type  attrs: list
         @param attrs: List of node attributes specified as (attribute, value) tuples.
         """
-        if (v not in self.node_neighbors[u] and self.node_neighbors[v] is not None):
+        if not v in self.node_neighbors.setdefault(u, []):
             self.node_neighbors[u].append(v)
-            self.node_incidence[v].append(u)
-            self.edge_properties[(u, v)] = [label, wt]
-            self.edge_attr[(u, v)] = attrs
+            
+            self.node_neighbors.setdefault(u, []).append(v)
+            self.node_incidence.setdefault(v, []).append(u)
+            
+            self.set_edge_weight(u, v, wt)
+            self.add_edge_attributes( u, v, attrs )
         else:
             raise AdditionError("Edge (%s, %s) already in digraph" % (u, v))
 
@@ -181,7 +184,7 @@ class digraph (basegraph, common, labeling):
             self.del_edge(node, each)
         del(self.node_neighbors[node])
         del(self.node_incidence[node])
-        del(self.node_attr[node])
+        self.del_node_labeling( node )
 
 
     def del_edge(self, u, v):
@@ -196,10 +199,7 @@ class digraph (basegraph, common, labeling):
         """
         self.node_neighbors[u].remove(v)
         self.node_incidence[v].remove(u)
-        del(self.edge_properties[(u, v)])
-        del(self.edge_attr[(u, v)])
-
-
+        self.del_edge_labeling( u,v )
 
 
     def has_edge(self, u, v):
@@ -227,63 +227,6 @@ class digraph (basegraph, common, labeling):
         """
         return len(self.neighbors(node))
 
-
-    def node_degree(self, node):
-        """
-        Return the degree of the given node.
-        
-        @rtype:  number
-        @return: Order of the given node.
-        """
-        return len(self.node_incidence[node])
-
-
-    def complete(self):
-        """
-        Make the graph a complete graph.
-        
-        @attention: This will modify the current graph.
-        """
-        for each in self.nodes():
-            for other in self.nodes():
-                if (each != other):
-                    self.add_edge(each, other)
-
-
-    def inverse(self):
-        """
-        Return the inverse of the graph.
-        
-        @rtype:  graph
-        @return: Complement graph for the graph.
-        """
-        inv = digraph()
-        inv.add_nodes(self.nodes())
-        inv.complete()
-        for each in self.edges():
-            inv.del_edge(each[0], each[1])
-        return inv
-
-    def reverse(self):
-        """
-        Generate the reverse of a directed graph.
-        
-        @rtype: digraph
-        @return: The directed graph that should be reversed.
-        """
-        N = digraph()
     
-        #- Add the nodes
-        for n in self.nodes():
-            N.add_node(n, self.node_attributes(n))
-    
-        #- Add the reversed edges
-        for (u, v) in self.edges():
-            N.add_edge(v, u,
-            self.edge_weight(u, v),
-            self.edge_label(u, v),
-            self.edge_attributes(u, v))
-    
-        return N
 
 

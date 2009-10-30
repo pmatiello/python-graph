@@ -132,3 +132,25 @@ class common( object ):
             if (inv.has_edge(each[0], each[1])):
                 inv.del_edge(each[0], each[1])
         return inv
+    
+    def reverse(self):
+        """
+        Generate the reverse of a directed graph, returns an identical graph if not directed.
+        Attributes & weights are preserved.
+        
+        @rtype: digraph
+        @return: The directed graph that should be reversed.
+        """
+        N = self.__class__()
+    
+        #- Add the nodes
+        N.add_nodes( n for n in N.nodes() if not n in self.nodes() )
+    
+        #- Add the reversed edges
+        for (u, v) in self.edges():
+            wt = self.edge_weight(u, v)
+            label = self.edge_label(u, v)
+            attributes = self.edge_attributes(u, v)
+            N.add_edge(v, u, wt, label, attributes)
+    
+        return N
