@@ -93,7 +93,7 @@ class graph ( basegraph, common, labeling, ):
         @rtype:  list
         @return: List of all edges in the graph.
         """
-        return list(self.edge_properties.keys())
+        return [ a for a in self.edge_properties.keys() ]
 
     def has_node(self, node):
         """
@@ -149,10 +149,11 @@ class graph ( basegraph, common, labeling, ):
         if (v not in self.node_neighbors[u] and u not in self.node_neighbors[v]):
             self.node_neighbors[u].append(v)
             self.node_neighbors[v].append(u)
-            self.edge_properties[(u, v)] = [label, wt]
-            self.edge_properties[(v, u)] = [label, wt]
-            self.edge_attr[(u, v)] = attrs
-            self.edge_attr[(v, u)] = attrs
+            self.add_edge_attributes(u,v, attrs)
+            self.add_edge_attributes(v,u, attrs)
+                        
+            self.set_edge_properties( u, v, label=label, weight=wt )
+            self.set_edge_properties( v, u, label=label, weight=wt )
         else:
             raise AdditionError("Edge (%s, %s) already in graph" % (u, v))
 
@@ -182,12 +183,10 @@ class graph ( basegraph, common, labeling, ):
         @param v: Other node.
         """
         self.node_neighbors[u].remove(v)
-        del(self.edge_properties[(u,v)])
-        del(self.edge_attr[(u,v)])
+        self.del_edge_labeling(u, v)  
         if (u != v):
             self.node_neighbors[v].remove(u)
-            del(self.edge_properties[(v,u)])
-            del(self.edge_attr[(v,u)])            
+            self.del_edge_labeling(v, u)           
 
     def has_edge(self, u, v):
         """

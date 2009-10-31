@@ -17,7 +17,9 @@ class labeling( object ):
         self.node_attr = {}          # Pairing: Node -> Attributes
         
     def del_node_labeling( self, node ):
-        del( self.node_attr[node] )
+        if node in self.node_attr:
+            # Since attributes and properties are lazy, they might not exist.
+            del( self.node_attr[node] )
         
     def del_edge_labeling( self, u, v ):
         k = (u,v)
@@ -46,8 +48,7 @@ class labeling( object ):
         @rtype:  number
         @return: Edge weight.
         """
-        k = (u,v)
-        return self.edge_properties.setdefault(k, {} ).setdefault( self.WEIGHT_ATTRIBUTE_NAME, self.DEFAULT_WEIGHT)
+        return self.get_edge_properties( u,v, ).setdefault( self.WEIGHT_ATTRIBUTE_NAME, self.DEFAULT_WEIGHT )
 
 
     def set_edge_weight(self, u, v, wt):
@@ -63,10 +64,9 @@ class labeling( object ):
         @type  wt: number
         @param wt: Edge weight.
         """
-        k = (u,v)
-        self.edge_properties.setdefault( k, {} )[ self.WEIGHT_ATTRIBUTE_NAME ] = wt
+        self.set_edge_properties(u, v, weight=wt )
         if not self.DIRECTED:
-            self.edge_properties.setdefault( k[::-1], {} )[ self.WEIGHT_ATTRIBUTE_NAME ] = wt
+            self.set_edge_properties(v, u , weight=wt )
 
 
     def edge_label(self, u, v):
@@ -83,7 +83,7 @@ class labeling( object ):
         @return: Edge label
         """
         k = (u,v)
-        return self.edge_properties.setdefault(k, {} ).setdefault( self.LABEL_ATTRIBUTE_NAME, self.DEFAULT_LABEL )
+        return self.get_edge_properties( u,v, ).setdefault( self.LABEL_ATTRIBUTE_NAME, self.DEFAULT_LABEL )
 
     def set_edge_label(self, u, v, label):
         """
@@ -98,10 +98,17 @@ class labeling( object ):
         @type  label: string
         @param label: Edge label.
         """
-        k = (u,v)
-        self.edge_properties.setdefault( k, {} )[ self.LABEL_ATTRIBUTE_NAME ] = label
+        self.set_edge_properties(u, v, label=label )
         if not self.DIRECTED:
-            self.edge_properties.setdefault( k[::-1], {} )[ self.LABEL_ATTRIBUTE_NAME ] = label
+            self.set_edge_properties(v, u , label=label )
+            
+    def set_edge_properties(self, u, v, **properties ):
+        k = (u,v)
+        self.edge_properties.setdefault( k, {} ).update( properties )
+        
+    def get_edge_properties(self, u, v):
+        k = (u,v)
+        return self.edge_properties.setdefault( k, {} )
             
     def add_edge_attribute(self, u, v, attr):
         """

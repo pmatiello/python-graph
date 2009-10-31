@@ -141,10 +141,12 @@ class common( object ):
         @rtype: digraph
         @return: The directed graph that should be reversed.
         """
+        assert self.DIRECTED, "Undirected graph types such as %s cannot be reversed" % self.__class__.__name__
+        
         N = self.__class__()
     
         #- Add the nodes
-        N.add_nodes( n for n in N.nodes() if not n in self.nodes() )
+        N.add_nodes( n for n in self.nodes() )
     
         #- Add the reversed edges
         for (u, v) in self.edges():
@@ -152,5 +154,4 @@ class common( object ):
             label = self.edge_label(u, v)
             attributes = self.edge_attributes(u, v)
             N.add_edge(v, u, wt, label, attributes)
-    
         return N

@@ -67,10 +67,10 @@ class test_digraph(unittest.TestCase):
         gr.add_nodes([0,1])
         try:
             gr.add_edge(3,0)
-        except KeyError:
+        except AdditionError:
             pass
         else:
-            fail()
+            self.fail("The graph allowed an edge to be added from a non-existing node.")
         assert gr.node_neighbors == {0: [], 1: []}
         assert gr.node_incidence == {0: [], 1: []}
     
@@ -79,10 +79,10 @@ class test_digraph(unittest.TestCase):
         gr.add_nodes([0,1])
         try:
             gr.add_edge(0,3)
-        except KeyError:
+        except AdditionError:
             pass
         else:
-            fail()
+            self.fail("TThe graph allowed an edge to be added to a non-existing node.")
         assert gr.node_neighbors == {0: [], 1: []}
         assert gr.node_incidence == {0: [], 1: []}
     

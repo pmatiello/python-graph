@@ -93,9 +93,7 @@ class digraph (basegraph, common, labeling):
         @return: List of nodes directly accessible from given node.    
         """
         return self.node_incidence[node]
-        
-    
-    
+
     def edges(self):
         """
         Return all edges in the graph.
@@ -103,8 +101,12 @@ class digraph (basegraph, common, labeling):
         @rtype:  list
         @return: List of all edges in the graph.
         """
-        return list(self.edge_properties.keys())
-
+        return [ a for a in self._edges() ]
+        
+    def _edges(self):
+        for n, neighbors in self.node_neighbors.items():
+            for neighbor in neighbors:
+                yield (n, neighbor)
 
     def has_node(self, node):
         """
@@ -117,7 +119,6 @@ class digraph (basegraph, common, labeling):
         @return: Truth-value for node existence.
         """
         return node in self.node_neighbors
-
 
     def add_node(self, node, attrs = []):
         """
@@ -135,7 +136,6 @@ class digraph (basegraph, common, labeling):
         if (node not in self.node_neighbors):
             self.node_neighbors[node] = []
             self.node_incidence[node] = []
-            self.node_attr[node] = attrs
         else:
             raise AdditionError("Node %s already in digraph" % node)
 
@@ -159,16 +159,19 @@ class digraph (basegraph, common, labeling):
         @type  attrs: list
         @param attrs: List of node attributes specified as (attribute, value) tuples.
         """
-        if not v in self.node_neighbors.setdefault(u, []):
+        for n in [u,v]:
+            if not n in self.node_neighbors:
+                raise AdditionError( "%s is missing from the node_neighbors table" % n )
+            if not n in self.node_incidence:
+                raise AdditionError( "%s is missing from the node_incidence table" % n )
+            
+        if v in self.node_neighbors[u] and u in self.node_incidence[v]:
+            raise AdditionError("Edge (%s, %s) already in digraph" % (u, v))
+        else:
             self.node_neighbors[u].append(v)
-            
-            self.node_neighbors.setdefault(u, []).append(v)
-            self.node_incidence.setdefault(v, []).append(u)
-            
+            self.node_incidence[v].append(u)
             self.set_edge_weight(u, v, wt)
             self.add_edge_attributes( u, v, attrs )
-        else:
-            raise AdditionError("Edge (%s, %s) already in digraph" % (u, v))
 
 
     def del_node(self, node):
@@ -179,11 +182,18 @@ class digraph (basegraph, common, labeling):
         @param node: Node identifier.
         """
         for each in list(self.incidents(node)):
+            # Delete all the edges incident on this node
             self.del_edge(each, node)
+            
         for each in list(self.neighbors(node)):
+            # Delete all the edges pointing to this node.
             self.del_edge(node, each)
+        
+        # Remove this node from the neighbors and incidents tables   
         del(self.node_neighbors[node])
         del(self.node_incidence[node])
+        
+        # Remove any labeling which may exist.
         self.del_node_labeling( node )
 
 
