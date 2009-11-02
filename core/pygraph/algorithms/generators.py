@@ -33,7 +33,8 @@ Random graph generators.
 # Imports
 from pygraph.classes.graph import graph
 from pygraph.classes.digraph import digraph
-from random import randint
+from pygraph.classes.hypergraph import hypergraph
+from random import randint, choice, shuffle
 
 
 # Generator
@@ -85,4 +86,49 @@ def generate(num_nodes, num_edges, directed=False, weight_range=(1, 1)):
         each = edges[i]
         random_graph.add_edge(each[0], each[1], wt = randint(min_wt, max_wt))
 
+    return random_graph
+
+
+def generate_hypergraph(num_nodes, num_edges, r = 0):
+    """
+    Create a random hyper graph.
+    
+    @type  num_nodes: number
+    @param num_nodes: Number of nodes.
+    
+    @type  num_edges: number
+    @param num_edges: Number of edges.
+    
+    @type  r: number
+    @param r: Uniform edges of size r.
+    """
+    # Graph creation
+    random_graph = hypergraph()
+    
+    # Nodes
+    nodes = range(num_nodes)
+    random_graph.add_nodes(nodes)
+    
+    # Base edges
+    edges = range(num_edges)
+    random_graph.add_hyperedges(edges)
+    
+    # Connect the edges
+    if 0 == r:
+        # Add each edge with 50/50 probability
+        for e in edges:
+            for n in nodes:
+                if choice([True, False]):
+                    random_graph.link(n, e)
+    
+    else:
+        # Add only uniform edges
+        for e in edges:
+            # First shuffle the nodes
+            shuffle(nodes)
+            
+            # Then take the first r nodes
+            for i in range(r):
+                random_graph.link(nodes[i], e)
+    
     return random_graph

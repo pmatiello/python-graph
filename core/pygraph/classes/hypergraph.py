@@ -32,6 +32,7 @@ Hypergraph class
 from pygraph.classes.graph import graph
 #from pygraph.algorithms import *
 from pygraph.algorithms import accessibility
+from pygraph.classes.exceptions import AdditionError
 
 class hypergraph (object):
     """
@@ -97,21 +98,33 @@ class hypergraph (object):
 
     def links(self, obj):
         """
-        Return all objects linked to the given one.
+        Return all nodes connected by the given hyperedge.
         
-        If given a node, linked hyperedges will be returned. If given a hyperedge, linked nodes will
-        be returned.
-        
-        @type  obj: node or hyperedge
+        @type  obj: hyperedge
         @param obj: Object identifier.
         
         @rtype:  list
-        @return: List of objects linked to the given one.
+        @return: List of node objects linked to the given hyperedge.
         """
-        if (obj in self.node_links):
-            return self.node_links[obj]
-        else:
-            return self.edge_links[obj]
+        return self.edge_links[obj]
+    
+    
+    def neighbors(self, obj):
+        """
+        Return all neighbors adjacent to the given node.
+        
+        @type  obj: node
+        @param obj: Object identifier.
+        
+        @rtype:  list
+        @return: List of all node objects adjacent to the given node.
+        """
+        neighbors = set([])
+        
+        for e in self.node_links[obj]:
+            neighbors.update(set(self.edge_links[e]))
+        
+        return neighbors - set([obj])
 
 
     def has_node(self, node):
@@ -140,6 +153,23 @@ class hypergraph (object):
         if (not node in self.node_links):
             self.node_links[node] = []
             self.graph.add_node((node,'n'))
+        else:
+            raise AdditionError("Node %s already in graph" % node)
+    
+    
+    def del_node(self, node):
+        """
+        Delete a given node from the hypergraph.
+        
+        @type  node: node
+        @param node: Node identifier.
+        """
+        if self.has_node(node):
+            for e in self.node_links[node]:
+                self.edge_links[e].remove(node)
+
+            self.node_links.pop(node)
+            self.graph.del_node((node,'n'))
 
 
     def add_nodes(self, nodelist):
@@ -196,9 +226,11 @@ class hypergraph (object):
         @param hyperedge: Hyperedge.
         """
         if (hyperedge not in self.node_links[node]):
-            self.node_links[node].append(hyperedge)
             self.edge_links[hyperedge].append(node)
+            self.node_links[node].append(hyperedge)
             self.graph.add_edge((node,'n'), (hyperedge,'h'))
+        else:
+            raise AdditionError("Link (%s, %s) already in graph" % (node, hyperedge))
 
 
     def unlink(self, node, hyperedge):
