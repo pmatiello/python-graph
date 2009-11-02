@@ -74,6 +74,28 @@ class hypergraph (object):
         @return: Size of the hypergraph.
         """
         return len(self.node_links)
+    
+    
+    def __iter__(self):
+        """
+        Return a iterator passing through all nodes in the hypergraph.
+        
+        @rtype:  iterator
+        @return: Iterator passing through all nodes in the hypergraph.
+        """
+        for each in self.node_links.keys():
+            yield each
+
+
+    def __getitem__(self, node):
+        """
+        Return a iterator passing through all neighbors of the given node.
+        
+        @rtype:  iterator
+        @return: Iterator passing through all neighbors of the given node.
+        """
+        for each in self.neighbors(node):
+            yield each
 
 
     def nodes(self):
@@ -327,7 +349,7 @@ class hypergraph (object):
         max_rank = 0
         
         for each in self.hyperedges():
-            if len(each) > max_rank:
-                max_rank = len(each)
+            if len(self.edge_links[each]) > max_rank:
+                max_rank = len(self.edge_links[each])
                 
         return max_rank

@@ -61,6 +61,17 @@ class test_hypergraph(unittest.TestCase):
         else:
             fail()
     
+    def test_raise_exception_on_non_existing_link_removal(self):
+        gr = hypergraph()
+        gr.add_node(0)
+        gr.add_hyperedge(1)
+        try:
+            gr.unlink(0, 1)
+        except ValueError:
+            pass
+        else:
+            fail()
+    
     def test_raise_exception_when_edge_added_from_non_existing_node(self):
         gr = hypergraph()
         gr.add_nodes([0,1])
@@ -105,6 +116,26 @@ class test_hypergraph(unittest.TestCase):
         gr.link(0, 0)
         gr.del_node(0)
 
+    def test_check_add_node_s(self):
+        gr = hypergraph()
+        nodes = [1,2,3]
+        gr.add_nodes(nodes)
+        gr.add_node(0)
+        
+        for n in [0] + nodes:
+            assert n in gr
+            assert gr.has_node(n)
+
+    def test_rank(self):
+        # Uniform case
+        gr = testlib.new_uniform_hypergraph(3)
+        assert 3 == gr.rank()
+        
+        # Non-uniform case
+        gr = testlib.new_hypergraph()
+        num = max([len(gr.links(e)) for e in gr.hyperedges()])
+        assert num == gr.rank()
+        
 
 if __name__ == "__main__":
     unittest.main()
