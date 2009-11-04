@@ -67,10 +67,10 @@ class test_digraph(unittest.TestCase):
         gr.add_nodes([0,1])
         try:
             gr.add_edge(3,0)
-        except KeyError:
+        except AdditionError:
             pass
         else:
-            fail()
+            self.fail("The graph allowed an edge to be added from a non-existing node.")
         assert gr.node_neighbors == {0: [], 1: []}
         assert gr.node_incidence == {0: [], 1: []}
     
@@ -79,10 +79,10 @@ class test_digraph(unittest.TestCase):
         gr.add_nodes([0,1])
         try:
             gr.add_edge(0,3)
-        except KeyError:
+        except AdditionError:
             pass
         else:
-            fail()
+            self.fail("TThe graph allowed an edge to be added to a non-existing node.")
         assert gr.node_neighbors == {0: [], 1: []}
         assert gr.node_incidence == {0: [], 1: []}
     
@@ -214,6 +214,23 @@ class test_digraph(unittest.TestCase):
         gr.add_spanning_tree(st)
         self.assertTrue(gr.nodes() == [])
         self.assertTrue(gr.edges() == [])
+        
+    def test_repr(self):
+        """
+        Validate the repr string
+        """
+        gr = testlib.new_graph()
+        gr_repr = repr(gr)
+        assert isinstance(gr_repr, str )
+        assert gr.__class__.__name__ in gr_repr
+    
+    def test_order_len_equivlance(self):
+        """
+        Verify the behavior of G.order()
+        """
+        gr = testlib.new_graph()
+        assert len(gr) == gr.order()
+        assert gr.order() == len( gr.node_neighbors )
 
 if __name__ == "__main__":
     unittest.main()
