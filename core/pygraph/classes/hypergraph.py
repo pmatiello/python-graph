@@ -289,23 +289,6 @@ class hypergraph (object):
         return access
 
     
-    def connected_components(self):
-        """
-        Connected components.
-
-        @rtype:  dictionary
-        @return: Pairing that associates each node to its connected component.
-        """
-        components_ = accessibility.connected_components(self.graph)
-        components = {}
-        
-        for each in list(components_.keys()):
-            if (each[1] == 'n'):
-                components[each[0]] = components_[each]
-        
-        return components
-
-    
     def cut_nodes(self):
         """
         Return the cut-nodes of the given hypergraph.

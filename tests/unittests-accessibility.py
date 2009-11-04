@@ -31,9 +31,11 @@ import unittest
 import pygraph
 from pygraph.algorithms.searching import depth_first_search
 from pygraph.algorithms.accessibility import mutual_accessibility
+from pygraph.algorithms.accessibility import connected_components
+from pygraph.classes.hypergraph import hypergraph
 import testlib
 
-class test_find_cycle(unittest.TestCase):
+class test_accessibility(unittest.TestCase):
 
     def setUp(self):
         pass
@@ -49,6 +51,48 @@ class test_find_cycle(unittest.TestCase):
                     assert n in depth_first_search(gr, m)[0]
                 else:
                     assert m not in depth_first_search(gr, n)[0] or n not in depth_first_search(gr, m)[0]
-                    
+
+    def test_connected_components_hypergraph(self):
+        gr = hypergraph()
+        
+        # Add some nodes / edges
+        gr.add_nodes(range(9))
+        gr.add_hyperedges(['a', 'b', 'c'])
+        
+        # Connect the 9 nodes with three size-3 hyperedges
+        for node_set in [['a',0,1,2], ['b',3,4,5], ['c',6,7,8]]:
+            for node in node_set[1:]:
+                gr.link(node, node_set[0])
+        
+        cc = connected_components(gr)
+        
+        assert 3 == len(set(cc.values()))
+        
+        assert cc[0] == cc[1] and cc[1] == cc[2]
+        assert cc[3] == cc[4] and cc[4] == cc[5]
+        assert cc[6] == cc[7] and cc[7] == cc[8]
+        
+        
+        # Do it again with two components and more than one edge for each
+        gr = hypergraph()
+        gr.add_nodes(range(9))
+        gr.add_hyperedges(['a', 'b', 'c', 'd'])
+        
+        for node_set in [['a',0,1,2], ['b',2,3,4], ['c',5,6,7], ['d',6,7,8]]:
+            for node in node_set[1:]:
+                gr.link(node, node_set[0])
+        
+        cc = connected_components(gr)
+        
+        assert 2 == len(set(cc.values()))
+        
+        for i in [0,1,2,3]:
+            assert cc[i] == cc[i+1]
+        
+        for i in [5,6,7]:
+            assert cc[i] == cc[i+1]
+            
+        assert cc[4] != cc[5]
+        
 if __name__ == "__main__":
     unittest.main()

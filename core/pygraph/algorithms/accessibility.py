@@ -103,10 +103,7 @@ def connected_components(graph):
     """
     Connected components.
 
-    @attention: Indentification of connected components is meaningful only for non-directed
-    graphs.
-
-    @type  graph: digraph
+    @type  graph: graph, digraph, hypergraph
     @param graph: Graph.
 
     @rtype:  dictionary
@@ -131,7 +128,7 @@ def _dfs(graph, visited, count, node):
     """
     Depht-first search subfunction adapted for accessibility algorithms.
     
-    @type  graph: graph, digraph
+    @type  graph: graph, digraph, hypergraph
     @param graph: Graph.
 
     @type  visited: dictionary
