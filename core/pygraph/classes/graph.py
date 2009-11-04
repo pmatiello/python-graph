@@ -35,9 +35,9 @@ Graph class
 #from pygraph.algorithms import filters
 from pygraph.algorithms import traversal
 from pygraph.classes.exceptions import AdditionError
-from pygraph.classes.labeling import labeling
-from pygraph.classes.common import common
-from pygraph.classes.basegraph import basegraph
+from pygraph.mixins.labeling import labeling
+from pygraph.mixins.common import common
+from pygraph.mixins.basegraph import basegraph
 
 
 class graph ( basegraph, common, labeling, ):
