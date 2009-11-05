@@ -33,7 +33,6 @@ Graph class
 # Imports
 #from pygraph.algorithms import *
 #from pygraph.algorithms import filters
-from pygraph.algorithms import traversal
 from pygraph.classes.exceptions import AdditionError
 from pygraph.mixins.labeling import labeling
 from pygraph.mixins.common import common

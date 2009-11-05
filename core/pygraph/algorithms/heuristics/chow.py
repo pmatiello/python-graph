@@ -29,7 +29,6 @@ Edmond Chow's heuristic for A*.
 
 
 # Imports
-import warnings
 from pygraph.algorithms.minmax import shortest_path 
 
 

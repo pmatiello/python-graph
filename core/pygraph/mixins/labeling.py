@@ -82,7 +82,6 @@ class labeling( object ):
         @rtype:  string
         @return: Edge label
         """
-        k = (u,v)
         return self.get_edge_properties( u,v, ).setdefault( self.LABEL_ATTRIBUTE_NAME, self.DEFAULT_LABEL )
 
     def set_edge_label(self, u, v, label):
@@ -186,5 +185,5 @@ class labeling( object ):
         """
         try:
             return self.edge_attr[(u,v)]
-        except KeyError as ke:
+        except KeyError:
             return []

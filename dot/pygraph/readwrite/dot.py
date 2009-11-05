@@ -35,7 +35,6 @@ from pygraph.classes.exceptions import InvalidGraphType
 from pygraph.classes.graph import graph
 from pygraph.classes.hypergraph import hypergraph
 import pydot
-import pygraph
 
 # Values
 colors = ['aquamarine4', 'blue4', 'brown4', 'cornflowerblue', 'cyan4',
@@ -121,7 +120,7 @@ def write(G, weighted=False):
     if not 'name' in dir(G):
         dotG.set_name('graphname')
     else:
-        dotG.set_name(graph.name)
+        dotG.set_name(G.name)
     
     if (type(G) == graph):
         dotG.set_type('graph')

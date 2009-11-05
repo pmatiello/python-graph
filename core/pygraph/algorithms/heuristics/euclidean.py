@@ -28,7 +28,6 @@ A* heuristic for euclidean graphs.
 
 
 # Imports
-import warnings
 
 
 class euclidean(object):

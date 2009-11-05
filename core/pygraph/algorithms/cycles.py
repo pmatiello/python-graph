@@ -60,7 +60,6 @@ def find_cycle(graph):
         Find a cycle containing both node and ancestor.
         """
         path = []
-        orignode = node
         while (node != ancestor):
             if (node is None):
                 return []
@@ -95,7 +94,6 @@ def find_cycle(graph):
         # Select a non-visited node
         if (each not in visited):
             spanning_tree[each] = None
-            root = each
             # Explore node's connected component
             dfs(each)
             if (cycle):
