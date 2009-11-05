@@ -136,6 +136,7 @@ class digraph (basegraph, common, labeling):
         if (node not in self.node_neighbors):
             self.node_neighbors[node] = []
             self.node_incidence[node] = []
+            self.node_attr[node] = attrs
         else:
             raise AdditionError("Node %s already in digraph" % node)
 
