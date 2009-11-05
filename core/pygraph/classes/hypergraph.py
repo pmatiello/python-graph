@@ -30,11 +30,14 @@ Hypergraph class
 
 # Imports
 from pygraph.classes.graph import graph
-#from pygraph.algorithms import *
 from pygraph.algorithms import accessibility
 from pygraph.classes.exceptions import AdditionError
 
-class hypergraph (object):
+from pygraph.mixins.labeling import labeling
+from pygraph.mixins.common import common
+from pygraph.mixins.basegraph import basegraph
+
+class hypergraph (basegraph, common, labeling):
     """
     Hypergraph class.
     
@@ -51,51 +54,11 @@ class hypergraph (object):
         """
         Initialize a hypergraph.
         """
+        common.__init__(self)
+        labeling.__init__(self)
         self.node_links = {}    # Pairing: Node -> Hyperedge
         self.edge_links = {}     # Pairing: Hyperedge -> Node
         self.graph = graph()    # Ordinary graph
-
-
-    def __str__(self):
-        """
-        Return a string representing the hypergraph when requested by str() (or print).
-
-        @rtype:  string
-        @return: String representing the hypergraph.
-        """
-        return "<hypergraph object " + str(self.nodes()) + " " + str(self.edge_links) + ">"
-
-
-    def __len__(self):
-        """
-        Return the size of the hypergraph when requested by len().
-
-        @rtype:  number
-        @return: Size of the hypergraph.
-        """
-        return len(self.node_links)
-    
-    
-    def __iter__(self):
-        """
-        Return a iterator passing through all nodes in the hypergraph.
-        
-        @rtype:  iterator
-        @return: Iterator passing through all nodes in the hypergraph.
-        """
-        for each in self.node_links.keys():
-            yield each
-
-
-    def __getitem__(self, node):
-        """
-        Return a iterator passing through all neighbors of the given node.
-        
-        @rtype:  iterator
-        @return: Iterator passing through all neighbors of the given node.
-        """
-        for each in self.neighbors(node):
-            yield each
 
 
     def nodes(self):
@@ -108,12 +71,22 @@ class hypergraph (object):
         return list(self.node_links.keys())
 
 
+    def edges(self):
+        """
+        Return the hyperedge list.
+        
+        @rtype:  list
+        @return: List of hyperedges in the graph.
+        """
+        return self.hyperedges()
+
+
     def hyperedges(self):
         """
         Return hyperedge list.
 
         @rtype:  list
-        @return: List of hyperedges linked to the given node.
+        @return: List of hyperedges in the graph.
         """
         return list(self.edge_links.keys())
 
@@ -194,18 +167,17 @@ class hypergraph (object):
             self.graph.del_node((node,'n'))
 
 
-    def add_nodes(self, nodelist):
+    def add_edge(self, hyperedge):
         """
-        Add given nodes to the hypergraph.
+        Add given hyperedge to the hypergraph.
         
-        @attention: While nodes can be of any type, it's strongly recommended to use only numbers
-        and single-line strings as node identifiers if you intend to use write().
-
-        @type  nodelist: list
-        @param nodelist: List of nodes to be added to the graph.
+        @attention: While hyperedge-nodes can be of any type, it's strongly recommended to use only
+        numbers and single-line strings as node identifiers if you intend to use write().
+        
+        @type  hyperedge: hyperedge
+        @param hyperedge: Hyperedge identifier.
         """
-        for each in nodelist:
-            self.add_node(each)
+        self.add_hyperedge(hyperedge)
 
 
     def add_hyperedge(self, hyperedge):

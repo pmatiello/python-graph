@@ -135,6 +135,23 @@ class test_hypergraph(unittest.TestCase):
         gr = testlib.new_hypergraph()
         num = max([len(gr.links(e)) for e in gr.hyperedges()])
         assert num == gr.rank()
+    
+    def test_repr(self):
+        """
+        Validate the repr string
+        """
+        gr = testlib.new_hypergraph()
+        gr_repr = repr(gr)
+        assert isinstance(gr_repr, str )
+        assert gr.__class__.__name__ in gr_repr
+    
+    def test_order_len_equivlance(self):
+        """
+        Verify the behavior of G.order()
+        """
+        gr = testlib.new_hypergraph()
+        assert len(gr) == gr.order()
+        assert gr.order() == len( gr.node_links )
         
 
 if __name__ == "__main__":
