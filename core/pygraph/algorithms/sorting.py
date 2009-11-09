@@ -46,4 +46,6 @@ def topological_sorting(graph):
     @return: Topological sorting for the graph.
     """
     # The topological sorting of a DAG is equivalent to its reverse postordering.
-    return depth_first_search(graph)[2].reverse()
+    order = depth_first_search(graph)[2]
+    order.reverse()
+    return order
