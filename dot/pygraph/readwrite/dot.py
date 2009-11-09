@@ -92,11 +92,11 @@ def read(string):
         else:
             _label = ''
         
-        G.add_edge(each_edge.get_source(), each_edge.get_destination(), wt = _wt, label = _label)
+        G.add_edge((each_edge.get_source(), each_edge.get_destination()), wt = _wt, label = _label)
         
         for each_attr_key, each_attr_val in each_edge.get_attributes().items():
             if not each_attr_key in ['weight', 'label']:
-                G.add_edge_attribute(each_edge.get_source(), each_edge.get_destination(), \
+                G.add_edge_attribute((each_edge.get_source(), each_edge.get_destination()), \
                                             (each_attr_key, each_attr_val))
     
     return G
@@ -151,17 +151,17 @@ def write(G, weighted=False):
             continue
         
         attr_list = {}
-        for attr in G.edge_attributes(edge_from, edge_to):
+        for attr in G.edge_attributes((edge_from, edge_to)):
             attr_list[str(attr[0])] = str(attr[1])
         
-        if str(G.edge_label(edge_from, edge_to)):
-            attr_list['label'] = str(G.edge_label(edge_from, edge_to))
+        if str(G.edge_label((edge_from, edge_to))):
+            attr_list['label'] = str(G.edge_label((edge_from, edge_to)))
 
         elif weighted:
-            attr_list['label'] = str(G.edge_weight(edge_from, edge_to))
+            attr_list['label'] = str(G.edge_weight((edge_from, edge_to)))
         
         if weighted:
-            attr_list['weight'] = str(G.edge_weight(edge_from, edge_to))
+            attr_list['weight'] = str(G.edge_weight((edge_from, edge_to)))
         
         newEdge = pydot.Edge(str(edge_from), str(edge_to), **attr_list)
         

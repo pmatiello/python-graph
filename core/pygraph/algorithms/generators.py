@@ -84,7 +84,7 @@ def generate(num_nodes, num_edges, directed=False, weight_range=(1, 1)):
         max_wt = max(weight_range)
     for i in range(num_edges):
         each = edges[i]
-        random_graph.add_edge(each[0], each[1], wt = randint(min_wt, max_wt))
+        random_graph.add_edge((each[0], each[1]), wt = randint(min_wt, max_wt))
 
     return random_graph
 

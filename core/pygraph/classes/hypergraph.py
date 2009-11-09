@@ -49,6 +49,9 @@ class hypergraph (basegraph, common, labeling):
     cut_hyperedges, cut_nodes
     """
 
+    # Technically this isn't directed, but it gives us the right
+    #  behaviour with the parent classes.
+    DIRECTED = True
 
     def __init__(self):
         """
@@ -119,7 +122,7 @@ class hypergraph (basegraph, common, labeling):
         for e in self.node_links[obj]:
             neighbors.update(set(self.edge_links[e]))
         
-        return neighbors - set([obj])
+        return list(neighbors - set([obj]))
 
 
     def has_node(self, node):
@@ -222,7 +225,7 @@ class hypergraph (basegraph, common, labeling):
         if (hyperedge not in self.node_links[node]):
             self.edge_links[hyperedge].append(node)
             self.node_links[node].append(hyperedge)
-            self.graph.add_edge((node,'n'), (hyperedge,'h'))
+            self.graph.add_edge(((node,'n'), (hyperedge,'h')))
         else:
             raise AdditionError("Link (%s, %s) already in graph" % (node, hyperedge))
 

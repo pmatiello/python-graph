@@ -38,7 +38,7 @@ import testlib
 
 def verify_cycle(graph, cycle):
     for i in range(len(cycle)):
-        assert graph.has_edge(cycle[i],cycle[(i+1)%len(cycle)])
+        assert graph.has_edge((cycle[i],cycle[(i+1)%len(cycle)]))
 
 class test_find_cycle(unittest.TestCase):
 
@@ -73,11 +73,11 @@ class test_find_cycle(unittest.TestCase):
     def test_find_small_cycle_on_digraph(self):
         gr = digraph()
         gr.add_nodes([1, 2, 3, 4, 5])
-        gr.add_edge(1, 2)
-        gr.add_edge(2, 3)
-        gr.add_edge(2, 4)
-        gr.add_edge(4, 5)
-        gr.add_edge(2, 1)
+        gr.add_edge((1, 2))
+        gr.add_edge((2, 3))
+        gr.add_edge((2, 4))
+        gr.add_edge((4, 5))
+        gr.add_edge((2, 1))
         # Cycle: 1-2
         assert find_cycle(gr) == [1,2]
 
@@ -86,12 +86,12 @@ class test_find_cycle(unittest.TestCase):
     def test_regression1(self):
         G = digraph()
         G.add_nodes([1, 2, 3, 4, 5])
-        G.add_edge(1, 2)
-        G.add_edge(2, 3)
-        G.add_edge(2, 4)
-        G.add_edge(4, 5)
-        G.add_edge(3, 5)
-        G.add_edge(3, 1)
+        G.add_edge((1, 2))
+        G.add_edge((2, 3))
+        G.add_edge((2, 4))
+        G.add_edge((4, 5))
+        G.add_edge((3, 5))
+        G.add_edge((3, 1))
         assert find_cycle(G) == [1, 2, 3]
         
 if __name__ == "__main__":

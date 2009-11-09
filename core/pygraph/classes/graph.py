@@ -126,7 +126,7 @@ class graph ( basegraph, common, labeling, ):
         else:
             raise AdditionError("Node %s already in graph" % node)
 
-    def add_edge(self, u, v, wt=1, label='', attrs=[]):
+    def add_edge(self, (u, v), wt=1, label='', attrs=[]):
         """
         Add an edge (u,v) to the graph connecting nodes u and v.
 
@@ -148,11 +148,11 @@ class graph ( basegraph, common, labeling, ):
         if (v not in self.node_neighbors[u] and u not in self.node_neighbors[v]):
             self.node_neighbors[u].append(v)
             self.node_neighbors[v].append(u)
-            self.add_edge_attributes(u,v, attrs)
-            self.add_edge_attributes(v,u, attrs)
+            self.add_edge_attributes((u,v), attrs)
+            self.add_edge_attributes((v,u), attrs) # TODO: This is redundant
                         
-            self.set_edge_properties( u, v, label=label, weight=wt )
-            self.set_edge_properties( v, u, label=label, weight=wt )
+            self.set_edge_properties( (u, v), label=label, weight=wt )
+            self.set_edge_properties( (v, u), label=label, weight=wt ) # TODO: This is redundant
         else:
             raise AdditionError("Edge (%s, %s) already in graph" % (u, v))
 
@@ -166,12 +166,12 @@ class graph ( basegraph, common, labeling, ):
         """
         for each in list(self.neighbors(node)):
             if (each != node):
-                self.del_edge(each, node)
+                self.del_edge((each, node))
         del(self.node_neighbors[node])
         del(self.node_attr[node])
 
 
-    def del_edge(self, u, v):
+    def del_edge(self, (u, v)):
         """
         Remove an edge (u, v) from the graph.
 
@@ -182,12 +182,12 @@ class graph ( basegraph, common, labeling, ):
         @param v: Other node.
         """
         self.node_neighbors[u].remove(v)
-        self.del_edge_labeling(u, v)  
+        self.del_edge_labeling((u, v))  
         if (u != v):
             self.node_neighbors[v].remove(u)
-            self.del_edge_labeling(v, u)           
+            self.del_edge_labeling((v, u)) # TODO: This is redundant
 
-    def has_edge(self, u, v):
+    def has_edge(self, (u, v)):
         """
         Return whether an edge between nodes u and v exists.
 

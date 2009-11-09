@@ -74,10 +74,10 @@ def write(G):
         edge = grxml.createElement('edge')
         edge.setAttribute('from', str(edge_from))
         edge.setAttribute('to', str(edge_to))
-        edge.setAttribute('wt', str(G.edge_weight(edge_from, edge_to)))
-        edge.setAttribute('label', str(G.edge_label(edge_from, edge_to)))
+        edge.setAttribute('wt', str(G.edge_weight((edge_from, edge_to))))
+        edge.setAttribute('label', str(G.edge_label((edge_from, edge_to))))
         grxmlr.appendChild(edge)
-        for attr_name, attr_value in G.edge_attributes(edge_from, edge_to):
+        for attr_name, attr_value in G.edge_attributes((edge_from, edge_to)):
             attr = grxml.createElement('attribute')
             attr.setAttribute('attr', attr_name)
             attr.setAttribute('value', attr_value)
@@ -115,15 +115,15 @@ def read(string):
 
     # Read edges...
     for each_edge in dom.getElementsByTagName("edge"):
-        if (G.has_edge(each_edge.getAttribute('from'), each_edge.getAttribute('to'))):
-            G.add_edge(each_edge.getAttribute('from'), each_edge.getAttribute('to'), \
+        if (G.has_edge((each_edge.getAttribute('from'), each_edge.getAttribute('to')))):
+            G.add_edge((each_edge.getAttribute('from'), each_edge.getAttribute('to')), \
                 wt = float(each_edge.getAttribute('wt')), label = each_edge.getAttribute('label'))
         for each_attr in each_edge.getElementsByTagName("attribute"):
             attr_tuple = (each_attr.getAttribute('attr'), each_attr.getAttribute('value'))
-            if (attr_tuple not in graph.edge_attributes(each_edge.getAttribute('from'), \
-                each_edge.getAttribute('to'))):
-                G.add_edge_attribute(each_edge.getAttribute('from'), \
-                    each_edge.getAttribute('to'), attr_tuple)
+            if (attr_tuple not in graph.edge_attributes((each_edge.getAttribute('from'), \
+                each_edge.getAttribute('to')))):
+                G.add_edge_attribute((each_edge.getAttribute('from'), \
+                    each_edge.getAttribute('to')), attr_tuple)
     
     return G
 

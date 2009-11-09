@@ -54,9 +54,9 @@ class test_digraph(unittest.TestCase):
         gr = digraph()
         gr.add_node('a_node')
         gr.add_node('other_node')
-        gr.add_edge("a_node","other_node")
+        gr.add_edge(("a_node","other_node"))
         try:
-            gr.add_edge("a_node","other_node")
+            gr.add_edge(("a_node","other_node"))
         except AdditionError:
             pass
         else:
@@ -66,7 +66,7 @@ class test_digraph(unittest.TestCase):
         gr = digraph()
         gr.add_nodes([0,1])
         try:
-            gr.add_edge(3,0)
+            gr.add_edge((3,0))
         except AdditionError:
             pass
         else:
@@ -78,7 +78,7 @@ class test_digraph(unittest.TestCase):
         gr = digraph()
         gr.add_nodes([0,1])
         try:
-            gr.add_edge(0,3)
+            gr.add_edge((0,3))
         except AdditionError:
             pass
         else:
@@ -90,20 +90,20 @@ class test_digraph(unittest.TestCase):
         gr = testlib.new_digraph()
         gr.del_node(0)
         self.assertTrue(0 not in gr)
-        for each, other in gr.edges():
+        for (each, other) in gr.edges():
             self.assertTrue(each in gr)
             self.assertTrue(other in gr)
     
     def test_remove_edge_from_node_to_same_node(self):
         gr = digraph()
         gr.add_node(0)
-        gr.add_edge(0, 0)
-        gr.del_edge(0, 0)
+        gr.add_edge((0, 0))
+        gr.del_edge((0, 0))
     
     def test_remove_node_with_edge_to_itself(self):
         gr = digraph()
         gr.add_node(0)
-        gr.add_edge(0, 0)
+        gr.add_edge((0, 0))
         gr.del_node(0)
 
     
@@ -190,14 +190,14 @@ class test_digraph(unittest.TestCase):
         
         g.add_node( A )
         g.add_node( B )
-        g.add_edge( A,B )
+        g.add_edge( (A,B) )
         
         d.add_graph( g )
         
         assert d.has_node( A )
         assert d.has_node( B )
-        assert d.has_edge( A,B )
-        assert d.has_edge( B,A )    
+        assert d.has_edge( (A,B) )
+        assert d.has_edge( (B,A) )    
     
     # Add spanning tree
     

@@ -48,7 +48,7 @@ class test_topological_sorting(unittest.TestCase):
                     tree.add_node(each)
                 if (st[each] not in tree.nodes()):
                     tree.add_node(st[each])
-                tree.add_edge(st[each], each)
+                tree.add_edge((st[each], each))
         
         ts = topological_sorting(tree)
         for each in ts:
@@ -60,7 +60,7 @@ class test_topological_sorting(unittest.TestCase):
         def is_ordered(node, list):
             # Has parent on list
             for each in list:
-                if gr.has_edge(each, node):
+                if gr.has_edge((each, node)):
                     return True
             # Has no possible ancestors on list
             st, pre, post = depth_first_search(gr, node)

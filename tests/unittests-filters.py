@@ -49,7 +49,7 @@ class test_find_filter(unittest.TestCase):
     def test_bfs_in_graph(self):
         gr = testlib.new_graph()
         gr.add_node('find-me')
-        gr.add_edge(0, 'find-me')
+        gr.add_edge((0, 'find-me'))
         st, lo = breadth_first_search(gr, root=0, filter=find('find-me'))
         assert st['find-me'] == 0
         for each in st:
@@ -58,7 +58,7 @@ class test_find_filter(unittest.TestCase):
     def test_bfs_in_digraph(self):
         gr = testlib.new_digraph()
         gr.add_node('find-me')
-        gr.add_edge(0, 'find-me')
+        gr.add_edge((0, 'find-me'))
         st, lo = breadth_first_search(gr, root=0, filter=find('find-me'))
         assert st['find-me'] == 0
         for each in st:
@@ -75,8 +75,8 @@ class test_find_filter(unittest.TestCase):
         gr = testlib.new_graph()
         gr.add_node('find-me')
         gr.add_node('dont-find-me')
-        gr.add_edge(0, 'find-me')
-        gr.add_edge('find-me','dont-find-me')
+        gr.add_edge((0, 'find-me'))
+        gr.add_edge(('find-me','dont-find-me'))
         st, pre, post = depth_first_search(gr, root=0, filter=find('find-me'))
         assert st['find-me'] == 0
         assert 'dont-find-me' not in st
@@ -85,8 +85,8 @@ class test_find_filter(unittest.TestCase):
         gr = testlib.new_digraph()
         gr.add_node('find-me')
         gr.add_node('dont-find-me')
-        gr.add_edge(0, 'find-me')
-        gr.add_edge('find-me','dont-find-me')
+        gr.add_edge((0, 'find-me'))
+        gr.add_edge(('find-me','dont-find-me'))
         st, pre, post = depth_first_search(gr, root=0, filter=find('find-me'))
         assert st['find-me'] == 0
         assert 'dont-find-me' not in st

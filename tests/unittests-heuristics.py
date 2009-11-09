@@ -59,9 +59,9 @@ class test_chow(unittest.TestCase):
     def test_chow_unreachable(self):
         heuristic = chow( "Wales", "North Korea", "Russia" )
         self.G.add_node("Sealand")
-        self.G.add_edge("England", "Sealand")
+        self.G.add_edge(("England", "Sealand"))
         heuristic.optimize(self.G)
-        self.G.del_edge("England", "Sealand")
+        self.G.del_edge(("England", "Sealand"))
         
         try:
             result = pygraph.algorithms.minmax.heuristic_search( self.G, "England", "Sealand" , heuristic )
@@ -79,10 +79,10 @@ class test_euclidean(unittest.TestCase):
         self.G.add_node('B', [('position',[2,0])])
         self.G.add_node('C', [('position',[2,3])])
         self.G.add_node('D', [('position',[1,2])])
-        self.G.add_edge('A', 'B', wt=4)
-        self.G.add_edge('A', 'D', wt=5)
-        self.G.add_edge('B', 'C', wt=9)
-        self.G.add_edge('D', 'C', wt=2)            
+        self.G.add_edge(('A', 'B'), wt=4)
+        self.G.add_edge(('A', 'D'), wt=5)
+        self.G.add_edge(('B', 'C'), wt=9)
+        self.G.add_edge(('D', 'C'), wt=2)            
 
     def test_euclidean(self):
         heuristic = euclidean()

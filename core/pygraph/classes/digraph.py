@@ -141,7 +141,7 @@ class digraph (basegraph, common, labeling):
             raise AdditionError("Node %s already in digraph" % node)
 
 
-    def add_edge(self, u, v, wt = 1, label="", attrs = []):
+    def add_edge(self, (u, v), wt = 1, label="", attrs = []):
         """
         Add an directed edge (u,v) to the graph connecting nodes u to v.
 
@@ -171,8 +171,8 @@ class digraph (basegraph, common, labeling):
         else:
             self.node_neighbors[u].append(v)
             self.node_incidence[v].append(u)
-            self.set_edge_weight(u, v, wt)
-            self.add_edge_attributes( u, v, attrs )
+            self.set_edge_weight((u, v), wt)
+            self.add_edge_attributes( (u, v), attrs )
 
 
     def del_node(self, node):
@@ -184,11 +184,11 @@ class digraph (basegraph, common, labeling):
         """
         for each in list(self.incidents(node)):
             # Delete all the edges incident on this node
-            self.del_edge(each, node)
+            self.del_edge((each, node))
             
         for each in list(self.neighbors(node)):
             # Delete all the edges pointing to this node.
-            self.del_edge(node, each)
+            self.del_edge((node, each))
         
         # Remove this node from the neighbors and incidents tables   
         del(self.node_neighbors[node])
@@ -198,7 +198,7 @@ class digraph (basegraph, common, labeling):
         self.del_node_labeling( node )
 
 
-    def del_edge(self, u, v):
+    def del_edge(self, (u, v)):
         """
         Remove an directed edge (u, v) from the graph.
 
@@ -210,10 +210,10 @@ class digraph (basegraph, common, labeling):
         """
         self.node_neighbors[u].remove(v)
         self.node_incidence[v].remove(u)
-        self.del_edge_labeling( u,v )
+        self.del_edge_labeling( (u,v) )
 
 
-    def has_edge(self, u, v):
+    def has_edge(self, (u, v)):
         """
         Return whether an edge between nodes u and v exists.
 

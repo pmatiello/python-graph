@@ -88,7 +88,7 @@ def transitive_edges(graph):
             #given node and all the neighbors from the given successor
             intersect_array = _intersection(graph.neighbors(next), graph.neighbors(start) )
             for a in intersect_array:
-                if graph.has_edge(start, a):
+                if graph.has_edge((start, a)):
                     ##check for the detected edge and append it to the returned array   
                     tranz_edges.append( (start,a) )      
     return tranz_edges # return the final array

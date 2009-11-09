@@ -166,7 +166,7 @@ def shortest_path(graph, source):
         if (u in dist):
             for v in graph[u]:
                 if v in q:
-                    alt = dist[u] + graph.edge_weight(u, v)
+                    alt = dist[u] + graph.edge_weight((u, v))
                     if (v not in dist) or (alt < dist[v]):
                         dist[v] = alt
                         previous[v] = u
@@ -225,7 +225,7 @@ def heuristic_search(graph, start, goal, heuristic):
             if neighbor in explored:
                 continue
             
-            ncost = dist + graph.edge_weight(current, neighbor)
+            ncost = dist + graph.edge_weight((current, neighbor))
 
             if neighbor in g:
                 qcost, h = g[neighbor]

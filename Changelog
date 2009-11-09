@@ -14,6 +14,7 @@ Fixes:
 	Adding a graph to a digraph now works (Issue 39).
 
 Important API Changes:
+    Edges are now passed around as generic objects. In the case of graph / digraph this is a tuple.
 	Removed traversal() method from graph and digraph classes;
 	Functions for reading a hypergraph doesn't take an empty hypergraph as argument anymore.
 

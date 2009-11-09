@@ -89,8 +89,8 @@ class common( object ):
         
         for each_node in other.nodes():
             for each_edge in other.neighbors(each_node):
-                if (not self.has_edge(each_node, each_edge)):
-                    self.add_edge(each_node, each_edge)
+                if (not self.has_edge((each_node, each_edge))):
+                    self.add_edge((each_node, each_edge))
 
 
     def add_spanning_tree(self, st):
@@ -103,7 +103,7 @@ class common( object ):
         self.add_nodes(list(st.keys()))
         for each in st:
             if (st[each] is not None):
-                self.add_edge(st[each], each)
+                self.add_edge((st[each], each))
                 
     
     def complete(self):
@@ -114,8 +114,8 @@ class common( object ):
         """
         for each in self.nodes():
             for other in self.nodes():
-                if (each != other and not self.has_edge(each, other)):
-                    self.add_edge(each, other)
+                if (each != other and not self.has_edge((each, other))):
+                    self.add_edge((each, other))
 
 
     def inverse(self):
@@ -129,8 +129,8 @@ class common( object ):
         inv.add_nodes(self.nodes())
         inv.complete()
         for each in self.edges():
-            if (inv.has_edge(each[0], each[1])):
-                inv.del_edge(each[0], each[1])
+            if (inv.has_edge(each)):
+                inv.del_edge(each)
         return inv
     
     def reverse(self):
@@ -150,8 +150,8 @@ class common( object ):
     
         #- Add the reversed edges
         for (u, v) in self.edges():
-            wt = self.edge_weight(u, v)
-            label = self.edge_label(u, v)
-            attributes = self.edge_attributes(u, v)
-            N.add_edge(v, u, wt, label, attributes)
+            wt = self.edge_weight((u, v))
+            label = self.edge_label((u, v))
+            attributes = self.edge_attributes((u, v))
+            N.add_edge((v, u), wt, label, attributes)
         return N

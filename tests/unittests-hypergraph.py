@@ -81,7 +81,7 @@ class test_hypergraph(unittest.TestCase):
             pass
         else:
             fail()
-        assert gr.neighbors(0) == set([])
+        assert gr.neighbors(0) == []
     
     def test_raise_exception_when_edge_added_to_non_existing_node(self):
         gr = hypergraph()
@@ -92,7 +92,7 @@ class test_hypergraph(unittest.TestCase):
             pass
         else:
             fail()
-        assert gr.neighbors(0) == set([])
+        assert gr.neighbors(0) == []
     
     def test_remove_node(self):
         gr = testlib.new_hypergraph()

@@ -21,12 +21,11 @@ class labeling( object ):
             # Since attributes and properties are lazy, they might not exist.
             del( self.node_attr[node] )
         
-    def del_edge_labeling( self, u, v ):
-        k = (u,v)
+    def del_edge_labeling( self, edge ):
         
-        keys = [k]
+        keys = [edge]
         if not self.DIRECTED:
-            keys.append(k[::-1])
+            keys.append(edge[::-1])
             
         for key in keys:
             for mapping in [self.edge_properties, self.edge_attr ]:
@@ -35,113 +34,93 @@ class labeling( object ):
                 except KeyError:
                     pass
     
-    def edge_weight(self, u, v):
+    def edge_weight(self, edge):
         """
         Get the weight of an edge.
 
-        @type  u: node
-        @param u: One node.
-
-        @type  v: node
-        @param v: Other node.
+        @type  edge: edge
+        @param edge: One edge.
         
         @rtype:  number
         @return: Edge weight.
         """
-        return self.get_edge_properties( u,v, ).setdefault( self.WEIGHT_ATTRIBUTE_NAME, self.DEFAULT_WEIGHT )
+        return self.get_edge_properties( edge ).setdefault( self.WEIGHT_ATTRIBUTE_NAME, self.DEFAULT_WEIGHT )
 
 
-    def set_edge_weight(self, u, v, wt):
+    def set_edge_weight(self, edge, wt):
         """
         Set the weight of an edge.
 
-        @type  u: node
-        @param u: One node.
-
-        @type  v: node
-        @param v: Other node.
+        @type  edge: edge
+        @param edge: One edge.
 
         @type  wt: number
         @param wt: Edge weight.
         """
-        self.set_edge_properties(u, v, weight=wt )
+        self.set_edge_properties(edge, weight=wt )
         if not self.DIRECTED:
-            self.set_edge_properties(v, u , weight=wt )
+            self.set_edge_properties((edge[1], edge[0]) , weight=wt )
 
 
-    def edge_label(self, u, v):
+    def edge_label(self, edge):
         """
         Get the label of an edge.
 
-        @type  u: node
-        @param u: One node.
-
-        @type  v: node
-        @param v: Other node.
+        @type  edge: edge
+        @param edge: One edge.
         
         @rtype:  string
         @return: Edge label
         """
-        return self.get_edge_properties( u,v, ).setdefault( self.LABEL_ATTRIBUTE_NAME, self.DEFAULT_LABEL )
+        return self.get_edge_properties( edge ).setdefault( self.LABEL_ATTRIBUTE_NAME, self.DEFAULT_LABEL )
 
-    def set_edge_label(self, u, v, label):
+    def set_edge_label(self, edge, label):
         """
         Set the label of an edge.
 
-        @type  u: node
-        @param u: One node.
-
-        @type  v: node
-        @param v: Other node.
+        @type  edge: edge
+        @param edge: One edge.
 
         @type  label: string
         @param label: Edge label.
         """
-        self.set_edge_properties(u, v, label=label )
+        self.set_edge_properties(edge, label=label )
         if not self.DIRECTED:
-            self.set_edge_properties(v, u , label=label )
+            self.set_edge_properties((edge[1], edge[0]) , label=label )
             
-    def set_edge_properties(self, u, v, **properties ):
-        k = (u,v)
-        self.edge_properties.setdefault( k, {} ).update( properties )
+    def set_edge_properties(self, edge, **properties ):
+        self.edge_properties.setdefault( edge, {} ).update( properties )
         
-    def get_edge_properties(self, u, v):
-        k = (u,v)
-        return self.edge_properties.setdefault( k, {} )
+    def get_edge_properties(self, edge):
+        return self.edge_properties.setdefault( edge, {} )
             
-    def add_edge_attribute(self, u, v, attr):
+    def add_edge_attribute(self, edge, attr):
         """
         Add attribute to the given edge.
 
-        @type  u: node
-        @param u: One node.
-
-        @type  v: node
-        @param v: Other node.
+        @type  edge: edge
+        @param edge: One edge.
 
         @type  attr: tuple
         @param attr: Node attribute specified as a tuple in the form (attribute, value).
         """
-        self.edge_attr[(u,v)] = self.edge_attributes(u,v) + [attr]
+        self.edge_attr[edge] = self.edge_attributes(edge) + [attr]
         
         if not self.DIRECTED:
-            self.edge_attr[(v,u)] = self.edge_attributes(v,u) + [attr]
+            self.edge_attr[(edge[1],edge[0])] = self.edge_attributes((edge[1], edge[0])) + [attr]
     
-    def add_edge_attributes(self, u, v, attrs):
+    def add_edge_attributes(self, edge, attrs):
         """
         Append a sequence of attributes to the given edge
         
-        @type  u: node
-        @param u: One node.
-
-        @type  v: node
-        @param v: Other node.
+        @type  edge: edge
+        @param edge: One edge.
 
         @type  attrs: tuple
         @param attrs: Node attributes specified as a sequence of tuples in the form (attribute, value).
         """
         for attr in attrs:
-            self.add_edge_attribute(u, v, attr)
+            self.add_edge_attribute(edge, attr)
     
     
     def add_node_attribute(self, node, attr):
@@ -170,20 +149,17 @@ class labeling( object ):
         return self.node_attr[node]
 
 
-    def edge_attributes(self, u, v):
+    def edge_attributes(self, edge):
         """
         Return the attributes of the given edge.
 
-        @type  u: node
-        @param u: One node.
-
-        @type  v: node
-        @param v: Other node.
+        @type  edge: edge
+        @param edge: One edge.
 
         @rtype:  list
         @return: List of attributes specified tuples in the form (attribute, value).
         """
         try:
-            return self.edge_attr[(u,v)]
+            return self.edge_attr[edge]
         except KeyError:
             return []

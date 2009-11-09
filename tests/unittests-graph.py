@@ -53,9 +53,9 @@ class test_graph(unittest.TestCase):
         gr = graph()
         gr.add_node('a_node')
         gr.add_node('other_node')
-        gr.add_edge("a_node","other_node")
+        gr.add_edge(("a_node","other_node"))
         try:
-            gr.add_edge("a_node","other_node")
+            gr.add_edge(("a_node","other_node"))
         except AdditionError:
             pass
         else:
@@ -65,7 +65,7 @@ class test_graph(unittest.TestCase):
         gr = graph()
         gr.add_nodes([0,1])
         try:
-            gr.add_edge(3,0)
+            gr.add_edge((3,0))
         except KeyError:
             pass
         else:
@@ -76,7 +76,7 @@ class test_graph(unittest.TestCase):
         gr = graph()
         gr.add_nodes([0,1])
         try:
-            gr.add_edge(0,3)
+            gr.add_edge((0,3))
         except KeyError:
             pass
         else:
@@ -94,13 +94,13 @@ class test_graph(unittest.TestCase):
     def test_remove_edge_from_node_to_same_node(self):
         gr = graph()
         gr.add_node(0)
-        gr.add_edge(0, 0)
-        gr.del_edge(0, 0)
+        gr.add_edge((0, 0))
+        gr.del_edge((0, 0))
     
     def test_remove_node_with_edge_to_itself(self):
         gr = graph()
         gr.add_node(0)
-        gr.add_edge(0, 0)
+        gr.add_edge((0, 0))
         gr.del_node(0)
 
     
