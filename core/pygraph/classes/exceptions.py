@@ -40,6 +40,12 @@ class AdditionError(GraphError):
     """
     pass
 
+class DeletionError(GraphError):
+    """
+    This error is raised when trying to remove a node or edge from the graph which may not exist
+    """
+    pass
+
 class NodeUnreachable(GraphError):
     """
     Goal could not be reached from start.
