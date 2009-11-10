@@ -63,6 +63,9 @@ docs: cleanpyc
 test:
 	export PYTHONPATH=${PYTHONPATH} && cd ${TESTS_DIR} && python testrunner.py
 
+test3:
+	export PYTHONPATH=${PYTHONPATH} && cd ${TESTS_DIR} && python3 testrunner.py
+
 tests: test
 
 
