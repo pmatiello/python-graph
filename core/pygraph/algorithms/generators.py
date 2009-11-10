@@ -106,7 +106,7 @@ def generate_hypergraph(num_nodes, num_edges, r = 0):
     random_graph = hypergraph()
     
     # Nodes
-    nodes = range(num_nodes)
+    nodes = list(range(num_nodes))
     random_graph.add_nodes(nodes)
     
     # Base edges
