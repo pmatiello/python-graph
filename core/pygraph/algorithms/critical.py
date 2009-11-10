@@ -26,7 +26,7 @@
 """
 Critical path algorithms and transitivity detection algorithm.
 
-@sort: transitive_edges, critical_path
+@sort: critical_path, transitive_edges
 """
 
 

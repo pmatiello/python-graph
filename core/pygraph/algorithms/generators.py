@@ -26,7 +26,7 @@
 """
 Random graph generators.
 
-@sort: generate
+@sort: generate, generate_hypergraph
 """
 
 

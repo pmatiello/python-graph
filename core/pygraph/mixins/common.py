@@ -1,6 +1,9 @@
 class common( object ):
     """
     Standard methods common to all graph classes.
+    
+    @sort: __getitem__, __iter__, __len__, __repr__, __str__, add_graph, add_nodes,
+    add_spanning_tree, complete, inverse, order, reverse
     """
     
     def __str__(self):
@@ -76,14 +79,14 @@ class common( object ):
         for each in nodelist:
             self.add_node(each)
             
-    def add_graph(self, other ):
+    def add_graph(self, other):
         """
         Add other graph to this graph.
         
         @attention: Attributes and labels are not preserved.
         
-        @type  graph: graph
-        @param graph: Graph
+        @type  other: graph
+        @param other: Graph
         """
         self.add_nodes( n for n in other.nodes() if not n in self.nodes() )
         
