@@ -123,7 +123,7 @@ class graph ( basegraph, common, labeling, ):
 
     def add_edge(self, edge, wt=1, label='', attrs=[]):
         """
-        Add an edge to the graph connecting nodes u and v.
+        Add an edge to the graph connecting two nodes.
 
         @type  edge: tuple
         @param edge: Edge.

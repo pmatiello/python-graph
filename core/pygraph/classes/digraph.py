@@ -140,7 +140,7 @@ class digraph (basegraph, common, labeling):
 
     def add_edge(self, edge, wt = 1, label="", attrs = []):
         """
-        Add an directed edge to the graph connecting nodes u to v.
+        Add an directed edge to the graph connecting two nodes.
 
         @type  edge: tuple
         @param edge: Edge.
@@ -195,7 +195,7 @@ class digraph (basegraph, common, labeling):
 
     def del_edge(self, edge):
         """
-        Remove an directed edge (u, v) from the graph.
+        Remove an directed edge from the graph.
 
         @type  edge: tuple
         @param edge: Edge.
@@ -208,7 +208,7 @@ class digraph (basegraph, common, labeling):
 
     def has_edge(self, edge):
         """
-        Return whether an edge between nodes u and v exists.
+        Return whether an edge exists.
 
         @type  edge: tuple
         @param edge: Edge.
@@ -228,7 +228,3 @@ class digraph (basegraph, common, labeling):
         @return: Order of the given node.
         """
         return len(self.neighbors(node))
-
-    
-
-
