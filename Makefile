@@ -48,7 +48,7 @@ docs: cleanpyc
 	cp -R --remove-destination ${CORE_DIR}/pygraph ${TEMP}
 	cp -Rn --remove-destination ${DOT_DIR}/pygraph/readwrite ${TEMP}/pygraph/
 	epydoc -v --no-frames --no-sourcecode --name="python-graph" \
-		--url="http://code.google.com/p/python-graph/" \
+		--url="http://code.google.com/p/python-graph/" --inheritance listed \
 		--no-private --html --css misc/epydoc.css -o docs ${TEMP}/pygraph/*.py \
 		${TEMP}/pygraph/algorithms/*py \
 		${TEMP}/pygraph/algorithms/heuristics/*.py \

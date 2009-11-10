@@ -45,8 +45,7 @@ class hypergraph (basegraph, common, labeling):
     than two nodes.
     
     @sort: __init__, __len__, __str__, add_hyperedge, add_hyperedges, add_node, add_nodes,
-    has_node, hyperedges, link, links, nodes, unlink, accessibility, connected_components,
-    cut_hyperedges, cut_nodes
+    has_node, hyperedges, link, links, nodes, unlink
     """
 
     # Technically this isn't directed, but it gives us the right
