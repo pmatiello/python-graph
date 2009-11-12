@@ -35,7 +35,7 @@ def accessibility(graph):
     """
     Accessibility matrix (transitive closure).
 
-    @type  graph: graph, digraph
+    @type  graph: graph, digraph, hypergraph
     @param graph: Graph.
 
     @rtype:  dictionary

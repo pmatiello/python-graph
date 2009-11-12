@@ -242,26 +242,6 @@ class hypergraph (basegraph, common, labeling):
         self.node_links[node].remove(hyperedge)
         self.edge_links[hyperedge].remove(node)
 
-
-    def accessibility(self):
-        """
-        Accessibility matrix (transitive closure).
-
-        @rtype:  dictionary
-        @return: Accessibility information for each node.
-        """
-        access_ = accessibility.accessibility(self.graph)
-        access = {}
-        
-        for each in list(access_.keys()):
-            if (each[1] == 'n'):
-                access[each[0]] = []
-                for other in access_[each]:
-                    if (other[1] == 'n'):
-                        access[each[0]].append(other[0])
-        
-        return access
-
     
     def cut_nodes(self):
         """
