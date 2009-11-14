@@ -103,7 +103,10 @@ class hypergraph (basegraph, common, labeling):
         @rtype:  list
         @return: List of node objects linked to the given hyperedge.
         """
-        return self.edge_links[obj]
+        if obj in self.edge_links:
+            return self.edge_links[obj]
+        else:
+            return self.node_links[obj]
     
     
     def neighbors(self, obj):

@@ -62,6 +62,8 @@ def read(string):
         G = graph()
     elif (dotG.get_type() == "digraph"):
         G = digraph()
+    elif (dotG.get_type() == "hypergraph"):
+        return read_hypergraph(string)
     else:
         raise InvalidGraphType
     
@@ -128,6 +130,8 @@ def write(G, weighted=False):
     elif (type(G) == digraph):
         dotG.set_type('digraph')
         directed = True
+    elif (type(G) == hypergraph):
+        return write_hypergraph(G)
     else:
         raise InvalidGraphType("Expected graph or digraph, got %s" %  repr(G) )
     
