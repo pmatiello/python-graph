@@ -243,39 +243,6 @@ class hypergraph (basegraph, common, labeling):
         self.edge_links[hyperedge].remove(node)
 
     
-    def cut_nodes(self):
-        """
-        Return the cut-nodes of the given hypergraph.
-        
-        @rtype:  list
-        @return: List of cut-nodes.
-        """
-        cut_nodes_ = accessibility.cut_nodes(self.graph)
-        cut_nodes = []
-        
-        for each in cut_nodes_:
-            if (each[1] == 'n'):
-                cut_nodes.append(each[0])
-        
-        return cut_nodes
-
-
-    def cut_hyperedges(self):
-        """
-        Return the cut-hyperedges of the given hypergraph.
-        
-        @rtype:  list
-        @return: List of cut-nodes.
-        """
-        cut_nodes_ = accessibility.cut_nodes(self.graph)
-        cut_nodes = []
-        
-        for each in cut_nodes_:
-            if (each[1] == 'h'):
-                cut_nodes.append(each[0])
-        
-        return cut_nodes
-        
     def rank(self):
         """
         Return the rank of the given hypergraph.
