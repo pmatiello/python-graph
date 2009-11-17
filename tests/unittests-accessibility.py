@@ -40,6 +40,29 @@ class test_accessibility(unittest.TestCase):
 
     def setUp(self):
         pass
+    
+    def test_accessibility_in_graph(self):
+        gr = testlib.new_graph()
+        ac = accessibility(gr)
+        
+        for n in gr:
+            for m in gr:
+                if (m in ac[n]):
+                    assert m in depth_first_search(gr, n)[0]
+                    assert n in depth_first_search(gr, m)[0]
+                else:
+                    assert m not in depth_first_search(gr, n)[0]
+    
+    def test_accessibility_in_digraph(self):
+        gr = testlib.new_digraph()
+        ac = accessibility(gr)
+        
+        for n in gr:
+            for m in gr:
+                if (m in ac[n]):
+                    assert m in depth_first_search(gr, n)[0]
+                else:
+                    assert m not in depth_first_search(gr, n)[0]
 
     def test_mutual_accessibility_in_digraph(self):
         gr = testlib.new_digraph()
