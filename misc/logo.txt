@@ -1,0 +1,7 @@
+ATTRIBUTION
+
+The artwork for the official logo of python-graph was designed by Tomaž Kovačič
+<http://tomazkovacic.com>.
+
+The image is provided under Creative Commons Attribution-Share Alike 3.0
+license. Check http://creativecommons.org/licenses/by-sa/3.0/ for information.
