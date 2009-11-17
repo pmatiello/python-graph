@@ -46,7 +46,7 @@ class NodeUnreachable(GraphError):
     """
     def __init__(self, start, goal):
         msg = "Node %s could not be reached from node %s" % ( repr(goal), repr(start) )
-        InvalidGraphType.__init__(self, msg)
+        GraphError.__init__(self, msg)
         self.start = start
         self.goal = goal
 
