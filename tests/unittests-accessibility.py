@@ -43,6 +43,10 @@ class test_accessibility(unittest.TestCase):
     
     def test_accessibility_in_graph(self):
         gr = testlib.new_graph()
+        gr.add_nodes(['a','b','c'])
+        gr.add_edge(('a','b'))
+        gr.add_edge(('a','c'))
+        
         ac = accessibility(gr)
         
         for n in gr:
@@ -55,6 +59,10 @@ class test_accessibility(unittest.TestCase):
     
     def test_accessibility_in_digraph(self):
         gr = testlib.new_digraph()
+        gr.add_nodes(['a','b','c'])
+        gr.add_edge(('a','b'))
+        gr.add_edge(('a','c'))
+        
         ac = accessibility(gr)
         
         for n in gr:
@@ -66,6 +74,10 @@ class test_accessibility(unittest.TestCase):
 
     def test_mutual_accessibility_in_digraph(self):
         gr = testlib.new_digraph()
+        gr.add_nodes(['a','b','c'])
+        gr.add_edge(('a','b'))
+        gr.add_edge(('b','a'))
+        gr.add_edge(('a','c'))
         
         ma = mutual_accessibility(gr)
         for n in gr:
