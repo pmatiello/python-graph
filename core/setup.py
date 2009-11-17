@@ -12,34 +12,11 @@ except ImportError as ie:
 
 # Startup
 appname = "python-graph-core"
-appversion = open("../version.txt").read()
-
-# Extra files
-if (os.name == 'posix'):    # Files to be installed/packaged on Unix-like systems
-    datadir = 'share/doc/'+appname+'-'+appversion
-    datafiles = ['../README', '../COPYING', '../Changelog']
-    docsdir = datadir + '/docs'
-    docsfiles = []
-    try:
-        # Uncomment the line bellow if you want bdist_rpm to include the docs
-        os.system('make docs')
-        dirlisting = os.listdir('docs/')
-    except:
-        print ("Documentation isn't present and will not be installed/packaged.")
-        dirlisting = []
-    for each in dirlisting:
-        docsfiles.append('docs/'+each)
-else:    # Other systems
-    datadir = ''
-    datafiles = []
-    docsdir = ''
-    docsfiles = []
+appversion = "1.6.3"
 
 setup(
         name = appname,
         version = appversion,
-        data_files = [(docsdir,docsfiles),
-                       (datadir,datafiles)],
         author = "Pedro Matiello",
         namespace_packages = ["pygraph"],
         packages = ["pygraph"] + [ os.path.join("pygraph", a) for a in find_packages("pygraph") ],

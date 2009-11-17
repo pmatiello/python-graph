@@ -16,7 +16,7 @@ PYTHONPATH="`pwd`/core:`pwd`/dot"
 
 nothing:
 
-eggs: clean egg-core egg-dot
+sdist: clean sdist-core sdist-dot
 	rm -rf dist
 	mkdir dist
 	cp */dist/* dist
@@ -27,8 +27,8 @@ eggs: clean egg-core egg-dot
 install-core:
 	cd ${CORE_DIR} && ./setup.py install
 
-egg-core: clean
-	cd ${CORE_DIR} && ./setup.py bdist_egg
+sdist-core: clean
+	cd ${CORE_DIR} && ./setup.py sdist
 
 
 # Dot ----------------------------------------------------------------
@@ -36,8 +36,8 @@ egg-core: clean
 install-dot:
 	cd ${DOT_DIR} && ./setup.py install
 
-egg-dot: clean
-	cd ${DOT_DIR} && ./setup.py bdist_egg
+sdist-dot: clean
+	cd ${DOT_DIR} && ./setup.py sdist
 
 
 # Docs ---------------------------------------------------------------
