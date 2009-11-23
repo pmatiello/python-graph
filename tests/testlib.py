@@ -29,6 +29,7 @@ Helper functions for unit-tests.
 
 # Imports
 from pygraph.algorithms.generators import generate, generate_hypergraph
+from pygraph.classes.dict_digraph import dict_digraph
 from random import seed
 from time import time
 from sys import argv
@@ -64,6 +65,14 @@ def new_graph():
 def new_digraph():
     seed(random_seed)
     return generate(num_nodes[use_size], num_edges[use_size], directed=True)
+
+def new_dict_digraph():
+    seed(random_seed)
+    G1 = generate(num_nodes[use_size], num_edges[use_size], directed=True)
+    G2 = dict_digraph()
+    G2.add_graph(G1)
+    return G2
+
 
 def new_hypergraph():
     seed(random_seed)

@@ -13,7 +13,7 @@ except ImportError as ie:
 
 # Startup
 appname = "python-graph-dot"
-appversion = open("../version.txt").read()
+appversion = "1.6.3"
 
 setup(
         name = appname,

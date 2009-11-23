@@ -1,6 +1,9 @@
 import unittest
+import testlib
+from copy import copy
 from pygraph.classes.dict_digraph import dict_digraph, Node
 from pygraph.classes.exceptions import AdditionError, DeletionError
+from pygraph.classes.graph import graph
 
 class test_new_digraph( unittest.TestCase ):
     # Add/Remove nodes and edges
@@ -41,28 +44,44 @@ class test_new_digraph( unittest.TestCase ):
             pass
         else:
             self.fail("The graph allowed an edge to be added from a non-existing node.")
-#        assert gr.node_neighbors == {0: [], 1: []}
-#        assert gr.node_incidence == {0: [], 1: []}
+            
+        assert len(gr.neighbors(0)) == 0
+        assert len(gr.neighbors(1)) == 0    
     
-#    def test_raise_exception_when_edge_added_to_non_existing_node(self):
-#        gr = dict_digraph( self._gr )
-#        gr.add_nodes([0,1])
-#        try:
-#            gr.add_edge((0,3))
-#        except AdditionError:
-#            pass
-#        else:
-#            self.fail("TThe graph allowed an edge to be added to a non-existing node.")
-#        assert gr.node_neighbors == {0: [], 1: []}
-#        assert gr.node_incidence == {0: [], 1: []}
-    
-#    def test_remove_node(self):
-#        gr = testlib.new_digraph()
-#        gr.del_node(0)
-#        self.assertTrue(0 not in gr)
-#        for (each, other) in gr.edges():
-#            self.assertTrue(each in gr)
-#            self.assertTrue(other in gr)
+    def test_in(self):
+        gr = dict_digraph( {} )
+        gr.add_node(0)
+        assert 0 in gr
+        
+    def test_remove_node1(self):
+        gr = dict_digraph( {} )
+        gr.add_node(0)
+        gr.add_node(1)
+        gr.add_edge((0,1))
+        gr.del_node(0)
+        assert len([a for a in gr.edges()]) == 0
+        
+    def test_remove_node2(self):
+        gr = dict_digraph( {} )
+        gr.add_node(0)
+        gr.add_node(1)
+        gr.add_edge((1,0))
+        gr.del_node(0)
+        assert len([a for a in gr.edges()]) == 0
+
+    def test_remove_node3(self):
+        gr = testlib.new_dict_digraph()
+        gr.del_node(0)
+        self.assertTrue(0 not in gr)
+        
+        for (u, v) in gr.edges():
+            assert u in gr, "v: %s is not in Graph: %s" % (v, gr)
+            
+            try:
+                assert v in gr, "u: %s is not in Graph: %s" % (u, gr)
+            except Exception as e:
+                import pdb
+                pdb.set_trace()
     
     def test_remove_edge_from_node_to_same_node(self):
         gr = dict_digraph( self._gr )
@@ -81,13 +100,13 @@ class test_new_digraph( unittest.TestCase ):
     
     # Invert graph
     
-#    def test_invert_digraph(self):
-#        gr = testlib.new_digraph()
-#        inv = gr.inverse()
-#        for each in gr.edges():
-#            self.assertTrue(each not in inv.edges())
-#        for each in inv.edges():
-#            self.assertTrue(each not in gr.edges())
+    def test_invert_digraph(self):
+        gr = testlib.new_digraph()
+        inv = gr.inverse()
+        for each in gr.edges():
+            self.assertTrue(each not in inv.edges())
+        for each in inv.edges():
+            self.assertTrue(each not in gr.edges())
     
     def test_invert_empty_digraph(self):
         gr = dict_digraph( self._gr )
@@ -149,56 +168,56 @@ class test_new_digraph( unittest.TestCase ):
     
     # Add graph
     
-#    def test_add_digraph(self):
-#        gr1 = testlib.new_digraph()
-#        gr2 = testlib.new_digraph()
-#        gr1.add_graph(gr2)
-#        for each in gr2.nodes():
-#            self.assertTrue(each in gr1)
-#        for each in gr2.edges():
-#            self.assertTrue(each in gr1.edges())
+    def test_add_digraph(self):
+        gr1 = testlib.new_digraph()
+        gr2 = testlib.new_digraph()
+        gr1.add_graph(gr2)
+        for each in gr2.nodes():
+            self.assertTrue(each in gr1)
+        for each in gr2.edges():
+            self.assertTrue(each in gr1.edges())
     
-#    def test_add_empty_digraph(self):
-#        gr1 = testlib.new_digraph()
-#        gr1c = copy(gr1)
-#        gr2 = digraph()
-#        gr1.add_graph(gr2)
-#        self.assertTrue(gr1.nodes() == gr1c.nodes())
-#        self.assertTrue(gr1.edges() == gr1c.edges())
-#    
-#    def test_add_graph_into_diagraph(self):
-#        d = digraph()
-#        g = graph()
-#        
-#        A = "A"
-#        B = "B"
-#        
-#        g.add_node( A )
-#        g.add_node( B )
-#        g.add_edge( (A,B) )
-#        
-#        d.add_graph( g )
-#        
-#        assert d.has_node( A )
-#        assert d.has_node( B )
-#        assert d.has_edge( (A,B) )
-#        assert d.has_edge( (B,A) )    
-#    
-#    # Add spanning tree
-#    
-#    def test_add_spanning_tree(self):
-#        gr = digraph()
-#        st = {0: None, 1: 0, 2:0, 3: 1, 4: 2, 5: 3}
-#        gr.add_spanning_tree(st)
-#        for each in st:
-#            self.assertTrue((st[each], each) in gr.edges() or (each, st[each]) == (0, None))
-#
-#    def test_add_empty_spanning_tree(self):
-#        gr = digraph()
-#        st = {}
-#        gr.add_spanning_tree(st)
-#        self.assertTrue(gr.nodes() == [])
-#        self.assertTrue(gr.edges() == [])
+    def test_add_empty_digraph(self):
+        gr1 = testlib.new_digraph()
+        gr1c = copy(gr1)
+        gr2 = dict_digraph()
+        gr1.add_graph(gr2)
+        self.assertTrue(gr1.nodes() == gr1c.nodes())
+        self.assertTrue(gr1.edges() == gr1c.edges())
+    
+    def test_add_graph_into_diagraph(self):
+        d = dict_digraph()
+        g = graph()
+        
+        A = "A"
+        B = "B"
+        
+        g.add_node( A )
+        g.add_node( B )
+        g.add_edge( (A,B) )
+        
+        d.add_graph( g )
+        
+        assert d.has_node( A )
+        assert d.has_node( B )
+        assert d.has_edge( (A,B) )
+        assert d.has_edge( (B,A) )    
+    
+    # Add spanning tree
+    
+    def test_add_spanning_tree(self):
+        gr = dict_digraph()
+        st = {0: None, 1: 0, 2:0, 3: 1, 4: 2, 5: 3}
+        gr.add_spanning_tree(st)
+        for each in st:
+            self.assertTrue((st[each], each) in gr.edges() or (each, st[each]) == (0, None))
+
+    def test_add_empty_spanning_tree(self):
+        gr = dict_digraph()
+        st = {}
+        gr.add_spanning_tree(st)
+        assert len( [a for a in gr.nodes() ] ) == 0
+        assert len( [a for a in gr.edges() ] ) == 0
 #        
     def test_repr(self):
         """
@@ -215,13 +234,13 @@ class test_new_digraph( unittest.TestCase ):
         gr.add_edge((0,1))
         gr_repr = repr(gr)
     
-#    def test_order_len_equivlance(self):
-#        """
-#        Verify the behavior of G.order()
-#        """
-#        gr = testlib.new_graph()
-#        assert len(gr) == gr.order()
-#        assert gr.order() == len( gr.node_neighbors )
+    def test_order_len_equivlance(self):
+        """
+        Verify the behavior of G.order()
+        """
+        gr = testlib.new_graph()
+        assert len(gr) == gr.order()
+        assert gr.order() == len( gr.node_neighbors )
     
 if __name__ == "__main__":
     unittest.main()

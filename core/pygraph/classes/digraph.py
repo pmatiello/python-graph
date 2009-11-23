@@ -40,11 +40,8 @@ class digraph (basegraph, common, labeling):
     
     Digraphs are built of nodes and directed edges.
 
-    @sort: __init__, __getitem__, __iter__, __len__, __str__, add_edge, add_edge_attribute,
-    add_graph, add_node, add_node_attribute, add_nodes, add_spanning_tree, complete, 
-    del_edge, del_node, edges, edge_attributes, edge_label,
-    edge_weight, node_attributes, has_edge, has_node, incidents, inverse,
-    neighbors, node_degree, node_order, nodes, reverse, set_edge_label, set_edge_weight
+    @sort: __init__, add_edge, add_node, del_edge, del_node, edges, has_edge, has_node,
+    incidents, neighbors, node_order, nodes 
     """
     
     DIRECTED = True
@@ -141,15 +138,12 @@ class digraph (basegraph, common, labeling):
             raise AdditionError("Node %s already in digraph" % node)
 
 
-    def add_edge(self, (u, v), wt = 1, label="", attrs = []):
+    def add_edge(self, edge, wt = 1, label="", attrs = []):
         """
-        Add an directed edge (u,v) to the graph connecting nodes u to v.
+        Add an directed edge to the graph connecting two nodes.
 
-        @type  u: node
-        @param u: One node.
-
-        @type  v: node
-        @param v: Other node.
+        @type  edge: tuple
+        @param edge: Edge.
         
         @type  wt: number
         @param wt: Edge weight.
@@ -160,6 +154,7 @@ class digraph (basegraph, common, labeling):
         @type  attrs: list
         @param attrs: List of node attributes specified as (attribute, value) tuples.
         """
+        u, v = edge
         for n in [u,v]:
             if not n in self.node_neighbors:
                 raise AdditionError( "%s is missing from the node_neighbors table" % n )
@@ -198,34 +193,30 @@ class digraph (basegraph, common, labeling):
         self.del_node_labeling( node )
 
 
-    def del_edge(self, (u, v)):
+    def del_edge(self, edge):
         """
-        Remove an directed edge (u, v) from the graph.
+        Remove an directed edge from the graph.
 
-        @type  u: node
-        @param u: One node.
-
-        @type  v: node
-        @param v: Other node.
+        @type  edge: tuple
+        @param edge: Edge.
         """
+        u, v = edge
         self.node_neighbors[u].remove(v)
         self.node_incidence[v].remove(u)
         self.del_edge_labeling( (u,v) )
 
 
-    def has_edge(self, (u, v)):
+    def has_edge(self, edge):
         """
-        Return whether an edge between nodes u and v exists.
+        Return whether an edge exists.
 
-        @type  u: node
-        @param u: One node.
-
-        @type  v: node
-        @param v: Other node.
+        @type  edge: tuple
+        @param edge: Edge.
 
         @rtype:  boolean
         @return: Truth-value for edge existence.
         """
+        u, v = edge
         return (u, v) in self.edge_properties
 
     
@@ -237,7 +228,3 @@ class digraph (basegraph, common, labeling):
         @return: Order of the given node.
         """
         return len(self.neighbors(node))
-
-    
-
-

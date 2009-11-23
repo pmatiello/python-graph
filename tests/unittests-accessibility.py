@@ -30,6 +30,7 @@ Unittests for graph.algorithms.accessibility
 import unittest
 import pygraph
 from pygraph.algorithms.searching import depth_first_search
+from pygraph.algorithms.accessibility import accessibility
 from pygraph.algorithms.accessibility import mutual_accessibility
 from pygraph.algorithms.accessibility import connected_components
 from pygraph.classes.hypergraph import hypergraph
@@ -39,9 +40,44 @@ class test_accessibility(unittest.TestCase):
 
     def setUp(self):
         pass
+    
+    def test_accessibility_in_graph(self):
+        gr = testlib.new_graph()
+        gr.add_nodes(['a','b','c'])
+        gr.add_edge(('a','b'))
+        gr.add_edge(('a','c'))
+        
+        ac = accessibility(gr)
+        
+        for n in gr:
+            for m in gr:
+                if (m in ac[n]):
+                    assert m in depth_first_search(gr, n)[0]
+                    assert n in depth_first_search(gr, m)[0]
+                else:
+                    assert m not in depth_first_search(gr, n)[0]
+    
+    def test_accessibility_in_digraph(self):
+        gr = testlib.new_digraph()
+        gr.add_nodes(['a','b','c'])
+        gr.add_edge(('a','b'))
+        gr.add_edge(('a','c'))
+        
+        ac = accessibility(gr)
+        
+        for n in gr:
+            for m in gr:
+                if (m in ac[n]):
+                    assert m in depth_first_search(gr, n)[0]
+                else:
+                    assert m not in depth_first_search(gr, n)[0]
 
     def test_mutual_accessibility_in_digraph(self):
         gr = testlib.new_digraph()
+        gr.add_nodes(['a','b','c'])
+        gr.add_edge(('a','b'))
+        gr.add_edge(('b','a'))
+        gr.add_edge(('a','c'))
         
         ma = mutual_accessibility(gr)
         for n in gr:
@@ -52,6 +88,28 @@ class test_accessibility(unittest.TestCase):
                 else:
                     assert m not in depth_first_search(gr, n)[0] or n not in depth_first_search(gr, m)[0]
 
+    def test_accessibility_hypergraph(self):
+        gr = hypergraph()
+        
+        # Add some nodes / edges
+        gr.add_nodes(range(8))
+        gr.add_hyperedges(['a', 'b', 'c'])
+        
+        # Connect the 9 nodes with three size-3 hyperedges
+        for node_set in [['a',0,1,2], ['b',2,3,4], ['c',5,6,7]]:
+            for node in node_set[1:]:
+                gr.link(node, node_set[0])
+        
+        access = accessibility(gr)
+        
+        assert 8 == len(access)
+        
+        for i in range(5):
+            assert set(access[i]) == set(range(5))
+        
+        for i in range(5,8):
+            assert set(access[i]) == set(range(5,8))
+        
     def test_connected_components_hypergraph(self):
         gr = hypergraph()
         

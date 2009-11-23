@@ -16,7 +16,7 @@ PYTHONPATH="`pwd`/core:`pwd`/dot"
 
 nothing:
 
-eggs: clean egg-core egg-dot
+sdist: clean sdist-core sdist-dot
 	rm -rf dist
 	mkdir dist
 	cp */dist/* dist
@@ -27,8 +27,8 @@ eggs: clean egg-core egg-dot
 install-core:
 	cd ${CORE_DIR} && ./setup.py install
 
-egg-core: clean
-	cd ${CORE_DIR} && ./setup.py bdist_egg
+sdist-core: clean
+	cd ${CORE_DIR} && ./setup.py sdist
 
 
 # Dot ----------------------------------------------------------------
@@ -36,8 +36,8 @@ egg-core: clean
 install-dot:
 	cd ${DOT_DIR} && ./setup.py install
 
-egg-dot: clean
-	cd ${DOT_DIR} && ./setup.py bdist_egg
+sdist-dot: clean
+	cd ${DOT_DIR} && ./setup.py sdist
 
 
 # Docs ---------------------------------------------------------------
@@ -49,12 +49,15 @@ docs: cleanpyc
 	cp -Rn --remove-destination ${DOT_DIR}/pygraph/readwrite ${TEMP}/pygraph/
 	epydoc -v --no-frames --no-sourcecode --name="python-graph" \
 		--url="http://code.google.com/p/python-graph/" \
-		--no-private --html --css misc/epydoc.css -o docs ${TEMP}/pygraph/*.py \
+		--inheritance listed --no-private --html \
+		--graph classtree \
+		--css misc/epydoc.css -o docs ${TEMP}/pygraph/*.py \
 		${TEMP}/pygraph/algorithms/*py \
 		${TEMP}/pygraph/algorithms/heuristics/*.py \
 		${TEMP}/pygraph/algorithms/filters/* \
 		${TEMP}/pygraph/readwrite/* \
-		${TEMP}/pygraph/classes/*.py
+		${TEMP}/pygraph/classes/*.py \
+		${TEMP}/pygraph/mixins/*.py
 		rm -rf ${TEMP}
 
 
@@ -62,6 +65,9 @@ docs: cleanpyc
 
 test:
 	export PYTHONPATH=${PYTHONPATH} && cd ${TESTS_DIR} && python testrunner.py
+
+test3:
+	export PYTHONPATH=${PYTHONPATH} && cd ${TESTS_DIR} && python3 testrunner.py
 
 tests: test
 

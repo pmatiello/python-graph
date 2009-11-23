@@ -54,6 +54,8 @@ def write(G):
         grxmlr = grxml.createElement('graph')
     elif (type(G) == digraph ):
         grxmlr = grxml.createElement('digraph')
+    elif (type(G) == hypergraph ):
+        return write_hypergraph(G)
     else:
         raise InvalidGraphType
     grxml.appendChild(grxmlr)
@@ -102,6 +104,8 @@ def read(string):
         G = graph()
     elif dom.getElementsByTagName("digraph"):
         G = digraph()
+    elif dom.getElementsByTagName("hypergraph"):
+        return read_hypergraph(string)
     else:
         raise InvalidGraphType
     
@@ -156,10 +160,11 @@ def write_hypergraph(hgr):
         grxmlr.appendChild(node)
 
         # and its outgoing edge
-        for each_edge in hgr.links(each_node):
-            edge = grxml.createElement('link')
-            edge.setAttribute('to', str(each_edge))
-            node.appendChild(edge)
+        if each_node in nodes:
+            for each_edge in hgr.links(each_node):
+                edge = grxml.createElement('link')
+                edge.setAttribute('to', str(each_edge))
+                node.appendChild(edge)
 
     return grxml.toprettyxml()
 
@@ -180,11 +185,11 @@ def read_hypergraph(string):
     
     dom = parseString(string)
     for each_node in dom.getElementsByTagName("node"):
-        hgr.add_nodes(each_node.getAttribute('id'))
+        hgr.add_node(each_node.getAttribute('id'))
     for each_node in dom.getElementsByTagName("hyperedge"):
-        hgr.add_hyperedges(each_node.getAttribute('id'))
+        hgr.add_hyperedge(each_node.getAttribute('id'))
     dom = parseString(string)
     for each_node in dom.getElementsByTagName("node"):
         for each_edge in each_node.getElementsByTagName("link"):
-            hgr.link(each_node.getAttribute('id'), each_edge.getAttribute('to'))
+            hgr.link(str(each_node.getAttribute('id')), str(each_edge.getAttribute('to')))
     return hgr

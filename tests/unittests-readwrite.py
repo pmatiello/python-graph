@@ -59,6 +59,14 @@ class test_readwrite_dot(unittest.TestCase):
         dotstr = dot.write(gr1)
         gr2 = dot.read(dotstr)  
         graph_equality(gr1, gr2)
+    
+    def test_dot_for_hypergraph(self):
+        gr = testlib.new_hypergraph()
+        dotstr = dot.write(gr)
+        gr1 = dot.read_hypergraph(dotstr)
+        dotstr = dot.write(gr1)
+        gr2 = dot.read_hypergraph(dotstr)  
+        graph_equality(gr1, gr2)
 
 class test_readwrite_markup(unittest.TestCase):
 
@@ -70,8 +78,16 @@ class test_readwrite_markup(unittest.TestCase):
         gr2 = markup.read(dotstr)  
         graph_equality(gr1, gr2)
     
-    def test_dot_for_digraph(self):
+    def test_dot_xml_digraph(self):
         gr = testlib.new_digraph()
+        dotstr = markup.write(gr)
+        gr1 = markup.read(dotstr)
+        dotstr = markup.write(gr1)
+        gr2 = markup.read(dotstr)  
+        graph_equality(gr1, gr2)
+    
+    def test_dot_xml_hypergraph(self):
+        gr = testlib.new_hypergraph()
         dotstr = markup.write(gr)
         gr1 = markup.read(dotstr)
         dotstr = markup.write(gr1)

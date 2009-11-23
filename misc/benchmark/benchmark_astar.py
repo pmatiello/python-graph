@@ -11,7 +11,7 @@ log = logging.getLogger(__name__)
 
 class benchmark_astar( object ):
     NUMBER_OF_ITERATIONS = 10
-    GRAPH_ORDER = 500
+    GRAPH_ORDER = 1000
     GRAPH_EDGES = GRAPH_ORDER * 10
     CHOW_REFERENCE_POINTS = 15
     NUMBER_OF_SEARCHES = 10
@@ -102,7 +102,7 @@ class benchmark_astar( object ):
         dest_nodes = sample( G.nodes(), self.NUMBER_OF_SEARCHES )
         
         for s,d in zip( source_nodes, dest_nodes ):
-            log.warn("Searching from %s to %s" % (s,d) )
+            log.debug("Searching from %s to %s" % (s,d) )
             result = heuristic_search( G, s, d, heuristic )
             
 def fn_create_digraph():

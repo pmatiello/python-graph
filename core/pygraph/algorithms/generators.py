@@ -26,7 +26,7 @@
 """
 Random graph generators.
 
-@sort: generate
+@sort: generate, generate_hypergraph
 """
 
 
@@ -106,11 +106,11 @@ def generate_hypergraph(num_nodes, num_edges, r = 0):
     random_graph = hypergraph()
     
     # Nodes
-    nodes = range(num_nodes)
+    nodes = map(str, list(range(num_nodes)))
     random_graph.add_nodes(nodes)
     
     # Base edges
-    edges = range(num_edges)
+    edges = map(str, list(range(num_nodes, num_nodes+num_edges)))
     random_graph.add_hyperedges(edges)
     
     # Connect the edges

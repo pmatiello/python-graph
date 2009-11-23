@@ -28,14 +28,13 @@ Accessibility algorithms.
 @sort: accessibility, connected_components, cut_edges, cut_nodes, mutual_accessibility
 """
 
-
 # Transitive-closure
 
 def accessibility(graph):
     """
     Accessibility matrix (transitive closure).
 
-    @type  graph: graph, digraph
+    @type  graph: graph, digraph, hypergraph
     @param graph: Graph.
 
     @rtype:  dictionary
@@ -153,12 +152,17 @@ def cut_edges(graph):
     """
     Return the cut-edges of the given graph.
     
-    @type  graph: graph, digraph
+    @type  graph: graph, digraph, hypergraph
     @param graph: Graph.
     
     @rtype:  list
     @return: List of cut-edges.
     """
+
+    # Dispatch if we have a hypergraph
+    if 'hypergraph' == graph.__class__.__name__:
+        return cut_hyperedges(graph)
+
     pre = {}
     low = {}
     spanning_tree = {}
@@ -172,16 +176,41 @@ def cut_edges(graph):
     return reply
 
 
+def cut_hyperedges(hypergraph):
+    """
+    Return the cut-hyperedges of the given hypergraph.
+    
+    @type  hypergraph: hypergraph
+    @param hypergraph: Hypergraph
+    
+    @rtype:  list
+    @return: List of cut-nodes.
+    """
+    edges_ = cut_nodes(hypergraph.graph)
+    edges = []
+    
+    for each in edges_:
+        if (each[1] == 'h'):
+            edges.append(each[0])
+    
+    return edges
+
+
 def cut_nodes(graph):
     """
     Return the cut-nodes of the given graph.
     
-    @type  graph: graph, digraph
+    @type  graph: graph, digraph, hypergraph
     @param graph: Graph.
         
     @rtype:  list
     @return: List of cut-nodes.
     """
+    
+    # Dispatch if we have a hypergraph
+    if 'hypergraph' == graph.__class__.__name__:
+        return cut_hypernodes(graph)
+        
     pre = {}    # Pre-ordering
     low = {}    # Lowest pre[] reachable from this node going down the spanning tree + one backedge
     reply = {}
@@ -213,6 +242,26 @@ def cut_nodes(graph):
                 reply[each] = 1
 
     return list(reply.keys())
+
+
+def cut_hypernodes(hypergraph):
+    """
+    Return the cut-nodes of the given hypergraph.
+    
+    @type  hypergraph: hypergraph
+    @param hypergraph: Hypergraph
+    
+    @rtype:  list
+    @return: List of cut-nodes.
+    """
+    nodes_ = cut_nodes(hypergraph.graph)
+    nodes = []
+    
+    for each in nodes_:
+        if (each[1] == 'n'):
+            nodes.append(each[0])
+    
+    return nodes
 
 
 def _cut_dfs(graph, spanning_tree, pre, low, reply, node):

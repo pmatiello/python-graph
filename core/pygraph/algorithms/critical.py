@@ -26,12 +26,13 @@
 """
 Critical path algorithms and transitivity detection algorithm.
 
-@sort: transitive_edges, critical_path
+@sort: critical_path, transitive_edges
 """
 
 
 # Imports
 from pygraph.algorithms.cycles import find_cycle
+from pygraph.algorithms.traversal import traversal
 from pygraph.algorithms.sorting import topological_sorting
 
 def _intersection(A,B):
@@ -79,7 +80,7 @@ def transitive_edges(graph):
     for start in topological_sorting(graph):
         #find all the successors on the path for the current node
         successors = [] 
-        for a in graph.traversal(start):
+        for a in traversal(graph,start,'pre'):
             successors.append(a)
         del successors[0] #we need all the nodes in it's path except the start node itself
         
@@ -129,7 +130,7 @@ def critical_path(graph):
         #we must check all the predecessors
         for pre in graph.incidents(node):
             max_pre = node_tuples[pre][1]
-            predecessors.append( (pre, graph.edge_weight( pre, node ) + max_pre )   )
+            predecessors.append( (pre, graph.edge_weight( (pre, node) ) + max_pre )   )
         
         max = 0; max_tuple = (None, 0)
         for i in predecessors:#look for the most costly predecessor

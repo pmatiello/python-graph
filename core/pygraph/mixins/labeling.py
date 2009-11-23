@@ -1,6 +1,10 @@
 class labeling( object ):
     """
     Generic labeling support for graphs
+    
+    @sort: __init__, add_edge_attribute, add_edge_attributes, add_node_attribute,
+    del_edge_labeling, del_node_labeling, edge_attributes, edge_label, edge_weight,
+    get_edge_properties, node_attributes, set_edge_label, set_edge_properties, set_edge_weight 
     """
     WEIGHT_ATTRIBUTE_NAME = "weight"
     DEFAULT_WEIGHT = 1

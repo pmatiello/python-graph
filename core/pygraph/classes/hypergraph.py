@@ -45,8 +45,7 @@ class hypergraph (basegraph, common, labeling):
     than two nodes.
     
     @sort: __init__, __len__, __str__, add_hyperedge, add_hyperedges, add_node, add_nodes,
-    has_node, hyperedges, link, links, nodes, unlink, accessibility, connected_components,
-    cut_hyperedges, cut_nodes
+    has_node, hyperedges, link, links, nodes, unlink
     """
 
     # Technically this isn't directed, but it gives us the right
@@ -104,7 +103,10 @@ class hypergraph (basegraph, common, labeling):
         @rtype:  list
         @return: List of node objects linked to the given hyperedge.
         """
-        return self.edge_links[obj]
+        if obj in self.edge_links:
+            return self.edge_links[obj]
+        else:
+            return self.node_links[obj]
     
     
     def neighbors(self, obj):
@@ -243,60 +245,7 @@ class hypergraph (basegraph, common, labeling):
         self.node_links[node].remove(hyperedge)
         self.edge_links[hyperedge].remove(node)
 
-
-    def accessibility(self):
-        """
-        Accessibility matrix (transitive closure).
-
-        @rtype:  dictionary
-        @return: Accessibility information for each node.
-        """
-        access_ = accessibility.accessibility(self.graph)
-        access = {}
-        
-        for each in list(access_.keys()):
-            if (each[1] == 'n'):
-                access[each[0]] = []
-                for other in access_[each]:
-                    if (other[1] == 'n'):
-                        access[each[0]].append(other[0])
-        
-        return access
-
     
-    def cut_nodes(self):
-        """
-        Return the cut-nodes of the given hypergraph.
-        
-        @rtype:  list
-        @return: List of cut-nodes.
-        """
-        cut_nodes_ = accessibility.cut_nodes(self.graph)
-        cut_nodes = []
-        
-        for each in cut_nodes_:
-            if (each[1] == 'n'):
-                cut_nodes.append(each[0])
-        
-        return cut_nodes
-
-
-    def cut_hyperedges(self):
-        """
-        Return the cut-hyperedges of the given hypergraph.
-        
-        @rtype:  list
-        @return: List of cut-nodes.
-        """
-        cut_nodes_ = accessibility.cut_nodes(self.graph)
-        cut_nodes = []
-        
-        for each in cut_nodes_:
-            if (each[1] == 'h'):
-                cut_nodes.append(each[0])
-        
-        return cut_nodes
-        
     def rank(self):
         """
         Return the rank of the given hypergraph.

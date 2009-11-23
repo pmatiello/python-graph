@@ -113,6 +113,9 @@ class dict_digraph( basegraph, common, labeling ):
         common.__init__(self)
         labeling.__init__(self)
         
+    def __in__(self, u):
+        return self.has_node(u)
+        
     def nodes(self):
         """
         Return node list.
@@ -120,8 +123,7 @@ class dict_digraph( basegraph, common, labeling ):
         @rtype:  list
         @return: Node list.
         """
-        return self.G.keys()
-
+        return [ a for a in self.G.keys() ]
 
     def neighbors(self, node):
         """
@@ -173,6 +175,7 @@ class dict_digraph( basegraph, common, labeling ):
         @return: Truth-value for node existence.
         """
         return node in self.G
+
 
     def add_node(self, node, obj=None ):
         """
@@ -234,6 +237,10 @@ class dict_digraph( basegraph, common, labeling ):
         for neighbor_id in self.neighbors(node):
             neighbor = self.G[ neighbor_id ]
             neighbor.del_incident(node)
+            
+        for incident_id in self.incidents(node):
+            incident = self.G[ incident_id ]
+            incident.del_neighbor(node)
             
         del self.G[ node ]
         

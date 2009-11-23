@@ -1,0 +1,338 @@
+Merged revisions 509-533,537,547-548,554,557,562-578,586-587,589-592,598-601,605-622 via svnmerge from 
+https://python-graph.googlecode.com/svn/trunk
+
+........
+  r509 | pmatiello | 2009-08-16 18:57:51 +0100 (Sun, 16 Aug 2009) | 1 line
+  
+  Merging Salim's branch.
+........
+  r510 | pmatiello | 2009-08-16 19:00:03 +0100 (Sun, 16 Aug 2009) | 1 line
+  
+  Shorter names for modules
+........
+  r511 | pmatiello | 2009-08-16 19:56:03 +0100 (Sun, 16 Aug 2009) | 1 line
+  
+  moving unit tests and fixing eclipse configuration
+........
+  r512 | pmatiello | 2009-08-16 20:10:46 +0100 (Sun, 16 Aug 2009) | 1 line
+  
+  removing uneeded stuff
+........
+  r513 | pmatiello | 2009-08-16 20:24:50 +0100 (Sun, 16 Aug 2009) | 1 line
+  
+  make tests working
+........
+  r514 | pmatiello | 2009-08-16 20:32:44 +0100 (Sun, 16 Aug 2009) | 1 line
+  
+  generating docs with make docs
+........
+  r515 | pmatiello | 2009-08-16 20:48:20 +0100 (Sun, 16 Aug 2009) | 1 line
+  
+  less errors when generating docs
+........
+  r516 | pmatiello | 2009-08-16 20:57:23 +0100 (Sun, 16 Aug 2009) | 1 line
+  
+  even less errors when generating docs and a few docstrings updated
+........
+  r517 | pmatiello | 2009-08-16 21:16:10 +0100 (Sun, 16 Aug 2009) | 1 line
+  
+  Removing temp dir when after generating docs
+........
+  r518 | pmatiello | 2009-08-16 21:50:40 +0100 (Sun, 16 Aug 2009) | 3 lines
+  
+  pygraph.classes.Classname.classname classes were renamed to pygraph.classes.classname.classname.
+  pygraph.algorithms.filters.Filtername.filtername filters were renamed to pygraph.algorithms.filters.filtername.filtername.
+  pygraph.algorithms.heuristics.Heuristicname.heuristicname heuristics were renamed to pygraph.algorithms.heuristics.heuristicname.heuristicname.
+........
+  r519 | pmatiello | 2009-08-16 22:20:06 +0100 (Sun, 16 Aug 2009) | 1 line
+  
+  Putting xml markup readwrite in core
+........
+  r520 | pmatiello | 2009-08-16 22:29:12 +0100 (Sun, 16 Aug 2009) | 1 line
+  
+  Documentation building again.
+........
+  r521 | pmatiello | 2009-08-17 02:08:13 +0100 (Mon, 17 Aug 2009) | 1 line
+  
+  Moving examples out of core.
+........
+  r522 | pmatiello | 2009-08-20 13:00:35 +0100 (Thu, 20 Aug 2009) | 2 lines
+  
+  hypergraph's read() and write() methods were removed from the class. 
+........
+  r523 | pmatiello | 2009-08-20 13:04:57 +0100 (Thu, 20 Aug 2009) | 1 line
+  
+  Examples fixed.
+........
+  r524 | pmatiello | 2009-08-31 10:14:19 +0100 (Mon, 31 Aug 2009) | 1 line
+  
+  Renaming tests and examples folders.
+........
+  r525 | pmatiello | 2009-09-12 15:46:34 +0100 (Sat, 12 Sep 2009) | 2 lines
+  
+  Adding an already added edge to a graph or digraph now raises an exception (AdditionError).
+  Documentation fixed.
+........
+  r526 | pmatiello | 2009-09-13 01:56:56 +0100 (Sun, 13 Sep 2009) | 1 line
+  
+  Messages on double node/edge addition exception.
+........
+  r527 | pmatiello | 2009-09-13 14:59:27 +0100 (Sun, 13 Sep 2009) | 2 lines
+  
+  Adding an arrow to an non existing node on a digraph now fails sanely (Issue 35);
+  Added unit-tests to check this condition for graphs and digraphs.
+........
+  r528 | pmatiello | 2009-09-30 22:21:54 +0100 (Wed, 30 Sep 2009) | 1 line
+  
+  Makefile rules ok. Use 'make eggs' to build all eggs.
+........
+  r529 | pmatiello | 2009-09-30 22:22:08 +0100 (Wed, 30 Sep 2009) | 1 line
+  
+  Changelog for 1.6.2.
+........
+  r530 | pmatiello | 2009-09-30 22:29:06 +0100 (Wed, 30 Sep 2009) | 1 line
+  
+  Removing examples.
+........
+  r531 | pmatiello | 2009-09-30 22:38:02 +0100 (Wed, 30 Sep 2009) | 1 line
+  
+  Documentation updated to reflect current state of project.
+........
+  r532 | pmatiello | 2009-09-30 22:42:21 +0100 (Wed, 30 Sep 2009) | 1 line
+  
+  Documentation updated to reflect current state of project.
+........
+  r533 | pmatiello | 2009-09-30 22:44:37 +0100 (Wed, 30 Sep 2009) | 1 line
+  
+  Makefile fixed.
+........
+  r537 | pmatiello | 2009-09-30 23:14:09 +0100 (Wed, 30 Sep 2009) | 1 line
+  
+  Stubbing for 1.6.3.
+........
+  r547 | pmatiello | 2009-10-06 01:30:05 +0100 (Tue, 06 Oct 2009) | 1 line
+  
+  Sorting credits.
+........
+  r548 | pmatiello | 2009-10-06 11:07:24 +0100 (Tue, 06 Oct 2009) | 1 line
+  
+  Adding logo and credits to Tomaz.
+........
+  r554 | pmatiello | 2009-10-14 01:53:35 +0100 (Wed, 14 Oct 2009) | 1 line
+  
+  Readme updated with install instructions.
+........
+  r557 | salimfadhley | 2009-10-15 01:58:56 +0100 (Thu, 15 Oct 2009) | 1 line
+  
+  Python 2.6 and Python 3.x compatibility has been merged in. Trunk is no longer compatible with older branches. 
+........
+  r562 | salimfadhley | 2009-10-21 01:29:06 +0100 (Wed, 21 Oct 2009) | 4 lines
+  
+  Fixes for issue #39
+  http://code.google.com/p/python-graph/issues/detail?id=39
+  
+  Corrections to add_graph function (required by min-cut which will be merged later)
+........
+  r563 | pmatiello | 2009-10-26 19:34:43 +0000 (Mon, 26 Oct 2009) | 1 line
+  
+  Changelog updated.
+........
+  r564 | pmatiello | 2009-10-26 21:27:45 +0000 (Mon, 26 Oct 2009) | 1 line
+  
+  Removed traversal() method from graph and digraph classes.
+........
+  r565 | pmatiello | 2009-10-26 21:28:27 +0000 (Mon, 26 Oct 2009) | 1 line
+  
+  Console and unit-testing working again inside Eclipse.
+........
+  r566 | pmatiello | 2009-10-26 21:44:06 +0000 (Mon, 26 Oct 2009) | 1 line
+  
+  Moving hypergraphs to an independent module.
+........
+  r567 | pmatiello | 2009-10-26 22:27:52 +0000 (Mon, 26 Oct 2009) | 1 line
+  
+  Moving hypergraphs to an independent module.
+........
+  r568 | pmatiello | 2009-10-26 22:30:35 +0000 (Mon, 26 Oct 2009) | 1 line
+  
+  Removing local ez_setup from hypergraph module
+........
+  r569 | pmatiello | 2009-10-26 22:31:50 +0000 (Mon, 26 Oct 2009) | 1 line
+  
+  External ez_setup for hypergraph module
+........
+  r570 | pmatiello | 2009-10-26 22:43:02 +0000 (Mon, 26 Oct 2009) | 1 line
+  
+  Changelog and egg building for hypergraph stuff.
+........
+  r571 | pmatiello | 2009-10-27 23:31:03 +0000 (Tue, 27 Oct 2009) | 1 line
+  
+  Updating credits on COPYING.
+........
+  r572 | pmatiello | 2009-10-27 23:31:46 +0000 (Tue, 27 Oct 2009) | 1 line
+  
+  README refactored. Added more complete install instructions.
+........
+  r573 | pmatiello | 2009-10-27 23:36:09 +0000 (Tue, 27 Oct 2009) | 1 line
+  
+  Added Summary section to README.
+........
+  r574 | pmatiello | 2009-10-27 23:38:41 +0000 (Tue, 27 Oct 2009) | 1 line
+  
+  Fixing typos in Changelog.
+........
+  r575 | pmatiello | 2009-10-28 19:21:54 +0000 (Wed, 28 Oct 2009) | 1 line
+  
+  Moving hypergraphs back into core.
+........
+  r576 | pmatiello | 2009-10-28 19:26:06 +0000 (Wed, 28 Oct 2009) | 1 line
+  
+  preparing to delete hypergraph module directory
+........
+  r577 | pmatiello | 2009-10-28 19:27:08 +0000 (Wed, 28 Oct 2009) | 1 line
+  
+  removing hypergraph module directory
+........
+  r578 | pmatiello | 2009-10-28 19:36:48 +0000 (Wed, 28 Oct 2009) | 1 line
+  
+  Function sorting in epydoc for readwrite classes.
+........
+  r586 | christian.muise | 2009-11-02 06:54:41 +0000 (Mon, 02 Nov 2009) | 12 lines
+  
+  Hypergraph changes.
+  
+  - Wrote some initial testing for the hypergraph class.
+  - Wrote a generator for random hypergraphs (and uniform ones).
+  - Changed the .links behaviour to take only edges and return the nodes attached.
+  - Added a .neighbors function to return the nodes adjacent to a given node.
+  -- Last two points are due to the ambiguity in node / hyperedge representation (same object can be used for either / both now without bugs).
+  - Random bug fixes that cropped up from unit testing.
+  
+  Note: More testing to come.
+........
+  r587 | christian.muise | 2009-11-02 22:25:13 +0000 (Mon, 02 Nov 2009) | 7 lines
+  
+  More hypergraph fixes.
+  
+  - Added the ability to iterate over the hypergraph nodes like graph and digraph can.
+  - Wrote some more testing to complete the core hypergraph test coverage (issue 41).
+  - Fixed some bugs with the rank function, with the associated testing.
+........
+  r589 | christian.muise | 2009-11-04 20:51:26 +0000 (Wed, 04 Nov 2009) | 10 lines
+  
+  Hypegraph connected_components
+  
+  - Changed the docs for the connected_components function since it should be fine for graphs.
+  - Deleted the hypergraph-specific version -- now that the interface mirrors the other graph
+    classes, the general function works hypergraphs as well.
+  - Put in testing for the function as far as hypergraphs go. There doesn't seem to be testing
+    for the other accessability functions (including connected_components) for the other graph
+    types. Adding this as issue 44
+........
+  r590 | salimfadhley | 2009-11-04 23:49:14 +0000 (Wed, 04 Nov 2009) | 1 line
+  
+  Initial merge in of my "traits" style refactor. This change-set is intended to separate out the most core graph functionality from labeling, plus some higher-level concepts which can be implemented in-terms of more basic graph operations. As a consequence this changes-set makes it easier to add new graph types since only 10 (approx) methods need to be implemented. This changeset is not yet compatible with hypergraph.
+........
+  r591 | christian.muise | 2009-11-05 02:37:56 +0000 (Thu, 05 Nov 2009) | 1 line
+  
+  Adding the attribute initialization to the digraph add_node. All tests now pass.
+........
+  r592 | christian.muise | 2009-11-05 03:33:22 +0000 (Thu, 05 Nov 2009) | 1 line
+  
+  Changed the hypergraph to use the new base classes. Also added associated testing.
+........
+  r598 | christian.muise | 2009-11-05 23:01:05 +0000 (Thu, 05 Nov 2009) | 1 line
+  
+  Removing the hypergraph source directory from the .pydevproject file.
+........
+  r599 | christian.muise | 2009-11-05 23:23:03 +0000 (Thu, 05 Nov 2009) | 1 line
+  
+  Fixing all pydev warnings. Most are repeated imports, and unused variables / imports. svn updatePlease reviewsvn update -- I don't think this breaks anything, but the test coverage isn't 100% so I can't be sure.
+........
+  r600 | christian.muise | 2009-11-09 15:28:41 +0000 (Mon, 09 Nov 2009) | 1 line
+  
+  Merged the generic_edge branch from revs 593:599 into trunk.
+........
+  r601 | christian.muise | 2009-11-09 16:04:35 +0000 (Mon, 09 Nov 2009) | 1 line
+  
+  Fixing bug with the topological sorting algorithm.
+........
+  r605 | pmatiello | 2009-11-10 01:40:55 +0000 (Tue, 10 Nov 2009) | 1 line
+  
+  Added 'test3' rule to Makefile to ease the execution of unit tests under Python 3.
+........
+  r606 | pmatiello | 2009-11-10 01:54:57 +0000 (Tue, 10 Nov 2009) | 1 line
+  
+  Removing some commented imports.
+........
+  r607 | pmatiello | 2009-11-10 02:15:36 +0000 (Tue, 10 Nov 2009) | 1 line
+  
+  Fixed graph and digraph classes. Not all tests are running/passing in Python3. Some docstring fixes too.
+........
+  r608 | pmatiello | 2009-11-10 02:38:54 +0000 (Tue, 10 Nov 2009) | 1 line
+  
+  Many documentation improvements.
+........
+  r609 | pmatiello | 2009-11-10 15:48:46 +0000 (Tue, 10 Nov 2009) | 1 line
+  
+  A few more documentation improvements.
+........
+  r610 | christian.muise | 2009-11-10 18:47:23 +0000 (Tue, 10 Nov 2009) | 1 line
+  
+  Fixing the python3 test failure.
+........
+  r611 | christian.muise | 2009-11-12 01:02:16 +0000 (Thu, 12 Nov 2009) | 1 line
+  
+  Removed the old accessibility from hypergraph -- under the new changes the generic algorithm just works out of the box. Testing included.
+........
+  r612 | christian.muise | 2009-11-14 05:06:25 +0000 (Sat, 14 Nov 2009) | 1 line
+  
+  Moved cut nodes / edges for hypergraphs to the accessability.py file.  A note on the lack of testing will be raised in issue 40.
+........
+  r613 | christian.muise | 2009-11-14 06:30:11 +0000 (Sat, 14 Nov 2009) | 10 lines
+  
+  Read / write for hypergraphs.
+  
+  - Wrote tests for reading / writing hypergraphs in xml and dot formats.
+  - Fixed some bugs in the dot and xml code.
+  - Made the read / write generic (all except dot.read)
+  - Changed the generator to produce strings (easier to compare).
+  - Changed the generator to produce unique node / edge ids.
+  - Fixed up the hypergraph to adhere better to the api expected.
+........
+  r614 | tomaz.kovacic | 2009-11-15 20:33:27 +0000 (Sun, 15 Nov 2009) | 1 line
+  
+  added testing for pygraph.algorithms.critical, fixed pygraph.algorithms.critical due to API changes
+........
+  r615 | pmatiello | 2009-11-17 14:37:51 +0000 (Tue, 17 Nov 2009) | 1 line
+  
+  Build system changed to build sdists instead of eggs.
+........
+  r616 | pmatiello | 2009-11-17 14:40:35 +0000 (Tue, 17 Nov 2009) | 1 line
+  
+  Logo licensing.
+........
+  r617 | pmatiello | 2009-11-17 16:54:47 +0000 (Tue, 17 Nov 2009) | 1 line
+  
+  Testing accessibility.accessibility in graphs and digraphs.
+........
+  r618 | pmatiello | 2009-11-17 16:59:52 +0000 (Tue, 17 Nov 2009) | 1 line
+  
+  Stronger testing.
+........
+  r619 | pmatiello | 2009-11-17 18:03:43 +0000 (Tue, 17 Nov 2009) | 1 line
+  
+  More explicit licensing.
+........
+  r620 | pmatiello | 2009-11-17 19:56:35 +0000 (Tue, 17 Nov 2009) | 1 line
+  
+  Logo licensing.
+........
+  r621 | tomaz.kovacic | 2009-11-17 22:17:21 +0000 (Tue, 17 Nov 2009) | 1 line
+  
+  Minor change in logo.txt.
+........
+  r622 | pmatiello | 2009-11-17 22:40:21 +0000 (Tue, 17 Nov 2009) | 1 line
+  
+  Minor: line length under 80 chars on logo.txt.
+........
