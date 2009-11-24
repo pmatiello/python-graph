@@ -69,6 +69,6 @@ def new_hypergraph():
     seed(random_seed)
     return generate_hypergraph(num_nodes[use_size], num_edges[use_size])
 
-def new_uniform_hypergraph(r):
+def new_uniform_hypergraph(_r):
     seed(random_seed)
-    return generate_hypergraph(num_nodes[use_size], num_edges[use_size], r = r)
+    return generate_hypergraph(num_nodes[use_size], num_edges[use_size], r = _r)

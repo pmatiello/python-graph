@@ -104,11 +104,11 @@ class test_accessibility(unittest.TestCase):
         
         assert 8 == len(access)
         
-        for i in xrange(5):
-            assert set(access[i]) == set(xrange(5))
+        for i in range(5):
+            assert set(access[i]) == set(range(5))
         
-        for i in xrange(5,8):
-            assert set(access[i]) == set(xrange(5,8))
+        for i in range(5,8):
+            assert set(access[i]) == set(range(5,8))
         
     def test_connected_components_hypergraph(self):
         gr = hypergraph()
