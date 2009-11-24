@@ -54,6 +54,15 @@ class common( object ):
         """
         for n in self.neighbors( node ):
             yield n
+    
+    def is_directed(self):
+        """
+        Return a bool, True if directed False if not
+        
+        @rtype: bool
+        @return: Determines if this is an instance of a directed type
+        """
+        return self.DIRECTED
             
     def order(self):
         """
