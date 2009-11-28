@@ -16,6 +16,7 @@ Fixes:
 Important API Changes:
     Edges are now passed around as generic objects. In the case of graph / digraph this is a tuple.
 	Removed traversal() method from graph and digraph classes;
+	Removed accessibility, connected_components, cut_nodes and cut_hyperedges from hypergraph class;
 	Functions for reading a hypergraph doesn't take an empty hypergraph as argument anymore.
 
 
