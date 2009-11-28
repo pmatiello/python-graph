@@ -206,11 +206,11 @@ def read_hypergraph(string):
         if hgr.has_node(each_link.get_source()):
             link_hypernode = each_link.get_source()
             link_hyperedge = each_link.get_destination()
+            hgr.link(link_hypernode, link_hyperedge)
         elif hgr.has_node(each_link.get_destination()):
             link_hypernode = each_link.get_destination()
             link_hyperedge = each_link.get_source()
-        
-        hgr.link(link_hypernode, link_hyperedge)
+            hgr.link(link_hypernode, link_hyperedge)
     
     return hgr
 
