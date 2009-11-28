@@ -87,6 +87,20 @@ class test_accessibility(unittest.TestCase):
                 else:
                     assert m not in depth_first_search(gr, n)[0] or n not in depth_first_search(gr, m)[0]
     
+    def test_connected_components_in_graph(self):
+        gr = testlib.new_graph()
+        gr.add_nodes(['a','b','c'])
+        gr.add_edge(('a','b'))
+        
+        cc = connected_components(gr)
+        
+        for n in gr:
+            for m in gr:
+                if (cc[n] == cc[m]):
+                    assert m in depth_first_search(gr, n)[0]
+                else:
+                    assert m not in depth_first_search(gr, n)[0]
+    
     def test_mutual_accessibility_in_digraph(self):
         gr = testlib.new_digraph()
         gr.add_nodes(['a','b','c'])
