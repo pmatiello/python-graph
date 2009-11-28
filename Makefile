@@ -72,6 +72,15 @@ test3:
 tests: test
 
 
+# Tests --------------------------------------------------------------
+
+console:
+	export PYTHONPATH=${PYTHONPATH} && cd ${TESTS_DIR} && python
+
+console3:
+	export PYTHONPATH=${PYTHONPATH} && cd ${TESTS_DIR} && python3
+
+
 # Cleaning -----------------------------------------------------------
 
 cleanpyc:
