@@ -198,8 +198,6 @@ def read_hypergraph(string):
             hgr.add_node(each_node.get_name())
         elif 'hyperedge' == each_node.get('hyper_node_type'):
             hgr.add_hyperedge(each_node.get_name())
-        else:
-            print ("Error: improper hyper_node_type - %s" % str(each_node.get('hyper_node_type')))
     
     # Now read in the links to connect the hyperedges
     for each_link in dotG.get_edges():
