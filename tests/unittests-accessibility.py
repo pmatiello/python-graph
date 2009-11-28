@@ -33,8 +33,18 @@ from pygraph.algorithms.searching import depth_first_search
 from pygraph.algorithms.accessibility import accessibility
 from pygraph.algorithms.accessibility import mutual_accessibility
 from pygraph.algorithms.accessibility import connected_components
+from pygraph.algorithms.accessibility import cut_nodes
+from pygraph.algorithms.accessibility import cut_edges
 from pygraph.classes.hypergraph import hypergraph
+from copy import deepcopy
 import testlib
+
+def number_of_connected_components(cc):
+    n = 0
+    for each in cc:
+        if cc[each] > n:
+            n = cc[each]
+    return n
 
 class test_accessibility(unittest.TestCase):
 
@@ -116,6 +126,39 @@ class test_accessibility(unittest.TestCase):
                     assert n in depth_first_search(gr, m)[0]
                 else:
                     assert m not in depth_first_search(gr, n)[0] or n not in depth_first_search(gr, m)[0]
+    
+    def test_cut_nodes_in_graph(self):
+        gr = testlib.new_graph()
+        gr.add_nodes(['x','y'])
+        gr.add_edge(('x','y'))
+        gr.add_edge(('x',0))
+        
+        gr_copy = deepcopy(gr)
+        
+        cn = cut_nodes(gr)
+        
+        for each in cn:
+            before = number_of_connected_components(connected_components(gr))
+            gr.del_node(each)
+            number_of_connected_components(connected_components(gr)) > before
+            gr = gr_copy
+    
+    def test_cut_nodes_in_graph(self):
+        gr = testlib.new_graph()
+        gr.add_nodes(['x','y'])
+        gr.add_edge(('x','y'))
+        gr.add_edge(('x',0))
+        
+        gr_copy = deepcopy(gr)
+        
+        ce = cut_edges(gr)
+        
+        for each in ce:
+            before = number_of_connected_components(connected_components(gr))
+            gr.del_edge(each)
+            number_of_connected_components(connected_components(gr)) > before
+            gr = gr_copy
+
 
     def test_accessibility_hypergraph(self):
         gr = hypergraph()
