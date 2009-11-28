@@ -102,7 +102,7 @@ def connected_components(graph):
     """
     Connected components.
 
-    @type  graph: graph, digraph, hypergraph
+    @type  graph: graph, hypergraph
     @param graph: Graph.
 
     @rtype:  dictionary
