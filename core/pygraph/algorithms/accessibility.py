@@ -152,7 +152,7 @@ def cut_edges(graph):
     """
     Return the cut-edges of the given graph.
     
-    @type  graph: graph, digraph, hypergraph
+    @type  graph: graph, hypergraph
     @param graph: Graph.
     
     @rtype:  list
@@ -200,7 +200,7 @@ def cut_nodes(graph):
     """
     Return the cut-nodes of the given graph.
     
-    @type  graph: graph, digraph, hypergraph
+    @type  graph: graph, hypergraph
     @param graph: Graph.
         
     @rtype:  list
