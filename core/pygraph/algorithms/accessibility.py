@@ -152,7 +152,7 @@ def cut_edges(graph):
     """
     Return the cut-edges of the given graph.
     
-    Cut-edges are edges which removal increases the number of connected components in the graph.
+    Cut-edges are edges whose removal increases the number of connected components in the graph.
     
     @type  graph: graph, hypergraph
     @param graph: Graph.
@@ -202,7 +202,7 @@ def cut_nodes(graph):
     """
     Return the cut-nodes of the given graph.
     
-    Cut-nodes are nodes which removal increases the number of connected components in the graph.
+    Cut-nodes are nodes whose removal increases the number of connected components in the graph.
     
     @type  graph: graph, hypergraph
     @param graph: Graph.
