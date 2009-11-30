@@ -102,6 +102,26 @@ class test_hypergraph(unittest.TestCase):
             for n in gr.links(e):
                 self.assertTrue(n in gr.nodes())
     
+    def test_remove_edge(self):
+        h = hypergraph()
+        h.add_nodes([1,2])
+        h.add_edges(['a', 'b'])
+        
+        h.link(1,'a')
+        h.link(2,'a')
+        h.link(1,'b')
+        h.link(2,'b')
+        
+        # Delete an edge
+        h.del_edge('a')
+        
+        assert 1 == len(h.hyperedges())
+        
+        gr = testlib.new_hypergraph()
+        edge_no = len(gr.nodes())+1
+        gr.del_hyperedge(edge_no)
+        self.assertTrue(edge_no not in gr.hyperedges())
+    
     def test_remove_link_from_node_to_same_node(self):
         gr = hypergraph()
         gr.add_node(0)

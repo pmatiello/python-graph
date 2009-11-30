@@ -45,7 +45,7 @@ class hypergraph (basegraph, common, labeling):
     than two nodes.
     
     @sort: __init__, __len__, __str__, add_hyperedge, add_hyperedges, add_node, add_nodes,
-    has_node, hyperedges, link, links, nodes, unlink
+    has_node, hyperedges, link, links, nodes, unlink, del_edge
     """
 
     # Technically this isn't directed, but it gives us the right
@@ -183,7 +183,7 @@ class hypergraph (basegraph, common, labeling):
         @param hyperedge: Hyperedge identifier.
         """
         self.add_hyperedge(hyperedge)
-
+    
 
     def add_hyperedge(self, hyperedge):
         """
@@ -200,6 +200,19 @@ class hypergraph (basegraph, common, labeling):
             self.graph.add_node((hyperedge,'h'))
 
 
+    def add_edges(self, edgelist):
+        """
+        Add given hyperedges to the hypergraph.
+
+        @attention: While hyperedge-nodes can be of any type, it's strongly recommended to use only
+        numbers and single-line strings as node identifiers if you intend to use write().
+        
+        @type  edgelist: list
+        @param edgelist: List of hyperedge-nodes to be added to the graph.
+        """
+        self.add_hyperedges(edgelist)
+            
+
     def add_hyperedges(self, edgelist):
         """
         Add given hyperedges to the hypergraph.
@@ -213,6 +226,31 @@ class hypergraph (basegraph, common, labeling):
         for each in edgelist:
             self.add_hyperedge(each)
 
+    
+    def del_edge(self, edge):
+        """
+        Delete the given hyperedge.
+        
+        @type  hyperedge: hyperedge
+        @param hyperedge: Hyperedge identifier.
+        """
+        self.del_hyperedge(edge)
+        
+        
+    def del_hyperedge(self, hyperedge):
+        """
+        Delete the given hyperedge.
+        
+        @type  hyperedge: hyperedge
+        @param hyperedge: Hyperedge identifier.
+        """
+        if (hyperedge in self.hyperedges()):
+            for n in self.edge_links[hyperedge]:
+                self.node_links[n].remove(hyperedge)
+
+            del(self.edge_links[hyperedge])
+            self.graph.del_node((hyperedge,'h'))
+            
 
     def link(self, node, hyperedge):
         """
