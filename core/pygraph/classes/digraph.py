@@ -141,6 +141,8 @@ class digraph (basegraph, common, labeling):
     def add_edge(self, edge, wt = 1, label="", attrs = []):
         """
         Add an directed edge to the graph connecting two nodes.
+        
+        An edge, here, is a pair of nodes like C{(n, m)}.
 
         @type  edge: tuple
         @param edge: Edge.
