@@ -68,7 +68,11 @@ Pedro Matiello <pmatiello@gmail.com>
 	* XML reading/writing;
 	* Refactoring.
 
+Anand Jeyahar  <anand.jeyahar@gmail.com>
+	* Edge deletion on hypergraphs.
+
 Christian Muise <christian.muise@gmail.com>
+	* Project commiter;
 	* Dot file reading/writing;
 	* Hypergraph class;
 	* Refactoring.
@@ -92,11 +96,13 @@ Roy Smith <roy@panix.com>
 	* Heuristic Searching (A* algorithm).
 
 Salim Fadhley <sal@stodge.org>
+	* Project commiter;
 	* Porting of Roy Smith's A* implementation to python-graph;
 	* Edmond Chow's heuristic for A*;
 	* Refactoring.
 
 Tomaz Kovacic <tomaz.kovacic@gmail.com>
+	* Project commiter;
 	* Transitive edge detection;
 	* Critical path algorithm;
 	* Logo design.
