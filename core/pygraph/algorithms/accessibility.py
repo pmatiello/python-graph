@@ -163,7 +163,7 @@ def cut_edges(graph):
 
     # Dispatch if we have a hypergraph
     if 'hypergraph' == graph.__class__.__name__:
-        return cut_hyperedges(graph)
+        return _cut_hyperedges(graph)
 
     pre = {}
     low = {}
@@ -178,7 +178,7 @@ def cut_edges(graph):
     return reply
 
 
-def cut_hyperedges(hypergraph):
+def _cut_hyperedges(hypergraph):
     """
     Return the cut-hyperedges of the given hypergraph.
     
@@ -213,7 +213,7 @@ def cut_nodes(graph):
     
     # Dispatch if we have a hypergraph
     if 'hypergraph' == graph.__class__.__name__:
-        return cut_hypernodes(graph)
+        return _cut_hypernodes(graph)
         
     pre = {}    # Pre-ordering
     low = {}    # Lowest pre[] reachable from this node going down the spanning tree + one backedge
@@ -248,7 +248,7 @@ def cut_nodes(graph):
     return list(reply.keys())
 
 
-def cut_hypernodes(hypergraph):
+def _cut_hypernodes(hypergraph):
     """
     Return the cut-nodes of the given hypergraph.
     

@@ -31,7 +31,7 @@ A library for working with graphs in Python.
 
 L{Data structure<pygraph.classes>} classes are located at C{pygraph.classes}.
 
-L{Exception<pygraph.classes.exceptions>} classes are located at C{pygraph.classes.exceptions}:
+L{Exception<pygraph.classes.exceptions>} classes are located at C{pygraph.classes.exceptions}.
 
 L{Search filters<pygraph.algorithms.filters>} are located at C{pygraph.algorithms.filters}.
 
