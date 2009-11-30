@@ -223,6 +223,59 @@ class test_accessibility(unittest.TestCase):
             assert cc[i] == cc[i+1]
             
         assert cc[4] != cc[5]
+    
+    def test_cut_nodes_in_hypergraph(self):
+        gr = hypergraph()
+        
+        # Add some nodes / edges
+        gr.add_nodes(range(9))
+        gr.add_hyperedges(['a', 'b', 'c'])
+        
+        # Connect the 9 nodes with three size-3 hyperedges
+        for node_set in [['a',0,1,2], ['b',3,4,5], ['c',6,7,8]]:
+            for node in node_set[1:]:
+                gr.link(node, node_set[0])
+        
+        # Connect the groups
+        gr.add_hyperedges(['l1','l2'])
+        gr.link(0, 'l1')
+        gr.link(3, 'l1')
+        gr.link(5, 'l2')
+        gr.link(8, 'l2')
+        
+        cn = cut_nodes(gr);
+        
+        assert 0 in cn
+        assert 3 in cn
+        assert 5 in cn
+        assert 8 in cn
+        assert len(cn) == 4
+    
+    def test_cut_edges_in_hypergraph(self):
+        gr = hypergraph()
+        
+        # Add some nodes / edges
+        gr.add_nodes(range(9))
+        gr.add_hyperedges(['a1', 'b1', 'c1'])
+        gr.add_hyperedges(['a2', 'b2', 'c2'])
+        
+        # Connect the 9 nodes with three size-3 hyperedges
+        for node_set in [['a1',0,1,2], ['b1',3,4,5], ['c1',6,7,8], ['a2',0,1,2], ['b2',3,4,5], ['c2',6,7,8]]:
+            for node in node_set[1:]:
+                gr.link(node, node_set[0])
+        
+        # Connect the groups
+        gr.add_hyperedges(['l1','l2'])
+        gr.link(0, 'l1')
+        gr.link(3, 'l1')
+        gr.link(5, 'l2')
+        gr.link(8, 'l2')
+        
+        ce = cut_edges(gr)
+        
+        assert 'l1' in ce
+        assert 'l2' in ce
+        assert len(ce) == 2
         
 if __name__ == "__main__":
     unittest.main()
