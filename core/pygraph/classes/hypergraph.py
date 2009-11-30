@@ -31,7 +31,6 @@ Hypergraph class
 
 # Imports
 from pygraph.classes.graph import graph
-from pygraph.algorithms import accessibility
 from pygraph.classes.exceptions import AdditionError
 
 from pygraph.mixins.labeling import labeling
@@ -46,7 +45,7 @@ class hypergraph (basegraph, common, labeling):
     than two nodes.
     
     @sort: __init__, __len__, __str__, add_hyperedge, add_hyperedges, add_node, add_nodes,
-    has_node, hyperedges, link, links, nodes, unlink, del_edge
+    del_edge, has_node, hyperedges, link, links, nodes, unlink
     """
 
     # Technically this isn't directed, but it gives us the right
@@ -228,14 +227,14 @@ class hypergraph (basegraph, common, labeling):
             self.add_hyperedge(each)
 
     
-    def del_edge(self, edge):
+    def del_edge(self, hyperedge):
         """
         Delete the given hyperedge.
         
         @type  hyperedge: hyperedge
         @param hyperedge: Hyperedge identifier.
         """
-        self.del_hyperedge(edge)
+        self.del_hyperedge(hyperedge)
         
         
     def del_hyperedge(self, hyperedge):
