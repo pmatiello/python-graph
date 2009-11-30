@@ -63,12 +63,12 @@ def main():
         testlib.random_seed = int(rseed)
     except:
         pass
-    print ()
+    print ("")
     print ("--------------------------------------------------")
     print ("python-graph unit-tests")
     print ("Random seed: %s" % testlib.random_seed)
     print ("--------------------------------------------------")
-    print ()
+    print ("")
     run_tests()
    
 if __name__ == "__main__":

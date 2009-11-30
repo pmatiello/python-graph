@@ -35,18 +35,18 @@ from sys import argv
 
 # Configuration
 random_seed = int(time())
-num_nodes = { 'tiny': 10,
-              'small': 25,
-              'medium': 50,
-              'big': 100
+num_nodes = { 'small': 10,
+              'medium': 25,
+              'big': 50,
+              'sparse': 50
              } 
-num_edges = { 'tiny': 18,
-              'small': 120,
-              'medium': 490,
-              'big': 1980
+num_edges = { 'small': 18,
+              'medium': 120,
+              'big': 490,
+              'sparse': 200
              }
-sizes = ['tiny', 'small', 'medium', 'big']
-use_size = 'small'
+sizes = ['small', 'medium', 'big', 'sparse']
+use_size = 'medium'
 
 # Init
 try:
