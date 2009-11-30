@@ -143,7 +143,7 @@ class test_accessibility(unittest.TestCase):
             number_of_connected_components(connected_components(gr)) > before
             gr = gr_copy
     
-    def test_cut_nodes_in_graph(self):
+    def test_cut_edges_in_graph(self):
         gr = testlib.new_graph()
         gr.add_nodes(['x','y'])
         gr.add_edge(('x','y'))
