@@ -178,7 +178,8 @@ def write(G, weighted=False):
 
 def read_hypergraph(string):
     """
-    Read a hypergraph from a string in dot format. Nodes and edges specified in the input will be added to the current hypergraph.
+    Read a hypergraph from a string in dot format. Nodes and edges specified in the input will be
+    added to the current hypergraph.
     
     @type  string: string
     @param string: Input string in dot format specifying a graph.
@@ -194,7 +195,7 @@ def read_hypergraph(string):
     #           are a hyperedge or a normal node
     # Note 2: We should read in all of the nodes before putting in the links
     for each_node in dotG.get_nodes():
-        if 'node' == each_node.get('hyper_node_type'):
+        if 'hypernode' == each_node.get('hyper_node_type'):
             hgr.add_node(each_node.get_name())
         elif 'hyperedge' == each_node.get('hyper_node_type'):
             hgr.add_hyperedge(each_node.get_name())
@@ -204,11 +205,10 @@ def read_hypergraph(string):
         if hgr.has_node(each_link.get_source()):
             link_hypernode = each_link.get_source()
             link_hyperedge = each_link.get_destination()
-            hgr.link(link_hypernode, link_hyperedge)
         elif hgr.has_node(each_link.get_destination()):
             link_hypernode = each_link.get_destination()
             link_hyperedge = each_link.get_source()
-            hgr.link(link_hypernode, link_hyperedge)
+        hgr.link(link_hypernode, link_hyperedge)
     
     return hgr
 
@@ -238,7 +238,7 @@ def write_hypergraph(hgr, colored = False):
     
     # Add all of the nodes first
     for node in hgr.nodes():
-        newNode = pydot.Node(str(node), hyper_node_type = 'node')
+        newNode = pydot.Node(str(node), hyper_node_type = 'hypernode')
         
         dotG.add_node(newNode)
     
