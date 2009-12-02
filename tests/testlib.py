@@ -57,13 +57,13 @@ except:
     pass
 
 
-def new_graph():
+def new_graph(wt_range=(1, 1)):
     seed(random_seed)
-    return generate(num_nodes[use_size], num_edges[use_size])
+    return generate(num_nodes[use_size], num_edges[use_size], directed=False, weight_range=wt_range)
 
-def new_digraph():
+def new_digraph(wt_range=(1, 1)):
     seed(random_seed)
-    return generate(num_nodes[use_size], num_edges[use_size], directed=True)
+    return generate(num_nodes[use_size], num_edges[use_size], directed=True, weight_range=wt_range)
 
 def new_hypergraph():
     seed(random_seed)

@@ -31,7 +31,7 @@ Minimization and maximization algorithms.
 @sort: heuristic_search, minimal_spanning_tree, shortest_path
 """
 
-from heapq import heappush, heappop
+from pygraph.algorithms.utils import heappush, heappop
 from pygraph.classes.exceptions import NodeUnreachable
 
 # Minimal spanning tree
@@ -116,7 +116,7 @@ def _lightest_edge(graph, visited):
     for each in visited:
         for other in graph[each]:
             if (other not in visited):
-                w = graph.edge_weight(each, other)
+                w = graph.edge_weight((each, other))
                 if (w < weight or weight < 0):
                     lightest_edge = (each, other)
                     weight = w
