@@ -32,7 +32,8 @@ import unittest
 import testlib
 from pygraph.classes.graph import graph
 from pygraph.algorithms.searching import depth_first_search
-from pygraph.algorithms.minmax import minimal_spanning_tree
+from pygraph.algorithms.minmax import minimal_spanning_tree, shortest_path, heuristic_search
+from pygraph.algorithms.heuristics.chow import chow
 from copy import deepcopy
 
 def tree_weight(gr, tree):
@@ -48,7 +49,7 @@ def add_spanning_tree(gr, st):
         if ((st[each] is not None) and (not gr.has_edge((st[each], each)))): # Accepts invalid STs
             gr.add_edge((st[each], each))
 
-class test_spanning_tree(unittest.TestCase):
+class test_minimal_spanning_tree(unittest.TestCase):
 
     def test_minimal_spanning_tree_on_graph(self):
         gr = testlib.new_graph(wt_range=(1,10))
@@ -65,7 +66,22 @@ class test_spanning_tree(unittest.TestCase):
                          gr2 = graph()
                          add_spanning_tree(gr2, mst_copy)
                          assert len(depth_first_search(gr2, root=0)[0]) < len_dfs
-                                     
+
+
+class test_shortest_path(unittest.TestCase):
+
+    def test_shortest_path_on_graph(self):
+        # Test stub: not checking for correctness yet
+        gr = testlib.new_graph(wt_range=(1,10))
+        shortest_path(gr, 0)
+    
+    def test_shortest_path_on_digraph(self):
+        # Test stub: not checking for correctness yet
+        gr = testlib.new_digraph(wt_range=(1,10))
+        shortest_path(gr, 0)
+
+
+# Tests for heuristic search are not necessary here as it's tested in unittests-heuristics.py                                     
             
 if __name__ == "__main__":
     unittest.main()
