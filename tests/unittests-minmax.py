@@ -48,7 +48,7 @@ def add_spanning_tree(gr, st):
         if ((st[each] is not None) and (not gr.has_edge((st[each], each)))): # Accepts invalid STs
             gr.add_edge((st[each], each))
 
-class test_depth_first_search(unittest.TestCase):
+class test_spanning_tree(unittest.TestCase):
 
     def test_minimal_spanning_tree_on_graph(self):
         gr = testlib.new_graph(wt_range=(1,10))
