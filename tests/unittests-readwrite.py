@@ -51,6 +51,8 @@ class test_readwrite_dot(unittest.TestCase):
         dotstr = dot.write(gr1)
         gr2 = dot.read(dotstr)  
         graph_equality(gr1, gr2)
+        assert len(gr.nodes()) == len(gr1.nodes())
+        assert len(gr.edges()) == len(gr1.edges())
     
     def test_dot_for_digraph(self):
         gr = testlib.new_digraph()
@@ -59,6 +61,8 @@ class test_readwrite_dot(unittest.TestCase):
         dotstr = dot.write(gr1)
         gr2 = dot.read(dotstr)  
         graph_equality(gr1, gr2)
+        assert len(gr.nodes()) == len(gr1.nodes())
+        assert len(gr.edges()) == len(gr1.edges())
     
     def test_dot_for_hypergraph(self):
         gr = testlib.new_hypergraph()
@@ -77,6 +81,8 @@ class test_readwrite_markup(unittest.TestCase):
         dotstr = markup.write(gr1)
         gr2 = markup.read(dotstr)  
         graph_equality(gr1, gr2)
+        assert len(gr.nodes()) == len(gr1.nodes())
+        assert len(gr.edges()) == len(gr1.edges())
     
     def test_xml_digraph(self):
         gr = testlib.new_digraph()
@@ -85,6 +91,8 @@ class test_readwrite_markup(unittest.TestCase):
         dotstr = markup.write(gr1)
         gr2 = markup.read(dotstr)  
         graph_equality(gr1, gr2)
+        assert len(gr.nodes()) == len(gr1.nodes())
+        assert len(gr.edges()) == len(gr1.edges())
     
     def test_xml_hypergraph(self):
         gr = testlib.new_hypergraph()

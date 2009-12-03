@@ -119,7 +119,7 @@ def read(string):
 
     # Read edges...
     for each_edge in dom.getElementsByTagName("edge"):
-        if (G.has_edge((each_edge.getAttribute('from'), each_edge.getAttribute('to')))):
+        if (not G.has_edge((each_edge.getAttribute('from'), each_edge.getAttribute('to')))):
             G.add_edge((each_edge.getAttribute('from'), each_edge.getAttribute('to')), \
                 wt = float(each_edge.getAttribute('wt')), label = each_edge.getAttribute('label'))
         for each_attr in each_edge.getElementsByTagName("attribute"):
