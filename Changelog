@@ -11,7 +11,8 @@ Enhancements:
 	Added Python3 support (support for Python 2.5 and lower was dropped).
 
 Fixes:
-	Adding a graph to a digraph now works (Issue 39).
+	Adding a graph to a digraph now works (Issue 39);
+	Fixed the reading of graphs and digraphs stored in XML.
 
 Important API Changes:
     Edges are now passed around as generic objects. In the case of graph / digraph this is a tuple.
