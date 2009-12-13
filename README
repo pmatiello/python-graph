@@ -21,10 +21,6 @@ To install the dot language support, run:
 
 	make install-dot
 
-To install the hypergraph support, run:
-
-	make install-hyper
-
 Alternatively, if you don't have make, you can install the modules by running:
 
 	./setup.py install
