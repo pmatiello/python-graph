@@ -34,7 +34,7 @@ from pygraph.classes.exceptions import AdditionError
 from pygraph.classes.digraph import digraph
 from pygraph.classes.graph import graph
 import testlib
-from copy import copy
+from copy import copy, deepcopy
 
 class test_digraph(unittest.TestCase):
 
@@ -231,6 +231,59 @@ class test_digraph(unittest.TestCase):
         gr = testlib.new_graph()
         assert len(gr) == gr.order()
         assert gr.order() == len( gr.node_neighbors )
+        
+    def test_digraph_equality_nodes(self):
+        """
+        Graph equality test. This one checks node equality. 
+        """
+        gr = digraph()
+        gr.add_nodes([0,1,2,3,4,5])
+        
+        gr2 = deepcopy(gr)
+        
+        gr3 = deepcopy(gr)
+        gr3.del_node(5)
+        
+        gr4 = deepcopy(gr)
+        gr4.add_node(6)
+        gr4.del_node(0)
+        
+        assert gr == gr2
+        assert gr != gr3
+        assert gr != gr4
+        
+    def test_digraph_equality_edges(self):
+        """
+        Graph equality test. This one checks edge equality. 
+        """
+        gr = digraph()
+        gr.add_nodes([0,1,2,3,4])
+        gr.add_edge((0,1), wt=1)
+        gr.add_edge((0,2), wt=2)
+        gr.add_edge((1,2), wt=3)
+        gr.add_edge((3,4), wt=4)
+        
+        gr2 = deepcopy(gr)
+        
+        gr3 = deepcopy(gr)
+        gr3.del_edge((0,2))
+        
+        gr4 = deepcopy(gr)
+        gr4.add_edge((2,4))
+        
+        gr5 = deepcopy(gr)
+        gr5.del_edge((0,2))
+        gr5.add_edge((2,4))
+        
+        gr6 = deepcopy(gr)
+        gr6.del_edge((0,2))
+        gr6.add_edge((0,2), wt=10)
+        
+        assert gr == gr2
+        assert gr != gr3
+        assert gr != gr4
+        assert gr != gr5
+        assert gr != gr6
 
 if __name__ == "__main__":
     unittest.main()

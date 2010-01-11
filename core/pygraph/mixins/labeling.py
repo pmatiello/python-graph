@@ -27,7 +27,7 @@ class labeling( object ):
     """
     Generic labeling support for graphs
     
-    @sort: __init__, add_edge_attribute, add_edge_attributes, add_node_attribute,
+    @sort: __eq__, __init__, add_edge_attribute, add_edge_attributes, add_node_attribute,
     del_edge_labeling, del_node_labeling, edge_attributes, edge_label, edge_weight,
     get_edge_properties, node_attributes, set_edge_label, set_edge_properties, set_edge_weight 
     """
@@ -192,3 +192,21 @@ class labeling( object ):
             return self.edge_attr[edge]
         except KeyError:
             return []
+
+    def __eq__(self, other):
+        """
+        Return whether this graph is equal to another one.
+        
+        @type other: graph, digraph
+        @param other: Other graph or digraph
+        
+        @rtype: boolean
+        @return: Whether this graph and the other are equal.
+        """       
+        def edges_eq():
+            for node in self:
+                for edge in self[node]:
+                    if (self.edge_weight((node, edge)) != other.edge_weight((node, edge))): return False
+            return True
+        
+        return edges_eq()

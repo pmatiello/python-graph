@@ -43,7 +43,7 @@ class graph ( basegraph, common, labeling, ):
     
     Graphs are built of nodes and edges.
 
-    @sort:  __init__, add_edge, add_node, del_edge, del_node, edges, has_edge, has_node,
+    @sort:  __eq__, __init__, add_edge, add_node, del_edge, del_node, edges, has_edge, has_node,
     neighbors, node_order, nodes
     """
     
@@ -204,5 +204,26 @@ class graph ( basegraph, common, labeling, ):
         return len(self.neighbors(node))
 
 
-
+    def __eq__(self, other):
+        """
+        Return whether this graph is equal to another one.
+        
+        @type other: graph, digraph
+        @param other: Other graph or digraph
+        
+        @rtype: boolean
+        @return: Whether this graph and the other are equal.
+        """
+        return common.__eq__(self, other) and labeling.__eq__(self, other)
     
+    def __ne__(self, other):
+        """
+        Return whether this graph is not equal to another one.
+        
+        @type other: graph, digraph
+        @param other: Other graph or digraph
+        
+        @rtype: boolean
+        @return: Whether this graph and the other are different.
+        """
+        return not (self == other)

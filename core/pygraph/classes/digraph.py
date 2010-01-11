@@ -40,7 +40,7 @@ class digraph (basegraph, common, labeling):
     
     Digraphs are built of nodes and directed edges.
 
-    @sort: __init__, add_edge, add_node, del_edge, del_node, edges, has_edge, has_node,
+    @sort: __eq__, __init__, add_edge, add_node, del_edge, del_node, edges, has_edge, has_node,
     incidents, neighbors, node_order, nodes 
     """
     
@@ -230,3 +230,27 @@ class digraph (basegraph, common, labeling):
         @return: Order of the given node.
         """
         return len(self.neighbors(node))
+
+    def __eq__(self, other):
+        """
+        Return whether this graph is equal to another one.
+        
+        @type other: graph, digraph
+        @param other: Other graph or digraph
+        
+        @rtype: boolean
+        @return: Whether this graph and the other are equal.
+        """
+        return common.__eq__(self, other) and labeling.__eq__(self, other)
+    
+    def __ne__(self, other):
+        """
+        Return whether this graph is not equal to another one.
+        
+        @type other: graph, digraph
+        @param other: Other graph or digraph
+        
+        @rtype: boolean
+        @return: Whether this graph and the other are different.
+        """
+        return not (self == other)

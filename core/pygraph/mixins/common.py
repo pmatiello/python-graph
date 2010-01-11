@@ -27,7 +27,7 @@ class common( object ):
     """
     Standard methods common to all graph classes.
     
-    @sort: __getitem__, __iter__, __len__, __repr__, __str__, add_graph, add_nodes,
+    @sort: __eq__, __getitem__, __iter__, __len__, __repr__, __str__, add_graph, add_nodes,
     add_spanning_tree, complete, inverse, order, reverse
     """
     
@@ -183,3 +183,32 @@ class common( object ):
             attributes = self.edge_attributes((u, v))
             N.add_edge((v, u), wt, label, attributes)
         return N
+
+    def __eq__(self, other):
+        """
+        Return whether this graph is equal to another one.
+        
+        @type other: graph, digraph
+        @param other: Other graph or digraph
+        
+        @rtype: boolean
+        @return: Whether this graph and the other are equal.
+        """
+        
+        def nodes_eq():
+            for each in self:
+                if (not other.has_node(each)): return False
+            for each in other:
+                if (not self.has_node(each)): return False
+            return True
+        
+        def edges_eq():
+            for node in self:
+                for edge in self[node]:
+                    if (not other.has_edge((node, edge))): return False
+            for node in other:
+                for edge in other[node]:
+                    if (not self.has_edge((node, edge))): return False
+            return True
+        
+        return nodes_eq() and edges_eq()
