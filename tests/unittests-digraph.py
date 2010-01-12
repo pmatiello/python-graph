@@ -249,8 +249,11 @@ class test_digraph(unittest.TestCase):
         gr4.del_node(0)
         
         assert gr == gr2
+        assert gr2 == gr
         assert gr != gr3
+        assert gr3 != gr
         assert gr != gr4
+        assert gr4 != gr
         
     def test_digraph_equality_edges(self):
         """
@@ -280,10 +283,15 @@ class test_digraph(unittest.TestCase):
         gr6.add_edge((0,2), wt=10)
         
         assert gr == gr2
+        assert gr2 == gr
         assert gr != gr3
+        assert gr3 != gr
         assert gr != gr4
+        assert gr4 != gr
         assert gr != gr5
+        assert gr5 != gr
         assert gr != gr6
+        assert gr6 != gr
     
     def test_graph_equality_labels(self):
         """
@@ -305,8 +313,11 @@ class test_digraph(unittest.TestCase):
         gr4.add_edge((0,1), label="l3")
              
         assert gr == gr2
+        assert gr2 == gr
         assert gr != gr3
+        assert gr3 != gr
         assert gr != gr4
+        assert gr4 != gr
 
 if __name__ == "__main__":
     unittest.main()
