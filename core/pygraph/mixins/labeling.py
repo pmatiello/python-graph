@@ -207,6 +207,7 @@ class labeling( object ):
             for node in self:
                 for edge in self[node]:
                     if (self.edge_weight((node, edge)) != other.edge_weight((node, edge))): return False
+                    if (self.edge_label((node, edge)) != other.edge_label((node, edge))): return False
             return True
         
         return edges_eq()
