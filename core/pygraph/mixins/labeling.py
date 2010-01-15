@@ -202,12 +202,25 @@ class labeling( object ):
         
         @rtype: boolean
         @return: Whether this graph and the other are equal.
-        """       
+        """
+        def attrs_eq(list1, list2):
+            for each in list1:
+                if (each not in list2): return False
+            for each in list2:
+                if (each not in list1): return False
+            return True
+        
         def edges_eq():
             for node in self:
                 for edge in self[node]:
                     if (self.edge_weight((node, edge)) != other.edge_weight((node, edge))): return False
                     if (self.edge_label((node, edge)) != other.edge_label((node, edge))): return False
+                    if (not attrs_eq(self.edge_attributes((node,edge)), other.edge_attributes((node,edge)))): return False 
             return True
         
-        return edges_eq()
+        def nodes_eq():
+            for node in self:
+                if (not attrs_eq(self.node_attributes(node), other.node_attributes(node))): return False 
+            return True
+        
+        return nodes_eq() and edges_eq()
