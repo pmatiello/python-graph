@@ -234,7 +234,7 @@ class test_digraph(unittest.TestCase):
         
     def test_digraph_equality_nodes(self):
         """
-        Graph equality test. This one checks node equality. 
+        Digraph equality test. This one checks node equality. 
         """
         gr = digraph()
         gr.add_nodes([0,1,2,3,4,5])
@@ -257,7 +257,7 @@ class test_digraph(unittest.TestCase):
         
     def test_digraph_equality_edges(self):
         """
-        Graph equality test. This one checks edge equality. 
+        Digraph equality test. This one checks edge equality. 
         """
         gr = digraph()
         gr.add_nodes([0,1,2,3,4])
@@ -295,7 +295,7 @@ class test_digraph(unittest.TestCase):
     
     def test_digraph_equality_labels(self):
         """
-        Graph equality test. This one checks node equality. 
+        Digraph equality test. This one checks node equality. 
         """
         gr = digraph()
         gr.add_nodes([0,1,2])
@@ -321,7 +321,7 @@ class test_digraph(unittest.TestCase):
     
     def test_digraph_equality_attributes(self):
         """
-        Graph equality test. This one checks node equality. 
+        Digraph equality test. This one checks node equality. 
         """
         gr = digraph()
         gr.add_nodes([0,1,2])
