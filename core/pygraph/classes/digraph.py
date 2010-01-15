@@ -40,7 +40,7 @@ class digraph (basegraph, common, labeling):
     
     Digraphs are built of nodes and directed edges.
 
-    @sort: __eq__, __init__, add_edge, add_node, del_edge, del_node, edges, has_edge, has_node,
+    @sort: __eq__, __init__, __ne__, add_edge, add_node, del_edge, del_node, edges, has_edge, has_node,
     incidents, neighbors, node_order, nodes 
     """
     
@@ -170,6 +170,7 @@ class digraph (basegraph, common, labeling):
             self.node_incidence[v].append(u)
             self.set_edge_weight((u, v), wt)
             self.add_edge_attributes( (u, v), attrs )
+            self.set_edge_properties( (u, v), label=label, weight=wt )
 
 
     def del_node(self, node):

@@ -293,11 +293,11 @@ class test_digraph(unittest.TestCase):
         assert gr != gr6
         assert gr6 != gr
     
-    def test_graph_equality_labels(self):
+    def test_digraph_equality_labels(self):
         """
         Graph equality test. This one checks node equality. 
         """
-        gr = graph()
+        gr = digraph()
         gr.add_nodes([0,1,2])
         gr.add_edge((0,1), label="l1")
         gr.add_edge((1,2), label="l2")
@@ -311,7 +311,7 @@ class test_digraph(unittest.TestCase):
         gr4 = deepcopy(gr)
         gr4.del_edge((0,1))
         gr4.add_edge((0,1), label="l3")
-             
+        
         assert gr == gr2
         assert gr2 == gr
         assert gr != gr3
@@ -319,11 +319,11 @@ class test_digraph(unittest.TestCase):
         assert gr != gr4
         assert gr4 != gr
     
-    def test_graph_equality_attributes(self):
+    def test_digraph_equality_attributes(self):
         """
         Graph equality test. This one checks node equality. 
         """
-        gr = graph()
+        gr = digraph()
         gr.add_nodes([0,1,2])
         gr.add_edge((0,1))
         gr.add_node_attribute(1, ('a','x'))

@@ -43,7 +43,7 @@ class graph ( basegraph, common, labeling, ):
     
     Graphs are built of nodes and edges.
 
-    @sort:  __eq__, __init__, add_edge, add_node, del_edge, del_node, edges, has_edge, has_node,
+    @sort:  __eq__, __init__, __ne__, add_edge, add_node, del_edge, del_node, edges, has_edge, has_node,
     neighbors, node_order, nodes
     """
     

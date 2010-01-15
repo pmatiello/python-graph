@@ -10,6 +10,9 @@ Release 1.7.0	[??? ??, 2010]
 Enhancements:
 	Added equality test for graphs and digraphs.
 
+Fixes:
+	Adding an edge with a label to a digraph now works again.
+
 
 Release 1.6.3	[Dec 13, 2009]
 
