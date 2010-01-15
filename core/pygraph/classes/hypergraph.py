@@ -45,7 +45,7 @@ class hypergraph (basegraph, common, labeling):
     than two nodes.
     
     @sort: __init__, __len__, __str__, add_hyperedge, add_hyperedges, add_node, add_nodes,
-    del_edge, has_node, hyperedges, link, links, nodes, unlink
+    del_edge, has_node, has_edge, has_hyperedge, hyperedges, link, links, nodes, unlink
     """
 
     # Technically this isn't directed, but it gives us the right
@@ -91,11 +91,38 @@ class hypergraph (basegraph, common, labeling):
         @return: List of hyperedges in the graph.
         """
         return list(self.edge_links.keys())
+    
+    
+    def has_edge(self, hyperedge):
+        """
+        Return whether the requested node exists.
+
+        @type  hyperedge: hyperedge
+        @param hyperedge: Hyperedge identifier
+
+        @rtype:  boolean
+        @return: Truth-value for hyperedge existence.
+        """
+        return self.has_hyperedge(hyperedge)
+    
+    
+    def has_hyperedge(self, hyperedge):
+        """
+        Return whether the requested node exists.
+
+        @type  hyperedge: hyperedge
+        @param hyperedge: Hyperedge identifier
+
+        @rtype:  boolean
+        @return: Truth-value for hyperedge existence.
+        """
+        return hyperedge in self.edge_links
 
 
     def links(self, obj):
         """
-        Return all nodes connected by the given hyperedge.
+        Return all nodes connected by the given hyperedge or all hyperedges
+        connected to the given hypernode.
         
         @type  obj: hyperedge
         @param obj: Object identifier.
@@ -309,7 +336,16 @@ class hypergraph (basegraph, common, labeling):
         @rtype: boolean
         @return: Whether this hypergraph and the other are equal.
         """
-        return common.__eq__(self, other)
+        def links_eq():
+            for edge in self.edges():
+                for link in self.links(edge):
+                    if (link not in other.links(edge)): return False
+            for edge in other.edges():
+                for link in other.links(edge):
+                    if (link not in self.links(edge)): return False
+            return True
+        
+        return common.__eq__(self, other) and links_eq()
     
     def __ne__(self, other):
         """

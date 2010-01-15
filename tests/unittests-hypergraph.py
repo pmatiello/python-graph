@@ -173,9 +173,9 @@ class test_hypergraph(unittest.TestCase):
         assert len(gr) == gr.order()
         assert gr.order() == len( gr.node_links )
     
-    def test_graph_equality_nodes(self):
+    def test_hypergraph_equality_nodes(self):
         """
-        Graph equality test. This one checks node equality. 
+        Hyperaph equality test. This one checks node equality. 
         """
         gr = hypergraph()
         gr.add_nodes([0,1,2,3,4,5])
@@ -195,7 +195,34 @@ class test_hypergraph(unittest.TestCase):
         assert gr3 != gr
         assert gr != gr4
         assert gr4 != gr
+
+    def test_hypergraph_equality_edges(self):
+        """
+        Hyperaph equality test. This one checks edge equality. 
+        """
+        gr = hypergraph()
+        gr.add_nodes([0,1,2,3])
+        gr.add_edge('e1')
+        gr.add_edge('e2')
+        gr.link(0, 'e1')
+        gr.link(1, 'e1')
+        gr.link(1, 'e2')
+        gr.link(2, 'e2')
         
+        gr2 = deepcopy(gr)
+        
+        gr3 = deepcopy(gr)
+        gr3.del_edge('e2')
+        
+        gr4 = deepcopy(gr)
+        gr4.unlink(1, 'e2')
+        
+        assert gr == gr2
+        assert gr2 == gr
+        assert gr != gr3
+        assert gr3 != gr
+        assert gr != gr4
+        assert gr4 != gr  
 
 if __name__ == "__main__":
     unittest.main()

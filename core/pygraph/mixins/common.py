@@ -203,12 +203,10 @@ class common( object ):
             return True
         
         def edges_eq():
-            for node in self:
-                for edge in self[node]:
-                    if (not other.has_edge((node, edge))): return False
-            for node in other:
-                for edge in other[node]:
-                    if (not self.has_edge((node, edge))): return False
+            for edge in self.edges():
+                    if (not other.has_edge(edge)): return False
+            for edge in other.edges():
+                    if (not self.has_edge(edge)): return False
             return True
         
         return nodes_eq() and edges_eq()
