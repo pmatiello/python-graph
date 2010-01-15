@@ -33,7 +33,7 @@ from pygraph.algorithms.generators import generate
 from pygraph.classes.exceptions import AdditionError
 from pygraph.classes.hypergraph import hypergraph
 import testlib
-from copy import copy
+from copy import copy, deepcopy
 
 class test_hypergraph(unittest.TestCase):
 
@@ -172,6 +172,29 @@ class test_hypergraph(unittest.TestCase):
         gr = testlib.new_hypergraph()
         assert len(gr) == gr.order()
         assert gr.order() == len( gr.node_links )
+    
+    def test_graph_equality_nodes(self):
+        """
+        Graph equality test. This one checks node equality. 
+        """
+        gr = hypergraph()
+        gr.add_nodes([0,1,2,3,4,5])
+        
+        gr2 = deepcopy(gr)
+        
+        gr3 = deepcopy(gr)
+        gr3.del_node(5)
+        
+        gr4 = deepcopy(gr)
+        gr4.add_node(6)
+        gr4.del_node(0)
+        
+        assert gr == gr2
+        assert gr2 == gr
+        assert gr != gr3
+        assert gr3 != gr
+        assert gr != gr4
+        assert gr4 != gr
         
 
 if __name__ == "__main__":

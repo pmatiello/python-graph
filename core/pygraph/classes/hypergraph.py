@@ -298,3 +298,27 @@ class hypergraph (basegraph, common, labeling):
                 max_rank = len(self.edge_links[each])
                 
         return max_rank
+
+    def __eq__(self, other):
+        """
+        Return whether this hypergraph is equal to another one.
+        
+        @type other: hypergraph
+        @param other: Other hypergraph
+        
+        @rtype: boolean
+        @return: Whether this hypergraph and the other are equal.
+        """
+        return common.__eq__(self, other)
+    
+    def __ne__(self, other):
+        """
+        Return whether this hypergraph is not equal to another one.
+        
+        @type other: hypergraph
+        @param other: Other hypergraph
+        
+        @rtype: boolean
+        @return: Whether this hypergraph and the other are different.
+        """
+        return not (self == other)
