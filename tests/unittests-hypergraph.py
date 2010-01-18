@@ -222,7 +222,104 @@ class test_hypergraph(unittest.TestCase):
         assert gr != gr3
         assert gr3 != gr
         assert gr != gr4
-        assert gr4 != gr  
+        assert gr4 != gr
+    
+    def test_hypergraph_equality_labels(self):
+        """
+        Hyperaph equality test. This one checks edge equality. 
+        """
+        gr = hypergraph()
+        gr.add_nodes([0,1,2,3])
+        gr.add_edge('e1')
+        gr.add_edge('e2')
+        gr.add_edge('e3')
+        gr.set_edge_label('e1', 'l1')
+        gr.set_edge_label('e2', 'l2')
+        
+        gr2 = deepcopy(gr)
+        
+        gr3 = deepcopy(gr)
+        gr3.set_edge_label('e3', 'l3')
+        
+        gr4 = deepcopy(gr)
+        gr4.set_edge_label('e1', 'lx')
+        
+        gr5 = deepcopy(gr)
+        gr5.del_edge('e1')
+        gr5.add_edge('e1')
+        
+        assert gr == gr2
+        assert gr2 == gr
+        assert gr != gr3
+        assert gr3 != gr
+        assert gr != gr4
+        assert gr4 != gr
+        assert gr != gr5
+        assert gr5 != gr
+    
+    def test_hypergraph_equality_attributes(self):
+        """
+        Hyperaph equality test. This one checks edge equality. 
+        """
+        gr = hypergraph()
+        gr.add_nodes([0,1])
+        gr.add_edge('e1')
+        gr.add_edge('e2')
+        gr.add_node_attribute(0, ('a',0))
+        gr.add_edge_attribute('e1', ('b',1))
+        
+        gr2 = deepcopy(gr)
+        
+        gr3 = deepcopy(gr)
+        gr3.add_node_attribute(0, ('x','y'))
+        
+        gr4 = deepcopy(gr)
+        gr4.add_edge_attribute('e1', ('u','v'))
+        
+        gr5 = deepcopy(gr)
+        gr5.del_edge('e1')
+        gr5.add_edge('e1')
+        
+        gr6 = deepcopy(gr)
+        gr6.del_node(0)
+        gr6.add_node(0)
+        
+        assert gr == gr2
+        assert gr2 == gr
+        assert gr != gr3
+        assert gr3 != gr
+        assert gr != gr4
+        assert gr4 != gr
+        assert gr != gr5
+        assert gr5 != gr
+        assert gr != gr6
+        assert gr6 != gr
+        
+    def test_hypergraph_equality_weight(self):
+        """
+        Hyperaph equality test. This one checks edge equality. 
+        """
+        gr = hypergraph()
+        gr.add_nodes([0,1,2,3])
+        gr.add_edge('e1')
+        gr.add_edge('e2')
+        gr.add_edge('e3')
+        gr.set_edge_weight('e1', 2)
+        
+        gr2 = deepcopy(gr)
+        
+        gr3 = deepcopy(gr)
+        gr3.set_edge_weight('e3', 2)
+        
+        gr4 = deepcopy(gr)
+        gr4.set_edge_weight('e1', 1)
+        
+        assert gr == gr2
+        assert gr2 == gr
+        assert gr != gr3
+        assert gr3 != gr
+        assert gr != gr4
+        assert gr4 != gr
 
 if __name__ == "__main__":
     unittest.main()

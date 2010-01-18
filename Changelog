@@ -8,11 +8,13 @@ CHANGELOG
 Release 1.7.0	[??? ??, 2010]
 
 Enhancements:
-	Added equality test for graphs and digraphs.
+	Added equality test for graphs, digraphs and hypergraphs;
 	Added has_edge() and has_hyperedge() methods to hypergraph objects.
 
 Fixes:
-	Adding an edge with a label to a digraph now works again.
+	Adding an edge with a label to a digraph now works again;
+	Deleting an edge of a hypergraph now deletes its attributes;
+	Node attributes on hypergraphs work now.
 
 
 Release 1.6.3	[Dec 13, 2009]
@@ -25,7 +27,7 @@ Fixes:
 	Fixed the reading of graphs and digraphs stored in XML.
 
 Important API Changes:
-	Edges are now passed around as generic objects. In the case of graph / digraph this is a tuple.
+	Edges are now passed around as generic objects. In the case of graph / digraph this is a tuple;
 	Removed traversal() method from graph and digraph classes;
 	Removed accessibility, connected_components, cut_nodes and cut_hyperedges from hypergraph class;
 	Functions for reading a hypergraph doesn't take an empty hypergraph as argument anymore.

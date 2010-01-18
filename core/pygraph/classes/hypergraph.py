@@ -179,6 +179,7 @@ class hypergraph (basegraph, common, labeling):
         """
         if (not node in self.node_links):
             self.node_links[node] = []
+            self.node_attr[node] = []
             self.graph.add_node((node,'n'))
         else:
             raise AdditionError("Node %s already in graph" % node)
@@ -276,6 +277,7 @@ class hypergraph (basegraph, common, labeling):
                 self.node_links[n].remove(hyperedge)
 
             del(self.edge_links[hyperedge])
+            self.del_edge_labeling(hyperedge)
             self.graph.del_node((hyperedge,'h'))
             
 
@@ -345,7 +347,7 @@ class hypergraph (basegraph, common, labeling):
                     if (link not in self.links(edge)): return False
             return True
         
-        return common.__eq__(self, other) and links_eq()
+        return common.__eq__(self, other) and links_eq() and labeling.__eq__(self, other)
     
     def __ne__(self, other):
         """

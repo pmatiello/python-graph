@@ -212,9 +212,9 @@ class labeling( object ):
         
         def edges_eq():
             for edge in self.edges():
-                    if (self.edge_weight(edge) != other.edge_weight(edge)): return False
-                    if (self.edge_label(edge) != other.edge_label(edge)): return False
-                    if (not attrs_eq(self.edge_attributes(edge), other.edge_attributes(edge))): return False 
+                if (self.edge_weight(edge) != other.edge_weight(edge)): return False
+                if (self.edge_label(edge) != other.edge_label(edge)): return False
+                if (not attrs_eq(self.edge_attributes(edge), other.edge_attributes(edge))): return False 
             return True
         
         def nodes_eq():
