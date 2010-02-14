@@ -124,13 +124,13 @@ def write(G, weighted=False):
     else:
         dotG.set_name(G.name)
     
-    if (type(G) == graph):
+    if (isinstance(G, graph)):
         dotG.set_type('graph')
         directed = False
-    elif (type(G) == digraph):
+    elif (isinstance(G, digraph)):
         dotG.set_type('digraph')
         directed = True
-    elif (type(G) == hypergraph):
+    elif (isinstance(G, hypergraph)):
         return write_hypergraph(G)
     else:
         raise InvalidGraphType("Expected graph or digraph, got %s" %  repr(G) )

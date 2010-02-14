@@ -9,7 +9,8 @@ Release 1.7.0	[??? ??, 2010]
 
 Enhancements:
 	Added equality test for graphs, digraphs and hypergraphs;
-	Added has_edge() and has_hyperedge() methods to hypergraph objects.
+	Added has_edge() and has_hyperedge() methods to hypergraph objects;
+	Accepting subtypes of graph, digraph and hypergraph in dot-language output (Issue 64).
 
 Fixes:
 	Adding an edge with a label to a digraph now works again;
