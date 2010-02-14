@@ -49,6 +49,14 @@ def add_spanning_tree(gr, st):
         if ((st[each] is not None) and (not gr.has_edge((st[each], each)))): # Accepts invalid STs
             gr.add_edge((st[each], each))
 
+def bf_path(gr, root, target, remainder):
+    if (remainder <= 0): return True
+    if (root == target): return False
+    for each in gr[root]:
+        if (not bf_path(gr, each, target, remainder - gr.edge_weight((root, each)))):
+            return False
+    return True
+
 class test_minimal_spanning_tree(unittest.TestCase):
 
     def test_minimal_spanning_tree_on_graph(self):
@@ -69,16 +77,21 @@ class test_minimal_spanning_tree(unittest.TestCase):
 
 
 class test_shortest_path(unittest.TestCase):
-
+    
     def test_shortest_path_on_graph(self):
-        # Test stub: not checking for correctness yet
         gr = testlib.new_graph(wt_range=(1,10))
-        shortest_path(gr, 0)
+        st, dist = shortest_path(gr, 0)
+        for each in gr:
+            if (each in dist):
+                assert bf_path(gr, 0, each, dist[each])
     
     def test_shortest_path_on_digraph(self):
         # Test stub: not checking for correctness yet
         gr = testlib.new_digraph(wt_range=(1,10))
-        shortest_path(gr, 0)
+        st, dist = shortest_path(gr, 0)
+        for each in gr:
+            if (each in dist):
+                assert bf_path(gr, 0, each, dist[each])
 
 
 # Tests for heuristic search are not necessary here as it's tested in unittests-heuristics.py                                     
