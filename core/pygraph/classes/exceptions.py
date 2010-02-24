@@ -27,6 +27,7 @@
 Exceptions.
 """
 
+# Graph errors
 
 class GraphError(RuntimeError):
     """
@@ -53,5 +54,23 @@ class NodeUnreachable(GraphError):
 class InvalidGraphType(GraphError):
     """
     Invalid graph type.
+    """
+    pass
+
+# Algorithm errors
+
+class AlgorithmError(RuntimeError):
+    """
+    A base-class for the various kinds of errors that occur in the the 
+    algorithms package.
+    """
+    pass
+
+class NegativeWeightCycleError(AlgorithmError):
+    """
+    Algorithms like the Bellman-Ford algorithm can detect and raise an exception 
+    when they encounter a negative weight cycle.
+    
+    @see: pygraph.algorithms.shortest_path_bellman_ford
     """
     pass

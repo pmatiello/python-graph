@@ -2,6 +2,7 @@
 #                         Rhys Ulerich <rhys.ulerich@gmail.com>
 #                         Roy Smith <roy@panix.com>
 #                         Salim Fadhley <sal@stodge.org>
+#                         Tomaz Kovacic <tomaz.kovacic@gmail.com>
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation
@@ -28,11 +29,13 @@
 """
 Minimization and maximization algorithms.
 
-@sort: heuristic_search, minimal_spanning_tree, shortest_path
+@sort: heuristic_search, minimal_spanning_tree, shortest_path,
+shortest_path_bellman_ford
 """
 
 from pygraph.algorithms.utils import heappush, heappop
 from pygraph.classes.exceptions import NodeUnreachable
+from pygraph.classes.exceptions import NegativeWeightCycleError
 
 # Minimal spanning tree
 
@@ -124,7 +127,6 @@ def _lightest_edge(graph, visited):
 
 
 # Shortest Path
-# Code donated by Rhys Ulerich
 
 def shortest_path(graph, source):
     """
@@ -132,6 +134,8 @@ def shortest_path(graph, source):
     algorithm.
     
     @attention: All weights must be nonnegative.
+    
+    @see: shortest_path_bellman_ford
 
     @type  graph: graph, digraph
     @param graph: Graph.
@@ -172,6 +176,59 @@ def shortest_path(graph, source):
 
     return previous, dist
 
+
+
+def shortest_path_bellman_ford(graph, source):
+    """
+    Return the shortest path distance between the source node and all other 
+    nodes in the graph using Bellman-Ford's algorithm.
+    
+    This algorithm  is useful when you have a weighted (and obviously 
+    a directed) graph with negative weights.
+    
+    @attention: The algorithm can detect negative weight cycles and will raise 
+    an exception. It's meaningful only for directed weighted graphs.
+    
+    @see: shortest_path
+    
+    @raise NegativeWeightCycleError: raises if it finds a negative weight cycle.
+    If this condition is met d(v) > d(u) + W(u, v) then raise the error. 
+    
+    @type graph: digraph
+    @param graph: weighted directed graph
+    
+    @type source: node
+    @param source: source node of the graph
+    
+    @rtype: tuple 
+    @return: A tuple containing two dictionaries, each keyed by target nodes.
+    (same as shortest_path function that implements Dijkstra's algorithm)
+        1. Shortest path spanning tree
+        2. Shortest distance from given source to each target node
+    """
+    # initialize the required data structures       
+    distance = {source : 0}
+    predecessor = {source : None}
+    
+    # iterate and relax edges    
+    for i in xrange(1,graph.order()-1):
+        for src,dst in graph.edges():
+            if (src in distance) and (dst not in distance):
+                distance[dst] = distance[src] + graph.edge_weight((src,dst))
+                predecessor[dst] = src
+            elif (src  in distance) and (dst in distance) and \
+            distance[src] + graph.edge_weight((src,dst)) < distance[dst]:
+                distance[dst] = distance[src] + graph.edge_weight((src,dst))
+                predecessor[dst] = src
+                
+    # detect negative weight cycles
+    for src,dst in graph.edges():
+        if distance[src] + graph.edge_weight((src,dst)) < distance[dst]:
+            raise NegativeWeightCycleError("Detected a negative weight cycle on edge (%s, %s)" % (src,dst))
+        
+    return predecessor, distance
+        
+#Heuristics search
 
 def heuristic_search(graph, start, goal, heuristic):
     """
