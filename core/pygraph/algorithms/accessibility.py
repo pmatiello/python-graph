@@ -152,7 +152,8 @@ def cut_edges(graph):
     """
     Return the cut-edges of the given graph.
     
-    Cut-edges are edges whose removal increases the number of connected components in the graph.
+    A cut edge, or bridge, is an edge of a graph whose removal increases the number of connected
+    components in the graph.
     
     @type  graph: graph, hypergraph
     @param graph: Graph.
@@ -202,7 +203,8 @@ def cut_nodes(graph):
     """
     Return the cut-nodes of the given graph.
     
-    Cut-nodes are nodes whose removal increases the number of connected components in the graph.
+    A cut node, or articulation point, is a node of a graph whose removal increases the number of
+    connected components in the graph.
     
     @type  graph: graph, hypergraph
     @param graph: Graph.
