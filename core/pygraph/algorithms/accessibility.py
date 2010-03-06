@@ -166,8 +166,8 @@ def cut_edges(graph):
     if 'hypergraph' == graph.__class__.__name__:
         return _cut_hyperedges(graph)
 
-    pre = {}
-    low = {}
+    pre = {}    # Pre-ordering
+    low = {}    # Lowest pre[] reachable from this node going down the spanning tree + one backedge
     spanning_tree = {}
     reply = []
     pre[None] = 0
@@ -296,6 +296,20 @@ def _cut_dfs(graph, spanning_tree, pre, low, reply, node):
     pre[node] = pre[None]
     low[node] = pre[None]
     pre[None] = pre[None] + 1
+    
+    # This works by creating a spanning tree for the graph and keeping track of the preorder number
+    # of each node in the graph in pre[]. The low[] number for each node tracks the pre[] number of
+    # the node with lowest pre[] number reachable from the first node.
+    #
+    # An edge (u, v) will be a cut-edge low[u] == pre[v]. Suppose v under the spanning subtree with
+    # root u. This means that, from u, through a path inside this subtree, followed by an backarc,
+    # one can not get out the subtree. So, (u, v) is the only connection between this subtree and
+    # the remaining parts of the graph and, when removed, will increase the number of connected
+    # components.
+    
+    # Similarly, a node u will be a cut node if any of the nodes v in the spanning subtree rooted in
+    # u are so that low[v] > pre[u], which means that there's no path from v to outside this subtree
+    # without passing through u.
     
     for each in graph[node]:
         if (each not in pre):
