@@ -31,6 +31,7 @@ Search algorithms.
 
 # Imports
 from pygraph.algorithms.filters.null import null
+from sys import getrecursionlimit, setrecursionlimit
 
 
 # Depth-first search
@@ -51,6 +52,9 @@ def depth_first_search(graph, root=None, filter=null()):
         2. Graph's preordering
         3. Graph's postordering
     """
+    
+    recursionlimit = getrecursionlimit()
+    setrecursionlimit(max(len(graph.nodes())*2,recursionlimit))
 
     def dfs(node):
         """
@@ -76,6 +80,7 @@ def depth_first_search(graph, root=None, filter=null()):
         if filter(root, None):
             spanning_tree[root] = None
             dfs(root)
+        setrecursionlimit(recursionlimit)
         return spanning_tree, pre, post
     
     # Algorithm loop
@@ -86,6 +91,8 @@ def depth_first_search(graph, root=None, filter=null()):
             # Explore node's connected component
             dfs(each)
 
+    setrecursionlimit(recursionlimit)
+    
     return (spanning_tree, pre, post)
 
 

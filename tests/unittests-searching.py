@@ -32,6 +32,7 @@ import unittest
 import pygraph
 import pygraph.classes
 from pygraph.algorithms.searching import depth_first_search, breadth_first_search
+from sys import getrecursionlimit
 import testlib
 
 
@@ -70,7 +71,15 @@ class test_depth_first_search(unittest.TestCase):
                 assert post.index(each) < post.index(st[each])
         for node in st:
             assert gr.has_edge((st[node], node)) or st[node] == None
-
+    
+    def test_dfs_very_deep_graph(self):
+        gr = pygraph.classes.graph.graph()
+        gr.add_nodes(xrange(0,20001))
+        for i in xrange(0,20000):
+            gr.add_edge((i,i+1))
+        recursionlimit = getrecursionlimit()
+        depth_first_search(gr, 0)
+        assert getrecursionlimit() == recursionlimit
 
 class test_breadth_first_search(unittest.TestCase):
 
