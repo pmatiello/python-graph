@@ -33,6 +33,7 @@ from pygraph.algorithms.cycles import find_cycle
 from pygraph.algorithms.searching import depth_first_search
 from pygraph.classes.digraph import digraph
 from pygraph.classes.graph import graph
+from sys import getrecursionlimit
 import testlib
 
 
@@ -80,6 +81,15 @@ class test_find_cycle(unittest.TestCase):
         gr.add_edge((2, 1))
         # Cycle: 1-2
         assert find_cycle(gr) == [1,2]
+    
+    def test_find_cycle_on_very_deep_graph(self):
+        gr = pygraph.classes.graph.graph()
+        gr.add_nodes(range(0,20001))
+        for i in range(0,20000):
+            gr.add_edge((i,i+1))
+        recursionlimit = getrecursionlimit()
+        find_cycle(gr)
+        assert getrecursionlimit() == recursionlimit
 
     # Regression
     

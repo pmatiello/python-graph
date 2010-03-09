@@ -33,6 +33,7 @@ Cycle detection algorithms.
 from pygraph.classes.exceptions import InvalidGraphType
 from pygraph.classes.digraph import digraph as digraph_class
 from pygraph.classes.graph import graph as graph_class
+from sys import getrecursionlimit, setrecursionlimit
 
 def find_cycle(graph):
     """
@@ -82,8 +83,11 @@ def find_cycle(graph):
                 spanning_tree[each] = node
                 dfs(each)
             else:
-                if (directed or spanning_tree[node] is not each):
+                if (directed or spanning_tree[node] != each):
                     cycle.extend(find_cycle_to_ancestor(node, each))
+
+    recursionlimit = getrecursionlimit()
+    setrecursionlimit(max(len(graph.nodes())*2,recursionlimit))
 
     visited = {}              # List for marking visited and non-visited nodes
     spanning_tree = {}        # Spanning tree
@@ -97,6 +101,8 @@ def find_cycle(graph):
             # Explore node's connected component
             dfs(each)
             if (cycle):
+                setrecursionlimit(recursionlimit)
                 return cycle
 
+    setrecursionlimit(recursionlimit)
     return []

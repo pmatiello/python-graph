@@ -15,7 +15,8 @@ Enhancements:
 Fixes:
 	Adding an edge with a label to a digraph now works again;
 	Deleting an edge of a hypergraph now deletes its attributes;
-	Node attributes on hypergraphs work now.
+	Node attributes on hypergraphs work now;
+	Checking for node equality correctly in find_cycle.
 
 
 Release 1.6.3	[Dec 13, 2009]
