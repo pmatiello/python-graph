@@ -211,7 +211,7 @@ def shortest_path_bellman_ford(graph, source):
     predecessor = {source : None}
     
     # iterate and relax edges    
-    for i in xrange(1,graph.order()-1):
+    for i in range(1,graph.order()-1):
         for src,dst in graph.edges():
             if (src in distance) and (dst not in distance):
                 distance[dst] = distance[src] + graph.edge_weight((src,dst))
