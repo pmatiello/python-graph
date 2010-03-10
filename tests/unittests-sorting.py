@@ -31,6 +31,7 @@ import unittest
 import pygraph.classes
 from pygraph.algorithms.sorting import topological_sorting
 from pygraph.algorithms.searching import depth_first_search
+from sys import getrecursionlimit
 import testlib
 
 
@@ -75,6 +76,15 @@ class test_topological_sorting(unittest.TestCase):
         while (ts):
             x = ts.pop()
             assert is_ordered(x, ts)
+
+    def test_topological_sort_on_very_deep_graph(self):
+        gr = pygraph.classes.graph.graph()
+        gr.add_nodes(range(0,20001))
+        for i in range(0,20000):
+            gr.add_edge((i,i+1))
+        recursionlimit = getrecursionlimit()
+        topological_sorting(gr)
+        assert getrecursionlimit() == recursionlimit
             
 if __name__ == "__main__":
     unittest.main()
