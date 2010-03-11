@@ -37,6 +37,7 @@ from pygraph.algorithms.accessibility import cut_nodes
 from pygraph.algorithms.accessibility import cut_edges
 from pygraph.classes.hypergraph import hypergraph
 from copy import deepcopy
+from sys import getrecursionlimit
 import testlib
 
 def number_of_connected_components(cc):
@@ -82,6 +83,16 @@ class test_accessibility(unittest.TestCase):
                 else:
                     assert m not in depth_first_search(gr, n)[0]
 
+    
+    def test_accessibility_on_very_deep_graph(self):
+        gr = pygraph.classes.graph.graph()
+        gr.add_nodes(range(0,2001))
+        for i in range(0,2000):
+            gr.add_edge((i,i+1))
+        recursionlimit = getrecursionlimit()
+        accessibility(gr)
+        assert getrecursionlimit() == recursionlimit
+
     def test_mutual_accessibility_in_graph(self):
         gr = testlib.new_graph()
         gr.add_nodes(['a','b','c'])
@@ -97,19 +108,14 @@ class test_accessibility(unittest.TestCase):
                 else:
                     assert m not in depth_first_search(gr, n)[0] or n not in depth_first_search(gr, m)[0]
     
-    def test_connected_components_in_graph(self):
-        gr = testlib.new_graph()
-        gr.add_nodes(['a','b','c'])
-        gr.add_edge(('a','b'))
-        
-        cc = connected_components(gr)
-        
-        for n in gr:
-            for m in gr:
-                if (cc[n] == cc[m]):
-                    assert m in depth_first_search(gr, n)[0]
-                else:
-                    assert m not in depth_first_search(gr, n)[0]
+    def test_mutual_accessibility_on_very_deep_graph(self):
+        gr = pygraph.classes.graph.graph()
+        gr.add_nodes(range(0,5001))
+        for i in range(0,5000):
+            gr.add_edge((i,i+1))
+        recursionlimit = getrecursionlimit()
+        mutual_accessibility(gr)
+        assert getrecursionlimit() == recursionlimit
     
     def test_mutual_accessibility_in_digraph(self):
         gr = testlib.new_digraph()
@@ -126,6 +132,29 @@ class test_accessibility(unittest.TestCase):
                     assert n in depth_first_search(gr, m)[0]
                 else:
                     assert m not in depth_first_search(gr, n)[0] or n not in depth_first_search(gr, m)[0]
+                    
+    def test_connected_components_in_graph(self):
+        gr = testlib.new_graph()
+        gr.add_nodes(['a','b','c'])
+        gr.add_edge(('a','b'))
+        
+        cc = connected_components(gr)
+        
+        for n in gr:
+            for m in gr:
+                if (cc[n] == cc[m]):
+                    assert m in depth_first_search(gr, n)[0]
+                else:
+                    assert m not in depth_first_search(gr, n)[0]
+
+    def test_connected_components_on_very_deep_graph(self):
+        gr = pygraph.classes.graph.graph()
+        gr.add_nodes(range(0,5001))
+        for i in range(0,5000):
+            gr.add_edge((i,i+1))
+        recursionlimit = getrecursionlimit()
+        connected_components(gr)
+        assert getrecursionlimit() == recursionlimit
     
     def test_cut_nodes_in_graph(self):
         gr = testlib.new_graph()
@@ -143,6 +172,15 @@ class test_accessibility(unittest.TestCase):
             number_of_connected_components(connected_components(gr)) > before
             gr = gr_copy
     
+    def test_cut_nodes_on_very_deep_graph(self):
+        gr = pygraph.classes.graph.graph()
+        gr.add_nodes(range(0,5001))
+        for i in range(0,5000):
+            gr.add_edge((i,i+1))
+        recursionlimit = getrecursionlimit()
+        cut_nodes(gr)
+        assert getrecursionlimit() == recursionlimit
+    
     def test_cut_edges_in_graph(self):
         gr = testlib.new_graph()
         gr.add_nodes(['x','y'])
@@ -159,6 +197,14 @@ class test_accessibility(unittest.TestCase):
             number_of_connected_components(connected_components(gr)) > before
             gr = gr_copy
 
+    def test_cut_edges_on_very_deep_graph(self):
+        gr = pygraph.classes.graph.graph()
+        gr.add_nodes(range(0,5001))
+        for i in range(0,5000):
+            gr.add_edge((i,i+1))
+        recursionlimit = getrecursionlimit()
+        cut_edges(gr)
+        assert getrecursionlimit() == recursionlimit
 
     def test_accessibility_hypergraph(self):
         gr = hypergraph()

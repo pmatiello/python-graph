@@ -28,6 +28,10 @@ Accessibility algorithms.
 @sort: accessibility, connected_components, cut_edges, cut_nodes, mutual_accessibility
 """
 
+
+# Imports
+from sys import getrecursionlimit, setrecursionlimit
+
 # Transitive-closure
 
 def accessibility(graph):
@@ -40,6 +44,9 @@ def accessibility(graph):
     @rtype:  dictionary
     @return: Accessibility information for each node.
     """
+    recursionlimit = getrecursionlimit()
+    setrecursionlimit(max(len(graph.nodes())*2,recursionlimit))
+    
     accessibility = {}        # Accessibility matrix
 
     # For each node i, mark each node j if that exists a path from i to j.
@@ -48,6 +55,8 @@ def accessibility(graph):
         # Perform DFS to explore all reachable nodes
         _dfs(graph, access, 1, each)
         accessibility[each] = list(access.keys())
+    
+    setrecursionlimit(recursionlimit)
     return accessibility
 
 
@@ -63,6 +72,9 @@ def mutual_accessibility(graph):
     @rtype:  dictionary
     @return: Mutual-accessibility information for each node.
     """
+    recursionlimit = getrecursionlimit()
+    setrecursionlimit(max(len(graph.nodes())*2,recursionlimit))
+    
     mutual_access = {}
     stack = []
     low = {}
@@ -93,6 +105,7 @@ def mutual_accessibility(graph):
     for node in graph:
         visit(node)
     
+    setrecursionlimit(recursionlimit)
     return mutual_access
 
 
@@ -108,6 +121,9 @@ def connected_components(graph):
     @rtype:  dictionary
     @return: Pairing that associates each node to its connected component.
     """
+    recursionlimit = getrecursionlimit()
+    setrecursionlimit(max(len(graph.nodes())*2,recursionlimit))
+    
     visited = {}
     count = 1
 
@@ -118,6 +134,7 @@ def connected_components(graph):
             _dfs(graph, visited, count, each)
             count = count + 1
     
+    setrecursionlimit(recursionlimit)
     return visited
 
 
@@ -175,6 +192,8 @@ def cut_edges(graph):
     @rtype:  list
     @return: List of cut-edges.
     """
+    recursionlimit = getrecursionlimit()
+    setrecursionlimit(max(len(graph.nodes())*2,recursionlimit))
 
     # Dispatch if we have a hypergraph
     if 'hypergraph' == graph.__class__.__name__:
@@ -190,6 +209,8 @@ def cut_edges(graph):
         if (each not in pre):
             spanning_tree[each] = None
             _cut_dfs(graph, spanning_tree, pre, low, reply, each)
+    
+    setrecursionlimit(recursionlimit)
     return reply
 
 
@@ -226,6 +247,8 @@ def cut_nodes(graph):
     @rtype:  list
     @return: List of cut-nodes.
     """
+    recursionlimit = getrecursionlimit()
+    setrecursionlimit(max(len(graph.nodes())*2,recursionlimit))
     
     # Dispatch if we have a hypergraph
     if 'hypergraph' == graph.__class__.__name__:
@@ -261,6 +284,7 @@ def cut_nodes(graph):
             if (children >= 2):
                 reply[each] = 1
 
+    setrecursionlimit(recursionlimit)
     return list(reply.keys())
 
 
