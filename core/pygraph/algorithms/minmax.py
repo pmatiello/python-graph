@@ -1,4 +1,5 @@
 # Copyright (c) 2007-2009 Pedro Matiello <pmatiello@gmail.com>
+#                         Johannes Reinhardt <jreinhardt@ist-dein-freund.de>
 #                         Rhys Ulerich <rhys.ulerich@gmail.com>
 #                         Roy Smith <roy@panix.com>
 #                         Salim Fadhley <sal@stodge.org>
@@ -183,7 +184,7 @@ def shortest_path_bellman_ford(graph, source):
     Return the shortest path distance between the source node and all other 
     nodes in the graph using Bellman-Ford's algorithm.
     
-    This algorithm  is useful when you have a weighted (and obviously 
+    This algorithm is useful when you have a weighted (and obviously 
     a directed) graph with negative weights.
     
     @attention: The algorithm can detect negative weight cycles and will raise 
@@ -191,14 +192,14 @@ def shortest_path_bellman_ford(graph, source):
     
     @see: shortest_path
     
-    @raise NegativeWeightCycleError: raises if it finds a negative weight cycle.
-    If this condition is met d(v) > d(u) + W(u, v) then raise the error. 
-    
     @type graph: digraph
-    @param graph: weighted directed graph
+    @param graph: Digraph
     
     @type source: node
-    @param source: source node of the graph
+    @param source: Source node of the graph
+    
+    @raise NegativeWeightCycleError: raises if it finds a negative weight cycle.
+    If this condition is met d(v) > d(u) + W(u, v) then raise the error. 
     
     @rtype: tuple 
     @return: A tuple containing two dictionaries, each keyed by target nodes.
@@ -303,3 +304,97 @@ def _reconstruct_path(node, parents):
     while node is not None:
         yield node
         node = parents[node]
+
+# Max-flow / Min-cut
+
+def maximum_flow(graph, source, sink, caps = None):
+    """
+    Finds a maximum flow and minimum cut of a directed graph by the Edmonds-Karp algorithm
+
+    @type graph: digraph
+    @param graph: Digraph
+
+    @type source: node
+    @param source: Source of the flow
+
+    @type sink: node
+    @param sink: Sink of the flow
+
+    @type caps: dictionary
+    @param caps: Dictionary containing a maximum capacity for each edge. Defaults to the weights of the edges.
+    
+    @rtype: tuple
+    @return: A tuple containing two dictionaries
+        1. contains the flow through each edge for a maximal flow through the graph
+        2. contains to which component of a minimum cut each node belongs
+    """
+
+    #handle optional argument
+    if caps == None:
+        caps = {}
+        for edge in graph.edges():
+            caps[edge] = graph.edge_weight((edge[0],edge[1]))    
+    
+    #data structures to maintain
+    f = {}.fromkeys(graph.edges(),0)    
+    label = {}.fromkeys(graph.nodes(),[])
+    label[source] = ['-',float('Inf')]
+    u = {}.fromkeys(graph.nodes(),False)
+    d = {}.fromkeys(graph.nodes(),float('Inf'))
+    #queue for labelling
+    q = [source]
+
+    finished = False
+    while not finished:
+        #choose first labelled vertex with u == false
+        for i in range(len(q)):
+            if not u[q[i]]:
+                v = q.pop(i)
+                break
+
+        #find augmenting path
+        for w in graph.neighbors(v):
+            if label[w] == [] and f[(v,w)] < caps[(v,w)]:
+                d[w] = min(caps[(v,w)] - f[(v,w)],d[v])
+                label[w] = [v,'',d[w]]
+                q.append(w)
+        for w in graph.incidents(v):
+            if label[w] == [] and f[(w,v)] > 0:
+                d[w] = min(f[(w,v)],d[v])
+                label[w] = [v,'-',d[w]]
+                q.append(w)
+
+        u[v] = True
+
+        #extend flow by augmenting path        
+        if label[sink] != []:
+            delta = label[sink][-1]
+            w = sink
+            while w != source:
+                v = label[w][0]
+                if label[w][1] == '-':
+                    f[(w,v)] = f[(w,v)] - delta
+                else:
+                    f[(v,w)] = f[(v,w)] + delta
+                w = v
+            #reset labels
+            label = {}.fromkeys(graph.nodes(),[])
+            label[source] = ['-',float('Inf')]
+            q = [source]
+            u = {}.fromkeys(graph.nodes(),False)
+            d = {}.fromkeys(graph.nodes(),float('Inf'))
+
+        #check whether finished
+        finished = True
+        for node in graph.nodes():
+            if label[node] != [] and u[node] == False:
+                finished = False
+
+    #find the two components of the cut
+    cut = {}
+    for node in graph.nodes():
+        if label[node] == []:
+            cut[node] = 1
+        else:
+            cut[node] = 0
+    return (f,cut)

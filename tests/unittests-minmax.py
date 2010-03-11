@@ -34,7 +34,7 @@ from pygraph.classes.digraph import digraph
 
 from pygraph.algorithms.searching import depth_first_search
 from pygraph.algorithms.minmax import minimal_spanning_tree,\
-shortest_path, heuristic_search, shortest_path_bellman_ford
+shortest_path, heuristic_search, shortest_path_bellman_ford, maximum_flow
 from pygraph.algorithms.heuristics.chow import chow
 from pygraph.classes.exceptions import NegativeWeightCycleError
 
@@ -149,6 +149,26 @@ class test_shortest_path_bellman_ford(unittest.TestCase):
         else:
             self.fail()
 
+
+class test_maxflow_mincut(unittest.TestCase):
+    
+    def test_trivial_maxflow(self):
+         gr = digraph()
+         gr.add_nodes([0,1,2,3])
+         gr.add_edge((0,1), wt=5)
+         gr.add_edge((1,2), wt=3)
+         gr.add_edge((2,3), wt=7)
+         flows, cuts = maximum_flow(gr, 0, 3)
+         assert flows[(0,1)] == 3
+         assert flows[(1,2)] == 3
+         assert flows[(2,3)] == 3
+    
+    def test_random_maxflow(self):
+         gr = testlib.new_digraph(wt_range=(1,20))
+         flows, cuts = maximum_flow(gr, 0, 1)
+         # Sanity test
+         for each in flows:
+             assert gr.edge_weight(each) >= flows[each]
 
 # Tests for heuristic search are not necessary here as it's tested 
 # in unittests-heuristics.py                                     
