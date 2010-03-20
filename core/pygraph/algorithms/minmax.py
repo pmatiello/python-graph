@@ -309,7 +309,7 @@ def _reconstruct_path(node, parents):
 
 def maximum_flow(graph, source, sink, caps = None):
     """
-    Finds a maximum flow and minimum cut of a directed graph by the Edmonds-Karp algorithm
+    Finds a maximum flow and minimum cut of a directed graph by the Edmonds-Karp algorithm.
 
     @type graph: digraph
     @param graph: Digraph

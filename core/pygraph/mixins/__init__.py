@@ -25,7 +25,9 @@
 """
 Mixins.
 
-Base graph classes that all graph types should extend.
+Base classes used to compose the the graph classes.
+
+The classes in this namespace should not be used directly.
 """
 
 __import__('pkg_resources').declare_namespace(__name__)
