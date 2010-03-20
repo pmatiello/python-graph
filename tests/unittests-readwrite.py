@@ -71,6 +71,17 @@ class test_readwrite_dot(unittest.TestCase):
         dotstr = dot.write(gr1)
         gr2 = dot.read_hypergraph(dotstr)  
         graph_equality(gr1, gr2)
+    
+    def test_output_names_in_dot(self):
+        gr1 = testlib.new_graph()
+        gr1.name = "Some name 1"
+        gr2 = testlib.new_digraph()
+        gr2.name = "Some name 2"
+        gr3 = testlib.new_hypergraph()
+        gr3.name = "Some name 3"
+        assert "Some name 1" in dot.write(gr1)
+        assert "Some name 2" in dot.write(gr2)
+        assert "Some name 3" in dot.write(gr3)
 
 class test_readwrite_markup(unittest.TestCase):
 
