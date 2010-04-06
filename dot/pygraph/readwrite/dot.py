@@ -77,9 +77,9 @@ def read(string):
     # Read edges...
     for each_edge in dotG.get_edges():
         # Check if the nodes have been added
-        if not dotG.get_node(each_edge.get_source()):
+        if not G.has_node(each_edge.get_source()):
             G.add_node(each_edge.get_source())
-        if not dotG.get_node(each_edge.get_destination()):
+        if not G.has_node(each_edge.get_destination()):
             G.add_node(each_edge.get_destination())
         
         # See if there's a weight
