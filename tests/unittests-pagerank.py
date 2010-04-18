@@ -84,7 +84,7 @@ class test_pagerank(unittest.TestCase):
         }
         pr = pagerank(G)
         for k in pr:
-            self.assertAlmostEqual(pr[k], expected_pagerank[k], 3)
+            self.assertAlmostEqual(pr[k], expected_pagerank[k], places=3)
         
 if __name__ == "__main__":
     unittest.main()
