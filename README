@@ -80,6 +80,9 @@ Johannes Reinhardt <jreinhardt@ist-dein-freund.de>
 	* Maximum-flow algorithm;
 	* Refactoring.
 
+Juarez Bochi <jbochi@gmail.com>
+	* Pagerank algorithm.
+
 Nathan Davis <davisn90210@gmail.com>
 	* Faster node insertion.
 
