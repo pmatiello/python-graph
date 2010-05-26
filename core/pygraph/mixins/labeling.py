@@ -119,6 +119,8 @@ class labeling( object ):
             
     def set_edge_properties(self, edge, **properties ):
         self.edge_properties.setdefault( edge, {} ).update( properties )
+        if (not self.DIRECTED and edge[0] != edge[1]):
+            self.edge_properties.setdefault((edge[1], edge[0]), {}).update( properties )
         
     def get_edge_properties(self, edge):
         return self.edge_properties.setdefault( edge, {} )
@@ -135,7 +137,7 @@ class labeling( object ):
         """
         self.edge_attr[edge] = self.edge_attributes(edge) + [attr]
         
-        if not self.DIRECTED:
+        if (not self.DIRECTED and edge[0] != edge[1]):
             self.edge_attr[(edge[1],edge[0])] = self.edge_attributes((edge[1], edge[0])) + [attr]
     
     def add_edge_attributes(self, edge, attrs):

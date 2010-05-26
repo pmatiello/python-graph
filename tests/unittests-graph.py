@@ -102,6 +102,31 @@ class test_graph(unittest.TestCase):
         gr.add_node(0)
         gr.add_edge((0, 0))
         gr.del_node(0)
+    
+    def test_edges_between_different_nodes_should_be_arrows_in_both_ways(self):
+        gr = graph()
+        gr.add_nodes([0,1])
+        gr.add_edge((0,1), label="label", attrs=[('key','value')])
+        assert (0,1) in gr.edges()
+        assert (1,0) in gr.edges()
+        assert len(gr.edges()) == 2
+        assert gr.neighbors(0) == [1]
+        assert gr.neighbors(1) == [0]
+        assert (0,1) in gr.edge_properties.keys()
+        assert (1,0) in gr.edge_properties.keys()
+        assert (0,1) in gr.edge_attr.keys()
+        assert (1,0) in gr.edge_attr.keys()
+    
+    def test_edges_between_different_nodes_should_be_a_single_arrow(self):
+        gr = graph()
+        gr.add_node(0)
+        gr.add_edge((0,0), label="label", attrs=[('key','value')])
+        assert (0,0) in gr.edges()
+        assert len(gr.edges()) == 1
+        assert gr.neighbors(0) == [0]
+        assert (0,0) in gr.edge_properties.keys()
+        assert (0,0) in gr.edge_attr.keys()
+        assert len(gr.edge_attr[(0,0)]) == 1
 
     
     # Invert graph

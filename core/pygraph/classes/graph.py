@@ -142,12 +142,11 @@ class graph ( basegraph, common, labeling, ):
         u, v = edge
         if (v not in self.node_neighbors[u] and u not in self.node_neighbors[v]):
             self.node_neighbors[u].append(v)
-            self.node_neighbors[v].append(u)
-            self.add_edge_attributes((u,v), attrs)
-            self.add_edge_attributes((v,u), attrs) # TODO: This is redundant
-                        
+            if (u != v):
+                self.node_neighbors[v].append(u)
+                
+            self.add_edge_attributes((u,v), attrs)        
             self.set_edge_properties( (u, v), label=label, weight=wt )
-            self.set_edge_properties( (v, u), label=label, weight=wt ) # TODO: This is redundant
         else:
             raise AdditionError("Edge (%s, %s) already in graph" % (u, v))
 
