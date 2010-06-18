@@ -72,7 +72,7 @@ def find_cycle(graph):
     
     def dfs(node):
         """
-        Depht-first search subfunction.
+        Depth-first search subfunction.
         """
         visited[node] = 1
         # Explore recursively the connected component

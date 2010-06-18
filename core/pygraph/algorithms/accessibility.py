@@ -142,7 +142,7 @@ def connected_components(graph):
 
 def _dfs(graph, visited, count, node):
     """
-    Depht-first search subfunction adapted for accessibility algorithms.
+    Depth-first search subfunction adapted for accessibility algorithms.
     
     @type  graph: graph, digraph, hypergraph
     @param graph: Graph.

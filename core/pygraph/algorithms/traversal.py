@@ -63,7 +63,7 @@ def traversal(graph, node, order):
 
 def _dfs(graph, visited, node, pre, post):
     """
-    Depht-first search subfunction for traversals.
+    Depth-first search subfunction for traversals.
     
     @type  graph: graph, digraph
     @param graph: Graph.
