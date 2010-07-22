@@ -321,7 +321,8 @@ def maximum_flow(graph, source, sink, caps = None):
     @param sink: Sink of the flow
 
     @type caps: dictionary
-    @param caps: Dictionary containing a maximum capacity for each edge. Defaults to the weights of the edges.
+    @param caps: Dictionary specifying a maximum capacity for each edge. If not given, the weight of the edge
+    will be used as its capacity. Otherwise, for each edge (a,b), caps[(a,b)] should be given.
     
     @rtype: tuple
     @return: A tuple containing two dictionaries
