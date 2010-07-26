@@ -89,7 +89,15 @@ class test_pagerank(unittest.TestCase):
     
     def test_pagerank_random(self):
         G = testlib.new_digraph()
-        pagerank(G)
+        md = 0.00001
+        df = 0.85
+        pr = pagerank(G, damping_factor=df, min_delta=md)
+        min_value = (1.0-df)/len(G)
+        for node in G:
+            expected = min_value
+            for each in G.incidents(node):
+                expected += (df * pr[each] / len(G.neighbors(each)))
+            assert abs(pr[node] - expected) < md
         
 if __name__ == "__main__":
     unittest.main()
