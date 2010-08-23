@@ -78,6 +78,7 @@ Eugen Zagorodniy <e.zagorodniy@gmail.com>
 
 Johannes Reinhardt <jreinhardt@ist-dein-freund.de>
 	* Maximum-flow algorithm;
+	* Gomory-Hu cut-tree algorithm;
 	* Refactoring.
 
 Juarez Bochi <jbochi@gmail.com>

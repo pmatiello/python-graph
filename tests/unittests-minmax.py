@@ -1,4 +1,5 @@
 # Copyright (c) Pedro Matiello <pmatiello@gmail.com>
+#               Johannes Reinhardt <jreinhardt@ist-dein-freund.de>
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation
@@ -34,7 +35,7 @@ from pygraph.classes.digraph import digraph
 
 from pygraph.algorithms.searching import depth_first_search
 from pygraph.algorithms.minmax import minimal_spanning_tree,\
-shortest_path, heuristic_search, shortest_path_bellman_ford, maximum_flow
+shortest_path, heuristic_search, shortest_path_bellman_ford, maximum_flow, cut_tree
 from pygraph.algorithms.heuristics.chow import chow
 from pygraph.classes.exceptions import NegativeWeightCycleError
 
@@ -172,6 +173,32 @@ class test_maxflow_mincut(unittest.TestCase):
 
 # Tests for heuristic search are not necessary here as it's tested 
 # in unittests-heuristics.py                                     
-            
+
+class test_cut_tree(unittest.TestCase):
+    
+    def test_cut_tree(self):
+        #set up the graph (see example on wikipedia page for Gomory-Hu tree)
+        gr = graph()
+        gr.add_nodes([0,1,2,3,4,5])
+        gr.add_edge((0,1), wt=1)
+        gr.add_edge((0,2), wt=7)
+        gr.add_edge((1,3), wt=3)
+        gr.add_edge((1,2), wt=1)
+        gr.add_edge((1,4), wt=2)
+        gr.add_edge((2,4), wt=4)
+        gr.add_edge((3,4), wt=1)
+        gr.add_edge((3,5), wt=6)
+        gr.add_edge((4,5), wt=2)
+
+        ct = cut_tree(gr)
+
+        #check ct
+        assert ct[(2,0)] == 8
+        assert ct[(4,2)] == 6
+        assert ct[(1,4)] == 7
+        assert ct[(3,1)] == 6
+        assert ct[(5,3)] == 8
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -37,6 +37,7 @@ shortest_path_bellman_ford
 from pygraph.algorithms.utils import heappush, heappop
 from pygraph.classes.exceptions import NodeUnreachable
 from pygraph.classes.exceptions import NegativeWeightCycleError
+from pygraph.classes.digraph import digraph
 
 # Minimal spanning tree
 
@@ -305,14 +306,14 @@ def _reconstruct_path(node, parents):
         yield node
         node = parents[node]
 
-# Max-flow / Min-cut
+#maximum flow/minimum cut
 
 def maximum_flow(graph, source, sink, caps = None):
     """
-    Finds a maximum flow and minimum cut of a directed graph by the Edmonds-Karp algorithm.
+    Find a maximum flow and minimum cut of a directed graph by the Edmonds-Karp algorithm.
 
     @type graph: digraph
-    @param graph: Digraph
+    @param graph: Graph
 
     @type source: node
     @param source: Source of the flow
@@ -330,7 +331,7 @@ def maximum_flow(graph, source, sink, caps = None):
         2. contains to which component of a minimum cut each node belongs
     """
 
-    #handle optional argument
+    #handle optional argument, if weights are available, use them, if not, assume one
     if caps == None:
         caps = {}
         for edge in graph.edges():
@@ -357,7 +358,7 @@ def maximum_flow(graph, source, sink, caps = None):
         for w in graph.neighbors(v):
             if label[w] == [] and f[(v,w)] < caps[(v,w)]:
                 d[w] = min(caps[(v,w)] - f[(v,w)],d[v])
-                label[w] = [v,'',d[w]]
+                label[w] = [v,'+',d[w]]
                 q.append(w)
         for w in graph.incidents(v):
             if label[w] == [] and f[(w,v)] > 0:
@@ -399,3 +400,109 @@ def maximum_flow(graph, source, sink, caps = None):
         else:
             cut[node] = 0
     return (f,cut)
+
+def cut_value(graph,flow,cut):
+    """
+    Calculate the value of a cut.
+
+    @type graph: digraph
+    @param graph: Graph
+
+    @type flow: dictionary
+    @param flow: Dictionary containing a flow for each edge.
+
+    @type cut: dictionary
+    @type cut: Dictionary mapping each node to a subset index. The function only considers the flow between
+    nodes with 0 and 1.
+    
+    @rtype: float
+    @return: The value of the flow between the subsets 0 and 1
+    """
+    #max flow/min cut value calculation
+    S = []
+    T = []
+    for node in cut.keys():
+        if cut[node] == 0:
+            S.append(node)
+        elif cut[node] == 1:
+            T.append(node)
+    value = 0
+    for node in S:
+        for neigh in graph.neighbors(node):
+            if neigh in T:
+                value = value + flow[(node,neigh)]
+        for inc in graph.incidents(node):
+            if inc in T:
+                value = value - flow[(inc,node)]    
+    return value
+
+def cut_tree(igraph, caps = None):
+    """
+    Construct a Gomory-Hu cut tree by applying the algorithm of Gusfield.
+
+    @type graph: graph
+    @param graph: Graph
+
+    @type caps: dictionary
+    @param caps: Dictionary specifying a maximum capacity for each edge. If not given, the weight of the edge
+    will be used as its capacity. Otherwise, for each edge (a,b), caps[(a,b)] should be given.
+    
+    @rtype: dictionary
+    @return: Gomory-Hu cut tree as a dictionary, where each edge is associated with its weight
+    """
+
+    #maximum flow needs a digraph, we get a graph
+    #I think this conversion relies on implementation details outside the api and may break in the future
+    graph = digraph()
+    graph.add_graph(igraph)
+
+    #handle optional argument
+    if not caps:
+        caps = {}
+        for edge in graph.edges():
+            caps[edge] = igraph.edge_weight(edge)
+
+    #temporary flow variable
+    f = {}
+
+    #we use a numbering of the nodes for easier handling
+    n = {}
+    N = 0
+    for node in graph.nodes():
+        n[N] = node
+        N = N + 1
+
+    #predecessor function
+    p = {}.fromkeys(range(N),0)
+    p[0] = None
+
+    for s in range(1,N):
+        t = p[s]
+        S = []
+        #max flow calculation
+        (flow,cut) = maximum_flow(graph,n[s],n[t],caps)
+        for i in range(N):
+            if cut[n[i]] == 0:
+                S.append(i)
+        
+        value = cut_value(graph,flow,cut)
+
+        f[s] = value
+
+        for i in range(N):
+            if i == s:
+                continue
+            if i in S and p[i] == t:
+                p[i] = s
+        if p[t] in S:
+            p[s] = p[t]
+            p[t] = s
+            f[s] = f[t]
+            f[t] = value
+
+    #cut tree is a dictionary, where each edge is associated with its weight
+    b = {}
+    for i in range(1,N):
+        b[(n[i],n[p[i]])] = f[i]
+    return b
+
