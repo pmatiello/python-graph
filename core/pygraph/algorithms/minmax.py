@@ -401,7 +401,7 @@ def maximum_flow(graph, source, sink, caps = None):
             cut[node] = 0
     return (f,cut)
 
-def cut_value(graph,flow,cut):
+def cut_value(graph, flow, cut):
     """
     Calculate the value of a cut.
 
@@ -412,7 +412,7 @@ def cut_value(graph,flow,cut):
     @param flow: Dictionary containing a flow for each edge.
 
     @type cut: dictionary
-    @type cut: Dictionary mapping each node to a subset index. The function only considers the flow between
+    @param cut: Dictionary mapping each node to a subset index. The function only considers the flow between
     nodes with 0 and 1.
     
     @rtype: float
@@ -440,8 +440,8 @@ def cut_tree(igraph, caps = None):
     """
     Construct a Gomory-Hu cut tree by applying the algorithm of Gusfield.
 
-    @type graph: graph
-    @param graph: Graph
+    @type igraph: graph
+    @param igraph: Graph
 
     @type caps: dictionary
     @param caps: Dictionary specifying a maximum capacity for each edge. If not given, the weight of the edge
