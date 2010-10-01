@@ -8,7 +8,8 @@ CHANGELOG
 Release 1.8.0	[??? ??, 2010]
 
 Enhancements:
-	Added Pagerank algorithm.
+	Added Pagerank algorithm;
+	Added Gomory-Hu cut-tree algorithm.
 
 Fixes:
 	Edges from one node to itself are no longer duplicated (Issue 75).

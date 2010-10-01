@@ -198,6 +198,15 @@ class test_cut_tree(unittest.TestCase):
         assert ct[(1,4)] == 7
         assert ct[(3,1)] == 6
         assert ct[(5,3)] == 8
+    
+    def test_cut_tree_with_empty_graph(self):
+        gr = graph()
+        ct = cut_tree(gr)
+        assert ct == {}
+    
+    def test_cut_tree_with_random_graph(self):
+        gr = testlib.new_graph()
+        ct = cut_tree(gr)
 
 
 if __name__ == "__main__":
