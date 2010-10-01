@@ -37,15 +37,13 @@ from sys import argv
 random_seed = int(time())
 num_nodes = { 'small': 10,
               'medium': 25,
-              'big': 50,
-              'sparse': 50
+              'sparse': 40
              } 
 num_edges = { 'small': 18,
               'medium': 120,
-              'big': 490,
               'sparse': 200
              }
-sizes = ['small', 'medium', 'big', 'sparse']
+sizes = ['small', 'medium', 'sparse']
 use_size = 'medium'
 
 # Init
