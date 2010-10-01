@@ -27,7 +27,7 @@ B{python-graph}
 
 A library for working with graphs in Python.
 
-@version: 1.7.0
+@version: 1.8.0
 
 L{Data structure<pygraph.classes>} classes are located at C{pygraph.classes}.
 
