@@ -5,6 +5,12 @@ A library for working with graphs in Python
 CHANGELOG
 
 
+Next Release	[??? ??, ????]
+
+Fixes:
+	Shortest-path raises KeyError when the source node is not on the graph. 
+
+
 Release 1.8.0	[Oct 01, 2010]
 
 Enhancements:

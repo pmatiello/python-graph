@@ -156,6 +156,9 @@ def shortest_path(graph, source):
     previous = { source: None}
     q = graph.nodes()
 
+    if (source not in q):
+        raise KeyError("Node %s not in graph" % source)
+    
     # Algorithm loop
     while q:
         # examine_min process performed using O(nodes) pass here.

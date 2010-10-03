@@ -124,8 +124,15 @@ class test_shortest_path(unittest.TestCase):
         st, dist = shortest_path(gr, 0)
         for each in gr:
             if (each in dist):
-                assert bf_path(gr, 0, each, dist[each])    
-
+                assert bf_path(gr, 0, each, dist[each])
+    
+    def test_shortest_path_should_fail_if_source_does_not_exist(self):    
+        gr = testlib.new_graph()
+        try:
+            shortest_path(gr, 'invalid')
+            assert False
+        except (KeyError):
+            pass
                 
 class test_shortest_path_bellman_ford(unittest.TestCase):
     
