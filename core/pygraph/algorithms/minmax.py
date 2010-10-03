@@ -38,6 +38,7 @@ from pygraph.algorithms.utils import heappush, heappop
 from pygraph.classes.exceptions import NodeUnreachable
 from pygraph.classes.exceptions import NegativeWeightCycleError
 from pygraph.classes.digraph import digraph
+import bisect
 
 # Minimal spanning tree
 
@@ -152,32 +153,33 @@ def shortest_path(graph, source):
     Inaccessible target nodes do not appear in either dictionary.
     """
     # Initialization
-    dist     = { source: 0 }
-    previous = { source: None}
-    q = graph.nodes()
+    dist     = {source: 0}
+    previous = {source: None}
 
-    if (source not in q):
-        raise KeyError("Node %s not in graph" % source)
-    
+    # This is a sorted queue of (dist, node) 2-tuples. The first item in the
+    # queue is always either a finalized node that we can ignore or the node
+    # with the smallest estimated distance from the source. Note that we will
+    # not remove nodes from this list as they are finalized; we just ignore them
+    # when they come up.
+    q = [(0, source)]
+
+    # The set of nodes for which we have final distances.
+    finished = set()
+
     # Algorithm loop
-    while q:
-        # examine_min process performed using O(nodes) pass here.
-        # May be improved using another examine_min data structure.
-        u = q[0]
-        for node in q[1:]:
-            if ((u not in dist) 
-                or (node in dist and dist[node] < dist[u])):
-                u = node
-        q.remove(u)
+    while len(q) > 0:
+        du, u = q.pop(0)
 
         # Process reachable, remaining nodes from u
-        if (u in dist):
+        if u not in finished:
+            finished.add(u)
             for v in graph[u]:
-                if v in q:
-                    alt = dist[u] + graph.edge_weight((u, v))
+                if v not in finished:
+                    alt = du + graph.edge_weight((u, v))
                     if (v not in dist) or (alt < dist[v]):
                         dist[v] = alt
                         previous[v] = u
+                        bisect.insort(q, (alt, v))
 
     return previous, dist
 

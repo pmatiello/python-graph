@@ -90,6 +90,9 @@ Nathan Davis <davisn90210@gmail.com>
 Paul Harrison <pfh@logarithmic.net>
 	* Mutual Accessibility (Tarjan's Algorithm).
 
+Peter Sagerson <peter.sagerson@gmail.com>
+	* Performance improvements on shortest path algorithm.
+
 Rhys Ulerich <rhys.ulerich@gmail.com>
 	* Dijkstra's Shortest path algorithm.
 

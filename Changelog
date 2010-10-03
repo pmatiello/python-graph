@@ -7,6 +7,9 @@ CHANGELOG
 
 Next Release	[??? ??, ????]
 
+Enhancements:
+	Shortest-path now executes in O(n*log(n)) instead of O(n^2).
+	
 Fixes:
 	Shortest-path raises KeyError when the source node is not on the graph. 
 
@@ -258,6 +261,7 @@ Release 0.40	[Mar 09, 2008]
 Release 0.30	[Aug 30, 2007]
 
 	Adds algorithms for accessibility and mutual accessibility.
+
 
 Release 0.20	[Jul 16, 2007]
 
