@@ -1,4 +1,5 @@
 # Copyright (c) 2007-2009 Pedro Matiello <pmatiello@gmail.com>
+#                         Peter Sagerson <peter.sagerson@gmail.com>
 #                         Johannes Reinhardt <jreinhardt@ist-dein-freund.de>
 #                         Rhys Ulerich <rhys.ulerich@gmail.com>
 #                         Roy Smith <roy@panix.com>
