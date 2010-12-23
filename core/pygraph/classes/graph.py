@@ -37,7 +37,7 @@ from pygraph.mixins.common import common
 from pygraph.mixins.basegraph import basegraph
 
 
-class graph ( basegraph, common, labeling, ):
+class graph(basegraph, common, labeling):
     """
     Graph class.
     
@@ -146,7 +146,7 @@ class graph ( basegraph, common, labeling, ):
                 self.node_neighbors[v].append(u)
                 
             self.add_edge_attributes((u,v), attrs)        
-            self.set_edge_properties( (u, v), label=label, weight=wt )
+            self.set_edge_properties((u, v), label=label, weight=wt)
         else:
             raise AdditionError("Edge (%s, %s) already in graph" % (u, v))
 

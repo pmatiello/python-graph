@@ -34,8 +34,8 @@ Random graph generators.
 from pygraph.classes.graph import graph
 from pygraph.classes.digraph import digraph
 from pygraph.classes.hypergraph import hypergraph
-from random import randint, choice, shuffle
-
+from random import randint, choice, shuffle #@UnusedImport
+from time import time
 
 # Generator
 
@@ -61,7 +61,7 @@ def generate(num_nodes, num_edges, directed=False, weight_range=(1, 1)):
         random_graph = digraph()
     else:
         random_graph = graph()
-    
+
     # Nodes
     nodes = range(num_nodes)
     random_graph.add_nodes(nodes)
@@ -75,13 +75,11 @@ def generate(num_nodes, num_edges, directed=False, weight_range=(1, 1)):
                 edges_append((x, y))
     
     # Randomize the list
-    for i in range(len(edges)):
-        r = randint(0, len(edges)-1)
-        edges[i], edges[r] = edges[r], edges[i]
+    shuffle(edges)
     
-        # Add edges to the graph
-        min_wt = min(weight_range)
-        max_wt = max(weight_range)
+    # Add edges to the graph
+    min_wt = min(weight_range)
+    max_wt = max(weight_range)
     for i in range(num_edges):
         each = edges[i]
         random_graph.add_edge((each[0], each[1]), wt = randint(min_wt, max_wt))
