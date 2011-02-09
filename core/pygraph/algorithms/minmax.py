@@ -231,7 +231,9 @@ def shortest_path_bellman_ford(graph, source):
                 
     # detect negative weight cycles
     for src,dst in graph.edges():
-        if distance[src] + graph.edge_weight((src,dst)) < distance[dst]:
+        if src in distance and \
+           dst in distance and \
+           distance[src] + graph.edge_weight((src,dst)) < distance[dst]:
             raise NegativeWeightCycleError("Detected a negative weight cycle on edge (%s, %s)" % (src,dst))
         
     return predecessor, distance

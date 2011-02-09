@@ -84,9 +84,17 @@ def generate_fixture_digraph_neg_weight_cycle():
     G = generate_fixture_digraph()
     G.del_edge((2,4))
     G.add_edge((2,4), 2)#changed
+    
+    G.add_nodes([100,200]) #unconnected part
+    G.add_edge((100,200),2)
     return G
     
-
+def generate_fixture_digraph_unconnected():
+    G = generate_fixture_digraph()
+    G.add_nodes([100,200])
+    G.add_edge((100,200),2)
+    return G
+    
 # minimal spanning tree tests
 
 class test_minimal_spanning_tree(unittest.TestCase):
@@ -150,13 +158,14 @@ class test_shortest_path_bellman_ford(unittest.TestCase):
     def test_shortest_path_BF_on_digraph_with_negwcycle(self):
         #test negative weight cycle detection
         gr = generate_fixture_digraph_neg_weight_cycle()
-        try:
-            shortest_path_bellman_ford(gr, 1)
-        except NegativeWeightCycleError:
-            pass
-        else:
-            self.fail()
-
+        self.assertRaises(NegativeWeightCycleError,
+                 shortest_path_bellman_ford, gr, 1)
+        
+    def test_shortest_path_BF_on_unconnected_graph(self):
+        gr = generate_fixture_digraph_unconnected()
+        pre,dist = shortest_path_bellman_ford(gr, 100)
+        assert pre  == {200: 100, 100: None} and \
+               dist == {200: 2, 100: 0}
 
 class test_maxflow_mincut(unittest.TestCase):
     
