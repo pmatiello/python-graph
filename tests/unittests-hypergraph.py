@@ -320,6 +320,20 @@ class test_hypergraph(unittest.TestCase):
         assert gr3 != gr
         assert gr != gr4
         assert gr4 != gr
+        
+    def test_hypergraph_link_unlink_link(self):
+        """
+        Hypergraph link-unlink-link test. It makes sure that unlink cleans 
+        everything properly. No AdditionError should occur.
+        """
+        h = hypergraph()
+        h.add_nodes([1,2])
+        h.add_edges(['e1'])
+        
+        h.link(1, 'e1')
+        h.unlink(1, 'e1')
+        h.link(1,'e1')
 
+            
 if __name__ == "__main__":
     unittest.main()

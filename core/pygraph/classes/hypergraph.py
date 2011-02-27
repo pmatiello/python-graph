@@ -311,6 +311,7 @@ class hypergraph (basegraph, common, labeling):
         """
         self.node_links[node].remove(hyperedge)
         self.edge_links[hyperedge].remove(node)
+        self.graph.del_edge(((node,'n'), (hyperedge,'h')))
 
     
     def rank(self):
