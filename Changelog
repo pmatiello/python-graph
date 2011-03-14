@@ -11,7 +11,8 @@ Enhancements:
 	Shortest-path now executes in O(n*log(n)) instead of O(n^2).
 	
 Fixes:
-	Shortest-path raises KeyError when the source node is not on the graph. 
+	Shortest-path raises KeyError when the source node is not on the graph;
+	Graph comparison does not raise exceptions anymore.
 
 
 Release 1.8.0	[Oct 01, 2010]

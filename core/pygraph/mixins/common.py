@@ -209,4 +209,7 @@ class common( object ):
                     if (not self.has_edge(edge)): return False
             return True
         
-        return nodes_eq() and edges_eq()
+        try:
+            return nodes_eq() and edges_eq()
+        except AttributeError:
+            return False
