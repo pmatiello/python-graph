@@ -81,6 +81,9 @@ Johannes Reinhardt <jreinhardt@ist-dein-freund.de>
 	* Gomory-Hu cut-tree algorithm;
 	* Refactoring.
 
+Jonathan Sternberg <jonathansternberg@gmail.com>
+	* Graph comparison without exceptions.
+
 Juarez Bochi <jbochi@gmail.com>
 	* Pagerank algorithm.
 
