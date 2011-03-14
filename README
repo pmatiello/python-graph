@@ -82,7 +82,7 @@ Johannes Reinhardt <jreinhardt@ist-dein-freund.de>
 	* Refactoring.
 
 Jonathan Sternberg <jonathansternberg@gmail.com>
-	* Graph comparison without exceptions.
+	* Graph comparison (bug fix).
 
 Juarez Bochi <jbochi@gmail.com>
 	* Pagerank algorithm.
