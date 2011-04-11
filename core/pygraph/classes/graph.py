@@ -102,7 +102,7 @@ class graph(basegraph, common, labeling):
         return node in self.node_neighbors
 
 
-    def add_node(self, node, attrs=[]):
+    def add_node(self, node, attrs=None):
         """
         Add given node to the graph.
         
@@ -115,6 +115,8 @@ class graph(basegraph, common, labeling):
         @type  attrs: list
         @param attrs: List of node attributes specified as (attribute, value) tuples.
         """
+        if attrs is None:
+            attrs = []
         if (not node in self.node_neighbors):
             self.node_neighbors[node] = []
             self.node_attr[node] = attrs

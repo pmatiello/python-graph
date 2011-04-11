@@ -14,7 +14,8 @@ Fixes:
 	Shortest-path raises KeyError when the source node is not on the graph;
 	Bellman-Ford algorithm now works for unconnected graphs;
 	Linking, unlinking and relinking a hypernode to hyperedge now works as expected;
-	Graph comparison does not raise exceptions anymore.
+	Graph comparison does not raise exceptions anymore;
+	Fixed undesired sharing of attribute lists.
 
 
 Release 1.8.0	[Oct 01, 2010]
