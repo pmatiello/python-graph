@@ -15,7 +15,8 @@ Fixes:
 	Bellman-Ford algorithm now works for unconnected graphs;
 	Linking, unlinking and relinking a hypernode to hyperedge now works as expected;
 	Graph comparison does not raise exceptions anymore;
-	Fixed undesired sharing of attribute lists.
+	Fixed undesired sharing of attribute lists;
+	Fixed reading of XML-stored graphs with edge attributes.
 
 
 Release 1.8.0	[Oct 01, 2010]

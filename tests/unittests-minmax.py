@@ -114,6 +114,16 @@ class test_minimal_spanning_tree(unittest.TestCase):
                          gr2 = graph()
                          add_spanning_tree(gr2, mst_copy)
                          assert len(depth_first_search(gr2, root=0)[0]) < len_dfs
+    
+    def test_minimal_spanning_tree_with_negative_weigths(self):
+        gr = graph()
+        gr.add_nodes((0,1,2,3))
+        gr.add_edge((0,1), wt=-0.4)
+        gr.add_edge((1,2), wt=-0.6)
+        gr.add_edge((2,0), wt=-0.5)
+        gr.add_edge((3,2), wt=-0.1)
+        gr.add_edge((3,1), wt=-0.2)
+        print minimal_spanning_tree(gr, 0)
 
 # shortest path tests
 
