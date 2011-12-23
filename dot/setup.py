@@ -7,8 +7,8 @@ import os
 try:
     from setuptools import setup, find_packages
 except ImportError as ie:
-    import ez_setup
-    ez_setup.use_setuptools()
+    import distribute_setup
+    distribute_setup.use_setuptools()
     from setuptools import setup, find_packages
 
 # Startup
