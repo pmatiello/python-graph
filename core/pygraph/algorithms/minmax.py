@@ -72,7 +72,7 @@ def minimal_spanning_tree(graph, root=None):
     # Algorithm loop
     while (nroot is not None):
         ledge = _lightest_edge(graph, visited)
-        if (ledge == (-1, -1)):
+        if (ledge == None):
             if (root is not None):
                 break
             nroot = _first_unvisited(graph, visited)
@@ -118,13 +118,13 @@ def _lightest_edge(graph, visited):
     @rtype:  tuple
     @return: Lightest edge in graph going from a visited node to an unvisited one.
     """
-    lightest_edge = (-1, -1)
-    weight = -1
+    lightest_edge = None
+    weight = None
     for each in visited:
         for other in graph[each]:
             if (other not in visited):
                 w = graph.edge_weight((each, other))
-                if (w < weight or weight < 0):
+                if (weight is None or w < weight or weight < 0):
                     lightest_edge = (each, other)
                     weight = w
     return lightest_edge
