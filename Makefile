@@ -45,8 +45,8 @@ sdist-dot: clean
 docs: cleanpyc
 	rm -rf ${DOCS_DIR} ${TEMP}
 	mkdir -p ${TEMP}
-	cp -R --remove-destination ${CORE_DIR}/pygraph ${TEMP}
-	cp -Rn --remove-destination ${DOT_DIR}/pygraph/readwrite ${TEMP}/pygraph/
+	cp -R ${CORE_DIR}/pygraph ${TEMP}
+	cp -Rn ${DOT_DIR}/pygraph ${TEMP}/pygraph/
 	epydoc -v --no-frames --no-sourcecode --name="python-graph" \
 		--url="http://code.google.com/p/python-graph/" \
 		--inheritance listed --no-private --html \
@@ -88,6 +88,7 @@ console3:
 
 cleanpyc:
 	find . -name *.pyc -exec rm {} \;
+	find . -name __pycache__ -exec rm -rf {} \;
 
 clean: cleanpyc
 	rm -rf ${DOCS_DIR}
