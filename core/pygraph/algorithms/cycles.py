@@ -49,9 +49,9 @@ def find_cycle(graph):
     @return: List of nodes. 
     """
     
-    if (type(graph) == graph_class):
+    if (isinstance(graph, graph_class)):
         directed = False
-    elif (type(graph) == digraph_class):
+    elif (isinstance(graph, digraph_class)):
         directed = True
     else:
         raise InvalidGraphType
