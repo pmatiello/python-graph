@@ -12,7 +12,7 @@ except ImportError as ie:
 
 # Startup
 appname = "python-graph-core"
-appversion = "1.8.1"
+appversion = "1.8.2"
 
 setup(
         name = appname,

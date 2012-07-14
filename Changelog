@@ -5,7 +5,7 @@ A library for working with graphs in Python
 CHANGELOG
 
 
-Next Release [?]
+Release 1.8.2 [July 14, 2009]
 
 Fixes:
 	The find_cycle function now accepts instances of any subtype of graph and digraph.
@@ -15,7 +15,7 @@ Release 1.8.1	[Jan 08, 2012]
 
 Enhancements:
 	Shortest-path now executes in O(n*log(n)) instead of O(n^2).
-	
+
 Fixes:
 	Shortest-path raises KeyError when the source node is not on the graph;
 	Bellman-Ford algorithm now works for unconnected graphs (Issue 87);
@@ -43,7 +43,7 @@ Enhancements:
 	Added has_edge() and has_hyperedge() methods to hypergraph objects;
 	Accepting subtypes of graph, digraph and hypergraph in dot-language output (Issue 64);
 	Added Bellman-Ford algorithm;
-	Added Edmonds-Karp Maximum-Flow algorithm. 
+	Added Edmonds-Karp Maximum-Flow algorithm.
 
 Fixes:
 	Adding an edge with a label to a digraph now works again;
@@ -78,7 +78,7 @@ Important API Changes:
 	pygraph.classes.Classname.classname classes were renamed to pygraph.classes.classname.classname;
 	pygraph.algorithms.filters.Filtername.filtername filters were renamed to pygraph.algorithms.filters.filtername.filtername;
 	pygraph.algorithms.heuristics.Heuristicname.heuristicname heuristics were renamed to pygraph.algorithms.heuristics.heuristicname.heuristicname;
-	hypergraph's read() and write() methods were removed. 
+	hypergraph's read() and write() methods were removed.
 
 
 Release 1.6.1	[Jul 04, 2009]
@@ -91,7 +91,7 @@ Important API Changes:
 	pygraph.algorithms.cycles.find_cycle does not take argument directed anymore;
 	Removed methods read, write and generate from graph and digraph classes;
 	Functions for writing and reading graphs now in pygraph.readwrite.
-	
+
 
 Release 1.6.0	[Jun 06, 2009]
 
@@ -144,7 +144,7 @@ Enhancements:
 	Added Chow's and Euclidean heuristics for A*;
 	Added filtered depth-first and breadth-first search;
 	Added 'find' search filter (stops the search after reaching a target node);
-	Added 'radius' search filter (radial limit for searching); 
+	Added 'radius' search filter (radial limit for searching);
 	Moved to setuptools.
 
 Fixes:
@@ -190,7 +190,7 @@ Enhancements:
 	Graph object is now a container and graphobj[nodeid] iterates too;
 	Support for node and edge attributes (Issue 5);
 	Node deletion.
-	
+
 Fixes:
 	Install now works with a prefix (Issue 10);
 	Shortest path spanning trees did not had an explicit root.
@@ -204,10 +204,10 @@ Release 1.1.1	[Sep 04, 2008]
 
 Enhancements:
 	Improved install script.
-	
+
 Fixes:
 	DOT Language output now works for nodes/edges labelled with spaces.
-	
+
 Important API Changes:
 	get_neighbours() is now get_neighbors() (Issue 9).
 
